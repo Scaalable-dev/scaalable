@@ -1,0 +1,19 @@
+/* ==========================================================================
+   HEADER
+   ========================================================================== */
+
+.header {
+  position: sticky;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+
+  background: var(--color-background);
+
+  z-index: var(--z-header);
+
+  border-bottom: 1px solid var(--color-border);
+
+  backdrop-filter: blur(12px);
+}
