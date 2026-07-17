@@ -1,12 +1,12 @@
 .navbar {
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: auto minmax(0, 1fr) auto;
 
   align-items: center;
 
-  min-height: 80px;
+  min-height: var(--navbar-height);
 
-  gap: 3rem;
+  column-gap: var(--space-12);
 }
 
 .navbar__logo {
@@ -15,20 +15,25 @@
 
   text-decoration: none;
 
+  color: var(--color-text-primary);
+
   font-size: 1.4rem;
   font-weight: 700;
 
-  color: var(--color-text-primary);
+  transition:
+    color var(--transition-normal),
+    transform var(--transition-fast);
+}
+.navbar__logo:hover {
+  transform: translateY(-2px);
 }
 
 .navbar__links {
   display: flex;
-
   justify-content: center;
-
   align-items: center;
 
-  gap: 2rem;
+  gap: var(--space-8);
 
   list-style: none;
 
@@ -40,16 +45,18 @@
   position: relative;
 
   display: inline-flex;
-
   align-items: center;
+
+  padding-block: var(--space-2);
 
   text-decoration: none;
 
   color: var(--color-text-secondary);
 
+  font-size: 0.95rem;
   font-weight: 500;
 
-  transition: color 200ms ease;
+  transition: color var(--transition-normal);
 }
 
 .navbar__links a:hover {
@@ -67,22 +74,32 @@
   position: absolute;
 
   left: 0;
-  bottom: -6px;
+  bottom: -2px;
 
   width: 100%;
   height: 2px;
 
-  background: var(--gradient-primary);
+  background: var(--gradient-brand);
 
   transform: scaleX(0);
-
   transform-origin: right;
 
-  transition: transform 250ms ease;
+  transition: transform var(--transition-normal);
+}
+
+.navbar__links a:hover {
+  color: var(--color-text-primary);
+}
+
+.navbar__links a:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
 }
 
 .navbar__actions {
   display: flex;
-  justify-content: flex-end;
   align-items: center;
+  justify-content: flex-end;
+
+  flex-shrink: 0;
 }

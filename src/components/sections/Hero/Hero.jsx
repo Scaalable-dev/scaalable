@@ -1,9 +1,6 @@
-import "./Hero.css";
-
 import Container from "../../ui/Container";
-
 import HeroContent from "./HeroContent";
-import HeroImage from "./HeroImage";
+import "./Hero.css";
 
 const Hero = () => {
   return (
@@ -11,7 +8,6 @@ const Hero = () => {
       <Container>
         <div className="hero__wrapper">
           <HeroContent />
-          <HeroImage />
         </div>
       </Container>
     </section>

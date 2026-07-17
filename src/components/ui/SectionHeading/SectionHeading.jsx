@@ -6,11 +6,13 @@ const SectionHeading = ({
   title,
   description,
   align = "center",
+  maxWidth = "720px",
   className = "",
 }) => {
   return (
     <div
-      className={`section-heading section-heading--${align} ${className}`.trim()}
+      className={`section-heading section-heading--${align} ${className}`}
+      style={{ maxWidth }}
     >
       {badge && <Badge>{badge}</Badge>}
 

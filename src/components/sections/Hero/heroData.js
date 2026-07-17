@@ -4,9 +4,32 @@ const heroData = {
   title: "Build Modern Digital Products That Grow Your Business.",
 
   description:
-    "We help startups and businesses build high-performance websites, SaaS platforms and custom software.",
+    "We help startups and businesses build high-performance websites, SaaS platforms, AI-powered applications, and custom software that drive measurable growth.",
 
-  features: ["Web Applications", "AI Solutions", "24/7 Support"],
+  primaryButton: {
+    text: "Get Started",
+    href: "#contact",
+  },
+
+  secondaryButton: {
+    text: "View Portfolio",
+    href: "#portfolio",
+  },
+
+  stats: [
+    {
+      value: "200+",
+      label: "Projects Delivered",
+    },
+    {
+      value: "50+",
+      label: "Happy Clients",
+    },
+    {
+      value: "99%",
+      label: "Client Satisfaction",
+    },
+  ],
 };
 
 export default heroData;

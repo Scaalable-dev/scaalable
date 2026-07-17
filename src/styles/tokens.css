@@ -188,9 +188,11 @@
 
   --container-padding: 1rem;
 
-  --section-padding-y: 6rem;
+  --section-padding-y: 8rem;
 
-  --section-padding-y-lg: 8rem;
+  --section-padding-y-lg: 10rem;
+
+  --section-padding-y-sm: 6rem;
 
   --navbar-height: 88px;
 

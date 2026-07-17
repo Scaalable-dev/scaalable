@@ -1,6 +1,5 @@
-import Button from "../../ui/Button";
 import Badge from "../../ui/Badge";
-
+import Button from "../../ui/Button";
 import heroData from "./heroData";
 
 const HeroContent = () => {
@@ -12,17 +11,20 @@ const HeroContent = () => {
 
       <p className="hero__description">{heroData.description}</p>
 
-      <div className="hero__buttons">
-        <Button>Get Started</Button>
+      <div className="hero__actions">
+        <Button>{heroData.primaryButton.text}</Button>
 
-        <Button variant="outline">View Portfolio</Button>
+        <Button variant="outline">{heroData.secondaryButton.text}</Button>
       </div>
 
-      <ul className="hero__features">
-        {heroData.features.map((feature) => (
-          <li key={feature}>✓ {feature}</li>
+      <div className="hero__stats">
+        {heroData.stats.map((item) => (
+          <div className="hero__stat" key={item.label}>
+            <h3>{item.value}</h3>
+            <span>{item.label}</span>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 };
