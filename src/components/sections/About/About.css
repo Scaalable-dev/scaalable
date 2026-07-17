@@ -1,0 +1,119 @@
+/* ==========================================================================
+   ABOUT SECTION
+   ========================================================================== */
+
+.about {
+  position: relative;
+  overflow: hidden;
+}
+
+.about__content {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: 5rem;
+  align-items: start;
+
+  margin-top: 4rem;
+}
+
+/* ==========================================================================
+   STORY
+   ========================================================================== */
+
+.about__story {
+  display: flex;
+  flex-direction: column;
+}
+
+.about__eyebrow {
+  display: inline-flex;
+  align-self: flex-start;
+
+  margin-bottom: 1rem;
+
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+
+  color: var(--color-primary);
+}
+
+.about__story-title {
+  margin: 0 0 1.5rem;
+
+  color: var(--color-text-primary);
+
+  font-size: clamp(2rem, 3vw, 2.75rem);
+
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+}
+
+.about__text {
+  margin: 0 0 1.5rem;
+
+  color: var(--color-text-secondary);
+
+  font-size: 1rem;
+  line-height: 1.9;
+}
+
+.about__quote {
+  margin-top: 1rem;
+  padding-left: 1.5rem;
+
+  border-left: 4px solid var(--color-primary);
+
+  color: var(--color-text-primary);
+
+  font-size: 1.15rem;
+  font-style: italic;
+  font-weight: 500;
+
+  line-height: 1.8;
+}
+
+/* ==========================================================================
+   VALUES GRID
+   ========================================================================== */
+
+.about__values {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  .about__content {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .about__values {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .about__content {
+    margin-top: 3rem;
+  }
+
+  .about__story-title {
+    font-size: 2rem;
+  }
+
+  .about__values {
+    grid-template-columns: 1fr;
+  }
+
+  .about__quote {
+    font-size: 1rem;
+    padding-left: 1rem;
+  }
+}
