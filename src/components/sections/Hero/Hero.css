@@ -1,0 +1,114 @@
+/* ==========================================================================
+   HERO
+   ========================================================================== */
+
+.hero {
+  padding-block: var(--space-20);
+}
+
+.hero__wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: center;
+  gap: var(--space-16);
+}
+
+@media (max-width: 992px) {
+  .hero {
+    padding-block: var(--space-16);
+  }
+
+  .hero__wrapper {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+}
+
+/* ==========================================================================
+   CONTENT
+   ========================================================================== */
+
+.hero__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-6);
+}
+
+.hero__title {
+  margin: 0;
+  max-width: 14ch;
+}
+
+.hero__description {
+  max-width: 60ch;
+  color: var(--color-text-secondary);
+}
+
+.hero__buttons {
+  display: flex;
+  gap: var(--space-4);
+}
+
+.hero__features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-6);
+
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  color: var(--color-text-secondary);
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+
+@media (max-width: 992px) {
+  .hero__content {
+    align-items: center;
+  }
+
+  .hero__title,
+  .hero__description {
+    max-width: 100%;
+  }
+
+  .hero__buttons {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .hero__features {
+    justify-content: center;
+  }
+}
+
+/* ==========================================================================
+   IMAGE
+   ========================================================================== */
+
+.hero__image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero__image-placeholder {
+  width: 100%;
+  max-width: 520px;
+  aspect-ratio: 1 / 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 2px dashed var(--color-border);
+  border-radius: var(--radius-xl);
+
+  background: var(--color-surface);
+
+  color: var(--color-text-muted);
+}
