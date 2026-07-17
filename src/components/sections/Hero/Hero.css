@@ -105,7 +105,7 @@
   align-items: center;
   justify-content: center;
 
-  border: 2px dashed var(--color-border);
+  border: 2px dashed var(--color-border-default);
   border-radius: var(--radius-xl);
 
   background: var(--color-surface);

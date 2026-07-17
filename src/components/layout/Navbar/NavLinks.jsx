@@ -1,13 +1,11 @@
 import navLinks from "./navLinks";
 
-const NavLinks = ({ onClick }) => {
+const NavLinks = () => {
   return (
     <>
       {navLinks.map((link) => (
         <li key={link.id}>
-          <a href={link.href} onClick={onClick}>
-            {link.label}
-          </a>
+          <a href={link.href}>{link.label}</a>
         </li>
       ))}
     </>

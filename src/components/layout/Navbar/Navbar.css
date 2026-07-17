@@ -1,98 +1,88 @@
-/* ==========================================================================
-   NAVBAR
-   ========================================================================== */
-
 .navbar {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+
   align-items: center;
-  justify-content: space-between;
 
   min-height: 80px;
+
+  gap: 3rem;
 }
 
 .navbar__logo {
-  font-size: var(--font-size-h4);
-  font-weight: var(--font-weight-bold);
-
-  color: var(--color-text-primary);
+  display: inline-flex;
+  align-items: center;
 
   text-decoration: none;
+
+  font-size: 1.4rem;
+  font-weight: 700;
+
+  color: var(--color-text-primary);
 }
 
 .navbar__links {
   display: flex;
+
+  justify-content: center;
+
   align-items: center;
-  gap: var(--space-8);
+
+  gap: 2rem;
 
   list-style: none;
+
+  margin: 0;
+  padding: 0;
 }
 
 .navbar__links a {
-  color: var(--color-text-secondary);
-  text-decoration: none;
-  font-weight: var(--font-weight-medium);
+  position: relative;
 
-  transition: color var(--transition-fast);
+  display: inline-flex;
+
+  align-items: center;
+
+  text-decoration: none;
+
+  color: var(--color-text-secondary);
+
+  font-weight: 500;
+
+  transition: color 200ms ease;
 }
 
 .navbar__links a:hover {
-  color: var(--color-brand-primary);
+  color: var(--color-text-primary);
 }
 
-.navbar__cta {
+.navbar__links a:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.navbar__links a::after {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  bottom: -6px;
+
+  width: 100%;
+  height: 2px;
+
+  background: var(--gradient-primary);
+
+  transform: scaleX(0);
+
+  transform-origin: right;
+
+  transition: transform 250ms ease;
+}
+
+.navbar__actions {
   display: flex;
-}
-
-.navbar__toggle {
-  display: none;
-
-  background: transparent;
-  border: none;
-
-  font-size: 2rem;
-  cursor: pointer;
-}
-
-/* ==========================================================================
-   MOBILE MENU
-   ========================================================================== */
-
-.mobile-menu {
-  display: none;
-}
-
-@media (max-width: 992px) {
-  .navbar__links,
-  .navbar__cta {
-    display: none;
-  }
-
-  .navbar__toggle {
-    display: block;
-  }
-
-  .mobile-menu {
-    display: none;
-
-    padding: var(--space-8) 0;
-  }
-
-  .mobile-menu--open {
-    display: block;
-  }
-
-  .mobile-menu__links {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-6);
-
-    list-style: none;
-
-    margin-bottom: var(--space-8);
-  }
-
-  .mobile-menu__links a {
-    text-decoration: none;
-    color: var(--color-text-primary);
-  }
+  justify-content: flex-end;
+  align-items: center;
 }
