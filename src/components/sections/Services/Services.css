@@ -1,0 +1,83 @@
+/* ==========================================================================
+   SERVICES SECTION
+   ========================================================================== */
+
+.services {
+  position: relative;
+  overflow: hidden;
+}
+
+.services__background {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.services__background::before,
+.services__background::after {
+  content: "";
+
+  position: absolute;
+
+  border-radius: 50%;
+
+  filter: blur(120px);
+
+  opacity: 0.45;
+}
+
+.services__background::before {
+  width: 380px;
+  height: 380px;
+
+  top: -120px;
+  left: -100px;
+
+  background: rgba(99, 102, 241, 0.18);
+}
+
+.services__background::after {
+  width: 420px;
+  height: 420px;
+
+  right: -120px;
+  bottom: -160px;
+
+  background: rgba(168, 85, 247, 0.14);
+}
+
+.services .container {
+  position: relative;
+  z-index: 1;
+}
+
+.services__grid {
+  display: grid;
+
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+
+  gap: 2rem;
+
+  margin-top: 4rem;
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  .services__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .services__grid {
+    grid-template-columns: 1fr;
+
+    gap: 1.5rem;
+
+    margin-top: 3rem;
+  }
+}

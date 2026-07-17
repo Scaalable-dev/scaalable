@@ -1,14 +1,12 @@
 import Header from "./components/layout/Header";
-import Hero from "./components/sections/Hero";
-import WhoWeHelp from "./components/sections/WhoWeHelp/WhoWeHelp";
+import Home from "./pages/Home";
 
 function App() {
   return (
     <>
       <Header />
       <main>
-        <Hero />
-        <WhoWeHelp />
+        <Home />
       </main>
     </>
   );

@@ -1,0 +1,248 @@
+/* ==========================================================================
+   SERVICE CARD
+   ========================================================================== */
+
+.service-card {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+
+  height: 100%;
+
+  padding: 2rem;
+
+  border-radius: 28px;
+
+  background: var(--color-background);
+
+  border: 1px solid rgba(99, 102, 241, 0.08);
+
+  box-shadow:
+    0 10px 25px rgba(15, 23, 42, 0.04),
+    0 20px 50px rgba(15, 23, 42, 0.05);
+
+  overflow: hidden;
+
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease,
+    border-color 0.35s ease;
+}
+
+/* ==========================================================================
+   Decorative Glow
+   ========================================================================== */
+
+.service-card::before {
+  content: "";
+
+  position: absolute;
+
+  top: -80px;
+  right: -80px;
+
+  width: 180px;
+  height: 180px;
+
+  border-radius: 50%;
+
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.1), transparent 70%);
+
+  opacity: 0;
+
+  transition: opacity 0.35s ease;
+}
+
+/* ==========================================================================
+   MEDIA
+   ========================================================================== */
+
+.service-card__media {
+  margin-bottom: 2rem;
+}
+
+.service-card__icon-wrapper {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 72px;
+  height: 72px;
+
+  border-radius: 22px;
+
+  background: linear-gradient(
+    135deg,
+    rgba(99, 102, 241, 0.14),
+    rgba(168, 85, 247, 0.08)
+  );
+
+  border: 1px solid rgba(99, 102, 241, 0.12);
+
+  overflow: hidden;
+}
+
+.service-card__icon-wrapper::before {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  background: radial-gradient(
+    circle at top,
+    rgba(255, 255, 255, 0.5),
+    transparent 70%
+  );
+
+  opacity: 0.5;
+}
+
+.service-card::after {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 4px;
+
+  background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+
+  transform: scaleX(0);
+
+  transform-origin: left;
+
+  transition: transform 0.35s ease;
+}
+
+.service-card:hover::after {
+  transform: scaleX(1);
+}
+
+.service-card__icon {
+  width: 34px;
+  height: 34px;
+
+  color: var(--color-primary);
+
+  transition: transform 0.35s ease;
+}
+
+/* ==========================================================================
+   CONTENT
+   ========================================================================== */
+
+.service-card__content {
+  flex: 1;
+}
+
+.service-card__title {
+  margin-bottom: 1rem;
+
+  color: var(--color-text-primary);
+
+  font-size: clamp(1.4rem, 2vw, 1.7rem);
+
+  line-height: 1.2;
+
+  letter-spacing: -0.03em;
+}
+
+.service-card__description {
+  margin: 0;
+
+  color: var(--color-text-secondary);
+
+  line-height: 1.8;
+}
+
+/* ==========================================================================
+   FOOTER
+   ========================================================================== */
+
+.service-card__footer {
+  margin-top: 2rem;
+}
+
+.service-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 0.65rem;
+}
+
+.service-card__tag {
+  padding: 0.55rem 1rem;
+
+  border-radius: 999px;
+
+  background: rgba(99, 102, 241, 0.06);
+
+  border: 1px solid rgba(99, 102, 241, 0.08);
+
+  color: var(--color-primary);
+
+  font-size: 0.85rem;
+
+  font-weight: 500;
+
+  transition:
+    background 0.35s ease,
+    transform 0.35s ease;
+}
+
+/* ==========================================================================
+   HOVER
+   ========================================================================== */
+
+.service-card:hover {
+  transform: translateY(-10px);
+
+  border-color: rgba(99, 102, 241, 0.2);
+
+  box-shadow:
+    0 18px 40px rgba(15, 23, 42, 0.08),
+    0 35px 80px rgba(15, 23, 42, 0.1);
+}
+
+.service-card:hover::before {
+  opacity: 1;
+}
+
+.service-card:hover .service-card__icon-wrapper {
+  transform: scale(1.05);
+}
+
+.service-card:hover .service-card__icon {
+  transform: scale(1.08);
+}
+
+.service-card:hover .service-card__tag {
+  background: rgba(99, 102, 241, 0.12);
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .service-card {
+    padding: 1.75rem;
+  }
+
+  .service-card__icon-wrapper {
+    width: 64px;
+    height: 64px;
+  }
+
+  .service-card__icon {
+    width: 30px;
+    height: 30px;
+  }
+}
