@@ -1,0 +1,174 @@
+/* ==========================================================================
+   TYPOGRAPHY
+   Project : Web Agency
+   Version : 1.0.0
+   ========================================================================== */
+
+:root {
+  /* ========================================================================
+     FONT FAMILIES
+     ======================================================================== */
+
+  --font-family-heading: "Poppins", sans-serif;
+  --font-family-body: "Inter", sans-serif;
+
+  /* ========================================================================
+     FONT WEIGHTS
+     ======================================================================== */
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+
+  /* ========================================================================
+     FONT SIZES
+     ======================================================================== */
+
+  --font-size-xs: 0.75rem; /* 12px */
+  --font-size-sm: 0.875rem; /* 14px */
+  --font-size-base: 1rem; /* 16px */
+  --font-size-md: 1.125rem; /* 18px */
+  --font-size-lg: 1.25rem; /* 20px */
+  --font-size-xl: 1.5rem; /* 24px */
+  --font-size-2xl: 2rem; /* 32px */
+  --font-size-3xl: 2.5rem; /* 40px */
+  --font-size-4xl: 3rem; /* 48px */
+  --font-size-5xl: 3.75rem; /* 60px */
+  --font-size-6xl: 4.5rem; /* 72px */
+
+  /* ========================================================================
+     LINE HEIGHTS
+     ======================================================================== */
+
+  --line-height-tight: 1.1;
+  --line-height-heading: 1.2;
+  --line-height-body: 1.7;
+  --line-height-relaxed: 1.9;
+
+  /* ========================================================================
+     LETTER SPACING
+     ======================================================================== */
+
+  --letter-spacing-tight: -0.03em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.05em;
+}
+
+/* ========================================================================
+     Base typography styles
+     ======================================================================== */
+body {
+  font-family: var(--font-family-body);
+
+  font-size: var(--font-size-base);
+
+  font-weight: var(--font-weight-regular);
+
+  line-height: var(--line-height-body);
+
+  color: var(--color-text-primary);
+}
+/* ========================================================================
+     Heading System
+     ======================================================================== */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-family-heading);
+
+  font-weight: var(--font-weight-bold);
+
+  line-height: var(--line-height-heading);
+
+  letter-spacing: var(--letter-spacing-tight);
+
+  color: var(--color-text-primary);
+}
+
+/* ========================================================================
+     Heading Scales
+     ======================================================================== */
+
+h1 {
+  font-size: var(--font-size-5xl);
+}
+
+h2 {
+  font-size: var(--font-size-4xl);
+}
+
+h3 {
+  font-size: var(--font-size-3xl);
+}
+
+h4 {
+  font-size: var(--font-size-2xl);
+}
+
+h5 {
+  font-size: var(--font-size-xl);
+}
+
+h6 {
+  font-size: var(--font-size-lg);
+}
+
+/* ========================================================================
+     paragraph styles
+     ======================================================================== */
+
+p {
+  color: var(--color-text-secondary);
+
+  margin-bottom: var(--space-4);
+}
+
+/* ========================================================================
+    Utility Classes
+     ======================================================================== */
+
+a {
+  color: var(--color-text-link);
+
+  text-decoration: none;
+
+  transition: color var(--transition-normal);
+}
+
+a:hover {
+  color: var(--color-text-link-hover);
+}
+
+/* ========================================================================
+   Responsive Typography
+     ======================================================================== */
+
+@media (max-width: 992px) {
+  h1 {
+    font-size: var(--font-size-4xl);
+  }
+
+  h2 {
+    font-size: var(--font-size-3xl);
+  }
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: var(--font-size-3xl);
+  }
+
+  h2 {
+    font-size: var(--font-size-2xl);
+  }
+
+  h3 {
+    font-size: var(--font-size-xl);
+  }
+}

@@ -1,0 +1,135 @@
+/* ==========================================================================
+   RESET
+   Project : Web Agency
+   Version : 1.0.0
+   ========================================================================== */
+
+/* Box sizing */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove default spacing */
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* Prevent font inflation */
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* Smooth scrolling */
+
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+/* Body defaults */
+
+body {
+  min-height: 100vh;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Media */
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Form elements */
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
+/* Buttons */
+
+button {
+  cursor: pointer;
+}
+
+/* Textareas */
+
+textarea {
+  resize: vertical;
+}
+
+/* Links */
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Lists */
+
+ul,
+ol {
+  list-style: none;
+}
+
+/* Tables */
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* Headings */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font: inherit;
+}
+
+/* Paragraphs */
+
+p {
+  overflow-wrap: break-word;
+}
+
+/* Long words */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+li {
+  overflow-wrap: break-word;
+}
+
+/* Root stacking context */
+
+#root {
+  isolation: isolate;
+}
