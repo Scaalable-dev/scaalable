@@ -1,4 +1,5 @@
 import About from "../components/sections/About";
+import FAQ from "../components/sections/FAQ";
 import Hero from "../components/sections/Hero";
 import Services from "../components/sections/Services";
 import Testimonials from "../components/sections/Testimonials";
@@ -12,6 +13,7 @@ const Home = () => {
       <Services />
       <About />
       <Testimonials />
+      <FAQ />
     </main>
   );
 };
