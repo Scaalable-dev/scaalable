@@ -45,7 +45,9 @@ const Navbar = () => {
         {/* Desktop CTA */}
 
         <div className="navbar__actions">
-          <Button size="sm"> Book an Appointment</Button>
+          <a href="#contact">
+            <Button size="sm"> Book an Appointment</Button>
+          </a>
         </div>
 
         {/* Mobile Hamburger */}
