@@ -14,25 +14,25 @@ const navLinks = [
     label: "Services",
     href: "#services",
   },
-  {
-    id: 4,
-    label: "About",
-    href: "#about",
-  },
   // {
   //   id: 5,
   //   label: "Testimonials",
   //   href: "#testimonials",
   // },
   {
-    id: 5,
+    id: 4,
     label: "FAQ",
     href: "#faq",
   },
   {
-    id: 6,
+    id: 5,
     label: "Contact",
     href: "#contact",
+  },
+  {
+    id: 6,
+    label: "About",
+    href: "#about",
   },
 ];
 
