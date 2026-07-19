@@ -10,6 +10,7 @@
 
 html {
   font-size: 16px;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -35,6 +36,7 @@ main {
 section {
   position: relative;
   padding-block: var(--section-padding-y);
+  scroll-margin-top: var(--header-height);
 }
 
 .container {
@@ -187,7 +189,12 @@ textarea {
     padding-block: 5rem;
   }
 }
-
+@media (max-width: 992px) {
+  :root {
+    --header-offset: 80px;
+    --header-height: 64px;
+  }
+}
 @media (max-width: 768px) {
   section {
     padding-block: 4rem;

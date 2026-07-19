@@ -5,7 +5,6 @@ import "./FAQ.css";
 
 import SectionHeading from "../../ui/SectionHeading";
 import { faqData } from "./faqData";
-import Button from "../../ui/Button";
 
 const FAQ = () => {
   const [activeId, setActiveId] = useState(null);
@@ -54,7 +53,7 @@ const FAQ = () => {
           })}
         </div>
 
-        <div className="faq__footer">
+        {/* <div className="faq__footer">
           <h3>Still have questions?</h3>
 
           <p>
@@ -66,7 +65,7 @@ const FAQ = () => {
           <Button href="#contact" variant="primary">
             Let's Talk
           </Button>
-        </div>
+        </div> */}
       </div>
     </section>
   );
