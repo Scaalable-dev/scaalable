@@ -51,9 +51,11 @@ const Navbar = () => {
         <Link to="/" className="navbar__logo" aria-label="Go to homepage">
           <img
             src={logo}
-            alt="Your Agency Logo"
+            alt="Scaalable Agency Logo"
             className="navbar__logo-image"
           />
+
+          <span className="navbar__logo-text">SCAALABLE</span>
         </Link>
 
         {/* Desktop Navigation */}

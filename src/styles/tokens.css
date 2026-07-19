@@ -240,6 +240,10 @@
 
   --color-brand-soft-hover: rgba(0, 130, 249, 0.12);
 
+  --color-brand-wordmark-start: #006cfa;
+
+  --color-brand-wordmark-end: #00247b;
+
   --shadow-brand: 0 12px 30px rgba(0, 130, 249, 0.12);
 
   --header-height: 72px;
