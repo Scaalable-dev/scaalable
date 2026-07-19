@@ -5,6 +5,7 @@ import {
   FaGithub,
   FaLinkedin,
   FaSquareInstagram,
+  FaThreads,
   FaXTwitter,
 } from "react-icons/fa6";
 
@@ -97,13 +98,13 @@ export const socialLinks = [
     id: 1,
     icon: FaGithub,
     title: "GitHub",
-    href: "https://github.com/yourusername",
+    href: "#home",
   },
   {
     id: 2,
     icon: FaLinkedin,
     title: "LinkedIn",
-    href: "https://linkedin.com/in/yourusername",
+    href: "https://www.linkedin.com/company/scaalable/",
   },
   {
     id: 3,
@@ -121,6 +122,12 @@ export const socialLinks = [
     id: 5,
     icon: FaFacebook,
     title: "Facebook",
-    href: "https://facebook.com/scaalable",
+    href: "https://www.facebook.com/profile.php?id=61591771535484",
+  },
+  {
+    id: 6,
+    icon: FaThreads,
+    title: "Threads",
+    href: "https://www.threads.net/@scaalable",
   },
 ];
