@@ -30,9 +30,15 @@ const Contact = () => {
             <div className="contact-info__list">
               <div className="contact-info__item">
                 <Mail size={22} />
-                <div>
+
+                <div className="contact-info__content">
                   <h3>Email</h3>
-                  <p>hello@youragency.com</p>
+
+                  <a href="mailto:info@scaalable.com">info@scaalable.com</a>
+
+                  <a href="mailto:contact@scaalable.com">
+                    contact@scaalable.com
+                  </a>
                 </div>
               </div>
 
@@ -40,7 +46,7 @@ const Contact = () => {
                 <Phone size={22} />
                 <div>
                   <h3>Phone</h3>
-                  <p>+91 98765 43210</p>
+                  <p>+91-7596918803</p>
                 </div>
               </div>
 
@@ -48,7 +54,7 @@ const Contact = () => {
                 <MapPin size={22} />
                 <div>
                   <h3>Location</h3>
-                  <p>India</p>
+                  <p>West Bengal, Kolkata, India</p>
                 </div>
               </div>
 

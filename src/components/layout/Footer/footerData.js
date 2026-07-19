@@ -1,46 +1,74 @@
 import { Mail, Phone, MapPin } from "lucide-react";
 
-import { FaGithub, FaLinkedin, FaXTwitter } from "react-icons/fa6";
+import {
+  FaFacebook,
+  FaGithub,
+  FaLinkedin,
+  FaSquareInstagram,
+  FaXTwitter,
+} from "react-icons/fa6";
 
 export const quickLinks = [
   {
     id: 1,
     title: "Home",
-    path: "/",
+    href: "#",
   },
   {
     id: 2,
-    title: "Services",
-    path: "/services",
+    title: "Who We Help",
+    href: "#who-we-help",
   },
   {
     id: 3,
-    title: "Projects",
-    path: "/projects",
+    title: "Services",
+    href: "#services",
   },
   {
     id: 4,
+    title: "About",
+    href: "#about",
+  },
+  {
+    id: 5,
+    title: "FAQ",
+    href: "#faq",
+  },
+  {
+    id: 6,
     title: "Contact",
-    path: "/contact",
+    href: "#contact",
   },
 ];
 
 export const services = [
   {
     id: 1,
-    title: "Web Development",
+    title: "Web Design & Development",
   },
   {
     id: 2,
-    title: "Web Applications",
+    title: "User Interface / User Experience Design",
   },
   {
     id: 3,
-    title: "UI / UX Design",
+    title: "Search Engine Optimization (SEO)",
   },
   {
     id: 4,
-    title: "Maintenance & Support",
+    title: "Google Ads Management",
+  },
+  {
+    id: 5,
+    title: "Meta Ads Management",
+  },
+  {
+    id: 6,
+    title: "Social Media Marketing",
+  },
+  {
+    id: 7,
+    title: "Website Maintenance & Support",
   },
 ];
 
@@ -48,19 +76,19 @@ export const contactInfo = [
   {
     id: 1,
     icon: Mail,
-    value: "hello@youragency.com",
-    href: "mailto:hello@youragency.com",
+    value: "support@scaalable.com",
+    href: "mailto:support@scaalable.com",
   },
   {
     id: 2,
     icon: Phone,
-    value: "+91 98765 43210",
-    href: "tel:+919876543210",
+    value: "+91-7596918803",
+    href: "tel:+91-7596918803",
   },
   {
     id: 3,
     icon: MapPin,
-    value: "India",
+    value: "West Bengal, Kolkata, India",
   },
 ];
 
@@ -81,6 +109,18 @@ export const socialLinks = [
     id: 3,
     icon: FaXTwitter,
     title: "X",
-    href: "https://x.com/yourusername",
+    href: "https://x.com/scaalable",
+  },
+  {
+    id: 4,
+    icon: FaSquareInstagram,
+    title: "Instagram",
+    href: "https://instagram.com/scaalable",
+  },
+  {
+    id: 5,
+    icon: FaFacebook,
+    title: "Facebook",
+    href: "https://facebook.com/scaalable",
   },
 ];

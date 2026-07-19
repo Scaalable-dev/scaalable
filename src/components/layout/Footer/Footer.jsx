@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom";
-
 import "./Footer.css";
 
 import logo from "../../../assets/images/logo.png";
@@ -14,9 +12,9 @@ const Footer = () => {
           {/* Company */}
 
           <div className="footer__company">
-            <Link to="/" className="footer__logo" aria-label="Go to homepage">
-              <img src={logo} alt="Your Agency Logo" />
-            </Link>
+            <a href="#" className="footer__logo" aria-label="Go to homepage">
+              <img src={logo} alt="Scaalable Agency Logo" />
+            </a>
 
             <p>
               We build modern, scalable, and secure web applications that help
@@ -44,9 +42,9 @@ const Footer = () => {
             <h3>Quick Links</h3>
 
             <ul>
-              {quickLinks.map(({ id, title, path }) => (
+              {quickLinks.map(({ id, title, href }) => (
                 <li key={id}>
-                  <Link to={path}>{title}</Link>
+                  <a href={href}>{title}</a>
                 </li>
               ))}
             </ul>
@@ -87,9 +85,9 @@ const Footer = () => {
           <p>© {new Date().getFullYear()} Your Agency. All rights reserved.</p>
 
           <div className="footer__legal">
-            <Link to="/privacy-policy">Privacy Policy</Link>
+            <a href="/privacy-policy">Privacy Policy</a>
 
-            <Link to="/terms-of-service">Terms of Service</Link>
+            <a href="/terms-of-service">Terms of Service</a>
           </div>
         </div>
       </div>
