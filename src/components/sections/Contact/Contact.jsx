@@ -8,7 +8,7 @@ const Contact = () => {
   const [state, handleSubmit] = useForm("meeygjda");
 
   return (
-    <section className="contact-page">
+    <section className="contact-page" id="contact">
       <div className="container">
         <SectionHeading
           badge="Contact"

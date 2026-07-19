@@ -6,26 +6,31 @@ const navLinks = [
   },
   {
     id: 2,
+    label: "Who We Help",
+    href: "#who-we-help",
+  },
+  {
+    id: 3,
     label: "Services",
     href: "#services",
   },
   {
-    id: 3,
+    id: 4,
     label: "About",
     href: "#about",
   },
   {
-    id: 4,
+    id: 5,
     label: "Testimonials",
     href: "#testimonials",
   },
   {
-    id: 5,
+    id: 6,
     label: "FAQ",
     href: "#faq",
   },
   {
-    id: 6,
+    id: 7,
     label: "Contact",
     href: "#contact",
   },

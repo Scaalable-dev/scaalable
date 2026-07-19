@@ -6,7 +6,7 @@ import "./WhoWeHelp.css";
 
 const WhoWeHelp = () => {
   return (
-    <section className="who-we-help">
+    <section className="who-we-help" id="who-we-help">
       <Container>
         <SectionHeading
           title={whoWeHelpData.title}

@@ -1,15 +1,8 @@
-/* ===========================
-   Navbar
-=========================== */
+/* ==========================================================================
+   NAVBAR
+   ========================================================================== */
 
 .navbar {
-  position: sticky;
-  top: 0;
-
-  z-index: 1000;
-
-  background: #fff;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -19,29 +12,37 @@
   gap: var(--space-8);
 }
 
-/* ===========================
-   Logo
-=========================== */
+/* ==========================================================================
+   LOGO
+   ========================================================================== */
 
 .navbar__logo {
   display: flex;
   align-items: center;
 
   flex-shrink: 0;
+
+  text-decoration: none;
 }
 
 .navbar__logo-image {
   display: block;
 
-  width: 120px;
+  width: 60px;
   height: auto;
 
   object-fit: contain;
+
+  transition: transform var(--transition-normal);
 }
 
-/* ===========================
-   Desktop Navigation
-=========================== */
+.navbar__logo:hover .navbar__logo-image {
+  transform: scale(1.03);
+}
+
+/* ==========================================================================
+   DESKTOP NAVIGATION
+   ========================================================================== */
 
 .navbar__links {
   display: flex;
@@ -50,7 +51,7 @@
 
   flex: 1;
 
-  gap: clamp(1rem, 2vw, 2.5rem);
+  gap: clamp(1.5rem, 2vw, 2.75rem);
 
   margin: 0;
   padding: 0;
@@ -68,14 +69,14 @@
   display: inline-flex;
   align-items: center;
 
-  padding: 0.35rem 0;
-
-  color: var(--color-text-secondary);
+  padding: 0.4rem 0;
 
   text-decoration: none;
 
-  font-weight: 500;
+  color: var(--color-text-secondary);
+
   font-size: 0.95rem;
+  font-weight: 500;
 
   transition: color var(--transition-normal);
 }
@@ -95,6 +96,8 @@
   width: 100%;
   height: 2px;
 
+  border-radius: 999px;
+
   background: var(--gradient-brand);
 
   transform: scaleX(0);
@@ -108,9 +111,9 @@
   transform-origin: left;
 }
 
-/* ===========================
+/* ==========================================================================
    CTA
-=========================== */
+   ========================================================================== */
 
 .navbar__actions {
   display: flex;
@@ -119,9 +122,9 @@
   flex-shrink: 0;
 }
 
-/* ===========================
-   Mobile Toggle
-=========================== */
+/* ==========================================================================
+   MOBILE TOGGLE
+   ========================================================================== */
 
 .navbar__toggle {
   display: none;
@@ -129,26 +132,31 @@
   align-items: center;
   justify-content: center;
 
-  width: 44px;
-  height: 44px;
+  width: 42px;
+  height: 42px;
 
   border: none;
-  outline: none;
+  border-radius: 12px;
 
   background: transparent;
 
   color: var(--color-text-primary);
 
   cursor: pointer;
+
+  transition: background-color var(--transition-fast);
 }
 
-/* ===========================
-   Overlay
-=========================== */
+.navbar__toggle:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+/* ==========================================================================
+   MOBILE OVERLAY
+   ========================================================================== */
 
 .mobile-menu__overlay {
   position: fixed;
-
   inset: 0;
 
   background: rgba(0, 0, 0, 0.45);
@@ -157,8 +165,8 @@
   visibility: hidden;
 
   transition:
-    opacity 0.3s ease,
-    visibility 0.3s ease;
+    opacity 300ms ease,
+    visibility 300ms ease;
 
   z-index: 998;
 }
@@ -168,9 +176,9 @@
   visibility: visible;
 }
 
-/* ===========================
-   Drawer
-=========================== */
+/* ==========================================================================
+   MOBILE DRAWER
+   ========================================================================== */
 
 .mobile-menu {
   position: fixed;
@@ -178,19 +186,24 @@
   top: 0;
   right: 0;
 
-  width: min(320px, 85vw);
+  width: min(340px, 88vw);
   height: 100vh;
 
-  background: var(--color-surface);
+  background: rgba(255, 255, 255, 0.95);
+
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
 
   transform: translateX(100%);
 
-  transition: transform 0.35s ease;
+  transition: transform 350ms ease;
 
   display: flex;
   flex-direction: column;
 
-  padding: 1.5rem;
+  padding: 1.75rem;
+
+  box-shadow: -10px 0 40px rgba(15, 23, 42, 0.12);
 
   z-index: 999;
 }
@@ -199,9 +212,9 @@
   transform: translateX(0);
 }
 
-/* ===========================
-   Mobile Header
-=========================== */
+/* ==========================================================================
+   MOBILE HEADER
+   ========================================================================== */
 
 .mobile-menu__header {
   display: flex;
@@ -215,17 +228,26 @@
   align-items: center;
   justify-content: center;
 
+  width: 42px;
+  height: 42px;
+
   border: none;
+  border-radius: 12px;
+
   background: transparent;
 
   cursor: pointer;
 
-  color: var(--color-text-primary);
+  transition: background-color var(--transition-fast);
 }
 
-/* ===========================
-   Mobile Links
-=========================== */
+.mobile-menu__close:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+/* ==========================================================================
+   MOBILE LINKS
+   ========================================================================== */
 
 .mobile-menu__links {
   display: flex;
@@ -243,18 +265,19 @@
   font-size: 1.05rem;
 }
 
-/* ===========================
-   Mobile Footer
-=========================== */
+/* ==========================================================================
+   MOBILE FOOTER
+   ========================================================================== */
 
 .mobile-menu__footer {
   margin-top: auto;
+
   padding-top: 2rem;
 }
 
-/* ===========================
-   Responsive
-=========================== */
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
 
 @media (max-width: 992px) {
   .navbar__links,
@@ -267,13 +290,13 @@
   }
 
   .navbar__logo-image {
-    width: 110px;
+    width: 67px;
   }
 }
 
 @media (max-width: 576px) {
   .navbar__logo-image {
-    width: 95px;
+    width: 62px;
   }
 
   .mobile-menu {
