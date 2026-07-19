@@ -3,7 +3,6 @@ import Contact from "../components/sections/Contact";
 import FAQ from "../components/sections/FAQ";
 import Hero from "../components/sections/Hero";
 import Services from "../components/sections/Services";
-import Testimonials from "../components/sections/Testimonials";
 import WhoWeHelp from "../components/sections/WhoWeHelp/WhoWeHelp";
 
 const Home = () => {
@@ -13,7 +12,7 @@ const Home = () => {
       <WhoWeHelp />
       <Services />
       <About />
-      <Testimonials />
+      {/* <Testimonials /> */}
       <FAQ />
       <Contact />
     </main>

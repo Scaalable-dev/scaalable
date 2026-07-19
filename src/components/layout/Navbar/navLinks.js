@@ -19,18 +19,18 @@ const navLinks = [
     label: "About",
     href: "#about",
   },
+  // {
+  //   id: 5,
+  //   label: "Testimonials",
+  //   href: "#testimonials",
+  // },
   {
     id: 5,
-    label: "Testimonials",
-    href: "#testimonials",
-  },
-  {
-    id: 6,
     label: "FAQ",
     href: "#faq",
   },
   {
-    id: 7,
+    id: 6,
     label: "Contact",
     href: "#contact",
   },
