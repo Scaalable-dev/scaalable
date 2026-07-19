@@ -40,7 +40,11 @@ const MobileMenu = ({ isOpen, onClose }) => {
         {/* CTA */}
 
         <div className="mobile-menu__footer">
-          <Button fullWidth>Let's Talk</Button>
+          <a href="#contact" onClick={onClose}>
+            <Button size="sm" fullWidth>
+              Book an Appointment
+            </Button>
+          </a>
         </div>
       </aside>
     </>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Menu } from "lucide-react";
 
@@ -14,6 +14,26 @@ import logo from "../../../assets/images/logo.png";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  useEffect(() => {
+    document.body.style.overflow = isMenuOpen ? "hidden" : "";
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMenuOpen]);
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 992) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const openMenu = () => {
     setIsMenuOpen(true);
@@ -63,7 +83,7 @@ const Navbar = () => {
 
         {/* Mobile Menu */}
 
-        <MobileMenu isOpen={isMenuOpen} onClose={closeMenu} />
+        {isMenuOpen && <MobileMenu isOpen={isMenuOpen} onClose={closeMenu} />}
       </nav>
     </Container>
   );
