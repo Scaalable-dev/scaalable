@@ -1,64 +1,74 @@
 import {
   Globe,
-  Layers3,
-  ShoppingCart,
-  Bot,
-  LayoutDashboard,
-  ShieldCheck,
+  Palette,
+  Search,
+  BadgeDollarSign,
+  Megaphone,
+  Share2,
+  Wrench,
 } from "lucide-react";
 
 export const services = [
   {
     id: 1,
     icon: Globe,
-    title: "Custom Web Applications",
+    title: "Website Design & Development",
     description:
-      "Build scalable, secure, and high-performance web applications tailored to your business goals and workflows.",
-    tags: ["React", "Node.js", "MongoDB"],
+      "Responsive, modern websites designed to make an amazing first impression and convert visitors into customers.",
+    tags: ["React", "Node.js", "Responsive"],
   },
 
   {
     id: 2,
-    icon: Layers3,
-    title: "SaaS Development",
+    icon: Palette,
+    title: "User Interface / User Experience Design",
     description:
-      "Launch subscription-based SaaS platforms with authentication, billing, and cloud-ready architecture.",
-    tags: ["Multi-Tenant", "Stripe", "Cloud"],
+      "Designing intuitive and visually engaging user experiences that improve usability and customer satisfaction.",
+    tags: ["Figma", "Wireframes", "Prototypes"],
   },
 
   {
     id: 3,
-    icon: ShoppingCart,
-    title: "E-Commerce Solutions",
+    icon: Search,
+    title: "Search Engine Optimization (SEO)",
     description:
-      "Create fast, conversion-focused online stores with secure payments and intuitive admin management.",
-    tags: ["Payments", "Dashboard", "Inventory"],
+      "Improve your search rankings, increase organic traffic, and help customers discover your business online.",
+    tags: ["On-Page SEO", "Technical SEO", "Analytics"],
   },
 
   {
     id: 4,
-    icon: Bot,
-    title: "AI Integration & Automation",
+    icon: BadgeDollarSign,
+    title: "Google Ads",
     description:
-      "Automate repetitive workflows and integrate AI-powered features to improve productivity and customer experience.",
-    tags: ["OpenAI", "Automation", "Chatbots"],
+      "Target high-intent customers with Google Ads campaigns that drive qualified traffic and measurable results.",
+    tags: ["Search Ads", "PPC", "Conversions"],
   },
 
   {
     id: 5,
-    icon: LayoutDashboard,
-    title: "Business Dashboards",
+    icon: Megaphone,
+    title: "Meta Ads",
     description:
-      "Develop modern dashboards and internal systems that help teams manage operations with confidence.",
-    tags: ["Analytics", "CRM", "Reports"],
+      "Reach the right audience on Facebook and Instagram with data-driven advertising campaigns.",
+    tags: ["Facebook", "Instagram", "Lead Generation"],
   },
 
   {
     id: 6,
-    icon: ShieldCheck,
-    title: "Maintenance & Support",
+    icon: Share2,
+    title: "Social Media Marketing",
     description:
-      "Keep your software secure, optimized, and up to date with continuous maintenance and technical support.",
-    tags: ["Security", "Monitoring", "Updates"],
+      "Build your online presence and grow your audience with strategic social media content and campaigns.",
+    tags: ["Content Strategy", "Engagement", "Brand Growth"],
+  },
+
+  {
+    id: 7,
+    icon: Wrench,
+    title: "Website Maintenance",
+    description:
+      "Keep your website secure, optimized, and up to date with ongoing maintenance and technical support.",
+    tags: ["Updates", "Security", "Performance"],
   },
 ];
