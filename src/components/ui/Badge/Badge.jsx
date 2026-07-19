@@ -1,3 +1,4 @@
+import { Sparkles } from "lucide-react";
 import "./Badge.css";
 
 const Badge = ({
@@ -5,6 +6,7 @@ const Badge = ({
   variant = "primary",
   size = "md",
   className = "",
+  icon = true,
   ...props
 }) => {
   const classes = ["badge", `badge--${variant}`, `badge--${size}`, className]
@@ -13,7 +15,8 @@ const Badge = ({
 
   return (
     <span className={classes} {...props}>
-      {children}
+      {icon && <Sparkles className="badge__icon" size={14} />}
+      <span>{children}</span>
     </span>
   );
 };

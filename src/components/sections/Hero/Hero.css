@@ -1,65 +1,175 @@
+/* ==========================================================================
+   HERO SECTION
+   ========================================================================== */
+
 .hero {
-  padding-top: calc(var(--navbar-height) + var(--space-6));
+  position: relative;
+  overflow: hidden;
+
+  min-height: calc(100vh - var(--navbar-height));
+
+  display: flex;
+  align-items: center;
+
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+
+  isolation: isolate;
+
+  background:
+    radial-gradient(
+      circle at 15% 20%,
+      rgba(59, 130, 246, 0.18),
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at 85% 15%,
+      rgba(168, 85, 247, 0.18),
+      transparent 38%
+    ),
+    radial-gradient(
+      circle at 50% 100%,
+      rgba(6, 182, 212, 0.14),
+      transparent 45%
+    ),
+    linear-gradient(180deg, #ffffff 0%, #f8fbff 55%, #f4f8ff 100%);
 }
 
+/* Blue Glow */
+
+.hero::before {
+  content: "";
+
+  position: absolute;
+
+  width: 650px;
+  height: 650px;
+
+  left: -220px;
+  top: -220px;
+
+  border-radius: 50%;
+
+  background: rgba(59, 130, 246, 0.18);
+
+  filter: blur(120px);
+
+  z-index: -2;
+}
+
+/* Purple Glow */
+
+.hero::after {
+  content: "";
+
+  position: absolute;
+
+  width: 600px;
+  height: 600px;
+
+  right: -200px;
+  top: -180px;
+
+  border-radius: 50%;
+
+  background: rgba(168, 85, 247, 0.16);
+
+  filter: blur(120px);
+
+  z-index: -2;
+}
+
+/* ==========================================================================
+   WRAPPER
+   ========================================================================== */
+
 .hero__wrapper {
+  width: 100%;
   max-width: 1200px;
+
   margin-inline: auto;
 }
 
+/* ==========================================================================
+   CONTENT
+   ========================================================================== */
+
 .hero__content {
-  max-width: 900px;
+  max-width: 920px;
 
   margin-inline: auto;
 
   display: flex;
   flex-direction: column;
   align-items: center;
+
   text-align: center;
 
-  gap: var(--space-8);
+  gap: 1.5rem;
 }
 
+/* ==========================================================================
+   TITLE
+   ========================================================================== */
+
 .hero__title {
-  font-size: clamp(3.75rem, 6vw, 5.5rem);
-  line-height: 1.05;
-  letter-spacing: -0.05em;
+  max-width: 18ch;
+
+  font-size: clamp(3.2rem, 5vw, 4.4rem);
+
+  line-height: 1.08;
+
+  letter-spacing: -0.04em;
+
   font-weight: 700;
 
   color: var(--color-text-primary);
-
-  max-width: 16ch;
 }
 
-.hero__description {
-  max-width: 65ch;
+/* ==========================================================================
+   DESCRIPTION
+   ========================================================================== */
 
-  font-size: 1.125rem;
-  line-height: 1.8;
+.hero__description {
+  max-width: 56ch;
+
+  font-size: 1.1rem;
+
+  line-height: 1.75;
 
   color: var(--color-text-secondary);
 }
 
+/* ==========================================================================
+   ACTIONS
+   ========================================================================== */
+
 .hero__actions {
   display: flex;
-  align-items: center;
+
   justify-content: center;
+  align-items: center;
 
-  gap: var(--space-4);
+  gap: 1rem;
 
-  margin-top: var(--space-4);
+  margin-top: 0.5rem;
 
   flex-wrap: wrap;
 }
 
-.hero__stats {
-  margin-top: var(--space-10);
+/* ==========================================================================
+   STATS
+   ========================================================================== */
 
+.hero__stats {
   display: flex;
+
   justify-content: center;
   align-items: center;
 
-  gap: var(--space-12);
+  gap: 3rem;
+
+  margin-top: 2rem;
 
   flex-wrap: wrap;
 }
@@ -67,20 +177,64 @@
 .hero__stat {
   display: flex;
   flex-direction: column;
+
   align-items: center;
 
-  gap: var(--space-2);
+  gap: 0.4rem;
 }
 
 .hero__stat h3 {
-  font-size: 2rem;
-  font-weight: 700;
-
   color: var(--color-primary);
+
+  font-size: 2rem;
 }
 
 .hero__stat span {
-  font-size: 0.95rem;
-
   color: var(--color-text-secondary);
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+
+@media (max-width: 992px) {
+  .hero {
+    min-height: auto;
+
+    padding-block: 4rem;
+  }
+
+  .hero__title {
+    font-size: clamp(2.8rem, 7vw, 3.8rem);
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding-block: 3rem;
+  }
+
+  .hero__content {
+    gap: 1.25rem;
+  }
+
+  .hero__title {
+    font-size: clamp(2.4rem, 8vw, 3rem);
+
+    max-width: 14ch;
+  }
+
+  .hero__description {
+    font-size: 1rem;
+  }
+
+  .hero__actions {
+    width: 100%;
+
+    flex-direction: column;
+  }
+
+  .hero__actions > * {
+    width: 100%;
+  }
 }

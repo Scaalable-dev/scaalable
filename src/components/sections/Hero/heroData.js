@@ -1,5 +1,5 @@
 const heroData = {
-  badge: "Trusted by 200+ Businesses",
+  badge: "Trusted by 100+ Businesses",
 
   title: "Build Modern Digital Products That Grow Your Business.",
 
