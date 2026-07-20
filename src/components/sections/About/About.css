@@ -364,12 +364,12 @@
 .about__story-layout {
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
-  gap: 5rem;
+  gap: 1rem;
   align-items: center;
 }
 
 .story__quote {
-  max-width: 580px;
+  max-width: 90%;
 
   padding: 2rem;
 
@@ -400,12 +400,12 @@
 }
 
 .story__content {
-  max-width: 620px;
+  max-width: 90%;
 
   display: flex;
 
   flex-direction: column;
-
+  text-align: justify;
   gap: 1.5rem;
 }
 
