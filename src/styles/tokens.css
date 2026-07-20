@@ -28,6 +28,22 @@
 
   --gradient-brand-horizontal: linear-gradient(90deg, #006cfa 0%, #00247b 100%);
 
+  --gradient-hero-bg: radial-gradient(
+    circle at top left,
+    rgba(185, 63, 251, 0.28) 0%,
+    rgba(137, 57, 250, 0.2) 28%,
+    rgba(0, 130, 249, 0.16) 55%,
+    transparent 80%
+  );
+
+  --gradient-hero-glow: radial-gradient(
+    circle,
+    rgba(185, 63, 251, 0.35),
+    rgba(137, 57, 250, 0.24),
+    rgba(0, 130, 249, 0.18),
+    transparent 75%
+  );
+
   /* ========================================================================
      2. NEUTRAL PALETTE
      ======================================================================== */

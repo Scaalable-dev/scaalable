@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import founderImage from "../../../assets/images/founder.png";
 import coFounderImage from "../../../assets/images/coFounder.png";
+import aboutHeroImage from "../../../assets/images/about-hero.png";
 
 export const aboutHero = {
   badge: "About Us",
@@ -21,6 +22,7 @@ export const aboutHero = {
 
   description:
     "We help businesses turn ideas into scalable digital products through thoughtful design, modern technology, and long-term collaboration.",
+  image: aboutHeroImage,
 };
 
 export const aboutCompany = {

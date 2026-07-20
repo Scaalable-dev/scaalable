@@ -1,9 +1,8 @@
 import "./About.css";
 
-import SectionHeading from "../../ui/SectionHeading";
 import ValueCard from "./ValueCard";
 import FounderCarousel from "./FounderCarousel";
-
+import Badge from "../../ui/Badge";
 import {
   aboutHero,
   aboutCompany,
@@ -18,11 +17,28 @@ const About = () => {
   return (
     <section className="about section" id="about">
       <div className="container">
-        <SectionHeading
-          badge={aboutHero.badge}
-          title={aboutHero.title}
-          description={aboutHero.description}
-        />
+        <section className="about__hero">
+          <div className="about__hero-badge">
+            <Badge>{aboutHero.badge}</Badge>
+          </div>
+
+          <div className="about__hero-grid">
+            <div className="about__hero-content">
+              <h2 className="about__hero-title">
+                More Than a Development Agency. Your{" "}
+                <span className="about__hero-gradient">
+                  Technology Partner.
+                </span>
+              </h2>
+
+              <p className="about__hero-description">{aboutHero.description}</p>
+            </div>
+
+            <div className="about__hero-image">
+              <img src={aboutHero.image} alt="About Scaalable" />
+            </div>
+          </div>
+        </section>
 
         <div className="about__content">
           <div className="about__story">
