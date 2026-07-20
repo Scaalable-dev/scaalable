@@ -17,6 +17,7 @@ const About = () => {
   return (
     <section className="about section" id="about">
       <div className="container">
+        {/* -------------------------------About Hero Section------------------------------------------ */}
         <section className="about__hero">
           <div className="about__hero-badge">
             <Badge>{aboutHero.badge}</Badge>
@@ -40,6 +41,7 @@ const About = () => {
           </div>
         </section>
 
+        {/* ---------------------About The Company-------------------------------------- */}
         <div className="about__content">
           <div className="about__story">
             <span className="about__eyebrow">{aboutCompany.eyebrow}</span>

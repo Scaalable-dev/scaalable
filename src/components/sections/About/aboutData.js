@@ -32,11 +32,15 @@ export const aboutCompany = {
     "We build software that helps businesses grow—not just websites that look good.",
 
   paragraphs: [
-    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta voluptas, perspiciatis dignissimos minus architecto officiis necessitatibus consequatur autem accusamus atque.",
+    ' "Scaalable" is dedicated to providing businesses worldwide, regardless of being startups, SMEs, or multinational enterprises, access to high-end digital solutions which contribute to their development.',
 
-    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium, explicabo. Nihil beatae aliquam quos facere tempore vitae deleniti quae dicta.",
+    "Being a full-service Digital Marketing & IT Solutions Company”, Scaalable aims at assisting businesses in creating, growing, and scaling up their digital presence through such services as websites building, brand development, performance marketing, SEO, social media marketing, software development, artificial intelligence solutions for business, cloud services, and automation of businesses.",
 
-    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, doloremque. Ratione aspernatur maxime consectetur reprehenderit nemo eligendi.",
+    "In today’s highly dynamic digital environment, just the mere presence of businesses on the internet won’t suffice. The necessity arises in strategy planning, innovative technology application, storytelling, and execution based on the data analysis. And it is Scaalable which can help with all of that.",
+
+    "Scaalable merges creativity and technology into custom solutions which will boost the visibility, engagement, generation of quality leads, and ROI maximization.",
+
+    "No matter whether it’s about your very first website launch or digital transformation of your whole ecosystem, Scaalable will become your technology and growth partner.",
   ],
 
   quote:
