@@ -8,9 +8,9 @@ import {
   aboutCompany,
   values,
   features,
-  timeline,
   visionMission,
   cta,
+  story,
 } from "./aboutData";
 
 const About = () => {
@@ -93,44 +93,28 @@ const About = () => {
           </div>
         </section>
 
-        {/* ------------------------timeline section----------------------------  */}
-        <section className="about__timeline">
-          <div className="about__timeline-content">
-            {/* LEFT */}
+        {/* ------------------------ Our Story ------------------------ */}
 
-            <div className="timeline">
-              <span className="about__eyebrow">{timeline.badge}</span>
+        <section className="about__story-section">
+          <div className="about__story-layout">
+            <div className="story">
+              <span className="about__eyebrow">{story.badge}</span>
 
-              <h3 className="timeline__title">{timeline.title}</h3>
+              <h3 className="story__title">{story.title}</h3>
 
-              <p className="timeline__description">{timeline.description}</p>
+              <p className="story__subtitle">{story.subtitle}</p>
 
-              <div className="timeline__list">
-                {timeline.items.map((item) => (
-                  <div className="timeline__item" key={item.id}>
-                    <div className="timeline__year">
-                      <span className="timeline__dot" />
+              <blockquote className="story__quote">"{story.quote}"</blockquote>
 
-                      <span>{item.year}</span>
-                    </div>
-
-                    <div className="timeline__body">
-                      <h4>{item.title}</h4>
-
-                      <p>{item.description}</p>
-                    </div>
-                  </div>
+              <div className="story__content">
+                {story.paragraphs.map((paragraph, index) => (
+                  <p key={index}>{paragraph}</p>
                 ))}
               </div>
             </div>
 
-            {/* RIGHT */}
-
-            <div className="timeline__image">
-              <img
-                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200&q=80"
-                alt="Our Team"
-              />
+            <div className="story__image">
+              <img src={story.image} alt="Scaalable Team" />
             </div>
           </div>
         </section>

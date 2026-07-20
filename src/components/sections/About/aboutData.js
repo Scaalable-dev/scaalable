@@ -14,6 +14,7 @@ import {
 import founderImage from "../../../assets/images/founder.png";
 import coFounderImage from "../../../assets/images/coFounder.png";
 import aboutHeroImage from "../../../assets/images/about-hero.png";
+import aboutHeroStory from "../../../assets/images/about-story.png";
 
 export const aboutHero = {
   badge: "About Us",
@@ -128,48 +129,25 @@ export const features = {
   ],
 };
 
-export const timeline = {
+export const story = {
   badge: "Our Story",
 
-  title:
-    "From an idea to a mission of helping businesses grow with technology.",
+  title: "Vision Makes Every Great Brand Start.",
 
-  description:
-    "Every journey starts with a single step. Here's how we continue evolving as a technology partner for businesses.",
+  subtitle: "We started Scaalable with one simple belief.",
 
-  items: [
-    {
-      id: 1,
-      year: "2022",
-      title: "The Beginning",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus, asperiores.",
-    },
+  quote:
+    "Businesses shouldn't need more than one agency for their digital success.",
 
-    {
-      id: 2,
-      year: "2023",
-      title: "Building Experience",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus, asperiores.",
-    },
+  paragraphs: [
+    "Too often, businesses rely on one agency for websites, another for SEO, freelancers for social media, and someone else for software development. This fragmented approach creates inconsistent branding, poor communication, unnecessary costs, and slower growth.",
 
-    {
-      id: 3,
-      year: "2024",
-      title: "Launching Scaalable",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus, asperiores.",
-    },
+    "Scaalable was built to solve this problem by bringing strategy, design, development, digital marketing, AI solutions, cloud services, and business automation together under one roof.",
 
-    {
-      id: 4,
-      year: "Future",
-      title: "Growing With Our Clients",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus, asperiores.",
-    },
+    "Today, we partner with businesses across industries to strengthen their digital presence, streamline operations, and build sustainable long-term growth through one unified digital partner.",
   ],
+
+  image: aboutHeroStory,
 };
 
 export const visionMission = {
