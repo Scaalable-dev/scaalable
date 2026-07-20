@@ -170,23 +170,6 @@ export const visionMission = {
   ],
 };
 
-export const cta = {
-  badge: "Let's Work Together",
-
-  title: "Ready to turn your ideas into a successful digital product?",
-
-  description:
-    "Whether you're building a startup, improving an existing platform, or creating something entirely new, we'd love to help bring your vision to life.",
-
-  primaryButton: {
-    text: "Start Your Project",
-    href: "#contact",
-  },
-
-  secondaryText:
-    "Let's discuss your goals, challenges, and ideas over a quick conversation.",
-};
-
 export const founders = [
   {
     id: 1,

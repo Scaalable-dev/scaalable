@@ -9,7 +9,6 @@ import {
   values,
   features,
   visionMission,
-  cta,
   story,
 } from "./aboutData";
 
@@ -119,7 +118,6 @@ const About = () => {
           </div>
         </section>
 
-        {/* ------------------------vision and mission section----------------------------  */}
         {/* ---------------- Vision & Mission ---------------- */}
 
         <section className="about__vision">
@@ -146,21 +144,6 @@ const About = () => {
               );
             })}
           </div>
-        </section>
-
-        {/* ------------------------CTA----------------------------  */}
-        <section className="about__cta">
-          <span className="about__eyebrow">{cta.badge}</span>
-
-          <h3 className="about__cta-title">{cta.title}</h3>
-
-          <p className="about__cta-description">{cta.description}</p>
-
-          <a href={cta.primaryButton.href} className="about__cta-button">
-            {cta.primaryButton.text}
-          </a>
-
-          <p className="about__cta-secondary">{cta.secondaryText}</p>
         </section>
 
         {/* ------------------------founders----------------------------  */}
