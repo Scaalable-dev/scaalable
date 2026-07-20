@@ -425,8 +425,6 @@
   object-fit: cover;
 
   border-radius: var(--radius-2xl);
-
-  margin-left: auto;
 }
 /* ==========================================
    VISION & MISSION
@@ -957,7 +955,17 @@
   }
 
   .story__image {
-    order: 0;
+    width: 100%;
+  }
+
+  .story__image img {
+    max-width: 100%;
+
+    width: 100%;
+
+    margin: 0;
+
+    aspect-ratio: 16 / 10;
   }
 
   .story__title {
