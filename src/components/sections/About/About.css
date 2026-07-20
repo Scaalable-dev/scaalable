@@ -432,75 +432,106 @@
    VISION & MISSION
 ========================================== */
 
+/* ==========================================
+   VISION & MISSION
+========================================== */
+
 .about__vision {
-  margin-top: 8rem;
+  margin-top: var(--space-32);
 }
 
-.about__vision-header {
-  text-align: center;
-
-  max-width: 720px;
-
-  margin-inline: auto;
-  margin-bottom: 4rem;
-}
-
-.about__vision-title {
-  margin: 1rem 0;
-
-  font-size: clamp(2rem, 3vw, 2.8rem);
-
-  line-height: 1.2;
-
-  letter-spacing: -0.03em;
-}
-
-.about__vision-description {
-  color: var(--color-text-secondary);
-
-  line-height: 1.8;
-}
-
-.about__vision-grid {
+.about__vision-wrapper {
   display: grid;
 
   grid-template-columns: repeat(2, 1fr);
 
-  gap: 2rem;
+  gap: 6rem;
+
+  position: relative;
+
+  overflow: hidden;
+
+  padding: var(--space-16);
+
+  background:
+    radial-gradient(
+      ellipse 90% 140% at left center,
+      rgba(0, 130, 249, 0.1),
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 90% 140% at right center,
+      rgba(185, 63, 251, 0.1),
+      transparent 70%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(0, 130, 249, 0.08) 0%,
+      rgba(255, 255, 255, 0.95) 50%,
+      rgba(185, 63, 251, 0.08) 100%
+    );
+  border: 1px solid var(--color-border-light);
+
+  border-radius: var(--radius-2xl);
+
+  box-shadow: var(--shadow-sm);
 }
 
 .vision-card {
-  padding: 3rem;
+  display: flex;
 
-  border-radius: 32px;
+  align-items: flex-start;
 
-  background: linear-gradient(180deg, #ffffff, #f8faff);
+  gap: var(--space-6);
 
-  border: 1px solid rgba(99, 102, 241, 0.08);
+  /* padding-inline: var(--space-8); */
 
-  box-shadow: 0 20px 60px rgba(15, 23, 42, 0.06);
-
-  transition: all 0.3s ease;
+  position: relative;
 }
 
-.vision-card:hover {
-  transform: translateY(-8px);
+.vision-card:first-child {
+  position: relative;
+}
+
+.vision-card:first-child::after {
+  content: "";
+
+  position: absolute;
+
+  top: 50%;
+  right: calc(var(--space-8) * -1);
+
+  transform: translateY(-50%);
+
+  width: 2px;
+  height: 170px;
+
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(15, 23, 42, 0.08) 15%,
+    rgba(15, 23, 42, 0.14) 50%,
+    rgba(15, 23, 42, 0.08) 85%,
+    transparent 100%
+  );
 }
 
 .vision-card__icon {
-  width: 72px;
-  height: 72px;
+  width: 64px;
+
+  height: 64px;
 
   display: grid;
+
   place-items: center;
 
   border-radius: 50%;
 
-  background: rgba(99, 102, 241, 0.08);
+  background: var(--color-brand-soft);
 
-  color: var(--color-primary);
+  color: var(--color-brand-primary);
 
-  margin-bottom: 2rem;
+  flex-shrink: 0;
 }
 
 .vision-card__icon svg {
@@ -508,18 +539,33 @@
   height: 34px;
 }
 
-.vision-card h4 {
-  margin-bottom: 1rem;
+.vision-card__label {
+  font-size: 0.875rem;
 
-  font-size: 1.5rem;
+  font-weight: 700;
+
+  letter-spacing: 0.12em;
+
+  text-transform: uppercase;
+
+  color: var(--color-brand-primary);
 }
 
-.vision-card p {
-  line-height: 1.9;
+.vision-card__content {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: var(--space-4);
+}
+
+.vision-card__content p {
+  line-height: 1.8;
 
   color: var(--color-text-secondary);
-}
 
+  max-width: 40ch;
+}
 /* ==========================================
    CTA
 ========================================== */
@@ -1023,6 +1069,23 @@
     font-size: 1rem;
     padding-left: 1rem;
   }
+
+  .about__vision-wrapper {
+    grid-template-columns: 1fr;
+
+    gap: 3rem;
+
+    padding: 3rem 2rem;
+  }
+
+  .vision-divider {
+    display: none;
+  }
+
+  .vision-card {
+    padding: 0;
+  }
+
   .founder-card__stats {
     grid-template-columns: 1fr;
   }

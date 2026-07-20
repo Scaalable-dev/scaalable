@@ -151,21 +151,13 @@ export const story = {
 };
 
 export const visionMission = {
-  badge: "Vision & Mission",
-
-  title:
-    "Building technology that empowers businesses to grow with confidence.",
-
-  description:
-    "Everything we build is guided by a long-term vision and a practical mission to deliver real value.",
-
   cards: [
     {
       id: 1,
       icon: Eye,
       title: "Our Vision",
       description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto laboriosam rem magni, consequuntur quidem dolorum perspiciatis accusantium expedita.",
+        "We aim to become a globally trusted partner in digital transformation by helping all kinds of organizations make use of technology to achieve sustainability.",
     },
 
     {
@@ -173,7 +165,7 @@ export const visionMission = {
       icon: Target,
       title: "Our Mission",
       description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae, veritatis. Cumque illum quos voluptatum reprehenderit.",
+        "Our mission is to facilitate business growth in the world by providing cutting-edge digital marketing and IT services which generate value in the long run.",
     },
   ],
 };

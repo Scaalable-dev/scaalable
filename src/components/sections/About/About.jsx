@@ -120,19 +120,11 @@ const About = () => {
         </section>
 
         {/* ------------------------vision and mission section----------------------------  */}
+        {/* ---------------- Vision & Mission ---------------- */}
+
         <section className="about__vision">
-          <div className="about__vision-header">
-            <span className="about__eyebrow">{visionMission.badge}</span>
-
-            <h3 className="about__vision-title">{visionMission.title}</h3>
-
-            <p className="about__vision-description">
-              {visionMission.description}
-            </p>
-          </div>
-
-          <div className="about__vision-grid">
-            {visionMission.cards.map((card) => {
+          <div className="about__vision-wrapper">
+            {visionMission.cards.map((card, index) => {
               const Icon = card.icon;
 
               return (
@@ -141,9 +133,15 @@ const About = () => {
                     <Icon strokeWidth={1.8} />
                   </div>
 
-                  <h4>{card.title}</h4>
+                  <div className="vision-card__content">
+                    <span className="vision-card__label">
+                      {card.title.toUpperCase()}
+                    </span>
 
-                  <p>{card.description}</p>
+                    <p>{card.description}</p>
+                  </div>
+
+                  {index === 0 && <div className="vision-divider" />}
                 </article>
               );
             })}
