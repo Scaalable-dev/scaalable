@@ -19,12 +19,19 @@ function FounderCarousel() {
 
       <Swiper
         modules={[Navigation, Pagination, Keyboard, A11y]}
+        touchRatio={1.5}
+        touchAngle={45}
+        threshold={8}
+        longSwipes={true}
+        longSwipesRatio={0.2}
+        longSwipesMs={250}
+        followFinger={true}
         slidesPerView={1}
-        centeredSlides={true}
+        centeredSlides={false}
         spaceBetween={50}
-        speed={700}
+        speed={500}
         loop={true}
-        autoHeight={true}
+        autoHeight={false}
         grabCursor={true}
         keyboard={{
           enabled: true,
