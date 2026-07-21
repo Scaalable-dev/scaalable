@@ -569,7 +569,7 @@
 .founders {
   margin-top: var(--space-32);
 
-  padding: var(--space-16);
+  padding: var(--space-5);
 
   border-radius: var(--radius-2xl);
 
@@ -1071,6 +1071,11 @@
 
     bottom: 28px;
   }
+  /* .founder-card__bio {
+    text-align: left;
+
+    padding-inline: var(--space-2);
+  } */
 }
 
 @media (prefers-reduced-motion: reduce) {
