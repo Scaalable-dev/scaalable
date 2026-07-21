@@ -194,6 +194,7 @@
   align-items: center;
 
   gap: 1rem;
+  margin-top: var(--space-8);
 }
 .founder-card__social {
   width: 48px;
@@ -731,14 +732,6 @@
   color: var(--color-text-secondary);
 
   line-height: 1.9;
-}
-
-.founder-card__socials {
-  display: flex;
-
-  gap: var(--space-4);
-
-  margin-top: var(--space-8);
 }
 
 .founder-card__socials a {
