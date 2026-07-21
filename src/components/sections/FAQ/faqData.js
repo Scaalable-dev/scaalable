@@ -1,9 +1,9 @@
 export const faqData = [
   {
     id: 1,
-    question: "How long does a typical project take?",
+    question: "What services do Scaalable provide?",
     answer:
-      "The timeline depends on the project's scope and complexity. Most business websites are completed within 2–4 weeks, while custom web applications typically take 6–12 weeks. Before development begins, you'll receive a detailed project timeline with milestones and regular progress updates.",
+      "We provide digital marketing, IT solutions, branding, software development, automation powered by AI, cloud services, and business consulting services.",
   },
 
   {
@@ -46,5 +46,19 @@ export const faqData = [
     question: "How do we get started?",
     answer:
       "Simply contact us to schedule a discovery call. We'll discuss your business goals, understand your requirements, recommend the best solution, and provide a clear roadmap before any development begins.",
+  },
+  {
+    id: 8,
+    question:
+      "Are you open to collaborating with companies from other countries apart from India?",
+    answer:
+      "Yes. We have been collaborating with companies from all around the world offering tailor-made solutions for their marketplaces and business requirements.",
+  },
+  {
+    id: 9,
+    question:
+      "Is it possible to combine digital marketing and IT projects together?",
+    answer:
+      "Of course. We combine all the above-mentioned services into one project to save your time and money.",
   },
 ];

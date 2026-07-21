@@ -1,63 +1,157 @@
 import "./About.css";
 
-import SectionHeading from "../../ui/SectionHeading";
 import ValueCard from "./ValueCard";
-
-import { values } from "./aboutData";
+import FounderCarousel from "./FounderCarousel";
+import Badge from "../../ui/Badge";
+import {
+  aboutHero,
+  aboutCompany,
+  values,
+  features,
+  visionMission,
+  story,
+} from "./aboutData";
 
 const About = () => {
   return (
     <section className="about section" id="about">
       <div className="container">
-        <SectionHeading
-          badge="About Us"
-          title="More Than a Development Agency. Your Technology Partner."
-          description="We help businesses turn ideas into scalable digital products through thoughtful design, modern technology, and long-term collaboration."
-        />
+        {/* -------------------------------About Hero Section------------------------------------------ */}
+        <section className="about__hero">
+          <div className="about__hero-badge">
+            <Badge>{aboutHero.badge}</Badge>
+          </div>
 
+          <div className="about__hero-grid">
+            <div className="about__hero-content">
+              <h2 className="about__hero-title">
+                More Than a Development Agency. Your{" "}
+                <span className="about__hero-gradient">
+                  Technology Partner.
+                </span>
+              </h2>
+
+              <p className="about__hero-description">{aboutHero.description}</p>
+            </div>
+
+            <div className="about__hero-image">
+              <img src={aboutHero.image} alt="About Scaalable" />
+            </div>
+          </div>
+        </section>
+
+        {/* ---------------------About The Company-------------------------------------- */}
         <div className="about__content">
-          {/* Story */}
           <div className="about__story">
-            <span className="about__eyebrow">Our Story</span>
+            <span className="about__eyebrow">{aboutCompany.eyebrow}</span>
 
-            <h3 className="about__story-title">
-              We build software that helps businesses grow—not just websites
-              that look good.
-            </h3>
+            <h3 className="about__story-title">{aboutCompany.title}</h3>
 
-            <p className="about__text">
-              We started this agency with one simple belief: technology should
-              solve real business problems. Too many companies invest in digital
-              products that are difficult to maintain, slow to evolve, and fail
-              to deliver meaningful results.
-            </p>
-
-            <p className="about__text">
-              Our approach is different. We take time to understand your
-              business, your challenges, and your goals before writing a single
-              line of code. Every project is built with scalability,
-              performance, and long-term success in mind.
-            </p>
-
-            <p className="about__text">
-              Whether you're launching a new startup, modernizing an existing
-              business, or automating internal workflows, we're committed to
-              building software that creates lasting value.
-            </p>
+            {aboutCompany.paragraphs.map((paragraph, index) => (
+              <p key={index} className="about__text">
+                {paragraph}
+              </p>
+            ))}
 
             <blockquote className="about__quote">
-              "We don't just deliver projects. We build digital foundations for
-              business growth."
+              {aboutCompany.quote}
             </blockquote>
           </div>
 
-          {/* Values */}
           <div className="about__values">
             {values.map((value) => (
               <ValueCard key={value.id} value={value} />
             ))}
           </div>
         </div>
+
+        {/* ------------------------what set us apart section----------------------------  */}
+        <section className="about__features">
+          <div className="about__features-header">
+            <span className="about__eyebrow">{features.badge}</span>
+
+            <h3 className="about__features-title">{features.title}</h3>
+          </div>
+
+          <div className="about__features-grid">
+            {features.items.map((item) => {
+              const Icon = item.icon;
+
+              return (
+                <article key={item.id} className="feature-card">
+                  <div className="feature-card__icon">
+                    <Icon strokeWidth={1.8} />
+                  </div>
+
+                  <h4>{item.title}</h4>
+
+                  <p>{item.description}</p>
+                </article>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* ------------------------ Our Story ------------------------ */}
+
+        <section className="about__story-section">
+          <div className="about__story-layout">
+            <div className="story">
+              <span className="about__eyebrow">{story.badge}</span>
+
+              <h3 className="story__title">{story.title}</h3>
+
+              <p className="story__subtitle">{story.subtitle}</p>
+
+              <blockquote className="story__quote">"{story.quote}"</blockquote>
+
+              <div className="story__content">
+                {story.paragraphs.map((paragraph, index) => (
+                  <p key={index}>{paragraph}</p>
+                ))}
+              </div>
+            </div>
+
+            <div className="story__image">
+              <img src={story.image} alt="Scaalable Team" />
+            </div>
+          </div>
+        </section>
+
+        {/* ---------------- Vision & Mission ---------------- */}
+
+        <section className="about__vision">
+          <div className="about__vision-wrapper">
+            {visionMission.cards.map((card, index) => {
+              const Icon = card.icon;
+
+              return (
+                <article key={card.id} className="vision-card">
+                  <div className="vision-card__icon">
+                    <Icon strokeWidth={1.8} />
+                  </div>
+
+                  <div className="vision-card__content">
+                    <span className="vision-card__label">
+                      {card.title.toUpperCase()}
+                    </span>
+
+                    <p>{card.description}</p>
+                  </div>
+
+                  {index === 0 && <div className="vision-divider" />}
+                </article>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* ------------------------founders----------------------------  */}
+        <section className="founders">
+          <Badge>Introducing the Founder</Badge>
+
+          <FounderCarousel />
+        </section>
       </div>
     </section>
   );
