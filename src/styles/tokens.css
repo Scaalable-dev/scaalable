@@ -152,9 +152,9 @@
 
   --space-20: 5rem; /* 80px */
 
-  --space-24: 6rem; /* 96px */
+  --space-24: 5rem;
 
-  --space-32: 8rem; /* 128px */
+  --space-32: 6rem;
 
   /* ========================================================================
      8. BORDER RADIUS
@@ -210,12 +210,9 @@
 
   --container-padding: 1rem;
 
-  --section-padding-y: 8rem;
-
-  --section-padding-y-lg: 10rem;
-
-  --section-padding-y-sm: 6rem;
-
+  --section-padding-y: 6rem;
+  --section-padding-y-lg: 8rem;
+  --section-padding-y-sm: 4rem;
   --navbar-height: 88px;
 
   --hero-min-height: calc(100vh - var(--navbar-height));

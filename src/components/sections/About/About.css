@@ -431,9 +431,9 @@
    VISION & MISSION
 ========================================== */
 
-.about__vision {
-  margin-top: var(--space-32);
-}
+/* .about__vision {
+  margin-top: var(--space-8);
+} */
 
 .about__vision-wrapper {
   display: grid;
