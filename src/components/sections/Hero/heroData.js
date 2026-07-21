@@ -7,7 +7,7 @@ const heroData = {
     "We help startups and businesses build high-performance websites, SaaS platforms, AI-powered applications, and custom software that drive measurable growth.",
 
   primaryButton: {
-    text: "Get Started",
+    text: "Get a Quote",
     href: "#contact",
   },
 
