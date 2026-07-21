@@ -148,21 +148,7 @@ const About = () => {
 
         {/* ------------------------founders----------------------------  */}
         <section className="founders">
-          <div className="founders__header">
-            <span className="about__eyebrow">
-              Meet the People Behind Scaalable
-            </span>
-
-            <h2 className="founders__title">
-              The minds behind every solution we build.
-            </h2>
-
-            <p className="founders__description">
-              We started Scaalable with a shared vision of helping businesses
-              build modern, scalable, and meaningful digital products through
-              thoughtful engineering and long-term partnerships.
-            </p>
-          </div>
+          <Badge>Introducing the Founder</Badge>
 
           <FounderCarousel />
         </section>

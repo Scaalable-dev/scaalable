@@ -1,58 +1,55 @@
-import { useState } from "react";
-
 import FounderCard from "./FounderCard";
 import { founders } from "./aboutData";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Keyboard, A11y } from "swiper/modules";
+
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+
 function FounderCarousel() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const handlePrevious = () => {
-    if (currentIndex === 0) return;
-
-    setCurrentIndex(currentIndex - 1);
-  };
-
-  const handleNext = () => {
-    if (currentIndex === founders.length - 1) return;
-
-    setCurrentIndex(currentIndex + 1);
-  };
-
   return (
     <div className="founder-carousel">
-      <div className="founder-carousel__controls">
-        <button
-          className="founder-carousel__button"
-          onClick={handlePrevious}
-          disabled={currentIndex === 0}
-          aria-label="Previous Founder"
-        >
-          <ArrowLeft size={20} />
-        </button>
+      <button className="founder-carousel__prev" aria-label="Previous founder">
+        <ArrowLeft size={20} />
+      </button>
 
-        <div className="founder-carousel__indicator">
-          <span className="founder-carousel__current">
-            {String(currentIndex + 1).padStart(2, "0")}
-          </span>
+      <Swiper
+        modules={[Navigation, Pagination, Keyboard, A11y]}
+        slidesPerView={1}
+        centeredSlides={true}
+        spaceBetween={50}
+        speed={700}
+        loop={true}
+        autoHeight={true}
+        grabCursor={true}
+        keyboard={{
+          enabled: true,
+        }}
+        navigation={{
+          prevEl: ".founder-carousel__prev",
+          nextEl: ".founder-carousel__next",
+        }}
+        pagination={{
+          el: ".founder-carousel__pagination",
+          clickable: true,
+        }}
+      >
+        {founders.map((founder) => (
+          <SwiperSlide key={founder.id}>
+            <FounderCard founder={founder} />
+          </SwiperSlide>
+        ))}
+      </Swiper>
 
-          <span className="founder-carousel__divider">/</span>
+      <button className="founder-carousel__next" aria-label="Next founder">
+        <ArrowRight size={20} />
+      </button>
 
-          <span className="founder-carousel__total">
-            {String(founders.length).padStart(2, "0")}
-          </span>
-        </div>
-
-        <button
-          className="founder-carousel__button"
-          onClick={handleNext}
-          disabled={currentIndex === founders.length - 1}
-          aria-label="Next Founder"
-        >
-          <ArrowRight size={20} />
-        </button>
-      </div>
-
-      <FounderCard founder={founders[currentIndex]} />
+      <div className="founder-carousel__pagination"></div>
     </div>
   );
 }

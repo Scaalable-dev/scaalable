@@ -173,84 +173,36 @@ export const visionMission = {
 export const founders = [
   {
     id: 1,
-
-    name: "Jyotish",
-
-    role: "Founder & Full Stack Developer",
-
+    name: "Avijit Das",
+    role: "Founder & CEO",
     image: founderImage,
-
     bio: [
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia quaerat eaque consequatur neque, enim molestiae.",
-
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates veniam quibusdam minus.",
+      "Avijit Das, created this platform to enable easier digital transformation for enterprises all around the world. After a long experience in digital marketing, technology consultancy, and information technology services, he identified a common issue that many businesses face – handling multiple vendors and uncoordinated strategies.",
+      "This is where Scaalable came in, providing all digital solutions from one team, under one umbrella.",
     ],
-    quote:
-      "Building software isn't just about writing code—it's about solving real business problems.",
-    stats: [
-      {
-        label: "Experience",
-        value: "2+ Years",
-      },
-
-      {
-        label: "Projects",
-        value: "15+",
-      },
-
-      {
-        label: "Commitment",
-        value: "100%",
-      },
-    ],
-
-    technologies: ["React", "Node.js", "Express", "MongoDB", "Tailwind", "AWS"],
-
     socials: {
-      github: "#",
-      linkedin: "#",
-      email: "hello@scaalable.com",
+      instagram: "https://www.instagram.com/avijitdas_bycode/",
+      facebook: "https://www.facebook.com/profile.php?id=61571357147855",
+      linkedin: "https://www.linkedin.com/in/avijit-das-134b87421",
+      email: "mailto:avijit@scaalable.com",
     },
   },
 
   {
     id: 2,
-
-    name: "Co-Founder",
-
-    role: "Founder & Full Stack Developer",
-
+    name: "Tamal Gupta",
+    role: "Co-Founder",
     image: coFounderImage,
-
     bio: [
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+      "As the Co-Founder of Scaalable, Tamal Gupta brings a strong passion for building modern, scalable web applications that solve real business problems. With expertise in full-stack development and a focus on clean architecture, performance, and user experience, he plays a key role in transforming ideas into reliable digital products.",
 
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+      "Working closely with the founder, he helps businesses streamline their digital presence by developing secure, high-performance solutions tailored to their unique needs. His commitment to quality, collaboration, and continuous innovation ensures that every project delivered by Scaalable meets the highest standards.",
     ],
-
-    stats: [
-      {
-        label: "Experience",
-        value: "2+ Years",
-      },
-
-      {
-        label: "Projects",
-        value: "12+",
-      },
-
-      {
-        label: "Commitment",
-        value: "100%",
-      },
-    ],
-
-    technologies: ["React", "Node.js", "MongoDB", "Docker", "AWS"],
-
     socials: {
-      github: "#",
-      linkedin: "#",
-      email: "hello@scaalable.com",
+      instagram: "https://www.instagram.com/gupta_tamal",
+      facebook: "https://www.facebook.com/tamal.gupta.14",
+      linkedin: "https://www.linkedin.com/in/tamal-gupta-us60",
+      email: "mailto:tamal@scaalable.com",
     },
   },
 ];

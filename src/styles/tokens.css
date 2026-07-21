@@ -43,6 +43,12 @@
     rgba(0, 130, 249, 0.18),
     transparent 75%
   );
+  --gradient-brand-soft-circle: radial-gradient(
+    circle,
+    rgba(185, 63, 251, 0.18) 0%,
+    rgba(137, 57, 250, 0.14) 45%,
+    rgba(0, 130, 249, 0.1) 100%
+  );
 
   /* ========================================================================
      2. NEUTRAL PALETTE

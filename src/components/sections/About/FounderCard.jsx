@@ -1,97 +1,49 @@
 import "./About.css";
 
-import { FaGithub, FaLinkedin } from "react-icons/fa6";
+import { FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa6";
 import { HiOutlineMail } from "react-icons/hi";
 
 function FounderCard({ founder }) {
   return (
     <article className="founder-card">
-      {/* Left Side */}
-      <div className="founder-card__image-wrapper">
-        <img
-          src={founder.image}
-          alt={founder.name}
-          className="founder-card__image"
-        />
-
-        <div className="founder-card__overlay">
-          <h3 className="founder-card__name">{founder.name}</h3>
-
-          <p className="founder-card__role">{founder.role}</p>
+      {/* Left */}
+      <div className="founder-card__left">
+        <div className="founder-card__circle">
+          <img
+            src={founder.image}
+            alt={founder.name}
+            loading="lazy"
+            decoding="async"
+            className="founder-card__image"
+          />
         </div>
       </div>
 
-      {/* Right Side */}
-      <div className="founder-card__content">
-        {/* Header */}
-        <header className="founder-card__header">
-          <h3 className="founder-card__heading">Hi, I'm {founder.name} 👋</h3>
+      {/* Right */}
+      <div className="founder-card__right">
+        <h2 className="founder-card__name">{founder.name}</h2>
 
-          <p className="founder-card__subtitle">{founder.role}</p>
-        </header>
+        <p className="founder-card__role">{founder.role}</p>
 
-        {/* Story */}
-        <div className="founder-card__story">
+        <div className="founder-card__bio">
           {founder.bio.map((paragraph, index) => (
             <p key={index}>{paragraph}</p>
           ))}
         </div>
 
-        {/* Quote */}
-        <blockquote className="founder-card__quote">
-          <p>"{founder.quote}"</p>
-
-          <footer>— {founder.name}</footer>
-        </blockquote>
-
-        {/* Stats */}
-        {/* Stats */}
-        <div className="founder-card__stats">
-          {founder.stats.map((stat) => (
-            <article key={stat.label} className="founder-card__stat">
-              <h4 className="founder-card__stat-value">{stat.value}</h4>
-
-              <p className="founder-card__stat-label">{stat.label}</p>
-            </article>
-          ))}
-        </div>
-
-        {/* Technologies */}
-        <div className="founder-card__technologies">
-          {founder.technologies.map((tech) => (
-            <span key={tech} className="founder-card__tech">
-              {tech}
-            </span>
-          ))}
-        </div>
-
-        {/* Social Links */}
         <div className="founder-card__socials">
-          <a
-            href={founder.socials.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="GitHub"
-            className="founder-card__social"
-          >
-            <FaGithub />
-          </a>
-
-          <a
-            href={founder.socials.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="LinkedIn"
-            className="founder-card__social"
-          >
+          <a href={founder.socials.linkedin} target="_blank" rel="noreferrer">
             <FaLinkedin />
           </a>
 
-          <a
-            href={founder.socials.email}
-            aria-label="Email"
-            className="founder-card__social"
-          >
+          <a href={founder.socials.instagram} target="_blank" rel="noreferrer">
+            <FaInstagram />
+          </a>
+          <a href={founder.socials.facebook} target="_blank" rel="noreferrer">
+            <FaFacebook />
+          </a>
+
+          <a href={founder.socials.email}>
             <HiOutlineMail />
           </a>
         </div>
