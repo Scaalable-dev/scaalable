@@ -177,6 +177,9 @@
   visibility: visible;
   pointer-events: auto;
 }
+.mobile-menu__links .navbar__item {
+  width: 100%;
+}
 
 /* ==========================================================================
    MOBILE DRAWER
@@ -272,7 +275,16 @@
 }
 
 .mobile-menu__links .navbar__link {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+
+  padding: var(--space-4) var(--space-2);
+
   font-size: 1.05rem;
+
+  border-radius: var(--radius-md);
 }
 
 /* ==========================================================================
