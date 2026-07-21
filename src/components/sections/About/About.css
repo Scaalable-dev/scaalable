@@ -420,7 +420,7 @@
 
   max-width: 540px;
 
-  aspect-ratio: 5/6;
+  aspect-ratio: 15/17;
 
   object-fit: cover;
 
@@ -952,7 +952,7 @@
 
     margin: 0;
 
-    aspect-ratio: 16 / 10;
+    aspect-ratio: 16/10;
   }
 
   .story__title {
