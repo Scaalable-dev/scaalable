@@ -5,7 +5,8 @@ import { Mail, Phone, MapPin, Clock } from "lucide-react";
 import SectionHeading from "../../ui/SectionHeading";
 
 const Contact = () => {
-  const [state, handleSubmit] = useForm("meeygjda");
+  const formId = import.meta.env.VITE_FORMSPREE_FORM_ID;
+  const [state, handleSubmit] = useForm(formId);
 
   return (
     <section className="contact-page" id="contact">
