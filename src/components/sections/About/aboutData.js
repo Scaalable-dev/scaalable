@@ -22,7 +22,7 @@ export const aboutHero = {
   title: "More Than a Development Agency. Your Technology Partner.",
 
   description:
-    "We help businesses turn ideas into scalable digital products through thoughtful design, modern technology, and long-term collaboration.",
+    "Scaalable help startups and businesses build modular websites, web applications, e-commerce platforms, and AI-powered digital solutions using modern technologies, thoughtful design, and reliable development.",
   image: aboutHeroImage,
 };
 
@@ -62,7 +62,7 @@ export const values = [
     icon: Sparkles,
     title: "Modern Technology",
     description:
-      "We build scalable applications using modern technologies that are fast, secure, and future-ready.",
+      "We build modular applications using modern technologies that are fast, secure, and future-ready.",
   },
 
   {
@@ -107,7 +107,7 @@ export const features = {
     {
       id: 3,
       icon: Code2,
-      title: "Clean & Scalable Code",
+      title: "Clean & Modular Code",
       description: "We write maintainable code that grows with your business.",
     },
 
@@ -194,7 +194,7 @@ export const founders = [
     role: "Co-Founder",
     image: coFounderImage,
     bio: [
-      "As the Co-Founder of Scaalable, Tamal Gupta brings a strong passion for building modern, scalable web applications that solve real business problems. With expertise in full-stack development and a focus on clean architecture, performance, and user experience, he plays a key role in transforming ideas into reliable digital products.",
+      "As the Co-Founder of Scaalable, Tamal Gupta brings a strong passion for building modern, modular web applications that solve real business problems. With expertise in full-stack development and a focus on clean architecture, performance, and user experience, he plays a key role in transforming ideas into reliable digital products.",
 
       "Working closely with the founder, he helps businesses streamline their digital presence by developing secure, high-performance solutions tailored to their unique needs. His commitment to quality, collaboration, and continuous innovation ensures that every project delivered by Scaalable meets the highest standards.",
     ],
