@@ -4,7 +4,7 @@ const heroData = {
   title: "Build Modern Digital Products That Grow Your Business.",
 
   description:
-    "We help startups and businesses build high-performance websites, SaaS platforms, AI-powered applications, and custom software that drive measurable growth.",
+    "Scaalable helps startups and businesses build high-performance websites, SaaS platforms, AI-powered applications, and custom software that drive measurable growth.",
 
   primaryButton: {
     text: "Get a Quote",

@@ -15,19 +15,7 @@ const HeroContent = () => {
         <a href={heroData.primaryButton.href}>
           <Button>{heroData.primaryButton.text}</Button>
         </a>
-        {/* <a href={heroData.secondaryButton.href}>
-          <Button variant="outline">{heroData.secondaryButton.text}</Button>
-        </a> */}
       </div>
-
-      {/* <div className="hero__stats">
-        {heroData.stats.map((item) => (
-          <div className="hero__stat" key={item.label}>
-            <h3>{item.value}</h3>
-            <span>{item.label}</span>
-          </div>
-        ))}
-      </div> */}
     </div>
   );
 };
