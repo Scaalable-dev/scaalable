@@ -97,13 +97,13 @@ export const socialLinks = [
     id: 1,
     icon: FaGithub,
     title: "GitHub",
-    href: "https://github.com/yourusername",
+    href: "https://github.com/Scaalable-dev",
   },
   {
     id: 2,
     icon: FaLinkedin,
     title: "LinkedIn",
-    href: "https://linkedin.com/in/yourusername",
+    href: "https://www.linkedin.com/company/scaalable/",
   },
   {
     id: 3,
