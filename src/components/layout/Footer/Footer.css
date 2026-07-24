@@ -167,15 +167,23 @@
   gap: var(--space-6);
 }
 
-.footer__legal a {
+.footer__legal button {
+  padding: 0;
+
+  background: none;
+
+  border: none;
+
   color: var(--color-text-muted);
 
-  text-decoration: none;
+  font: inherit;
+
+  cursor: pointer;
 
   transition: color var(--transition-normal);
 }
 
-.footer__legal a:hover {
+.footer__legal button:hover {
   color: var(--color-brand-primary);
 }
 

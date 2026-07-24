@@ -1,0 +1,246 @@
+/* ==========================================================================
+   LEGAL MODAL
+   ========================================================================== */
+
+.legal-modal {
+  position: fixed;
+  inset: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: var(--space-6);
+
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(10px);
+
+  z-index: var(--z-modal);
+
+  animation: modal-fade 220ms ease;
+}
+
+.legal-modal__container {
+  display: flex;
+  flex-direction: column;
+
+  width: min(900px, 100%);
+  max-height: 90vh;
+
+  overflow: hidden;
+
+  background: var(--color-surface);
+
+  border: 1px solid var(--color-border-light);
+
+  border-radius: var(--radius-2xl);
+
+  box-shadow: var(--shadow-xl);
+
+  animation: modal-scale 250ms ease;
+}
+
+/* ==========================================================================
+   HEADER
+   ========================================================================== */
+
+.legal-modal__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: var(--space-6) var(--space-8);
+
+  background: var(--color-surface);
+
+  border-bottom: 1px solid var(--color-border-light);
+
+  position: sticky;
+  top: 0;
+
+  z-index: 2;
+}
+
+.legal-modal__header h2 {
+  margin: 0;
+
+  color: var(--color-text-primary);
+
+  font-size: 1.6rem;
+
+  font-weight: 700;
+}
+
+.legal-modal__close {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 44px;
+  height: 44px;
+
+  border: none;
+
+  border-radius: var(--radius-full);
+
+  background: transparent;
+
+  color: var(--color-text-secondary);
+
+  cursor: pointer;
+
+  transition:
+    background var(--transition-normal),
+    color var(--transition-normal),
+    transform var(--transition-normal);
+}
+
+.legal-modal__close:hover {
+  background: var(--color-surface-hover);
+
+  color: var(--color-brand-primary);
+
+  transform: rotate(90deg);
+}
+
+/* ==========================================================================
+   BODY
+   ========================================================================== */
+
+.legal-modal__body {
+  overflow-y: auto;
+
+  padding: var(--space-8);
+
+  scroll-behavior: smooth;
+}
+
+.legal-modal__updated {
+  margin-bottom: var(--space-5);
+}
+
+.legal-modal__body section:not(:last-child) {
+  margin-bottom: var(--space-5);
+}
+
+.legal-modal__body h3 {
+  margin: 0 0 var(--space-2);
+
+  color: var(--color-text-primary);
+
+  font-size: 1rem;
+
+  font-weight: 600;
+
+  line-height: 1.5;
+}
+.legal-modal__body p {
+  color: var(--color-text-secondary);
+
+  line-height: 1.9;
+
+  font-size: 1rem;
+}
+.legal-modal__body section {
+  padding-block: var(--space-2);
+}
+
+/* ==========================================================================
+   SCROLLBAR
+   ========================================================================== */
+
+.legal-modal__body::-webkit-scrollbar {
+  width: 8px;
+}
+
+.legal-modal__body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.legal-modal__body::-webkit-scrollbar-thumb {
+  background: var(--color-border-default);
+
+  border-radius: var(--radius-full);
+}
+
+.legal-modal__body::-webkit-scrollbar-thumb:hover {
+  background: var(--color-brand-primary);
+}
+
+/* ==========================================================================
+   ANIMATION
+   ========================================================================== */
+
+@keyframes modal-fade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modal-scale {
+  from {
+    opacity: 0;
+
+    transform: translateY(24px) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .legal-modal {
+    padding: var(--space-4);
+  }
+
+  .legal-modal__container {
+    max-height: 95vh;
+
+    border-radius: var(--radius-xl);
+  }
+
+  .legal-modal__header {
+    padding: var(--space-5);
+  }
+
+  .legal-modal__header h2 {
+    font-size: 1.3rem;
+  }
+
+  .legal-modal__body {
+    padding: var(--space-5);
+  }
+}
+
+@media (max-width: 480px) {
+  .legal-modal__header {
+    padding: var(--space-4);
+  }
+
+  .legal-modal__body {
+    padding: var(--space-4);
+  }
+
+  .legal-modal__header h2 {
+    font-size: 1.15rem;
+  }
+
+  .legal-modal__body h3 {
+    font-size: 1rem;
+  }
+
+  .legal-modal__body p {
+    font-size: 0.95rem;
+  }
+}
