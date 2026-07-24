@@ -98,7 +98,7 @@ export const socialLinks = [
     id: 1,
     icon: FaGithub,
     title: "GitHub",
-    href: "#home",
+    href: "https://github.com/Scaalable-dev",
   },
   {
     id: 2,
