@@ -1,13 +1,15 @@
-import navLinks from "./navLinks.js";
+import { NavLink } from "react-router-dom";
 
-const NavLinks = ({ onLinkClick = () => {} }) => {
+import navLinks from "./navLinks";
+
+const NavLinks = ({ onLinkClick }) => {
   return (
     <>
       {navLinks.map(({ id, label, href }) => (
         <li key={id} className="navbar__item">
-          <a href={href} className="navbar__link" onClick={onLinkClick}>
+          <NavLink to={href} onClick={onLinkClick} className="navbar__link">
             {label}
-          </a>
+          </NavLink>
         </li>
       ))}
     </>

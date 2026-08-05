@@ -2,17 +2,17 @@ const navLinks = [
   {
     id: 1,
     label: "Home",
-    href: "#",
+    href: "/",
   },
   {
     id: 2,
     label: "Who We Help",
-    href: "#who-we-help",
+    href: "/who-we-help",
   },
   {
     id: 3,
     label: "Services",
-    href: "#services",
+    href: "/services",
   },
   // {
   //   id: 5,
@@ -27,12 +27,12 @@ const navLinks = [
   {
     id: 5,
     label: "Contact",
-    href: "#contact",
+    href: "/contact",
   },
   {
     id: 6,
     label: "About",
-    href: "#about",
+    href: "/about",
   },
 ];
 
