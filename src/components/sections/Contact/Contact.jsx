@@ -1,10 +1,10 @@
 import "./Contact.css";
-import "./Toast.css";
 
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { Mail, Phone, MapPin, Clock, CheckCircle2 } from "lucide-react";
+import { Mail, Phone, MapPin, Clock } from "lucide-react";
 
+import Toast from "../../ui/Toast";
 import SectionHeading from "../../ui/SectionHeading";
 
 const Contact = () => {
@@ -37,29 +37,31 @@ const Contact = () => {
       form.reset();
 
       toast.custom(
-        () => (
-          <div className="toast">
-            <div className="toast__icon">
-              <CheckCircle2 size={22} strokeWidth={2.5} />
-            </div>
-
-            <div className="toast__body">
-              <h4>Message Sent Successfully</h4>
-
-              <p>We'll get back to you within 24 hours.</p>
-            </div>
-
-            <div className="toast__progress" />
-          </div>
+        (t) => (
+          <Toast
+            t={t}
+            title="Message Sent Successfully"
+            message="We'll get back to you within 24 hours."
+            duration={4000}
+          />
         ),
-        {
-          duration: 4000,
-        },
+        { duration: 4000 },
       );
     } catch (error) {
-      toast.error("Something went wrong. Please try again.", {
-        duration: 4000,
-      });
+      /* Custom rather than toast.error: the global Toaster strips background,
+         padding and shadow, so the built-in toast renders unstyled. */
+      toast.custom(
+        (t) => (
+          <Toast
+            t={t}
+            variant="error"
+            title="Message Not Sent"
+            message="Something went wrong. Please try again, or email us directly."
+            duration={5000}
+          />
+        ),
+        { duration: 5000 },
+      );
 
       console.error(error);
     } finally {

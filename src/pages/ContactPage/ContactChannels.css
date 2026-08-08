@@ -1,0 +1,220 @@
+/* ==========================================================================
+   CONTACT — DIRECT CHANNELS
+   ========================================================================== */
+
+/* Picks up exactly where the hero gradient lands, holds the tint through the
+   cards, then releases back to white before the footer's margin gap. */
+.channels {
+  background: linear-gradient(
+    180deg,
+    var(--color-surface-hover) 0%,
+    var(--color-surface-hover) 62%,
+    var(--color-background) 100%
+  );
+}
+
+.channels__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+
+  gap: var(--space-5);
+
+  align-items: stretch;
+}
+
+/* ==========================================================================
+   CARD
+   The whole card is the link, so the entire surface is clickable.
+   ========================================================================== */
+
+.channel-card {
+  position: relative;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+
+  height: 100%;
+
+  padding: var(--space-6);
+
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-xl);
+
+  background: var(--color-surface);
+
+  box-shadow: var(--shadow-xs);
+
+  color: inherit;
+  text-decoration: none;
+
+  transition:
+    transform var(--transition-normal),
+    border-color var(--transition-normal),
+    box-shadow var(--transition-normal);
+}
+
+/* Top accent, revealed on hover */
+.channel-card::before {
+  content: "";
+
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+
+  height: 3px;
+
+  background: var(--gradient-brand);
+
+  transform: scaleX(0);
+  transform-origin: left;
+
+  transition: transform var(--transition-normal);
+}
+
+.channel-card:hover {
+  transform: translateY(-6px);
+
+  border-color: rgba(0, 130, 249, 0.24);
+
+  box-shadow: var(--shadow-lg);
+}
+
+.channel-card:hover::before {
+  transform: scaleX(1);
+}
+
+.channel-card:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 3px;
+}
+
+/* ==========================================================================
+   ICON
+   ========================================================================== */
+
+.channel-card__icon {
+  display: grid;
+  place-items: center;
+
+  width: 48px;
+  height: 48px;
+
+  margin-bottom: var(--space-5);
+
+  border-radius: var(--radius-md);
+
+  background: var(--color-brand-soft);
+
+  color: var(--color-brand-primary);
+
+  transition:
+    background var(--transition-normal),
+    color var(--transition-normal),
+    transform var(--transition-normal);
+}
+
+.channel-card:hover .channel-card__icon {
+  background: var(--gradient-brand);
+
+  color: var(--color-text-white);
+
+  transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   CONTENT
+   ========================================================================== */
+
+.channel-card__title {
+  margin: 0 0 var(--space-2);
+
+  color: var(--color-text-primary);
+
+  font-size: 1.05rem;
+  font-weight: 650;
+
+  line-height: 1.3;
+}
+
+.channel-card__value {
+  margin-bottom: var(--space-3);
+
+  color: var(--color-brand-primary);
+
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+
+  /* Long emails and numbers must not widen the grid column. */
+  overflow-wrap: anywhere;
+}
+
+.channel-card__description {
+  /* Pushes the action link to the bottom, so all four align. */
+  flex: 1;
+
+  margin: 0 0 var(--space-5);
+
+  color: var(--color-text-secondary);
+
+  font-size: 0.875rem;
+  line-height: 1.7;
+}
+
+.channel-card__action {
+  display: inline-flex;
+  align-items: center;
+
+  gap: var(--space-2);
+
+  color: var(--color-brand-primary);
+
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+}
+
+.channel-card__action svg {
+  transition: transform var(--transition-normal);
+}
+
+.channel-card:hover .channel-card__action svg {
+  transform: translateX(4px);
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+
+@media (max-width: 1100px) {
+  .channels__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 576px) {
+  .channels__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .channel-card {
+    padding: var(--space-5);
+  }
+}
+
+/* ==========================================================================
+   REDUCED MOTION
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .channel-card,
+  .channel-card::before,
+  .channel-card__icon,
+  .channel-card__action svg {
+    transition: none;
+  }
+
+  .channel-card:hover {
+    transform: none;
+  }
+}

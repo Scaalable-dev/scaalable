@@ -1,0 +1,225 @@
+/* ==========================================================================
+   CONTACT — HEADQUARTERS
+   ========================================================================== */
+
+/* Fades in from the white section above and back out before the footer, so
+   neither boundary shows a hard colour step. */
+.office {
+  background: linear-gradient(
+    180deg,
+    var(--color-background) 0%,
+    var(--color-surface-hover) 16%,
+    var(--color-surface-hover) 84%,
+    var(--color-background) 100%
+  );
+}
+
+.office__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+
+  gap: var(--space-6);
+
+  align-items: stretch;
+}
+
+/* ==========================================================================
+   MAP
+   ========================================================================== */
+
+.office__map {
+  position: relative;
+  overflow: hidden;
+
+  min-height: 420px;
+
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-2xl);
+
+  background: var(--color-surface-secondary);
+
+  box-shadow: var(--shadow-md);
+}
+
+.office__map-frame {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  border: 0;
+}
+
+/* ==========================================================================
+   DETAILS CARD
+   ========================================================================== */
+
+.office__card {
+  display: flex;
+  flex-direction: column;
+
+  padding: var(--space-8) var(--space-6);
+
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-2xl);
+
+  background: var(--color-surface);
+
+  box-shadow: var(--shadow-md);
+}
+
+.office__card-title {
+  margin: 0 0 var(--space-6);
+
+  color: var(--color-text-primary);
+
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+
+.office__details {
+  display: flex;
+  flex-direction: column;
+
+  gap: var(--space-6);
+
+  /* Pushes the CTA to the bottom so the card matches the map's height. */
+  flex: 1;
+
+  margin: 0 0 var(--space-6);
+  padding: 0;
+
+  list-style: none;
+}
+
+.office__detail {
+  display: flex;
+  align-items: flex-start;
+
+  gap: var(--space-4);
+}
+
+.office__detail-icon {
+  display: grid;
+  place-items: center;
+
+  flex-shrink: 0;
+
+  width: 40px;
+  height: 40px;
+
+  border-radius: var(--radius-md);
+
+  background: var(--color-brand-soft);
+
+  color: var(--color-brand-primary);
+}
+
+.office__detail-body {
+  min-width: 0;
+}
+
+.office__detail-label {
+  margin: 0 0 var(--space-1);
+
+  color: var(--color-text-primary);
+
+  font-size: 0.95rem;
+  font-weight: 650;
+}
+
+.office__detail-line {
+  margin: 0;
+
+  color: var(--color-text-secondary);
+
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+   CTA
+   ========================================================================== */
+
+.office__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: var(--space-2);
+
+  padding: 0.95rem 1.5rem;
+
+  border-radius: var(--radius-lg);
+
+  background: var(--gradient-brand);
+
+  color: var(--color-text-white);
+
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+
+  text-align: center;
+
+  transition:
+    transform var(--transition-fast),
+    box-shadow var(--transition-normal);
+}
+
+.office__cta:hover {
+  transform: translateY(-2px);
+
+  color: var(--color-text-white);
+
+  box-shadow: var(--shadow-lg);
+}
+
+.office__cta:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 3px;
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+
+@media (max-width: 992px) {
+  .office__layout {
+    grid-template-columns: 1fr;
+  }
+
+  .office__map {
+    min-height: 0;
+
+    /* Ratio keeps the map usable once it spans the full width. */
+    aspect-ratio: 4 / 3;
+  }
+}
+
+@media (max-width: 576px) {
+  .office__map {
+    aspect-ratio: 1 / 1;
+  }
+
+  .office__card {
+    padding: var(--space-6) var(--space-5);
+  }
+
+  .office__cta {
+    padding: 0.9rem 1rem;
+  }
+}
+
+/* ==========================================================================
+   REDUCED MOTION
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .office__cta {
+    transition: none;
+  }
+
+  .office__cta:hover {
+    transform: none;
+  }
+}

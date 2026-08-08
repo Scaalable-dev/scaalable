@@ -1,0 +1,142 @@
+/* ==========================================================================
+   CONTACT — HERO
+   ========================================================================== */
+
+.contact-hero {
+  position: relative;
+  overflow: hidden;
+
+  isolation: isolate;
+
+  background:
+    radial-gradient(
+      circle at 12% 18%,
+      rgba(0, 130, 249, 0.14),
+      transparent 42%
+    ),
+    radial-gradient(
+      circle at 88% 12%,
+      rgba(185, 63, 251, 0.12),
+      transparent 44%
+    ),
+    /* Settles on the channels section's colour so the two meet without a seam. */
+    linear-gradient(
+      180deg,
+      #ffffff 0%,
+      #f8fbff 55%,
+      var(--color-surface-hover) 100%
+    );
+}
+
+.contact-hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+
+  align-items: center;
+
+  gap: clamp(3rem, 6vw, 5.5rem);
+}
+
+/* ==========================================================================
+   LEFT — CONTENT
+   ========================================================================== */
+
+.contact-hero__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  gap: var(--space-6);
+
+  min-width: 0;
+}
+
+.contact-hero__title {
+  max-width: 20ch;
+
+  font-size: clamp(2.4rem, 4vw, 3.5rem);
+
+  line-height: 1.12;
+
+  letter-spacing: -0.04em;
+}
+
+.contact-hero__title-gradient {
+  /* Own line, so the hyphen in "AI-powered" never becomes a line break. */
+  display: block;
+
+  background: var(--gradient-brand);
+
+  background-clip: text;
+  -webkit-background-clip: text;
+
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+.contact-hero__description {
+  display: flex;
+  flex-direction: column;
+
+  gap: var(--space-4);
+
+  max-width: 62ch;
+}
+
+.contact-hero__description p {
+  margin: 0;
+
+  color: var(--color-text-secondary);
+
+  line-height: 1.8;
+}
+
+.contact-hero__actions {
+  margin-top: var(--space-2);
+}
+
+/* ==========================================================================
+   RIGHT — VISUAL
+   ========================================================================== */
+
+.contact-hero__visual {
+  display: flex;
+  justify-content: center;
+
+  min-width: 0;
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+
+@media (max-width: 992px) {
+  .contact-hero__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-hero__content {
+    align-items: center;
+
+    text-align: center;
+  }
+
+  .contact-hero__title,
+  .contact-hero__description {
+    max-width: 100%;
+
+    margin-inline: auto;
+  }
+
+  /* Visual sits below the copy once stacked. */
+  .contact-hero__visual {
+    order: 2;
+  }
+}
+
+@media (max-width: 576px) {
+  .contact-hero__actions,
+  .contact-hero__actions .btn {
+    width: 100%;
+  }
+}
