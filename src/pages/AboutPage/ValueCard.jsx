@@ -4,7 +4,7 @@ const ValueCard = ({ value }) => {
   const Icon = value.icon;
 
   return (
-    <article className="value-card">
+    <article className="value-card" data-accent={value.accent}>
       <div className="value-card__icon-box">
         <Icon className="value-card__icon" strokeWidth={1.8} />
       </div>

@@ -117,6 +117,131 @@
   margin-top: 1.5rem;
 }
 
+.about-hero__actions {
+  display: flex;
+
+  align-items: center;
+  justify-content: flex-start;
+
+  flex-wrap: wrap;
+  gap: 1.25rem;
+
+  margin-top: 2rem;
+}
+
+.about__track-record {
+  padding: 5rem 4rem;
+
+  border-radius: var(--radius-2xl);
+
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(185, 63, 251, 0.08),
+      transparent 45%
+    ),
+    radial-gradient(
+      circle at top right,
+      rgba(0, 130, 249, 0.06),
+      transparent 45%
+    ),
+    var(--color-surface-alt);
+
+  border: 1px solid var(--color-border-light);
+
+  box-shadow: var(--shadow-sm);
+}
+
+.about__track-record-header {
+  text-align: center;
+
+  max-width: 700px;
+
+  margin: 0 auto 3rem;
+}
+
+.about__track-record-title {
+  max-width: 700px;
+
+  margin: 1rem auto 0;
+
+  font-size: clamp(2rem, 3vw, 2.8rem);
+
+  line-height: 1.2;
+
+  letter-spacing: -0.03em;
+}
+
+.about__track-record-subtitle {
+  max-width: 640px;
+
+  margin: 1rem auto 0;
+
+  color: var(--color-text-secondary);
+
+  line-height: 1.8;
+}
+
+.about__track-record-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.stat-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 0.5rem;
+
+  padding: 2rem 1rem;
+
+  text-align: center;
+
+  background: var(--color-surface);
+
+  border: 1px solid var(--color-border-light);
+
+  border-radius: var(--radius-xl);
+
+  box-shadow: var(--shadow-xs);
+
+  transition:
+    transform 300ms ease,
+    border-color 300ms ease,
+    box-shadow 300ms ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-6px);
+
+  border-color: rgba(0, 130, 249, 0.22);
+
+  box-shadow: var(--shadow-md);
+}
+
+.stat-card__value {
+  font-size: clamp(1.7rem, 2.4vw, 2.3rem);
+  font-weight: 800;
+  line-height: 1;
+
+  background: var(--gradient-brand);
+
+  background-clip: text;
+  -webkit-background-clip: text;
+
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+.stat-card__label {
+  color: var(--color-text-secondary);
+
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
 .about__content {
   display: grid;
 
@@ -127,8 +252,6 @@
   gap: 6rem;
 
   align-items: start;
-
-  margin-top: 5rem;
 }
 /* ==========================================================================
    STORY
@@ -243,8 +366,6 @@
 ========================================== */
 
 .about__features {
-  margin-top: 7rem;
-
   padding: 5rem 4rem;
 
   border-radius: var(--radius-2xl);
@@ -358,9 +479,6 @@
    Story
 ========================================== */
 
-.about__story-section {
-  margin-top: 8rem;
-}
 
 .about__story-layout {
   display: grid;
@@ -431,10 +549,6 @@
 /* ==========================================
    VISION & MISSION
 ========================================== */
-
-/* .about__vision {
-  margin-top: var(--space-8);
-} */
 
 .about__vision-wrapper {
   display: grid;
@@ -564,13 +678,43 @@
 }
 
 /* ==========================================================================
+   CORE VALUES
+   ========================================================================== */
+
+
+.about__core-values-header {
+  text-align: center;
+
+  max-width: 700px;
+
+  margin: 0 auto 4rem;
+}
+
+.about__core-values-title {
+  max-width: 700px;
+
+  margin: 1rem auto 0;
+
+  font-size: clamp(2rem, 3vw, 2.8rem);
+
+  line-height: 1.2;
+
+  letter-spacing: -0.03em;
+}
+
+.about__core-values-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2rem;
+}
+
+/* ==========================================================================
    FOUNDER
 ========================================================================== */
 
 .founders {
-  margin-top: var(--space-32);
-
-  padding: var(--space-5);
+  padding-block: 5rem;
+  padding-inline: var(--space-5);
 
   border-radius: var(--radius-2xl);
 
@@ -862,6 +1006,59 @@
 
   background: var(--color-brand-primary);
 }
+
+/* ==========================================================================
+   CTA BANNER
+   ========================================================================== */
+
+.about__cta {
+  margin-top: var(--space-32);
+
+  padding: 5rem 3rem;
+
+  border-radius: var(--radius-2xl);
+
+  background: var(--gradient-brand);
+
+  text-align: center;
+}
+
+.about__cta-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 1.25rem;
+
+  max-width: 720px;
+
+  margin: 0 auto;
+}
+
+.about__cta-title {
+  color: var(--color-text-white);
+
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+
+  line-height: 1.2;
+
+  letter-spacing: -0.03em;
+}
+
+.about__cta-description {
+  margin: 0;
+
+  color: rgba(255, 255, 255, 0.85);
+
+  font-size: 1rem;
+
+  line-height: 1.8;
+}
+
+.about__cta .btn {
+  margin-top: 0.5rem;
+}
+
 /* ==========================================================================
    RESPONSIVE
    ========================================================================== */
@@ -874,6 +1071,14 @@
 
   .about__values {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .about__core-values-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .about__track-record-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
@@ -899,6 +1104,10 @@
     margin-inline: auto;
   }
 
+  .about-hero__actions {
+    justify-content: center;
+  }
+
   .about__hero-image {
     max-width: 100%;
     width: 100%;
@@ -911,6 +1120,18 @@
 
   .about__features {
     padding: 4rem 2rem;
+  }
+
+  .about__track-record {
+    padding: 4rem 2rem;
+  }
+
+  .founders {
+    padding-block: 4rem;
+  }
+
+  .about__cta {
+    margin-top: var(--space-16);
   }
 
   .about__features-grid {
@@ -986,8 +1207,18 @@
 }
 
 @media (max-width: 768px) {
-  .about__content {
-    margin-top: 3rem;
+  .about-hero__actions {
+    width: 100%;
+
+    flex-direction: column;
+  }
+
+  .about-hero__actions > * {
+    width: 100%;
+  }
+
+  .about-hero__actions .btn {
+    width: 100%;
   }
 
   .about__story-title {
@@ -996,6 +1227,24 @@
 
   .about__values {
     grid-template-columns: 1fr;
+  }
+
+  .about__core-values-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about__track-record-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .about__cta {
+    margin-top: 3rem;
+
+    padding: 3rem 1.5rem;
+  }
+
+  .founders {
+    padding-block: 3rem;
   }
 
   .about__quote {

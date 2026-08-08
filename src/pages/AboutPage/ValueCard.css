@@ -3,6 +3,13 @@
    ========================================================================== */
 
 .value-card {
+  --value-accent: var(--color-brand-primary);
+  --value-accent-soft: rgba(0, 130, 249, 0.12);
+  --value-accent-border: rgba(0, 130, 249, 0.28);
+
+  position: relative;
+  overflow: hidden;
+
   display: flex;
   flex-direction: column;
 
@@ -26,11 +33,87 @@
     box-shadow 300ms ease;
 }
 
+.value-card[data-accent="purple"] {
+  --value-accent: var(--color-brand-secondary);
+  --value-accent-soft: rgba(137, 57, 250, 0.12);
+  --value-accent-border: rgba(137, 57, 250, 0.28);
+}
+
+.value-card[data-accent="magenta"] {
+  --value-accent: var(--color-brand-accent);
+  --value-accent-soft: rgba(185, 63, 251, 0.12);
+  --value-accent-border: rgba(185, 63, 251, 0.28);
+}
+
+/* ==========================================================================
+   DECORATIVE GLOW
+   ========================================================================== */
+
+.value-card::before {
+  content: "";
+
+  position: absolute;
+
+  top: -70px;
+  right: -70px;
+
+  width: 160px;
+  height: 160px;
+
+  border-radius: 50%;
+
+  background: radial-gradient(circle, var(--value-accent-soft), transparent 70%);
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  transition:
+    opacity 300ms ease,
+    transform 400ms ease;
+}
+
+.value-card:hover::before {
+  opacity: 1;
+
+  transform: scale(1.15);
+}
+
+/* ==========================================================================
+   BOTTOM ACCENT BAR
+   ========================================================================== */
+
+.value-card::after {
+  content: "";
+
+  position: absolute;
+
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  height: 3px;
+
+  background: var(--value-accent);
+
+  transform: scaleX(0);
+  transform-origin: left;
+
+  transition: transform 300ms ease;
+}
+
+.value-card:hover::after {
+  transform: scaleX(1);
+}
+
 /* ==========================================================================
    ICON
    ========================================================================== */
 
 .value-card__icon-box {
+  position: relative;
+  z-index: 1;
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -42,24 +125,21 @@
 
   border-radius: 18px;
 
-  background: linear-gradient(
-    135deg,
-    rgba(99, 102, 241, 0.08),
-    rgba(168, 85, 247, 0.05)
-  );
+  background: linear-gradient(135deg, var(--value-accent-soft), transparent);
 
-  border: 1px solid rgba(99, 102, 241, 0.08);
+  border: 1px solid var(--value-accent-border);
 
   transition:
     transform 300ms ease,
-    background 300ms ease;
+    background 300ms ease,
+    border-color 300ms ease;
 }
 
 .value-card__icon {
   width: 34px;
   height: 34px;
 
-  color: var(--color-primary);
+  color: var(--value-accent);
 
   transition: transform 300ms ease;
 }
@@ -69,6 +149,9 @@
    ========================================================================== */
 
 .value-card__content {
+  position: relative;
+  z-index: 1;
+
   flex: 1;
 }
 
@@ -80,6 +163,8 @@
   font-size: 1.2rem;
 
   line-height: 1.3;
+
+  transition: color 300ms ease;
 }
 
 .value-card__description {
@@ -95,9 +180,9 @@
    ========================================================================== */
 
 .value-card:hover {
-  transform: translateY(-6px);
+  transform: translateY(-8px);
 
-  border-color: rgba(99, 102, 241, 0.16);
+  border-color: var(--value-accent-border);
 
   box-shadow:
     0 15px 35px rgba(15, 23, 42, 0.08),
@@ -105,11 +190,17 @@
 }
 
 .value-card:hover .value-card__icon-box {
-  transform: translateY(-3px);
+  transform: translateY(-3px) scale(1.06);
+
+  background: linear-gradient(135deg, var(--value-accent-soft), var(--value-accent-soft));
 }
 
 .value-card:hover .value-card__icon {
-  transform: scale(1.08);
+  transform: scale(1.1) rotate(-6deg);
+}
+
+.value-card:hover .value-card__title {
+  color: var(--value-accent);
 }
 
 /* ==========================================================================

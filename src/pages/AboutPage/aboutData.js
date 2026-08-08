@@ -10,6 +10,10 @@ import {
   Users,
   Target,
   Eye,
+  Lightbulb,
+  Award,
+  Palette,
+  TrendingUp,
 } from "lucide-react";
 import founderImage from "../../assets/images/founder.png";
 import coFounderImage from "../../assets/images/coFounder.png";
@@ -22,18 +26,17 @@ export const aboutHero = {
   title: "More Than a Development Agency. Your Technology Partner.",
 
   description:
-    "Scaalable help startups and businesses build modular websites, web applications, e-commerce platforms, and AI-powered digital solutions using modern technologies, thoughtful design, and reliable development.",
+    "Scaalable is a comprehensive technology solution and digital growth firm providing startups, SMEs, and enterprises with a wide range of services related to designing effective digital products, creating highly scalable software, implementing intelligent automation, and devising performance-based marketing strategies. These include customized software solutions, enterprise web applications, branding services, search engine optimization, AI automation, cloud solutions, and paid advertising.",
   image: aboutHeroImage,
 };
 
 export const aboutCompany = {
-  eyebrow: "About Company",
+  eyebrow: "About Scaalable",
 
-  title:
-    "We build software that helps businesses grow—not just websites that look good.",
+  title: "More Than a Development Agency. Your Technology Partner.",
 
   paragraphs: [
-    ' "Scaalable" is dedicated to providing businesses worldwide, regardless of being startups, SMEs, or multinational enterprises, access to high-end digital solutions which contribute to their development.',
+    `"Scaalable" is dedicated to providing businesses worldwide, regardless of being startups, SMEs, or multinational enterprises, access to high-end digital solutions which contribute to their development."`,
 
     "Being a full-service Digital Marketing & IT Solutions Company”, Scaalable aims at assisting businesses in creating, growing, and scaling up their digital presence through such services as websites building, brand development, performance marketing, SEO, social media marketing, software development, artificial intelligence solutions for business, cloud services, and automation of businesses.",
 
@@ -83,7 +86,7 @@ export const values = [
 ];
 
 export const features = {
-  badge: "What Sets Us Apart?",
+  badge: "What Sets Scaalable Apart?",
 
   title:
     "We combine strategy, design, and technology to deliver real business impact.",
@@ -157,7 +160,7 @@ export const visionMission = {
       icon: Eye,
       title: "Our Vision",
       description:
-        "We aim to become a globally trusted partner in digital transformation by helping all kinds of organizations make use of technology to achieve sustainability.",
+        "Scaalable aims to become a globally trusted partner in digital transformation by helping all kinds of organizations make use of technology to achieve sustainability.",
     },
 
     {
@@ -165,9 +168,104 @@ export const visionMission = {
       icon: Target,
       title: "Our Mission",
       description:
-        "Our mission is to facilitate business growth in the world by providing cutting-edge digital marketing and IT services which generate value in the long run.",
+        "Scaalable mission is to facilitate business growth in the world by providing cutting-edge digital marketing and IT services which generate value in the long run.",
     },
   ],
+};
+
+export const coreValues = {
+  badge: "Core Values",
+
+  title: "Principles That Drive Everything We Do",
+
+  items: [
+    {
+      id: 1,
+      icon: Lightbulb,
+      accent: "blue",
+      title: "Innovation",
+      description:
+        "We continuously explore modern technologies, AI tools, and industry best practices to build future-ready digital solutions.",
+    },
+
+    {
+      id: 2,
+      icon: Eye,
+      accent: "purple",
+      title: "Transparency",
+      description:
+        "We believe successful partnerships are built on honest communication, clear expectations, and complete project visibility.",
+    },
+
+    {
+      id: 3,
+      icon: Award,
+      accent: "magenta",
+      title: "Quality",
+      description:
+        "Every website, campaign, design, and software solution is developed with attention to detail, performance, security, and long-term maintainability.",
+    },
+
+    {
+      id: 4,
+      icon: Palette,
+      accent: "blue",
+      title: "Creativity",
+      description:
+        "Creative thinking helps businesses stand out. We design meaningful experiences that connect brands with their audiences.",
+    },
+
+    {
+      id: 5,
+      icon: Handshake,
+      accent: "purple",
+      title: "Partnership",
+      description:
+        "Our clients are more than customers—they are long-term partners. We work collaboratively to support their business objectives.",
+    },
+
+    {
+      id: 6,
+      icon: TrendingUp,
+      accent: "magenta",
+      title: "Growth",
+      description:
+        "Every decision we make is focused on helping businesses increase revenue, improve efficiency, and achieve measurable digital growth.",
+    },
+  ],
+};
+
+export const trackRecord = {
+  badge: "Track Record",
+
+  title: "Company Achievements",
+
+  subtitle:
+    "Numbers that showcase our commitment to excellence and client growth.",
+
+  stats: [
+    { id: 1, value: "10+", label: "Project Delivery" },
+    { id: 2, value: "99%", label: "Happy Clients" },
+    { id: 3, value: "20+", label: "Industries Served" },
+    { id: 4, value: "10+", label: "Years of Experience" },
+    { id: 5, value: "20+", label: "Countries Served" },
+    { id: 6, value: "99%", label: "Client Satisfaction" },
+  ],
+};
+
+export const ctaBanner = {
+  title: "Let's Build Something That Grows Your Business",
+
+  paragraphs: [
+    "Whether you're launching a new startup, redesigning your website, improving your digital marketing, or exploring AI-powered automation, Scaalable is ready to help.",
+
+    "Let's create digital experiences that attract customers, strengthen your brand, and support sustainable business growth.",
+  ],
+
+  cta: {
+    text: "Book Free Strategy Call",
+    href: "/contact",
+  },
 };
 
 export const founders = [

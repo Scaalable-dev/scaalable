@@ -1,16 +1,23 @@
 import "./About.css";
+import { Link } from "react-router-dom";
 
 import ValueCard from "./ValueCard";
 import FounderCarousel from "./FounderCarousel";
 import Badge from "../../components/ui/Badge";
+import Button from "../../components/ui/Button";
 import {
   aboutHero,
   aboutCompany,
   values,
   features,
   visionMission,
+  coreValues,
+  trackRecord,
+  ctaBanner,
   story,
 } from "./aboutData";
+import WhoWeAre from "../../components/sections/WhoWeAre";
+import WhyChooseUs from "../../components/sections/WhyChooseUs";
 
 const About = () => {
   return (
@@ -25,13 +32,21 @@ const About = () => {
           <div className="about__hero-grid">
             <div className="about__hero-content">
               <h2 className="about__hero-title">
-                More Than a Development Agency. Your{" "}
-                <span className="about__hero-gradient">
-                  Technology Partner.
-                </span>
+                We Build Digital & IT Solutions That Scale Your Business{" "}
+                <span className="about__hero-gradient">Beyond Limits</span>
               </h2>
 
               <p className="about__hero-description">{aboutHero.description}</p>
+
+              <div className="about-hero__actions">
+                <Link to="/contact">
+                  <Button>Book Free Strategy Call</Button>
+                </Link>
+
+                <Link to="/services">
+                  <Button variant="outline">View Services</Button>
+                </Link>
+              </div>
             </div>
 
             <div className="about__hero-image">
@@ -40,8 +55,31 @@ const About = () => {
           </div>
         </section>
 
+        {/* ------------------------ Track Record ---------------------- */}
+        <section className="about__track-record">
+          <div className="about__track-record-header">
+            <Badge>{trackRecord.badge}</Badge>
+
+            <h3 className="about__track-record-title">{trackRecord.title}</h3>
+
+            <p className="about__track-record-subtitle">
+              {trackRecord.subtitle}
+            </p>
+          </div>
+
+          <div className="about__track-record-grid">
+            {trackRecord.stats.map((stat) => (
+              <div className="stat-card" key={stat.id}>
+                <span className="stat-card__value">{stat.value}</span>
+
+                <span className="stat-card__label">{stat.label}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+
         {/* ---------------------About The Company-------------------------------------- */}
-        <div className="about__content">
+        <section className="about__content">
           <div className="about__story">
             <span className="about__eyebrow">{aboutCompany.eyebrow}</span>
 
@@ -63,7 +101,7 @@ const About = () => {
               <ValueCard key={value.id} value={value} />
             ))}
           </div>
-        </div>
+        </section>
 
         {/* ------------------------what set us apart section----------------------------  */}
         <section className="about__features">
@@ -146,11 +184,51 @@ const About = () => {
           </div>
         </section>
 
+        {/* ------------------------ Core Values ---------------------- */}
+        <section className="about__core-values">
+          <div className="about__core-values-header">
+            <Badge>{coreValues.badge}</Badge>
+
+            <h3 className="about__core-values-title">{coreValues.title}</h3>
+          </div>
+
+          <div className="about__core-values-grid">
+            {coreValues.items.map((value) => (
+              <ValueCard key={value.id} value={value} />
+            ))}
+          </div>
+        </section>
+
+        {/* ------------------------ Who We Are ----------------------------  */}
+        <WhoWeAre />
+
+        {/* ------------------------ Why Choose Scaalable ------------------- */}
+        <WhyChooseUs />
+
         {/* ------------------------founders----------------------------  */}
         <section className="founders">
           <Badge>Introducing the Founder</Badge>
 
           <FounderCarousel />
+        </section>
+
+        {/* ------------------------ CTA Banner ---------------------- */}
+        <section className="about__cta">
+          <div className="about__cta-content">
+            <h3 className="about__cta-title">{ctaBanner.title}</h3>
+
+            {ctaBanner.paragraphs.map((paragraph, index) => (
+              <p key={index} className="about__cta-description">
+                {paragraph}
+              </p>
+            ))}
+
+            <Link to={ctaBanner.cta.href}>
+              <Button variant="light" size="lg">
+                {ctaBanner.cta.text}
+              </Button>
+            </Link>
+          </div>
         </section>
       </div>
     </section>
