@@ -1,0 +1,219 @@
+/* ==========================================================================
+   SERVICES — HERO
+
+   Background language matches the Home and Contact heroes: white base with
+   soft brand radial glows in the upper corners.
+   ========================================================================== */
+
+.service-hero {
+  position: relative;
+  overflow: hidden;
+
+  isolation: isolate;
+
+  /* Both gaps trimmed off the global section rhythm. The bottom pairs with
+     .cap's matching padding-top — together they halve the gap to Capabilities. */
+  padding-top: clamp(2.2rem, 4.5vw, 3.6rem);
+  padding-bottom: clamp(1.5rem, 3vw, 2.6rem);
+
+  /* Full-size layers only. Constraining these with background-size cuts the
+     radial falloff off mid-fade and draws a hard line across the section. */
+  background:
+    radial-gradient(
+      circle at 15% 18%,
+      rgba(0, 130, 249, 0.14),
+      transparent 42%
+    ),
+    radial-gradient(
+      circle at 85% 14%,
+      rgba(185, 63, 251, 0.13),
+      transparent 45%
+    ),
+    linear-gradient(180deg, #ffffff 0%, #f8fbff 58%, #f4f8ff 100%);
+}
+
+/* ==========================================================================
+   AMBIENT LAYERS
+   ========================================================================== */
+
+/* Slow drifting brand glow behind the copy. */
+.service-hero__glow {
+  position: absolute;
+  /* Anchored in pixels, not percentages: a percentage offset scales with the
+     section, so shortening the hero dragged the blurred edge down onto the
+     bottom boundary and tinted it purple against the section below. */
+  top: -260px;
+  left: 50%;
+
+  z-index: -1;
+
+  width: min(110%, 860px);
+  aspect-ratio: 1 / 1;
+
+  border-radius: 50%;
+
+  background: var(--gradient-brand-soft-circle);
+
+  /* 90px was measurably costly; 55px reads the same at this opacity. */
+  filter: blur(55px);
+
+  opacity: 0.5;
+
+  transform: translateX(-50%);
+
+  /* Deliberately static. Animating a 55px-blurred layer re-runs the blur every
+     frame; the drift was imperceptible and cost ~3.5fps. */
+
+  pointer-events: none;
+}
+
+/* Faint technical grid, fading out toward the edges. */
+.service-hero__grid {
+  position: absolute;
+  inset: 0;
+
+  z-index: -1;
+
+  background-image:
+    linear-gradient(rgba(15, 23, 42, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15, 23, 42, 0.035) 1px, transparent 1px);
+
+  background-size: 64px 64px;
+
+  mask-image: radial-gradient(
+    ellipse 70% 60% at 50% 45%,
+    #000 25%,
+    transparent 75%
+  );
+  -webkit-mask-image: radial-gradient(
+    ellipse 70% 60% at 50% 45%,
+    #000 25%,
+    transparent 75%
+  );
+
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   CONTENT
+   ========================================================================== */
+
+.service-hero__grid-layout {
+  display: grid;
+  /* Copy column takes the larger share; the visual scales as one piece so it
+     stays legible in less width. */
+  grid-template-columns: minmax(0, 1.06fr) minmax(0, 0.94fr);
+
+  align-items: center;
+
+  /* Near-zero — the visual carries its own internal breathing room. */
+  gap: clamp(0.25rem, 0.8vw, 0.85rem);
+}
+
+.service-hero__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  gap: var(--space-6);
+
+  min-width: 0;
+
+  text-align: left;
+}
+
+.service-hero__visual {
+  min-width: 0;
+}
+
+.service-hero__title {
+  max-width: 21ch;
+
+  margin: 0;
+
+  color: var(--color-text-primary);
+
+  font-size: clamp(2.1rem, 4.4vw, 3.6rem);
+
+  line-height: 1.14;
+  letter-spacing: -0.035em;
+}
+
+.service-hero__description {
+  max-width: 62ch;
+
+  margin: 0;
+
+  color: var(--color-text-secondary);
+
+  font-size: clamp(0.975rem, 1.2vw, 1.1rem);
+  line-height: 1.8;
+}
+
+.service-hero__actions {
+  margin-top: var(--space-2);
+}
+
+/* ==========================================================================
+   CTA
+   ========================================================================== */
+
+.service-hero__actions .btn__icon {
+  transition: transform var(--transition-normal);
+}
+
+.service-hero__actions .btn:hover .btn__icon {
+  transform: translateX(4px);
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+
+@media (max-width: 992px) {
+  .service-hero__grid-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .service-hero__content {
+    align-items: center;
+
+    text-align: center;
+  }
+
+  /* Visual sits below the copy once stacked. */
+  .service-hero__visual {
+    order: 2;
+  }
+}
+
+@media (max-width: 768px) {
+  .service-hero__title {
+    max-width: 100%;
+  }
+
+  .service-hero__grid {
+    background-size: 44px 44px;
+  }
+}
+
+@media (max-width: 576px) {
+  .service-hero__actions,
+  .service-hero__actions .btn {
+    width: 100%;
+  }
+}
+
+/* ==========================================================================
+   REDUCED MOTION
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .service-hero__actions .btn__icon {
+    transition: none;
+  }
+
+  .service-hero__actions .btn:hover .btn__icon {
+    transform: none;
+  }
+}

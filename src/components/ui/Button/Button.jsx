@@ -11,6 +11,7 @@ const Button = ({
   endIcon,
   className = "",
   href,
+  as: Component,
   ...props
 }) => {
   const classes = [
@@ -36,10 +37,19 @@ const Button = ({
     </>
   );
 
-  /* Render a real anchor when given an href. Wrapping this component in a link
-     instead would nest a <button> inside an <a>, which is invalid markup and
-     confuses keyboard and assistive-tech navigation. For client-side route
-     changes keep using <Link>; href is for in-page anchors and external URLs. */
+  /* `as` lets the button render as another element — most usefully react-router's
+     <Link> for client-side routes: <Button as={Link} to="/contact">. Wrapping
+     this component in a link instead would nest a <button> inside an <a>, which
+     is invalid markup and confuses keyboard and assistive-tech navigation. */
+  if (Component) {
+    return (
+      <Component className={classes} {...props}>
+        {content}
+      </Component>
+    );
+  }
+
+  /* Plain href renders a real anchor — for in-page anchors and external URLs. */
   if (href) {
     return (
       <a href={href} className={classes} aria-disabled={disabled} {...props}>
