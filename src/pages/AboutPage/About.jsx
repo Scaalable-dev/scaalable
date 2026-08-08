@@ -24,21 +24,37 @@ const About = () => {
     <section className="about section" id="about">
       <div className="container">
         {/* -------------------------------About Hero Section------------------------------------------ */}
+        {/* Entrance stagger matches the Services and Contact heroes, so the
+            page announces itself the same way on load and on navigation.
+            Only the hero is animated: everything below it is off screen at
+            mount, and a mount-triggered animation there would finish long
+            before it was ever scrolled into view. */}
         <section className="about__hero">
-          <div className="about__hero-badge">
+          <div className="about__hero-badge animate-fade-up">
             <Badge>{aboutHero.badge}</Badge>
           </div>
 
           <div className="about__hero-grid">
             <div className="about__hero-content">
-              <h2 className="about__hero-title">
+              <h2
+                className="about__hero-title animate-fade-up"
+                style={{ "--delay": "80ms" }}
+              >
                 We Build Digital & IT Solutions That Scale Your Business{" "}
                 <span className="about__hero-gradient">Beyond Limits</span>
               </h2>
 
-              <p className="about__hero-description">{aboutHero.description}</p>
+              <p
+                className="about__hero-description animate-fade-up"
+                style={{ "--delay": "160ms" }}
+              >
+                {aboutHero.description}
+              </p>
 
-              <div className="about-hero__actions">
+              <div
+                className="about-hero__actions animate-fade-up"
+                style={{ "--delay": "240ms" }}
+              >
                 <Link to="/contact">
                   <Button>Book Free Strategy Call</Button>
                 </Link>
@@ -49,7 +65,10 @@ const About = () => {
               </div>
             </div>
 
-            <div className="about__hero-image">
+            <div
+              className="about__hero-image animate-fade-up"
+              style={{ "--delay": "200ms" }}
+            >
               <img src={aboutHero.image} alt="About Scaalable" />
             </div>
           </div>
