@@ -69,7 +69,7 @@ export const contactHero = {
      the inquiry form rather than re-navigating to the same route. */
   cta: {
     text: "Book Free Strategy Call",
-    href: "#inquiry",
+    href: "#contact-form",
   },
 };
 

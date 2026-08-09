@@ -11,10 +11,26 @@
 
   isolation: isolate;
 
-  /* Both gaps trimmed off the global section rhythm. The bottom pairs with
-     .cap's matching padding-top — together they halve the gap to Capabilities. */
-  padding-top: clamp(2.2rem, 4.5vw, 3.6rem);
-  padding-bottom: clamp(1.5rem, 3vw, 2.6rem);
+  /* Sized to be seen in one viewport, like the home hero. Everything inside is
+     clamped on BOTH axes — clamp(min, min(Xvw, Yvh), max) — so the type answers
+     to whichever dimension is tighter. Width-only clamps are why a hero that
+     fits 1440x900 overflowed the same window at 1366x768: the text never
+     learned the viewport got shorter. */
+  --hero-pad-y: clamp(1rem, 3.2vh, 2.6rem);
+
+  /* Exactly the height left for content once the header and this section's own
+     padding are taken out. The visual is capped to this rather than to a
+     guessed fraction of the viewport, so it grows to fill whatever room there
+     is and stops precisely at the fold. */
+  --hero-fit: calc(100svh - var(--navbar-height) - 2 * var(--hero-pad-y));
+
+  display: flex;
+  align-items: center;
+
+  min-height: calc(100vh - var(--navbar-height));
+  min-height: calc(100svh - var(--navbar-height));
+
+  padding-block: var(--hero-pad-y);
 
   /* Full-size layers only. Constraining these with background-size cuts the
      radial falloff off mid-fade and draws a hard line across the section. */
@@ -98,6 +114,12 @@
    CONTENT
    ========================================================================== */
 
+/* The section is now a flex row, so its single child has to be told to take
+   the width it used to get for free as a block. */
+.service-hero > .container {
+  width: min(100% - 2rem, var(--container-width));
+}
+
 .service-hero__grid-layout {
   display: grid;
   /* Copy column takes the larger share; the visual scales as one piece so it
@@ -115,7 +137,8 @@
   flex-direction: column;
   align-items: flex-start;
 
-  gap: var(--space-6);
+  /* Dual-axis: the stack tightens on a short screen as well as a narrow one. */
+  gap: clamp(0.7rem, 2.3vh, 1.5rem);
 
   min-width: 0;
 
@@ -126,6 +149,28 @@
   min-width: 0;
 }
 
+/* The cap goes on the diagram, not on the grid cell holding it. A percentage
+   max-width on a grid item is measured against a track that is itself being
+   sized from that item, and the circular reference resolves to zero — the
+   column collapsed and the visual disappeared. Against the cell, which is
+   definite by the time the child is laid out, the same percentage is fine.
+
+   The diagram is square, so capping width caps height; on a short window this
+   is what keeps the row inside the fold.
+
+   The selector is over-qualified deliberately. ServiceFlow.css sets
+   `.flow { max-width: 660px }` at the same specificity as a bare
+   `.service-hero__visual > *`, and load order handed it the win — so this cap
+   silently did nothing and the diagram kept its full 615px on a 730px-tall
+   window, pushing its lowest cards past the fold. */
+.service-hero .service-hero__visual > * {
+  /* Square, so width is height. It takes the full column unless the window is
+     too short for that, at which point the free height becomes the limit. */
+  max-width: min(100%, var(--hero-fit));
+
+  margin-inline: auto;
+}
+
 .service-hero__title {
   max-width: 21ch;
 
@@ -133,7 +178,7 @@
 
   color: var(--color-text-primary);
 
-  font-size: clamp(2.1rem, 4.4vw, 3.6rem);
+  font-size: clamp(1.55rem, min(4.4vw, 5.4vh), 3.4rem);
 
   line-height: 1.14;
   letter-spacing: -0.035em;
@@ -146,8 +191,8 @@
 
   color: var(--color-text-secondary);
 
-  font-size: clamp(0.975rem, 1.2vw, 1.1rem);
-  line-height: 1.8;
+  font-size: clamp(0.875rem, min(1.2vw, 1.75vh), 1.05rem);
+  line-height: 1.7;
 }
 
 .service-hero__actions {
@@ -181,9 +226,18 @@
     text-align: center;
   }
 
-  /* Visual sits below the copy once stacked. */
+  /* Visual sits below the copy once stacked. Stacking is what makes height the
+     scarce axis, so its cap tightens accordingly. */
   .service-hero__visual {
     order: 2;
+  }
+
+  .service-hero .service-hero__visual > * {
+    max-width: min(100%, 34vh);
+  }
+
+  .service-hero__grid-layout {
+    gap: clamp(0.75rem, 2.4vh, 1.6rem);
   }
 }
 
@@ -201,6 +255,16 @@
   .service-hero__actions,
   .service-hero__actions .btn {
     width: 100%;
+  }
+}
+
+/* Where the stacked layout cannot hold the diagram at a legible size, it steps
+   aside rather than shrinking into uselessness. The threshold is a height, not
+   a width, because height is what runs out: a 430x932 phone keeps it, a
+   390x844 one does not. */
+@media (max-width: 992px) and (max-height: 900px) {
+  .service-hero__visual {
+    display: none;
   }
 }
 

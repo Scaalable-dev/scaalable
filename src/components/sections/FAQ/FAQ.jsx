@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 
 import Badge from "../../ui/Badge";
@@ -22,21 +23,22 @@ const FAQ = () => {
         <div className="faq__layout">
           <Reveal className="faq__aside" direction="right">
             <div className="faq__aside-inner">
-              <Badge>Frequently Asked Questions</Badge>
+              <Badge>Before we begin</Badge>
 
-              <h2 className="faq__title">Everything you need to know</h2>
+              <h2 className="faq__title">Clear answers reduce risk.</h2>
 
               <p className="faq__description">
-                We've answered the questions we hear most often from businesses
-                before starting a project. If something isn't covered here,
-                we're always happy to talk it through.
+                Scaalable answered the questions we hear most often from
+                businesses before starting a project. If something isn't covered
+                here, we're always happy to talk it through.
               </p>
 
               <div className="faq__cta">
                 <p className="faq__cta-text">Still have questions?</p>
 
                 <Button
-                  href="#contact"
+                  as={Link}
+                  to="/contact#contact-form"
                   variant="outline"
                   endIcon={<ArrowRight size={17} />}
                 >

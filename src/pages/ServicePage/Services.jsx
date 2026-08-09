@@ -9,7 +9,6 @@ import Container from "../../components/ui/Container";
 import ServiceFlow from "./ServiceFlow";
 import Capabilities from "./Capabilities";
 import IndustriesBlueprintSection from "./Industries";
-import ProcessSection from "./Process";
 import TechnologiesSection from "./Technologies";
 import ServicesPageCTA from "./ServicesPageCTA";
 
@@ -74,9 +73,6 @@ const Services = () => {
 
       {/* ------------------------ Industries ------------------------ */}
       <IndustriesBlueprintSection />
-
-      {/* ------------------------ Process ------------------------ */}
-      <ProcessSection />
 
       {/* ------------------------ Technologies ------------------------ */}
       <TechnologiesSection />

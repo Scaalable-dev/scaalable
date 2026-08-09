@@ -2,7 +2,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 import "./Process.css";
 
-import Container from "../../../components/ui/Container";
+import Badge from "../../ui/Badge";
+import Container from "../../ui/Container";
 import useMediaQuery from "../../../hooks/useMediaQuery";
 
 import ProcessRail from "./ProcessRail";
@@ -76,9 +77,9 @@ const ProcessSection = () => {
         {/* ------------------------ Introduction ------------------------ */}
         <div className="proc-intro">
           <div className="proc-intro__lead">
-            <span className="proc-intro__label">
+            <Badge className="proc-intro__label">
               {processIntro.badge} <i>·</i> {stages.length} Connected Stages
-            </span>
+            </Badge>
 
             <h2 className="proc-intro__title">{processIntro.title}</h2>
           </div>

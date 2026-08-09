@@ -73,8 +73,11 @@ const InquiryForm = () => {
     }
   };
 
+  /* `contact-form` is the single destination every conversion CTA on the site
+     points at. The global `section { scroll-margin-top }` in globals.css clears
+     the sticky header when it is jumped to. */
   return (
-    <section className="inquiry" id="inquiry">
+    <section className="inquiry" id="contact-form">
       <Container>
         <SectionHeading
           badge={inquiryForm.badge}

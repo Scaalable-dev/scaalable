@@ -13,7 +13,7 @@ const homeData = {
 
   /* Section ids in render order. Anchor links and in-page navigation resolve
      against these, so they must match the `id` on each rendered <section>. */
-  sections: ["who-we-help", "services", "faq", "contact"],
+  sections: ["who-we-help", "services", "process", "faq"],
 };
 
 export default homeData;

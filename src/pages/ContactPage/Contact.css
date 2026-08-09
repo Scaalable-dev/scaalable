@@ -8,6 +8,24 @@
 
   isolation: isolate;
 
+  /* Sized to be seen in one viewport, like the home hero. Everything inside is
+     clamped on BOTH axes — clamp(min, min(Xvw, Yvh), max) — so the type answers
+     to whichever dimension is tighter. */
+  --hero-pad-y: clamp(1rem, 3.2vh, 2.6rem);
+
+  /* Exactly the height left for content once the header and this section's own
+     padding are taken out; the visual is capped to it rather than to a guessed
+     fraction of the viewport. */
+  --hero-fit: calc(100svh - var(--navbar-height) - 2 * var(--hero-pad-y));
+
+  display: flex;
+  align-items: center;
+
+  min-height: calc(100vh - var(--navbar-height));
+  min-height: calc(100svh - var(--navbar-height));
+
+  padding-block: var(--hero-pad-y);
+
   background:
     radial-gradient(
       circle at 12% 18%,
@@ -28,13 +46,19 @@
     );
 }
 
+/* The section is now a flex row, so its single child has to be told to take
+   the width it used to get for free as a block. */
+.contact-hero > .container {
+  width: min(100% - 2rem, var(--container-width));
+}
+
 .contact-hero__grid {
   display: grid;
   grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
 
   align-items: center;
 
-  gap: clamp(3rem, 6vw, 5.5rem);
+  gap: clamp(1.25rem, min(6vw, 4vh), 4rem);
 }
 
 /* ==========================================================================
@@ -46,7 +70,7 @@
   flex-direction: column;
   align-items: flex-start;
 
-  gap: var(--space-6);
+  gap: clamp(0.7rem, 2.3vh, 1.5rem);
 
   min-width: 0;
 }
@@ -54,7 +78,7 @@
 .contact-hero__title {
   max-width: 20ch;
 
-  font-size: clamp(2.4rem, 4vw, 3.5rem);
+  font-size: clamp(1.6rem, min(4vw, 5.2vh), 3.3rem);
 
   line-height: 1.12;
 
@@ -78,7 +102,7 @@
   display: flex;
   flex-direction: column;
 
-  gap: var(--space-4);
+  gap: clamp(0.5rem, 1.5vh, 1rem);
 
   max-width: 62ch;
 }
@@ -88,7 +112,8 @@
 
   color: var(--color-text-secondary);
 
-  line-height: 1.8;
+  font-size: clamp(0.875rem, min(1.15vw, 1.7vh), 1.05rem);
+  line-height: 1.7;
 }
 
 .contact-hero__actions {
@@ -104,6 +129,21 @@
   justify-content: center;
 
   min-width: 0;
+}
+
+/* The cap goes on the graphic, not on the grid cell holding it. A percentage
+   max-width on a grid item is measured against a track that is itself being
+   sized from that item, and the circular reference resolves to zero — the
+   column collapsed and the visual disappeared.
+
+   The graphic is 1000x600, so height follows width at 0.6 of it; capping the
+   width by vh is what keeps the row inside a short window. */
+.contact-hero .contact-hero__visual > * {
+  /* Over-qualified for the same reason as the services hero: ProductJourney.css
+     sets its own max-width at equal specificity and load order wins the tie. */
+  /* 1000x600, so height is 0.6 of width — the free height converts to a width
+     limit by dividing through by that ratio. */
+  max-width: min(100%, calc(var(--hero-fit) / 0.6));
 }
 
 /* ==========================================================================
@@ -128,9 +168,23 @@
     margin-inline: auto;
   }
 
-  /* Visual sits below the copy once stacked. */
+  /* Visual sits below the copy once stacked. Stacking makes height the scarce
+     axis, so its cap tightens accordingly. */
   .contact-hero__visual {
     order: 2;
+  }
+
+  .contact-hero .contact-hero__visual > * {
+    max-width: min(100%, 52vh);
+  }
+
+  /* The middle paragraph is the long list of disciplines. Stacked, three dense
+     paragraphs plus a title, a badge, a button and the graphic cannot share one
+     viewport at any type size — so this one stands down, leaving the invitation
+     and the ask, which are what the page is for. It stays in the document for
+     assistive tech and search. */
+  .contact-hero__description p:nth-child(2) {
+    display: none;
   }
 }
 
@@ -138,5 +192,27 @@
   .contact-hero__actions,
   .contact-hero__actions .btn {
     width: 100%;
+  }
+}
+
+/* Where the stacked layout cannot hold the graphic at a legible size, it steps
+   aside. The threshold is a height, not a width, because height is what runs
+   out: a 430x932 phone keeps it, a 390x844 one does not. */
+@media (max-width: 992px) and (max-height: 900px) {
+  .contact-hero__visual {
+    display: none;
+  }
+}
+
+/* The narrowest screens: the title carries a gradient span on its own line, so
+   it is always at least two lines. Allowed below the shared floor to buy the
+   last few pixels back. */
+@media (max-width: 400px) {
+  .contact-hero__title {
+    font-size: clamp(1.4rem, 6.6vw, 1.8rem);
+  }
+
+  .contact-hero__description p {
+    line-height: 1.6;
   }
 }

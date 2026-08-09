@@ -25,7 +25,7 @@ export const servicesHero = {
      hash once the route has mounted. */
   cta: {
     text: "Plan Your Solution",
-    href: "/contact#inquiry",
+    href: "/contact#contact-form",
   },
 };
 
@@ -352,7 +352,7 @@ export const servicesCta = {
      handles the hash once the route has mounted. */
   cta: {
     text: "Discuss Your Project",
-    href: "/contact#inquiry",
+    href: "/contact#contact-form",
   },
 };
 

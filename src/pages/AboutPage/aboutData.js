@@ -264,7 +264,7 @@ export const ctaBanner = {
 
   cta: {
     text: "Book Free Strategy Call",
-    href: "/contact",
+    href: "/contact#contact-form",
   },
 };
 

@@ -55,13 +55,16 @@ const About = () => {
                 className="about-hero__actions animate-fade-up"
                 style={{ "--delay": "240ms" }}
               >
-                <Link to="/contact">
-                  <Button>Book Free Strategy Call</Button>
-                </Link>
+                {/* `as={Link}` renders one element. Wrapping the Button in a
+                    Link instead nests a <button> inside an <a>, which is
+                    invalid and confuses keyboard and assistive-tech traversal. */}
+                <Button as={Link} to="/contact#contact-form">
+                  Book Free Strategy Call
+                </Button>
 
-                <Link to="/services">
-                  <Button variant="outline">View Services</Button>
-                </Link>
+                <Button as={Link} to="/services" variant="outline">
+                  View Services
+                </Button>
               </div>
             </div>
 
@@ -242,11 +245,14 @@ const About = () => {
               </p>
             ))}
 
-            <Link to={ctaBanner.cta.href}>
-              <Button variant="light" size="lg">
-                {ctaBanner.cta.text}
-              </Button>
-            </Link>
+            <Button
+              as={Link}
+              to={ctaBanner.cta.href}
+              variant="light"
+              size="lg"
+            >
+              {ctaBanner.cta.text}
+            </Button>
           </div>
         </section>
       </div>

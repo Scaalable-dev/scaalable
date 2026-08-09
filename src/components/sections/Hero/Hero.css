@@ -31,7 +31,43 @@
   overflow: clip;
   isolation: isolate;
 
-  background: linear-gradient(180deg, #ffffff 0%, #fbfcff 48%, #f5f8ff 100%);
+  /* Returns to white at the bottom. Ending on a tint (#f5f8ff) drew a hard line
+     against the white section that follows, which read as a divider. Services
+     already resolves to #ffffff at both ends, which is why its boundaries are
+     invisible; the hero was the odd one out. */
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #fbfcff 38%,
+    #f4f8ff 70%,
+    #ffffff 100%
+  );
+}
+
+/* Dissolves the aurora and the mesh into the page before the section ends.
+   `overflow: clip` otherwise slices the glows flat at the boundary, leaving a
+   visible edge even once the gradient itself matches. Sits at z-index -1, so it
+   covers the backdrop (same level, later in tree order) but stays behind the
+   hero's own content. */
+.hero::after {
+  content: "";
+
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  height: clamp(90px, 14vh, 180px);
+
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) 0%,
+    var(--color-background) 100%
+  );
+
+  pointer-events: none;
+
+  z-index: -1;
 }
 
 /* Older engines keep the containment; they simply do not get panel snapping. */
@@ -403,9 +439,10 @@
    two full-height panels — a nudge into the second panel just stays put.
 
    Mandatory left on permanently would keep dragging the reader back to the hero
-   from anywhere further down the page, so Hero.jsx only adds this class while
-   the hero is actually intersecting the viewport. The section after the hero
-   carries a snap point too, giving the scroll somewhere forward to land.
+   from anywhere further down the page, so Hero.jsx arms this class only while
+   the COPY panel is still on screen. Once that panel is behind the header the
+   reader has arrived at panel two and snapping is switched off, so continuing
+   down the page is ordinary free scrolling.
    ========================================================================== */
 
 @media (max-width: 1099px) {
@@ -422,10 +459,6 @@
        snap area taller than the snapport is treated as unreachable — the
        browser then stops snapping and scrolls straight past both panels. */
     scroll-padding-top: var(--navbar-height);
-  }
-
-  .hero + section {
-    scroll-snap-align: start;
   }
 }
 

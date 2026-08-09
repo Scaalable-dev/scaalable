@@ -1,0 +1,598 @@
+/* ==========================================================================
+   SERVICE RAIL CARD
+   A tall poster card: artwork behind, name pinned to the bottom, detail that
+   unfolds on hover. Three tones alternate along the rail so the strip reads
+   with rhythm instead of as seven of the same thing.
+   ========================================================================== */
+
+.srail__item {
+  flex-shrink: 0;
+
+  /* The lift and its shadow live inside the rail's vertical gutter; see
+     --srail-gutter in Services.css. */
+  list-style: none;
+}
+
+.srail__card {
+  /* ---------------------------------------------------------------------
+     Open state.
+
+     Every hover and focus effect is a value here rather than a rule of its
+     own. The pointer and keyboard paths then each set one small block of
+     variables, and the mechanics that read them — below — exist once. That
+     matters because the two paths cannot share a selector list: pointer
+     hover has to be limited to fine pointers, and keyboard focus must not
+     be.
+     --------------------------------------------------------------------- */
+  --o-lift: 0px;
+  --o-art: scale(1);
+  --o-orb: none;
+  --o-tile: none;
+  --o-figure: rotate(-3deg);
+  --o-rows: 0fr;
+  --o-detail: 0;
+  --o-arrow: translateY(6px) scale(0.9);
+  --o-arrow-opacity: 0;
+  --o-caption-pad: 0rem;
+  --o-scrim: 72%;
+  --o-shadow: var(--srail-shadow-rest);
+
+  position: relative;
+  display: block;
+
+  width: clamp(15rem, 20vw, 18.5rem);
+  aspect-ratio: 4 / 5;
+
+  overflow: hidden;
+  isolation: isolate;
+
+  border-radius: var(--radius-xl);
+
+  text-decoration: none;
+
+  transform: translateY(var(--o-lift));
+
+  box-shadow: var(--o-shadow);
+
+  transition:
+    transform 0.45s var(--ease-out-expo),
+    box-shadow 0.45s var(--ease-out-expo),
+    opacity 0.35s ease;
+}
+
+.srail__card:focus-visible {
+  outline: 2px solid var(--srail-accent);
+  outline-offset: 3px;
+}
+
+/* ==========================================================================
+   TONES
+   ========================================================================== */
+
+/* The drawing's highlight colour, which is not always the card's accent: on a
+   brand card the accent IS the background, and on a near-black one a deep
+   violet disappears. Overridden per tone below. */
+.srail__card {
+  --srail-fig-accent: var(--srail-accent);
+}
+
+/* Deliberately a grey card, not a white one. The section behind it is already
+   near-white, so a white card reads as a hole rather than an object. */
+.srail__card[data-tone="light"] {
+  --srail-ink: var(--color-text-primary);
+  --srail-ink-soft: var(--color-text-secondary);
+  --srail-veil: rgba(255, 255, 255, 0.78);
+  --srail-hairline: rgba(15, 23, 42, 0.1);
+  --srail-scrim: rgba(226, 231, 240, 0.95);
+  --srail-scrim-mid: rgba(226, 231, 240, 0.58);
+
+  background:
+    radial-gradient(
+      120% 90% at 80% 0%,
+      rgba(var(--srail-accent-rgb), 0.22) 0%,
+      transparent 64%
+    ),
+    linear-gradient(170deg, #f3f5fa 0%, #dfe4ee 100%);
+
+  --srail-shadow-rest:
+    inset 0 0 0 1px rgba(15, 23, 42, 0.07),
+    0 10px 24px rgba(15, 23, 42, 0.08);
+
+  --srail-shadow-open:
+    inset 0 0 0 1px rgba(var(--srail-accent-rgb), 0.3),
+    0 18px 38px rgba(var(--srail-accent-rgb), 0.22);
+}
+
+.srail__card[data-tone="dark"] {
+  --srail-ink: #ffffff;
+  --srail-ink-soft: rgba(255, 255, 255, 0.72);
+  --srail-veil: rgba(255, 255, 255, 0.12);
+  --srail-hairline: rgba(255, 255, 255, 0.14);
+  --srail-scrim: rgba(8, 12, 24, 0.92);
+  --srail-scrim-mid: rgba(8, 12, 24, 0.48);
+
+  background:
+    radial-gradient(
+      120% 90% at 78% 4%,
+      rgba(var(--srail-accent-rgb), 0.38) 0%,
+      transparent 60%
+    ),
+    linear-gradient(170deg, #161d33 0%, #0a0f1e 100%);
+
+  --srail-shadow-rest: 0 12px 28px rgba(10, 15, 30, 0.22);
+  --srail-shadow-open: 0 20px 40px rgba(var(--srail-accent-rgb), 0.34);
+}
+
+.srail__card[data-tone="brand"] {
+  --srail-ink: #ffffff;
+  --srail-ink-soft: rgba(255, 255, 255, 0.8);
+  --srail-veil: rgba(255, 255, 255, 0.16);
+  --srail-hairline: rgba(255, 255, 255, 0.2);
+  --srail-scrim: rgba(var(--color-brand-700-rgb), 0.62);
+  --srail-scrim-mid: rgba(var(--color-brand-700-rgb), 0.28);
+
+  background:
+    linear-gradient(
+      158deg,
+      rgba(var(--srail-accent-rgb), 0.98) 0%,
+      rgba(var(--color-brand-secondary-rgb), 0.96) 58%,
+      rgba(var(--color-brand-700-rgb), 0.98) 100%
+    );
+
+  --srail-shadow-rest: 0 12px 28px rgba(var(--srail-accent-rgb), 0.26);
+  --srail-shadow-open: 0 20px 40px rgba(var(--srail-accent-rgb), 0.34);
+}
+
+/* White reads against every colour in the brand ramp; the card's own accent
+   would be invisible against a background made of it. */
+.srail__card[data-tone="brand"] {
+  --srail-fig-accent: #ffffff;
+}
+
+/* Deep violet on near-black is barely there, so the dark tone lifts its accent
+   toward white. Guarded — an unsupported color-mix would blank the custom
+   property and take the highlight with it. */
+@supports (color: color-mix(in srgb, red 50%, white)) {
+  .srail__card[data-tone="dark"] {
+    --srail-fig-accent: color-mix(in srgb, var(--srail-accent) 70%, white);
+  }
+}
+
+/* ==========================================================================
+   ARTWORK
+   ========================================================================== */
+
+.srail__art {
+  position: absolute;
+  inset: 0;
+
+  z-index: 0;
+
+  overflow: hidden;
+
+  /* The whole composition drifts closer on hover, the way a poster crop pushes
+     in. Scaling the art rather than the card keeps the corners crisp. */
+  transform: var(--o-art);
+
+  transition: transform 0.6s var(--ease-out-expo);
+}
+
+.srail__grid {
+  position: absolute;
+  inset: -1px;
+
+  background-image:
+    linear-gradient(to right, var(--srail-hairline) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--srail-hairline) 1px, transparent 1px);
+  background-size: 34px 34px;
+
+  /* Fades out toward the caption so the type never sits on ruled lines. */
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, transparent 68%);
+  mask-image: linear-gradient(180deg, #000 0%, transparent 68%);
+
+  opacity: 0.75;
+}
+
+.srail__orb {
+  position: absolute;
+
+  width: 62%;
+  aspect-ratio: 1;
+
+  top: 6%;
+  right: -14%;
+
+  border-radius: 50%;
+
+  background: radial-gradient(
+    circle at 34% 30%,
+    rgba(var(--srail-accent-rgb), 0.55) 0%,
+    rgba(var(--srail-accent-rgb), 0.16) 52%,
+    transparent 74%
+  );
+
+  filter: blur(2px);
+
+  transform: var(--o-orb);
+
+  transition: transform 0.7s var(--ease-out-expo);
+}
+
+.srail__orb--sm {
+  width: 34%;
+
+  top: auto;
+  right: auto;
+  bottom: 24%;
+  left: -8%;
+
+  opacity: 0.7;
+}
+
+/* ==========================================================================
+   FIGURE
+   The per-capability drawing. Tilted slightly so it reads as an object in the
+   composition rather than a diagram pasted onto the card.
+   ========================================================================== */
+
+.srail__figure {
+  position: absolute;
+  top: 26%;
+  left: 50%;
+
+  display: block;
+
+  width: 78%;
+
+  transform: translateX(-50%) var(--o-figure);
+
+  transition: transform 0.6s var(--ease-out-expo);
+}
+
+.srail__fig {
+  display: block;
+
+  width: 100%;
+  height: auto;
+
+  /* Neutral ink follows the card's own text colour, so one drawing works on a
+     grey card and a near-black one. */
+  color: var(--srail-ink);
+
+  filter: drop-shadow(0 8px 16px rgba(10, 15, 30, 0.12));
+}
+
+.srail__fig .ink {
+  stroke: currentColor;
+
+  opacity: 0.42;
+}
+
+.srail__fig .ink-strong {
+  stroke: currentColor;
+
+  opacity: 0.62;
+}
+
+.srail__fig .ink-fill {
+  fill: currentColor;
+  stroke: none;
+
+  opacity: 0.34;
+}
+
+.srail__fig .plate {
+  fill: var(--srail-veil);
+  stroke: none;
+}
+
+.srail__fig .acc {
+  stroke: var(--srail-fig-accent);
+}
+
+.srail__fig .acc-fill {
+  fill: var(--srail-fig-accent);
+  stroke: none;
+}
+
+.srail__fig .acc-soft {
+  fill: var(--srail-fig-accent);
+  stroke: none;
+
+  opacity: 0.16;
+}
+
+/* Glass tile holding the capability icon — the one solid object in the art. */
+.srail__tile {
+  position: absolute;
+  top: clamp(1.1rem, 2vw, 1.5rem);
+  left: clamp(1.1rem, 2vw, 1.5rem);
+
+  display: grid;
+  place-items: center;
+
+  width: 3.25rem;
+  height: 3.25rem;
+
+  border: 1px solid var(--srail-hairline);
+  border-radius: 1rem;
+
+  background: var(--srail-veil);
+
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
+  color: var(--srail-ink);
+
+  transform: var(--o-tile);
+
+  transition:
+    transform 0.5s var(--ease-spring),
+    border-color 0.4s ease;
+}
+
+.srail__index {
+  position: absolute;
+  top: clamp(1.1rem, 2vw, 1.5rem);
+  right: clamp(1.1rem, 2vw, 1.5rem);
+
+  font-size: 0.72rem;
+  font-weight: var(--font-weight-bold);
+
+  letter-spacing: 0.16em;
+
+  color: var(--srail-ink-soft);
+}
+
+/* ==========================================================================
+   CAPTION
+   ========================================================================== */
+
+/* Sits between the artwork and the text. Fades to nothing well before the top
+   of the card, so it reads as depth rather than as a bar across the bottom. */
+.srail__scrim {
+  position: absolute;
+  inset: auto 0 0 0;
+
+  z-index: 0;
+
+  height: var(--o-scrim);
+
+  background: linear-gradient(
+    to top,
+    var(--srail-scrim) 0%,
+    var(--srail-scrim-mid) 46%,
+    transparent 100%
+  );
+
+  pointer-events: none;
+
+  transition: height 0.5s var(--ease-out-expo);
+}
+
+.srail__body {
+  position: absolute;
+  right: clamp(1.1rem, 2vw, 1.5rem);
+  bottom: clamp(1.1rem, 2vw, 1.45rem);
+  left: clamp(1.1rem, 2vw, 1.5rem);
+
+  z-index: 1;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 0.35rem;
+
+  /* The arrow shares this corner, so the caption steps aside once the detail
+     unfolds beneath it. */
+  padding-right: var(--o-caption-pad);
+
+  transition: padding-right 0.45s var(--ease-out-expo);
+}
+
+.srail__eyebrow {
+  font-size: 0.68rem;
+  font-weight: var(--font-weight-semibold);
+
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+
+  color: var(--srail-ink-soft);
+}
+
+.srail__name {
+  font-size: clamp(1.05rem, 1.35vw, 1.28rem);
+  font-weight: var(--font-weight-bold);
+
+  line-height: 1.22;
+  letter-spacing: -0.02em;
+
+  color: var(--srail-ink);
+
+  /* Two lines is enough for the longest name; a third would push the caption
+     into the artwork. */
+  text-wrap: balance;
+}
+
+/* Height animates from nothing to whatever the content needs — no max-height
+   guess, so a longer subtitle can never be clipped. */
+.srail__reveal {
+  display: grid;
+  grid-template-rows: var(--o-rows);
+
+  transition: grid-template-rows 0.45s var(--ease-out-expo);
+}
+
+.srail__reveal-inner {
+  display: flex;
+  flex-direction: column;
+
+  gap: 0.55rem;
+
+  min-height: 0;
+  overflow: hidden;
+
+  opacity: var(--o-detail);
+
+  transition: opacity 0.3s ease;
+}
+
+.srail__subtitle {
+  padding-top: 0.5rem;
+
+  font-size: 0.83rem;
+
+  line-height: 1.5;
+
+  color: var(--srail-ink-soft);
+}
+
+.srail__chips {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 0.35rem;
+}
+
+.srail__chip {
+  padding: 0.25rem 0.6rem;
+
+  border: 1px solid var(--srail-hairline);
+  border-radius: var(--radius-full);
+
+  background: var(--srail-veil);
+
+  font-size: 0.7rem;
+  font-weight: var(--font-weight-medium);
+
+  white-space: nowrap;
+
+  color: var(--srail-ink);
+}
+
+/* ==========================================================================
+   ARROW
+   ========================================================================== */
+
+.srail__go {
+  position: absolute;
+  right: clamp(1.1rem, 2vw, 1.5rem);
+  bottom: clamp(1.1rem, 2vw, 1.45rem);
+
+  z-index: 2;
+
+  display: grid;
+  place-items: center;
+
+  width: 2.25rem;
+  height: 2.25rem;
+
+  border: 1px solid var(--srail-hairline);
+  border-radius: 50%;
+
+  background: var(--srail-veil);
+
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
+  color: var(--srail-ink);
+
+  opacity: var(--o-arrow-opacity);
+  transform: var(--o-arrow);
+
+  transition:
+    opacity 0.35s ease,
+    transform 0.45s var(--ease-spring);
+}
+
+/* ==========================================================================
+   OPENING THE CARD
+
+   Two triggers, one set of values.
+   ========================================================================== */
+
+/* Pointer. Fine pointers only: a touch device latches :hover onto the last
+   thing tapped and never lets go, so a tapped card would sit lifted and
+   expanded — with the rest of the rail greyed out behind it — for the rest of
+   the visit, with no gesture available to undo it. */
+@media (hover: hover) and (pointer: fine) {
+  .srail__card:hover {
+    --o-lift: -8px;
+    --o-art: scale(1.06);
+    --o-orb: translate3d(-6%, 4%, 0) scale(1.12);
+    --o-tile: translateY(-3px) rotate(-4deg);
+    --o-figure: rotate(-1deg) translateY(-5%);
+    --o-rows: 1fr;
+    --o-detail: 1;
+    --o-arrow: translateY(0) scale(1);
+    --o-arrow-opacity: 1;
+    --o-caption-pad: 2.6rem;
+    --o-scrim: 86%;
+    --o-shadow: var(--srail-shadow-open);
+  }
+}
+
+/* Keyboard. Deliberately not inside the media query — a keyboard can be
+   attached to a device that reports no hover at all. */
+.srail__card:focus-visible {
+  --o-lift: -8px;
+  --o-art: scale(1.06);
+  --o-orb: translate3d(-6%, 4%, 0) scale(1.12);
+  --o-tile: translateY(-3px) rotate(-4deg);
+  --o-figure: rotate(-1deg) translateY(-5%);
+  --o-rows: 1fr;
+  --o-detail: 1;
+  --o-arrow: translateY(0) scale(1);
+  --o-arrow-opacity: 1;
+  --o-caption-pad: 2.6rem;
+  --o-scrim: 86%;
+  --o-shadow: var(--srail-shadow-open);
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .srail__card {
+    width: clamp(13rem, 62vw, 15.5rem);
+  }
+
+  .srail__tile {
+    width: 2.85rem;
+    height: 2.85rem;
+  }
+}
+
+/* ==========================================================================
+   REDUCED MOTION
+   The detail still opens — it just appears rather than unfolding.
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .srail__card,
+  .srail__art,
+  .srail__body,
+  .srail__orb,
+  .srail__figure,
+  .srail__scrim,
+  .srail__tile,
+  .srail__reveal,
+  .srail__reveal-inner,
+  .srail__go {
+    transition-duration: 0.01ms;
+  }
+
+  /* Nothing shifts position — the detail simply appears. Written against the
+     open selectors, not the resting card: the open blocks are what set these,
+     and a plain `.srail__card` rule would lose to them on specificity. This
+     block is last in the file, so at equal specificity it wins. */
+  .srail__card:hover,
+  .srail__card:focus-visible {
+    --o-lift: 0px;
+    --o-art: scale(1);
+    --o-orb: none;
+    --o-tile: none;
+    --o-figure: rotate(-3deg);
+  }
+}

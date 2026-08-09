@@ -77,7 +77,7 @@ const Navbar = () => {
         {/* Desktop CTA */}
 
         <div className="navbar__actions">
-          <Button as={Link} to="/contact" size="sm">
+          <Button as={Link} to="/contact#contact-form" size="sm">
             Book an Appointment
           </Button>
         </div>

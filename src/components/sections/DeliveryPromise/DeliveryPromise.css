@@ -1,0 +1,775 @@
+/* ==========================================================================
+   ACCOUNTABILITY RUNWAY
+
+   One connected pathway rather than four cards. Every checkpoint sits in an
+   equal grid slot and draws its own segment forward to the next one, so the
+   geometry is expressed once and each breakpoint only restates where the
+   segment goes: across on desktop, around a corner on tablet, down on mobile.
+   ========================================================================== */
+
+.runway {
+  /* The section's own easing, per the interaction spec. Local rather than a
+     new global token — nothing else on the site uses this curve. */
+  --runway-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  --runway-brand: var(--color-brand-primary);
+  --runway-brand-rgb: var(--color-brand-primary-rgb);
+
+  position: relative;
+
+  /* Above the shared section rhythm, which is 96px flat. */
+  padding-block: 7rem;
+
+  overflow: hidden;
+  isolation: isolate;
+
+  background: var(--color-background);
+}
+
+/* Barely-there wash sitting under the pathway. Wide and very low alpha: it
+   should register as depth, never as a coloured panel. */
+.runway__ambience {
+  position: absolute;
+  bottom: 12%;
+  left: 50%;
+
+  z-index: -1;
+
+  width: min(70rem, 86%);
+  height: 22rem;
+
+  transform: translateX(-50%);
+
+  background:
+    radial-gradient(
+      60% 60% at 30% 50%,
+      rgba(var(--color-brand-primary-rgb), 0.09) 0%,
+      transparent 70%
+    ),
+    radial-gradient(
+      60% 60% at 74% 50%,
+      rgba(var(--color-brand-secondary-rgb), 0.08) 0%,
+      transparent 70%
+    );
+
+  filter: blur(46px);
+
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   HEAD
+   ========================================================================== */
+
+.runway__head {
+  display: grid;
+  grid-template-columns: minmax(0, 58fr) minmax(0, 42fr);
+
+  gap: clamp(1.5rem, 4vw, 4rem);
+
+  /* The supporting line reads against the last line of the heading rather
+     than starting over beside the badge. */
+  align-items: end;
+
+  margin-bottom: clamp(2.75rem, 6vw, 4.5rem);
+}
+
+.runway__badge {
+  margin-bottom: 1.1rem;
+}
+
+.runway__title {
+  margin: 0;
+
+  max-width: 34ch;
+
+  font-size: clamp(1.9rem, 3.4vw, 2.75rem);
+  font-weight: var(--font-weight-bold);
+
+  line-height: 1.14;
+  letter-spacing: -0.03em;
+
+  color: var(--color-text-primary);
+
+  text-wrap: balance;
+}
+
+.runway__support {
+  margin: 0 0 0.35rem;
+
+  max-width: 28rem;
+
+  font-size: clamp(0.95rem, 1.1vw, 1.05rem);
+
+  line-height: 1.72;
+
+  color: var(--color-text-secondary);
+}
+
+/* ==========================================================================
+   TRACK
+
+   --icon-top is how far the icon's centre sits below the top of a checkpoint:
+   the number's fixed line box, its margin, then half an icon. Every segment
+   is positioned against it, which is what keeps the line running dead through
+   the icons at all three layouts.
+   ========================================================================== */
+
+.runway__track {
+  --track-gap: clamp(1.25rem, 2.4vw, 2.75rem);
+  --row-gap: 0px;
+
+  --icon: 2.75rem;
+  --icon-half: calc(var(--icon) / 2);
+  --num-block: 2rem;
+  --icon-top: calc(var(--num-block) + var(--icon-half));
+
+  --line: 2px;
+
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+
+  gap: var(--track-gap);
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.runway__slot {
+  position: relative;
+}
+
+/* ==========================================================================
+   SEGMENT
+   ========================================================================== */
+
+.runway__link {
+  position: absolute;
+
+  /* Desktop: straight across from this icon's centre to the next one's. */
+  top: calc(var(--icon-top) - var(--line) / 2);
+  left: var(--icon-half);
+  right: calc(-1 * (var(--track-gap) + var(--icon-half)));
+
+  height: var(--line);
+
+  /* Drawn left to right on entrance. */
+  transform: scaleX(0);
+  transform-origin: left center;
+
+  transition: transform 0.55s var(--runway-ease);
+  transition-delay: calc(260ms + var(--i) * 90ms);
+}
+
+.is-in .runway__link {
+  transform: scaleX(1);
+}
+
+.runway__link-base,
+.runway__link-fill {
+  position: absolute;
+  inset: 0;
+
+  border-radius: var(--radius-full);
+}
+
+.runway__link-base {
+  background: var(--color-border-light);
+}
+
+/* Brand progress riding on top of the neutral base, filled segment by segment
+   as the active checkpoint moves forward. */
+.runway__link-fill {
+  background: linear-gradient(
+    90deg,
+    rgba(var(--runway-brand-rgb), 0.85),
+    rgba(var(--color-brand-secondary-rgb), 0.85)
+  );
+
+  transform: scaleX(0);
+  transform-origin: left center;
+
+  transition: transform 0.45s var(--runway-ease);
+}
+
+.runway__link[data-filled="true"] .runway__link-fill {
+  transform: scaleX(1);
+}
+
+/* ==========================================================================
+   SIGNAL
+
+   One pulse crossing the whole runway, built from three per-segment
+   animations sharing a 6s cycle and offset by 2s each. Each segment's pulse
+   moves during its own third of the cycle and is invisible for the rest, so
+   what reads is a single light travelling 01 -> 04.
+
+   The travel distance is the inverse of the pulse's own width: at 26% of a
+   segment, crossing it takes translateX(385%).
+   ========================================================================== */
+
+.runway__signal {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+
+  width: 26%;
+
+  border-radius: var(--radius-full);
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(var(--runway-brand-rgb), 0.9),
+    transparent
+  );
+
+  box-shadow: 0 0 10px rgba(var(--runway-brand-rgb), 0.35);
+
+  opacity: 0;
+}
+
+/* Starts only once the entrance has finished. */
+.is-in .runway__signal {
+  animation: runway-signal-x 6s linear infinite;
+  animation-delay: calc(1.15s + var(--i) * 2s);
+}
+
+@keyframes runway-signal-x {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  4% {
+    opacity: 1;
+  }
+  29% {
+    opacity: 1;
+  }
+  33% {
+    opacity: 0;
+    transform: translateX(385%);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(385%);
+  }
+}
+
+/* ==========================================================================
+   CHECKPOINT
+   ========================================================================== */
+
+.runway__step {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  width: 100%;
+
+  padding: 0 0 0.25rem;
+
+  border: 0;
+
+  background: none;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  /* Entrance: 12px rise, staggered 90ms apart, after the line has drawn. */
+  opacity: 0;
+  transform: translateY(12px);
+
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s var(--runway-ease);
+  transition-delay: calc(320ms + var(--i) * 90ms);
+}
+
+.is-in .runway__step {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Selected checkpoints lift; the entrance transform has already settled to 0
+   by the time anything can be hovered. */
+.is-in .runway__step[aria-pressed="true"] {
+  transform: translateY(-3px);
+}
+
+.runway__step:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 6px;
+
+  border-radius: var(--radius-md);
+}
+
+/* The trace behind an active checkpoint. Deliberately borderless and fading to
+   nothing at its foot: a bordered panel here turns the checkpoint into exactly
+   the card this section is meant to avoid, and reframes its three unselected
+   neighbours as empty ones. It starts below the icon so the pathway stays
+   open where the line runs. */
+.runway__step::before {
+  content: "";
+
+  position: absolute;
+  inset: calc(var(--icon-top) + var(--icon-half)) -0.9rem -0.2rem -0.9rem;
+
+  z-index: -1;
+
+  border-radius: var(--radius-lg);
+
+  /* Radial rather than linear so it dissolves on every edge — a vertical fade
+     still leaves two hard sides, which is enough to read as a panel. */
+  background: radial-gradient(
+    115% 100% at 50% 0%,
+    rgba(var(--runway-brand-rgb), 0.07) 0%,
+    rgba(var(--runway-brand-rgb), 0) 72%
+  );
+
+  opacity: 0;
+
+  transition: opacity 0.4s var(--runway-ease);
+}
+
+.runway__step[aria-pressed="true"]::before {
+  opacity: 1;
+}
+
+/* ==========================================================================
+   MARK — number over icon
+   ========================================================================== */
+
+.runway__mark {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Fixed line box: --icon-top depends on it, and so does every segment. */
+.runway__num {
+  display: block;
+
+  height: 1.25rem;
+
+  margin-bottom: 0.75rem;
+
+  font-size: 0.72rem;
+  font-weight: var(--font-weight-semibold);
+
+  line-height: 1.25rem;
+  letter-spacing: 0.16em;
+
+  color: var(--color-text-disabled);
+
+  transition: color 0.4s var(--runway-ease);
+}
+
+.runway__step[aria-pressed="true"] .runway__num {
+  color: var(--runway-brand);
+}
+
+.runway__icon {
+  display: grid;
+  place-items: center;
+
+  width: var(--icon);
+  height: var(--icon);
+
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-full);
+
+  background: var(--color-surface);
+
+  color: var(--color-text-muted);
+
+  transition:
+    transform 0.4s var(--runway-ease),
+    border-color 0.4s var(--runway-ease),
+    background 0.4s var(--runway-ease),
+    box-shadow 0.4s var(--runway-ease),
+    color 0.4s var(--runway-ease);
+}
+
+/* Rotation only. The 3px rise the icon makes is the whole checkpoint lifting;
+   adding its own translate on top would carry it off the connection line,
+   which passes behind it. */
+.runway__step[aria-pressed="true"] .runway__icon {
+  transform: rotate(-2deg);
+
+  border-color: rgba(var(--runway-brand-rgb), 0.38);
+
+  background: rgba(var(--runway-brand-rgb), 0.07);
+
+  box-shadow: 0 8px 20px rgba(var(--runway-brand-rgb), 0.16);
+
+  color: var(--runway-brand);
+}
+
+/* ==========================================================================
+   COPY
+   ========================================================================== */
+
+.runway__step-title {
+  margin-top: 1.15rem;
+
+  font-size: 1.02rem;
+  font-weight: var(--font-weight-semibold);
+
+  letter-spacing: -0.01em;
+
+  color: var(--color-text-primary);
+}
+
+.runway__step-text {
+  margin-top: 0.45rem;
+
+  max-width: 24ch;
+
+  font-size: 0.89rem;
+
+  line-height: 1.62;
+
+  color: var(--color-text-secondary);
+}
+
+/* ==========================================================================
+   TABLET — two by two, with the segment from 02 turning down into 03
+
+   The elbow is one box spanning from 03's icon across and up to 02's icon,
+   carrying only a right and a bottom border: the path drops from 02, rounds
+   the corner, and runs left into 03.
+   ========================================================================== */
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .runway {
+    padding-block: 5.5rem;
+  }
+
+  .runway__track {
+    --row-gap: 2.75rem;
+
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    row-gap: var(--row-gap);
+  }
+
+  .runway__step-text {
+    max-width: 32ch;
+  }
+
+  .runway__slot:nth-child(2) .runway__link {
+    /* Starts at the foot of slot 02 rather than at its icon: a line dropping
+       from the icon would have to pass straight down through 02's own title
+       and description. The turn lives in the row gap, which is empty.
+
+       100% is the slot's own width — the segment sits inside slot 02, so one
+       slot to the left plus a gap lands on slot 03's icon. Deliberately not a
+       shared column-width variable: a percentage inside a custom property
+       resolves against whoever uses it, which here is the slot, not the
+       track. */
+    top: 100%;
+    left: calc(var(--icon-half) - var(--track-gap) - 100%);
+    right: calc(100% - var(--icon-half));
+    bottom: calc(-1 * (var(--row-gap) + var(--icon-top)));
+
+    height: auto;
+
+    /* The elbow is drawn by its children's borders, and reveals by wiping
+       downward rather than across. */
+    transform: scaleY(0);
+    transform-origin: top center;
+  }
+
+  .is-in .runway__slot:nth-child(2) .runway__link {
+    transform: scaleY(1);
+  }
+
+  /* The turn is a Z, not an L, and it changes direction halfway down the row
+     gap. An L would have to run along the row-2 icon line — the very line the
+     03 -> 04 segment occupies — so colouring the 02 -> 03 leg would light the
+     whole of row two and read as progress already reaching 04.
+
+     Two right angles, built from the existing base/fill pair plus a pseudo
+     each: the top-right L drops from 02 and turns left at mid-gap, the
+     bottom-left L carries on and drops into 03. */
+  .runway__slot:nth-child(2) .runway__link-base,
+  .runway__slot:nth-child(2) .runway__link-fill,
+  .runway__slot:nth-child(2) .runway__link::before,
+  .runway__slot:nth-child(2) .runway__link::after {
+    content: "";
+
+    position: absolute;
+
+    border-radius: 0;
+
+    background: none;
+  }
+
+  /* Top-right: down out of slot 02, turning left at the middle of the gap. */
+  .runway__slot:nth-child(2) .runway__link-base,
+  .runway__slot:nth-child(2) .runway__link-fill {
+    inset: 0 0 calc(100% - var(--row-gap) / 2) 50%;
+
+    border-right: var(--line) solid var(--color-border-light);
+    border-bottom: var(--line) solid var(--color-border-light);
+    border-bottom-right-radius: 1rem;
+  }
+
+  /* Bottom-left: on across the gap, then down into 03's icon. */
+  .runway__slot:nth-child(2) .runway__link::before,
+  .runway__slot:nth-child(2) .runway__link::after {
+    inset: calc(var(--row-gap) / 2) 50% 0 0;
+
+    border-top: var(--line) solid var(--color-border-light);
+    border-left: var(--line) solid var(--color-border-light);
+    border-top-left-radius: 1rem;
+  }
+
+  .runway__slot:nth-child(2) .runway__link-fill,
+  .runway__slot:nth-child(2) .runway__link::after {
+    border-color: var(--runway-brand);
+
+    transform: none;
+
+    opacity: 0;
+
+    transition: opacity 0.45s var(--runway-ease);
+  }
+
+  .runway__slot:nth-child(2) .runway__link[data-filled="true"] .runway__link-fill,
+  .runway__slot:nth-child(2) .runway__link[data-filled="true"]::after {
+    opacity: 1;
+  }
+
+  /* No pulse around the corner — it would have to change direction mid-travel.
+     The two straight rows keep it, 4s apart, so the rhythm still reads. */
+  .runway__slot:nth-child(2) .runway__signal {
+    display: none;
+  }
+
+  .is-in .runway__slot:nth-child(3) .runway__signal {
+    animation-delay: calc(1.15s + 4s);
+  }
+}
+
+/* ==========================================================================
+   MOBILE — one vertical path
+   ========================================================================== */
+
+@media (max-width: 767px) {
+  .runway {
+    padding-block: 4.25rem;
+  }
+
+  .runway__head {
+    grid-template-columns: minmax(0, 1fr);
+
+    gap: 0.9rem;
+
+    align-items: start;
+  }
+
+  /* Natural wrapping here. Balancing a heading this size against a narrow
+     column evens the line lengths by orphaning a two-word middle line. */
+  .runway__title {
+    max-width: none;
+
+    text-wrap: pretty;
+  }
+
+  .runway__support {
+    margin-bottom: 0;
+
+    max-width: 52ch;
+  }
+
+  .runway__track {
+    --row-gap: 1.5rem;
+    --icon: 2.5rem;
+
+    grid-template-columns: minmax(0, 1fr);
+
+    row-gap: var(--row-gap);
+  }
+
+  /* Straight down from this icon's centre to the next one's. */
+  .runway__link {
+    top: var(--icon-top);
+    right: auto;
+    bottom: calc(-1 * (var(--row-gap) + var(--icon-top)));
+    left: calc(var(--icon-half) - var(--line) / 2);
+
+    width: var(--line);
+    height: auto;
+
+    transform: scaleY(0);
+    transform-origin: center top;
+  }
+
+  .is-in .runway__link {
+    transform: scaleY(1);
+  }
+
+  .runway__link-fill {
+    background: linear-gradient(
+      180deg,
+      rgba(var(--runway-brand-rgb), 0.85),
+      rgba(var(--color-brand-secondary-rgb), 0.85)
+    );
+
+    transform: scaleY(0);
+    transform-origin: center top;
+  }
+
+  .runway__link[data-filled="true"] .runway__link-fill {
+    transform: scaleY(1);
+  }
+
+  .runway__signal {
+    top: 0;
+    right: 0;
+    bottom: auto;
+    left: 0;
+
+    width: auto;
+    height: 26%;
+
+    background: linear-gradient(
+      180deg,
+      transparent,
+      rgba(var(--runway-brand-rgb), 0.9),
+      transparent
+    );
+  }
+
+  .is-in .runway__signal {
+    animation-name: runway-signal-y;
+  }
+
+  /* Number and icon on the left, copy on the right. */
+  .runway__step {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-areas:
+      "mark title"
+      "mark text";
+
+    column-gap: 0.875rem;
+
+    padding-bottom: 0;
+  }
+
+  .runway__mark {
+    grid-area: mark;
+  }
+
+  .runway__step-title {
+    grid-area: title;
+
+    margin-top: 1.4rem;
+  }
+
+  .runway__step-text {
+    grid-area: text;
+
+    max-width: none;
+  }
+
+  /* The surface must not cross the connector, so it starts after the icon. */
+  /* Sits beside the connector rather than below the icon: the path runs down
+     the left edge here, so the trace starts to the right of it. */
+  .runway__step::before {
+    inset: 0.9rem -0.6rem -0.3rem calc(var(--icon) + 0.35rem);
+
+    background: radial-gradient(
+      100% 130% at 0% 50%,
+      rgba(var(--runway-brand-rgb), 0.08) 0%,
+      rgba(var(--runway-brand-rgb), 0) 74%
+    );
+  }
+}
+
+@keyframes runway-signal-y {
+  0% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  4% {
+    opacity: 1;
+  }
+  29% {
+    opacity: 1;
+  }
+  33% {
+    opacity: 0;
+    transform: translateY(385%);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(385%);
+  }
+}
+
+@media (max-width: 400px) {
+  .runway__track {
+    --icon: 2.25rem;
+  }
+
+  .runway__step {
+    column-gap: 0.75rem;
+  }
+}
+
+/* ==========================================================================
+   REDUCED MOTION
+   Nothing travels, nothing draws, nothing floats. The pathway is shown
+   complete, and selecting a checkpoint changes it at once.
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .runway__step,
+  .runway__link,
+  .runway__link-fill {
+    opacity: 1;
+
+    transition-duration: 0.01ms;
+    transition-delay: 0ms;
+  }
+
+  .runway__step,
+  .is-in .runway__step,
+  .is-in .runway__step[aria-pressed="true"] {
+    transform: none;
+  }
+
+  .runway__link,
+  .is-in .runway__link {
+    transform: none;
+  }
+
+  /* The progress line is shown whole rather than tracking the selection. */
+  .runway__link-fill,
+  .runway__link[data-filled="true"] .runway__link-fill {
+    transform: none;
+
+    opacity: 1;
+  }
+
+  .runway__step[aria-pressed="true"] .runway__icon {
+    transform: none;
+  }
+
+  .runway__signal,
+  .is-in .runway__signal {
+    display: none;
+
+    animation: none;
+  }
+}

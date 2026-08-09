@@ -67,7 +67,12 @@ const MobileMenu = ({ onClose }) => {
         </motion.ul>
 
         <div className="mobile-menu__footer">
-          <Button as={Link} to="/contact" onClick={onClose} fullWidth>
+          <Button
+            as={Link}
+            to="/contact#contact-form"
+            onClick={onClose}
+            fullWidth
+          >
             Book an Appointment
           </Button>
         </div>

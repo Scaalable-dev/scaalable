@@ -22,6 +22,47 @@
 }
 
 /* ==========================================================================
+   VERTICAL RHYTHM
+
+   One value for the whole page. Sections were each setting their own padding —
+   6rem from the global default, 7rem on the runway and the closing CTA, 2.6rem
+   on the process rail — and because the gap a reader sees is the sum of two
+   adjacent paddings, those combinations ran anywhere from 5rem to 14rem. The
+   page read as unevenly spaced rather than generously spaced.
+
+   Set here rather than in each section's own stylesheet: the rhythm is a
+   property of how the page is assembled, and several of these sections are
+   also used on other pages where their own spacing still applies.
+
+   Two are exempt. The hero sizes itself to the viewport, and the marquee is a
+   thin strip whose padding is what keeps it a strip.
+   ========================================================================== */
+
+.home {
+  --home-rhythm: clamp(2.25rem, 4.5vw, 3.25rem);
+}
+
+.home > section:not(.hero):not(.tech-marquee) {
+  padding-block: var(--home-rhythm);
+}
+
+/* The footer carries a 5rem top margin of its own, which lands on top of the
+   closing CTA's bottom padding and makes the last gap on the page the largest
+   one — exactly where it is most noticeable. Brought into the same rhythm.
+
+   Scoped to this page rather than changed on .footer itself: the other three
+   pages end on different sections and have not been reviewed for it. The
+   footer is a sibling of <main>, not of .home, so :has() is what reaches it. */
+@supports selector(:has(*)) {
+  main:has(> .home) + .footer {
+    /* The clamp is written out rather than referenced: --home-rhythm is
+       declared on .home, and the footer is outside it, so the variable does
+       not reach here. Keep the two in step. */
+    margin-top: clamp(2.25rem, 4.5vw, 3.25rem);
+  }
+}
+
+/* ==========================================================================
    FALLBACK
    overflow-x: clip is not universal; hidden achieves the same containment at
    the cost of establishing a scroll container.

@@ -49,24 +49,37 @@
   margin-bottom: clamp(2rem, 5vw, 3.25rem);
 }
 
+/* The shared <Badge> carries the pill, the Sparkles mark, the casing and the
+   letter-spacing; all that is left here is where it sits.
+
+   Do not set `display` on this element. The Badge lays its mark and label out
+   as a flex row, and globals.css makes every svg `display: block` — override
+   the flex and the icon claims its own line above the text. */
 .proc-intro__label {
-  display: inline-block;
+  max-width: 100%;
 
   margin-bottom: var(--space-4);
-
-  color: var(--proc-accent);
-
-  font-size: 0.7rem;
-  font-weight: 700;
-
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
 }
 
+/* The separator between the label and the stage count. */
 .proc-intro__label i {
-  color: var(--color-text-disabled);
+  margin-inline: 0.15rem;
+
+  color: rgba(var(--color-brand-primary-rgb), 0.45);
 
   font-style: normal;
+}
+
+/* This label is roughly twice the length of every other section badge, so on
+   the narrowest screens it is allowed the second line the Badge's default
+   `nowrap` would otherwise deny it — the alternative is a pill running off the
+   side of the column. The mark stays centred against the block of text. */
+@media (max-width: 480px) {
+  .proc-intro__label {
+    white-space: normal;
+
+    text-align: left;
+  }
 }
 
 .proc-intro__title {

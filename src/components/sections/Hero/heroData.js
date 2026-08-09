@@ -9,12 +9,12 @@ const heroData = {
   description:
     "Scaalable helps startups and established teams ship high-performance websites, SaaS platforms, and AI-powered software — designed around measurable business outcomes, not vanity metrics.",
 
-  /* Both route to a page and land on a specific section. The ids exist already:
-     `#inquiry` on ContactPage/InquiryForm, `#capabilities` on
-     ServicePage/Capabilities. */
+  /* Both route to a page and land on a specific section. `#contact-form` is the
+     site-wide destination for conversion CTAs (ContactPage/InquiryForm);
+     `#capabilities` is on ServicePage/Capabilities. */
   primaryButton: {
     text: "Start Your Project",
-    to: "/contact#inquiry",
+    to: "/contact#contact-form",
   },
 
   secondaryButton: {

@@ -1,5 +1,8 @@
 /* ==========================================================================
-   WHO WE HELP
+   WHO WE HELP — AUDIENCE SIGNAL STAGE
+   One interactive panel rather than a row of cards. Light throughout: the
+   futuristic quality comes from motion, spacing and the signal pathway, not
+   from a dark surface.
    ========================================================================== */
 
 .who-we-help {
@@ -8,182 +11,601 @@
   background: var(--color-background);
 }
 
-.who-we-help__grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-
-  gap: var(--space-6);
-}
-
-/* Reveal wraps each card, so the wrapper is the grid item — it has to pass the
-   stretched height through for the cards to line up. */
-.who-we-help__grid > * {
-  display: flex;
+/* Badge alone. The shared heading block reserves --space-16 beneath it for a
+   title and description; without them that gap reads as a hole. */
+.wwh-heading {
+  margin-bottom: clamp(1.25rem, 3vh, 1.9rem);
 }
 
 /* ==========================================================================
-   CARD
+   SELECTOR
    ========================================================================== */
 
-.who-we-help__card {
+.wwh-selector {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-
-  width: 100%;
-
-  padding: var(--space-8);
-
-  border: 1px solid var(--color-border-light);
-  border-radius: var(--radius-xl);
-
-  background: var(--color-surface);
-
-  box-shadow: var(--shadow-xs);
-
-  overflow: hidden;
-
-  transition:
-    border-color var(--transition-slow),
-    box-shadow var(--transition-slow),
-    background var(--transition-slow);
-}
-
-.who-we-help__card:hover {
-  border-color: rgba(0, 130, 249, 0.28);
-
-  box-shadow: var(--shadow-lg);
-}
-
-/* Brand hairline that wipes in from the left on hover. */
-.who-we-help__card::after {
-  content: "";
-
-  position: absolute;
-  top: 0;
-  left: 0;
-
-  width: 100%;
-  height: 3px;
-
-  background: var(--gradient-brand);
-
-  transform: scaleX(0);
-  transform-origin: left;
-
-  transition: transform var(--transition-slow);
-}
-
-.who-we-help__card:hover::after {
-  transform: scaleX(1);
-}
-
-/* ==========================================================================
-   INDEX
-   ========================================================================== */
-
-.who-we-help__index {
-  position: absolute;
-  top: var(--space-6);
-  right: var(--space-6);
-
-  font-family: var(--font-family-heading);
-  font-size: 0.8rem;
-  font-weight: var(--font-weight-semibold);
-
-  letter-spacing: 0.08em;
-
-  color: var(--color-text-disabled);
-
-  transition: color var(--transition-slow);
-}
-
-.who-we-help__card:hover .who-we-help__index {
-  color: var(--color-brand-primary);
-}
-
-/* ==========================================================================
-   ICON
-   ========================================================================== */
-
-.who-we-help__icon {
-  display: flex;
-  align-items: center;
+  flex-wrap: wrap;
   justify-content: center;
 
-  width: 56px;
-  height: 56px;
+  gap: 0.625rem;
 
-  margin-bottom: var(--space-6);
+  margin-bottom: clamp(1.75rem, 4vh, 2.75rem);
+}
 
-  border: 1px solid rgba(0, 130, 249, 0.14);
-  border-radius: var(--radius-lg);
+.wwh-selector__button {
+  padding: 0.75rem 1.35rem;
 
-  background: linear-gradient(
-    140deg,
-    rgba(185, 63, 251, 0.12),
-    rgba(0, 130, 249, 0.12)
-  );
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-full);
 
-  color: var(--color-brand-primary);
+  background: var(--color-surface-alt);
+
+  font-family: var(--font-family-body);
+  font-size: 0.9rem;
+  font-weight: var(--font-weight-semibold);
+
+  letter-spacing: -0.01em;
+
+  color: var(--color-text-secondary);
+
+  cursor: pointer;
 
   transition:
-    transform var(--transition-slow),
-    box-shadow var(--transition-slow);
+    transform var(--transition-normal),
+    background var(--transition-normal),
+    border-color var(--transition-normal),
+    box-shadow var(--transition-normal),
+    color var(--transition-normal);
 }
 
-.who-we-help__card:hover .who-we-help__icon {
-  transform: translateY(-2px) scale(1.04);
+.wwh-selector__button:hover {
+  transform: translateY(-2px);
 
-  box-shadow: 0 10px 24px rgba(0, 130, 249, 0.18);
-}
+  border-color: rgba(var(--color-brand-primary-rgb), 0.32);
 
-/* ==========================================================================
-   TEXT
-   ========================================================================== */
-
-.who-we-help__card-title {
-  margin-bottom: var(--space-3);
-
-  font-size: var(--font-size-h4);
-
-  letter-spacing: -0.03em;
+  background: var(--color-surface);
 
   color: var(--color-text-primary);
 }
 
-.who-we-help__card-text {
+.wwh-selector__button:focus-visible {
+  outline: 2px solid var(--color-brand-primary);
+  outline-offset: 3px;
+}
+
+.wwh-selector__button.is-active {
+  border-color: transparent;
+
+  background: var(--color-text-primary);
+
+  color: var(--color-text-white);
+
+  box-shadow:
+    0 1px 2px rgba(15, 23, 42, 0.12),
+    0 10px 26px rgba(var(--color-brand-secondary-rgb), 0.26);
+}
+
+.wwh-selector__button.is-active:hover {
+  color: var(--color-text-white);
+}
+
+/* ==========================================================================
+   PANEL
+   ========================================================================== */
+
+.wwh-panel {
+  position: relative;
+
+  display: grid;
+  grid-template-columns: 46fr 54fr;
+
+  width: 100%;
+  max-width: 1160px;
+  min-height: 380px;
+
+  margin-inline: auto;
+
+  border: 1px solid var(--color-border-light);
+  border-radius: 28px;
+
+  background: var(--color-surface);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 1px 2px rgba(15, 23, 42, 0.03),
+    0 18px 48px rgba(15, 23, 42, 0.06);
+
+  overflow: hidden;
+
+  isolation: isolate;
+}
+
+/* Pointer-following light. Nothing moves — only this wash shifts, which keeps
+   the effect under the 4px budget by having no travel at all. */
+.wwh-panel__sheen {
+  position: absolute;
+  inset: 0;
+
+  z-index: -1;
+
+  background: radial-gradient(
+    460px circle at var(--wwh-px, 70%) var(--wwh-py, 30%),
+    rgba(var(--color-brand-primary-rgb), 0.06),
+    transparent 68%
+  );
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  transition: opacity var(--transition-slow);
+}
+
+.wwh-panel:hover .wwh-panel__sheen {
+  opacity: 1;
+}
+
+@media (hover: none) {
+  .wwh-panel__sheen {
+    display: none;
+  }
+}
+
+.wwh-panel__position {
+  position: absolute;
+  top: clamp(1.1rem, 2.4vw, 1.75rem);
+  right: clamp(1.1rem, 2.4vw, 1.75rem);
+
+  z-index: 2;
+
   margin: 0;
+
+  font-size: 0.78rem;
+  font-weight: var(--font-weight-medium);
+
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.06em;
+
+  color: var(--color-text-disabled);
+}
+
+.wwh-panel__position-sep {
+  opacity: 0.6;
+}
+
+/* ==========================================================================
+   COPY
+   ========================================================================== */
+
+.wwh-panel__content {
+  display: flex;
+  align-items: center;
+
+  padding: clamp(1.75rem, 3.2vw, 2.75rem);
+
+  border-right: 1px solid var(--color-border-light);
+}
+
+.wwh-copy {
+  display: flex;
+  flex-direction: column;
+
+  gap: 0.9rem;
+
+  width: 100%;
+}
+
+.wwh-copy__label {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 0.5rem;
+
+  margin: 0;
+
+  font-size: 0.82rem;
+  font-weight: var(--font-weight-medium);
+
+  color: var(--color-text-muted);
+}
+
+.wwh-copy__label svg {
+  flex-shrink: 0;
+
+  color: var(--color-brand-secondary);
+}
+
+.wwh-copy__heading {
+  margin: 0;
+
+  max-width: 22ch;
+
+  font-size: clamp(1.35rem, 2vw, 1.7rem);
+
+  line-height: 1.25;
+  letter-spacing: -0.03em;
+
+  text-wrap: balance;
+
+  color: var(--color-text-primary);
+}
+
+.wwh-copy__description {
+  margin: 0;
+
+  max-width: 42ch;
 
   font-size: 0.96rem;
 
-  line-height: 1.75;
+  line-height: 1.7;
 
   color: var(--color-text-secondary);
+}
+
+.wwh-copy__outcome {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 0.6rem;
+
+  margin: 0.35rem 0 0;
+
+  max-width: 38ch;
+
+  font-size: 0.94rem;
+  font-weight: var(--font-weight-semibold);
+
+  line-height: 1.5;
+
+  color: var(--color-text-primary);
+}
+
+.wwh-copy__outcome svg {
+  flex-shrink: 0;
+
+  margin-top: 0.15rem;
+
+  color: var(--color-brand-primary);
+}
+
+/* ==========================================================================
+   STAGE
+   ========================================================================== */
+
+.wwh-panel__visual {
+  position: relative;
+
+  padding: clamp(1.25rem, 2.4vw, 2rem);
+}
+
+.wwh-stage {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+  min-height: 300px;
+}
+
+/* Technical grid, faded out toward the left so it never crowds the copy. */
+.wwh-stage__grid {
+  position: absolute;
+  inset: 0;
+
+  background-image:
+    linear-gradient(to right, rgba(26, 26, 46, 0.055) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(26, 26, 46, 0.055) 1px, transparent 1px);
+
+  background-size: 40px 40px;
+
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    #000 26%,
+    #000 100%
+  );
+
+  mask-image: linear-gradient(90deg, transparent 0%, #000 26%, #000 100%);
+}
+
+/* Ambient wash behind the solution node. */
+.wwh-stage__ambience {
+  position: absolute;
+  left: 41.5%;
+  top: 50%;
+
+  width: 58%;
+  aspect-ratio: 1;
+
+  transform: translate(-50%, -50%);
+
+  border-radius: 50%;
+
+  background: radial-gradient(
+    circle,
+    rgba(var(--color-brand-primary-rgb), 0.1),
+    rgba(var(--color-brand-secondary-rgb), 0.06) 45%,
+    transparent 70%
+  );
+
+  filter: blur(18px);
+}
+
+.wwh-stage__svg {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: visible;
+}
+
+.wwh-stage__line {
+  fill: none;
+
+  stroke: rgba(var(--color-brand-primary-rgb), 0.3);
+  stroke-width: 1.25;
+  stroke-linecap: round;
+}
+
+/* Dashes reading as data packets travelling need -> solution -> result. */
+.wwh-stage__signal {
+  fill: none;
+
+  stroke: var(--color-brand-primary);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-dasharray: 3 15;
+
+  filter: drop-shadow(0 0 4px rgba(var(--color-brand-primary-rgb), 0.55));
+
+  animation: wwh-signal 2.8s linear infinite;
+}
+
+@keyframes wwh-signal {
+  to {
+    stroke-dashoffset: -36;
+  }
+}
+
+/* ==========================================================================
+   NODES
+   ========================================================================== */
+
+.wwh-node {
+  --wwh-dot: 44px;
+
+  position: absolute;
+
+  display: flex;
+  align-items: center;
+
+  gap: 0.6rem;
+
+  /* Places the circle's centre on the coordinate, letting the label run right. */
+  transform: translate(calc(var(--wwh-dot) / -2), -50%);
+
+  white-space: nowrap;
+}
+
+.wwh-node__dot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  width: var(--wwh-dot);
+  height: var(--wwh-dot);
+
+  border-radius: 50%;
+
+  transition:
+    transform var(--transition-normal),
+    box-shadow var(--transition-normal);
+}
+
+.wwh-node__label {
+  font-size: 0.84rem;
+  font-weight: var(--font-weight-medium);
+
+  color: var(--color-text-secondary);
+}
+
+/* Need + result: smaller, tinted, quiet. */
+.wwh-node--outer .wwh-node__dot {
+  border: 1px solid rgba(var(--color-brand-primary-rgb), 0.22);
+
+  background: rgba(var(--color-brand-primary-rgb), 0.08);
+
+  color: var(--color-brand-primary);
+
+  box-shadow: 0 4px 12px rgba(var(--color-brand-primary-rgb), 0.12);
+}
+
+.wwh-node--outer:hover {
+  transform: translate(calc(var(--wwh-dot) / -2), calc(-50% - 2px));
+}
+
+.wwh-node--outer:hover .wwh-node__dot {
+  box-shadow: 0 8px 20px rgba(var(--color-brand-primary-rgb), 0.28);
+}
+
+/* Solution: the focal point. */
+.wwh-node--core {
+  --wwh-dot: 68px;
+
+  z-index: 1;
+}
+
+.wwh-node--core .wwh-node__dot {
+  background: var(--gradient-brand);
+
+  color: var(--color-text-white);
+
+  box-shadow:
+    0 2px 6px rgba(15, 23, 42, 0.1),
+    0 12px 30px rgba(var(--color-brand-primary-rgb), 0.34);
+
+  animation: wwh-breathe 3.4s ease-in-out infinite;
+}
+
+.wwh-node--core:hover .wwh-node__dot {
+  transform: scale(1.06);
+}
+
+@keyframes wwh-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+/* Ring expanding out of the solution node, as if the signal is being processed. */
+.wwh-node__pulse {
+  position: absolute;
+  left: calc(var(--wwh-dot) / 2);
+  top: 50%;
+
+  width: var(--wwh-dot);
+  height: var(--wwh-dot);
+
+  margin-left: calc(var(--wwh-dot) / -2);
+  margin-top: calc(var(--wwh-dot) / -2);
+
+  border: 1px solid rgba(var(--color-brand-primary-rgb), 0.5);
+  border-radius: 50%;
+
+  animation: wwh-ring 3s ease-out infinite;
+}
+
+@keyframes wwh-ring {
+  0% {
+    opacity: 0.55;
+    transform: scale(0.8);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(2.3);
+  }
 }
 
 /* ==========================================================================
    RESPONSIVE
    ========================================================================== */
 
-@media (max-width: 1200px) {
-  .who-we-help__grid {
+@media (max-width: 900px) {
+  .wwh-copy__heading {
+    font-size: 1.3rem;
+  }
+
+  .wwh-node__label {
+    font-size: 0.79rem;
+  }
+}
+
+/* Single column: copy first, pathway beneath, divider turns horizontal. */
+@media (max-width: 620px) {
+  .wwh-panel {
+    grid-template-columns: minmax(0, 1fr);
+
+    min-height: 0;
+
+    border-radius: 22px;
+  }
+
+  .wwh-panel__content {
+    padding: 1.4rem;
+    padding-top: 2.6rem;
+
+    border-right: none;
+    border-bottom: 1px solid var(--color-border-light);
+  }
+
+  .wwh-panel__visual {
+    padding: 1.25rem;
+  }
+
+  .wwh-stage {
+    min-height: 250px;
+  }
+
+  .wwh-copy__heading,
+  .wwh-copy__description,
+  .wwh-copy__outcome {
+    max-width: none;
+  }
+
+  .wwh-node {
+    --wwh-dot: 38px;
+  }
+
+  .wwh-node--core {
+    --wwh-dot: 56px;
+  }
+
+  .wwh-node__label {
+    font-size: 0.78rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .wwh-selector {
+    display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-}
 
-@media (max-width: 768px) {
-  .who-we-help__grid {
-    gap: var(--space-4);
+  .wwh-selector__button {
+    width: 100%;
+
+    padding-inline: 0.75rem;
+
+    font-size: 0.84rem;
   }
 
-  .who-we-help__card {
-    padding: var(--space-6);
+  .wwh-node {
+    --wwh-dot: 34px;
+  }
+
+  .wwh-node--core {
+    --wwh-dot: 50px;
+  }
+
+  .wwh-node__label {
+    font-size: 0.75rem;
   }
 }
 
-@media (max-width: 576px) {
-  .who-we-help__grid {
-    grid-template-columns: minmax(0, 1fr);
+/* ==========================================================================
+   REDUCED MOTION
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .wwh-stage__signal,
+  .wwh-node--core .wwh-node__dot,
+  .wwh-node__pulse {
+    animation: none;
+  }
+
+  .wwh-node__pulse {
+    opacity: 0;
+  }
+
+  .wwh-selector__button,
+  .wwh-node__dot {
+    transition: none;
+  }
+
+  .wwh-selector__button:hover,
+  .wwh-node--outer:hover {
+    transform: translate(calc(var(--wwh-dot, 0px) / -2), -50%);
+  }
+
+  .wwh-selector__button:hover {
+    transform: none;
   }
 }

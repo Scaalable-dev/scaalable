@@ -35,9 +35,11 @@ export const quickLinks = [
     href: "#faq",
   },
   {
+    /* The home page no longer carries a contact section, so this points at the
+       contact page's form — the destination every other CTA on the site uses. */
     id: 6,
     title: "Contact",
-    href: "#contact",
+    href: "/contact#contact-form",
   },
 ];
 

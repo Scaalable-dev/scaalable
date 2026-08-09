@@ -21,7 +21,7 @@ import { useLocation } from "react-router-dom";
 const ScrollToTop = () => {
   const { pathname, hash } = useLocation();
 
-  /* Null on first mount, so a direct load of `/contact#inquiry` counts as
+  /* Null on first mount, so a direct load of `/contact#contact-form` counts as
      arriving on a new page rather than as an in-page jump. */
   const previousPath = useRef(null);
 
