@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import { Mail, Phone, MapPin, Clock } from "lucide-react";
 
 import Toast from "../../ui/Toast";
+import Reveal from "../../ui/Reveal";
 import SectionHeading from "../../ui/SectionHeading";
 
 const Contact = () => {
@@ -72,155 +73,171 @@ const Contact = () => {
   return (
     <section className="contact-page" id="contact">
       <div className="container">
-        <SectionHeading
-          badge="Contact"
-          title="Let's Build Something Great Together"
-          description="Whether you need a business website, a custom web application, or ongoing development support, we'd love to hear about your project."
-        />
+        <Reveal>
+          <SectionHeading
+            badge="Contact"
+            title="Let's build something great together"
+            description="Whether you need a business website, a custom web application, or ongoing development support, we'd love to hear about your project."
+          />
+        </Reveal>
 
         <div className="contact-page__content">
           {/* Contact Information */}
 
-          <aside className="contact-info">
-            <h2>Get in Touch</h2>
+          <Reveal className="contact-page__col" direction="right">
+            <aside className="contact-info">
+              <h2>Get in Touch</h2>
 
-            <p>
-              Have an idea or project in mind? Fill out the form and we'll get
-              back to you within 24 hours.
-            </p>
+              <p>
+                Have an idea or project in mind? Fill out the form and we'll get
+                back to you within 24 hours.
+              </p>
 
-            <div className="contact-info__list">
-              <div className="contact-info__item">
-                <Mail size={22} />
+              <div className="contact-info__list">
+                <div className="contact-info__item">
+                  <span className="contact-info__icon">
+                    <Mail size={19} />
+                  </span>
 
-                <div className="contact-info__content">
-                  <h3>Email</h3>
+                  <div className="contact-info__content">
+                    <h3>Email</h3>
 
-                  <a href="mailto:info@scaalable.com">info@scaalable.com</a>
+                    <a href="mailto:info@scaalable.com">info@scaalable.com</a>
 
-                  <a href="mailto:contact@scaalable.com">
-                    contact@scaalable.com
-                  </a>
+                    <a href="mailto:contact@scaalable.com">
+                      contact@scaalable.com
+                    </a>
+                  </div>
+                </div>
+
+                <div className="contact-info__item">
+                  <span className="contact-info__icon">
+                    <Phone size={19} />
+                  </span>
+
+                  <div>
+                    <h3>Phone</h3>
+                    <p>+91 75969 18803</p>
+                  </div>
+                </div>
+
+                <div className="contact-info__item">
+                  <span className="contact-info__icon">
+                    <MapPin size={19} />
+                  </span>
+
+                  <div>
+                    <h3>Location</h3>
+                    <p>Kolkata, West Bengal, India</p>
+                  </div>
+                </div>
+
+                <div className="contact-info__item">
+                  <span className="contact-info__icon">
+                    <Clock size={19} />
+                  </span>
+
+                  <div>
+                    <h3>Response Time</h3>
+                    <p>Within 24 Hours</p>
+                  </div>
                 </div>
               </div>
-
-              <div className="contact-info__item">
-                <Phone size={22} />
-
-                <div>
-                  <h3>Phone</h3>
-                  <p>+91 75969 18803</p>
-                </div>
-              </div>
-
-              <div className="contact-info__item">
-                <MapPin size={22} />
-
-                <div>
-                  <h3>Location</h3>
-                  <p>Kolkata, West Bengal, India</p>
-                </div>
-              </div>
-
-              <div className="contact-info__item">
-                <Clock size={22} />
-
-                <div>
-                  <h3>Response Time</h3>
-                  <p>Within 24 Hours</p>
-                </div>
-              </div>
-            </div>
-          </aside>
+            </aside>
+          </Reveal>
 
           {/* Contact Form */}
 
-          <div className="contact-form-wrapper">
-            <form className="contact-form" onSubmit={handleSubmit}>
-              <div className="form-group">
-                <label htmlFor="name">Full Name</label>
+          <Reveal className="contact-page__col" direction="left" delay={0.1}>
+            <div className="contact-form-wrapper">
+              <form className="contact-form" onSubmit={handleSubmit}>
+                <div className="form-group">
+                  <label htmlFor="name">Full Name</label>
 
-                <input
-                  id="name"
-                  name="name"
-                  type="text"
-                  placeholder="John Doe"
-                  autoComplete="name"
-                  required
-                />
-              </div>
+                  <input
+                    id="name"
+                    name="name"
+                    type="text"
+                    placeholder="John Doe"
+                    autoComplete="name"
+                    required
+                  />
+                </div>
 
-              <div className="form-group">
-                <label htmlFor="email">Email Address</label>
+                <div className="form-group">
+                  <label htmlFor="email">Email Address</label>
 
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  placeholder="john@example.com"
-                  autoComplete="email"
-                  required
-                />
-              </div>
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    placeholder="john@example.com"
+                    autoComplete="email"
+                    required
+                  />
+                </div>
 
-              <div className="form-group">
-                <label htmlFor="company">Company</label>
+                <div className="form-group">
+                  <label htmlFor="company">Company</label>
 
-                <input
-                  id="company"
-                  name="company"
-                  type="text"
-                  placeholder="Company Name"
-                  autoComplete="organization"
-                />
-              </div>
+                  <input
+                    id="company"
+                    name="company"
+                    type="text"
+                    placeholder="Company Name"
+                    autoComplete="organization"
+                  />
+                </div>
 
-              <div className="form-group">
-                <label htmlFor="projectType">Project Type</label>
+                <div className="form-row">
+                  <div className="form-group">
+                    <label htmlFor="projectType">Project Type</label>
 
-                <select id="projectType" name="projectType" required>
-                  <option value="">Select a project</option>
-                  <option>Business Website</option>
-                  <option>Web Application</option>
-                  <option>E-Commerce</option>
-                  <option>UI / UX Design</option>
-                  <option>Other</option>
-                </select>
-              </div>
+                    <select id="projectType" name="projectType" required>
+                      <option value="">Select a project</option>
+                      <option>Business Website</option>
+                      <option>Web Application</option>
+                      <option>E-Commerce</option>
+                      <option>UI / UX Design</option>
+                      <option>Other</option>
+                    </select>
+                  </div>
 
-              <div className="form-group">
-                <label htmlFor="budget">Estimated Budget</label>
+                  <div className="form-group">
+                    <label htmlFor="budget">Estimated Budget</label>
 
-                <select id="budget" name="budget">
-                  <option value="">Select Budget</option>
-                  <option>Under ₹50,000</option>
-                  <option>₹50,000 - ₹1,50,000</option>
-                  <option>₹1,50,000 - ₹5,00,000</option>
-                  <option>Above ₹5,00,000</option>
-                </select>
-              </div>
+                    <select id="budget" name="budget">
+                      <option value="">Select Budget</option>
+                      <option>Under ₹50,000</option>
+                      <option>₹50,000 - ₹1,50,000</option>
+                      <option>₹1,50,000 - ₹5,00,000</option>
+                      <option>Above ₹5,00,000</option>
+                    </select>
+                  </div>
+                </div>
 
-              <div className="form-group">
-                <label htmlFor="message">Project Details</label>
+                <div className="form-group">
+                  <label htmlFor="message">Project Details</label>
 
-                <textarea
-                  id="message"
-                  name="message"
-                  rows="6"
-                  placeholder="Tell us about your project..."
-                  required
-                />
-              </div>
+                  <textarea
+                    id="message"
+                    name="message"
+                    rows="6"
+                    placeholder="Tell us about your project..."
+                    required
+                  />
+                </div>
 
-              <button
-                type="submit"
-                className="contact-form__button"
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? "Sending..." : "Let's Discuss Your Project"}
-              </button>
-            </form>
-          </div>
+                <button
+                  type="submit"
+                  className="contact-form__button"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? "Sending..." : "Let's Discuss Your Project"}
+                </button>
+              </form>
+            </div>
+          </Reveal>
         </div>
       </div>
     </section>

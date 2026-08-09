@@ -1,0 +1,34 @@
+/* ==========================================================================
+   HOME PAGE
+   Page-level composition only. Section skins live with their sections; what
+   belongs here is how those sections sit together.
+   ========================================================================== */
+
+.home {
+  position: relative;
+
+  /* The hero's aurora and the canvas visual both overscan their boxes. Clipping
+     on the page rather than on each section keeps a stray glow from widening
+     the document on narrow viewports. */
+  overflow-x: clip;
+}
+
+/* The hero runs edge to edge under the header; everything after it keeps the
+   standard section rhythm from globals.css. */
+.home > section + section {
+  /* Hairline seam between adjacent surfaces, so the alternating white and
+     tinted sections meet on a line rather than an abrupt colour change. */
+  border-top: 1px solid transparent;
+}
+
+/* ==========================================================================
+   FALLBACK
+   overflow-x: clip is not universal; hidden achieves the same containment at
+   the cost of establishing a scroll container.
+   ========================================================================== */
+
+@supports not (overflow-x: clip) {
+  .home {
+    overflow-x: hidden;
+  }
+}

@@ -1,32 +1,40 @@
+import TiltCard from "../../ui/TiltCard";
+
 import "./ServiceCard.css";
 
-const ServiceCard = ({ service }) => {
+const ServiceCard = ({ service, wide = false }) => {
   const Icon = service.icon;
 
   return (
-    <article className="service-card">
+    <TiltCard
+      className={`service-card ${wide ? "service-card--wide" : ""}`.trim()}
+      /* A full-width card is a much larger surface, so the same angle reads as
+         a far bigger warp. Dial it back. */
+      max={wide ? 2.5 : 6}
+      spotlightColor="rgba(137, 57, 250, 0.1)"
+    >
       <div className="service-card__media">
-        <div className="service-card__icon-box">
-          <Icon className="service-card__icon" strokeWidth={1.8} />
+        <span className="service-card__icon-tile">
+          <Icon className="service-card__icon" strokeWidth={1.7} />
+        </span>
+      </div>
+
+      <div className="service-card__content">
+        <div className="service-card__text">
+          <h3 className="service-card__title">{service.title}</h3>
+
+          <p className="service-card__description">{service.description}</p>
         </div>
-      </div>
 
-      <div className="service-card__body">
-        <h3 className="service-card__title">{service.title}</h3>
-
-        <p className="service-card__description">{service.description}</p>
-      </div>
-
-      <div className="service-card__footer">
-        <div className="service-card__tags">
+        <ul className="service-card__tags">
           {service.tags.map((tag) => (
-            <span key={tag} className="service-card__tag">
+            <li key={tag} className="service-card__tag">
               {tag}
-            </span>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
-    </article>
+    </TiltCard>
   );
 };
 

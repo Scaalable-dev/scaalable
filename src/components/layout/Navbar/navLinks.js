@@ -1,38 +1,28 @@
+/* Every entry must map to a route registered in App.jsx — a link to a path with
+   no route renders an empty layout rather than a 404. */
 const navLinks = [
   {
-    id: 1,
+    id: "home",
     label: "Home",
-    href: "/",
+    to: "/",
+    /* Without `end`, "/" prefix-matches every path and Home stays highlighted
+       on every page. */
+    end: true,
   },
   {
-    id: 2,
-    label: "Who We Help",
-    href: "/who-we-help",
-  },
-  {
-    id: 3,
+    id: "services",
     label: "Services",
-    href: "/services",
-  },
-  // {
-  //   id: 5,
-  //   label: "Testimonials",
-  //   href: "#testimonials",
-  // },
-  {
-    id: 4,
-    label: "FAQ",
-    href: "#faq",
+    to: "/services",
   },
   {
-    id: 5,
-    label: "Contact",
-    href: "/contact",
-  },
-  {
-    id: 6,
+    id: "about",
     label: "About",
-    href: "/about",
+    to: "/about",
+  },
+  {
+    id: "contact",
+    label: "Contact",
+    to: "/contact",
   },
 ];
 

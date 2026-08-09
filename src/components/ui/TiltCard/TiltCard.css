@@ -1,0 +1,39 @@
+/* ==========================================================================
+   TILT CARD
+   Shared shell for pointer-reactive cards. Visual skin (background, border,
+   padding) belongs to the consuming section's stylesheet.
+   ========================================================================== */
+
+.tilt-card {
+  position: relative;
+
+  /* Own stacking context, so the spotlight's negative z-index stays trapped
+     inside the card instead of sliding behind the section background. */
+  isolation: isolate;
+
+  transform-style: preserve-3d;
+
+  will-change: transform;
+}
+
+/* Sits above the card's own background but below every child — which keeps the
+   consuming card free to position its children however it likes, rather than
+   having a `position: relative` forced onto them from here. */
+.tilt-card__spotlight {
+  position: absolute;
+  inset: 0;
+
+  z-index: -1;
+
+  border-radius: inherit;
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  transition: opacity var(--transition-slow);
+}
+
+.tilt-card:hover .tilt-card__spotlight {
+  opacity: 1;
+}

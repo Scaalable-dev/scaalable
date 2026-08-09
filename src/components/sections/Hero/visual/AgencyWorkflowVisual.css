@@ -1,0 +1,210 @@
+/* ==========================================================================
+   AGENCY WORKFLOW VISUAL
+   Stage (canvas + box) and cards share one grid cell on desktop so the cards
+   overlay the stream without a second measurement pass. On small screens the
+   same DOM reflows into a plain grid underneath.
+   ========================================================================== */
+
+.awv {
+  /* Width of the stream channel in the stacked layout: the card grid's gutter
+     and the connectors that reach into it are both driven from this. Wide,
+     because it doubles as the squeeze on the card columns — the cards are only
+     as loose as the channel is narrow. */
+  --awv-channel: clamp(84px, 28vw, 160px);
+
+  position: relative;
+
+  display: grid;
+  grid-template-areas: "stage";
+  grid-template-rows: 1fr;
+
+  width: 100%;
+
+  /* Nothing here may widen the page. */
+  max-width: 100%;
+}
+
+.awv__stage {
+  grid-area: stage;
+
+  position: relative;
+
+  min-height: clamp(500px, 62vh, 640px);
+
+  /* No background of its own — the hero gradient shows straight through, so the
+     column reads as part of the section rather than a panel dropped onto it. */
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   CANVAS
+   ========================================================================== */
+
+.radiation-canvas {
+  position: absolute;
+  inset: 0;
+
+  display: block;
+
+  width: 100%;
+  height: 100%;
+}
+
+/* ==========================================================================
+   CARDS OVERLAY
+   ========================================================================== */
+
+.awv__cards {
+  grid-area: stage;
+
+  position: relative;
+
+  /* The stage owns pointer tracking; only the buttons themselves take input,
+     and their events still bubble up so the stream keeps following the cursor
+     while it is over a card. */
+  pointer-events: none;
+
+  z-index: 2;
+}
+
+.awv__cards .wf-card__button {
+  pointer-events: auto;
+}
+
+/* ==========================================================================
+   CURSOR LENS
+   ========================================================================== */
+
+.awv__lens {
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  width: 46px;
+  height: 46px;
+
+  border: 1px solid rgba(0, 130, 249, 0.3);
+  border-radius: 50%;
+
+  background: radial-gradient(
+    circle at 38% 32%,
+    rgba(255, 255, 255, 0.72),
+    rgba(255, 255, 255, 0.18) 52%,
+    rgba(255, 255, 255, 0) 70%
+  );
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    inset 0 0 20px rgba(255, 255, 255, 0.55),
+    0 0 26px rgba(0, 130, 249, 0.16);
+
+  backdrop-filter: blur(1.5px);
+  -webkit-backdrop-filter: blur(1.5px);
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  transition: opacity var(--transition-normal);
+
+  z-index: 3;
+}
+
+.awv__lens.is-visible {
+  opacity: 1;
+}
+
+.awv__lens-ring {
+  position: absolute;
+  inset: 21%;
+
+  border: 1px dashed rgba(137, 57, 250, 0.5);
+  border-radius: 50%;
+
+  animation: awv-lens-spin 7s linear infinite;
+}
+
+@keyframes awv-lens-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* No hover means no cursor to track. */
+@media (hover: none) {
+  .awv__lens {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   STATUS
+   ========================================================================== */
+
+/* Carries .visually-hidden from globals.css, so it is absolutely positioned and
+   claims no grid track — the space it used to occupy under the box is gone. */
+.awv__status {
+  margin: 0;
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   Cards leave the stage and stack into a readable grid below it.
+   ========================================================================== */
+
+/* ==========================================================================
+   RESPONSIVE
+   Below the split the cards keep flanking the stream, just in a narrower
+   frame: the canvas becomes the backdrop for a two-column card grid whose
+   COLUMN GAP is the stream channel. Three cards each side, flow down the
+   middle, box anchoring the bottom — the desktop reading, compressed.
+   ========================================================================== */
+
+@media (max-width: 991px) {
+  .awv__stage {
+    /* Height now comes from the card grid sharing this cell — a fixed stage
+       height here is what left the big empty gap above the cards. */
+    min-height: 0;
+  }
+
+  .awv__cards {
+    /* Same cell as the stage, and in flow, so it drives the shared height. */
+    position: relative;
+
+    display: grid;
+
+    /* The gutter IS the stream channel. Cards are placed in DOM order and the
+       stages already alternate left/right, so 1-3-5 land in the left column
+       and 2-4-6 in the right with no explicit placement. */
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: var(--awv-channel);
+    row-gap: clamp(0.5rem, 1.4vh, 0.85rem);
+
+    align-items: start;
+
+    /* The grid now fills a whole viewport panel, so the three rows spread down
+       it instead of clumping under the lead-in. */
+    align-content: space-between;
+
+    /* Lead-in so the stream is established before the first card, and a reserve
+       at the bottom for the box it feeds into. */
+    padding-top: clamp(1rem, 3vh, 2rem);
+    padding-bottom: calc(var(--pbox-width, 104px) * 0.74 + 1.25rem);
+
+    pointer-events: auto;
+  }
+}
+
+/* ==========================================================================
+   REDUCED MOTION
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .awv__lens {
+    display: none;
+  }
+
+  .awv__lens-ring {
+    animation: none;
+  }
+}

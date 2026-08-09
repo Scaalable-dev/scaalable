@@ -1,35 +1,28 @@
 const heroData = {
   badge: "Trusted by 100+ Businesses",
 
-  title: "Build Modern Digital Products That Grow Your Business.",
+  title: {
+    lead: "Build digital products that",
+    highlight: "grow your business",
+  },
 
   description:
-    "Scaalable helps startups and businesses build high-performance websites, SaaS platforms, AI-powered applications, and custom software that drive measurable growth.",
+    "Scaalable helps startups and established teams ship high-performance websites, SaaS platforms, and AI-powered software — designed around measurable business outcomes, not vanity metrics.",
 
+  /* Both route to a page and land on a specific section. The ids exist already:
+     `#inquiry` on ContactPage/InquiryForm, `#capabilities` on
+     ServicePage/Capabilities. */
   primaryButton: {
-    text: "Get a Quote",
-    href: "#contact",
+    text: "Start Your Project",
+    to: "/contact#inquiry",
   },
 
   secondaryButton: {
-    text: "View Portfolio",
-    href: "#portfolio",
+    text: "Explore Services",
+    to: "/services#capabilities",
   },
 
-  stats: [
-    {
-      value: "200+",
-      label: "Projects Delivered",
-    },
-    {
-      value: "50+",
-      label: "Happy Clients",
-    },
-    {
-      value: "99%",
-      label: "Client Satisfaction",
-    },
-  ],
+  trust: ["Free discovery call", "Fixed-scope quotes", "No hidden costs"],
 };
 
 export default heroData;

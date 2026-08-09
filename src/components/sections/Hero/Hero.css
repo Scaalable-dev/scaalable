@@ -1,95 +1,161 @@
 /* ==========================================================================
    HERO SECTION
+
+   Sized to be seen in one viewport. Every piece of copy is clamped on BOTH
+   axes — clamp(min, min(Xvw, Yvh), max) — so the type answers to whichever
+   dimension is tighter. Width-only clamps are why a hero that fits a 1440x900
+   window overflows the same window at 1440x700: the text never learns the
+   viewport got shorter.
    ========================================================================== */
 
 .hero {
-  position: relative;
-  overflow: hidden;
+  /* Named so the visual column can cancel it with a negative margin and run
+     edge to edge under the header. */
+  --hero-pad-y: clamp(1.25rem, 3.6vh, 3.25rem);
 
-  min-height: calc(100vh - var(--navbar-height));
+  position: relative;
 
   display: flex;
   align-items: center;
 
-  padding-top: 2rem;
-  padding-bottom: 2rem;
-  /* padding-top: 1.5rem;
-  padding-bottom: 1rem; */
+  min-height: calc(100vh - var(--navbar-height));
+  min-height: calc(100svh - var(--navbar-height));
 
+  padding-block: var(--hero-pad-y);
+
+  /* `clip`, not `hidden`. Both contain the aurora and the canvas overscan, but
+     `hidden` makes this element a scroll container, which re-parents the snap
+     alignment of the panels inside it away from the document — the page then
+     sees no snap points in the hero at all. `clip` clips without creating a
+     scrollport. */
+  overflow: clip;
   isolation: isolate;
 
-  background:
-    radial-gradient(
-      circle at 15% 20%,
-      rgba(59, 130, 246, 0.18),
-      transparent 35%
-    ),
-    radial-gradient(
-      circle at 85% 15%,
-      rgba(168, 85, 247, 0.18),
-      transparent 38%
-    ),
-    radial-gradient(
-      circle at 50% 100%,
-      rgba(6, 182, 212, 0.14),
-      transparent 45%
-    ),
-    linear-gradient(180deg, #ffffff 0%, #f8fbff 55%, #f4f8ff 100%);
+  background: linear-gradient(180deg, #ffffff 0%, #fbfcff 48%, #f5f8ff 100%);
 }
 
-/* Blue Glow */
+/* Older engines keep the containment; they simply do not get panel snapping. */
+@supports not (overflow: clip) {
+  .hero {
+    overflow: hidden;
+  }
+}
 
-.hero::before {
-  content: "";
+/* ==========================================================================
+   BACKDROP
+   Overscanned so the parallax drift never exposes a hard edge.
+   ========================================================================== */
 
+.hero__backdrop {
+  position: absolute;
+  inset: -18% -12%;
+
+  z-index: -1;
+
+  pointer-events: none;
+}
+
+.hero__glow {
   position: absolute;
 
-  width: 650px;
-  height: 650px;
+  display: block;
 
-  left: -220px;
-  top: -220px;
+  aspect-ratio: 1;
 
   border-radius: 50%;
 
-  background: rgba(59, 130, 246, 0.18);
+  filter: blur(100px);
 
-  filter: blur(120px);
-
-  z-index: -2;
+  will-change: transform;
 }
 
-/* Purple Glow */
+.hero__glow--blue {
+  width: clamp(320px, 42vw, 620px);
 
-.hero::after {
-  content: "";
+  top: 6%;
+  left: -2%;
 
+  background: radial-gradient(
+    circle,
+    rgba(0, 130, 249, 0.34),
+    rgba(0, 130, 249, 0) 68%
+  );
+}
+
+.hero__glow--violet {
+  width: clamp(300px, 40vw, 580px);
+
+  top: -4%;
+  right: -2%;
+
+  background: radial-gradient(
+    circle,
+    rgba(185, 63, 251, 0.28),
+    rgba(185, 63, 251, 0) 68%
+  );
+}
+
+.hero__glow--cyan {
+  width: clamp(280px, 36vw, 520px);
+
+  bottom: -8%;
+  left: 34%;
+
+  background: radial-gradient(
+    circle,
+    rgba(6, 182, 212, 0.2),
+    rgba(6, 182, 212, 0) 70%
+  );
+}
+
+/* Faint grid, masked to an ellipse so it dissolves before the section edges. */
+.hero__mesh {
   position: absolute;
+  inset: 0;
 
-  width: 600px;
-  height: 600px;
+  display: block;
 
-  right: -200px;
-  top: -180px;
+  background-image:
+    linear-gradient(to right, rgba(26, 26, 46, 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(26, 26, 46, 0.045) 1px, transparent 1px);
 
-  border-radius: 50%;
+  background-size: 64px 64px;
 
-  background: rgba(168, 85, 247, 0.16);
+  -webkit-mask-image: radial-gradient(
+    ellipse 70% 55% at 50% 42%,
+    #000 0%,
+    transparent 78%
+  );
 
-  filter: blur(120px);
-
-  z-index: -2;
+  mask-image: radial-gradient(
+    ellipse 70% 55% at 50% 42%,
+    #000 0%,
+    transparent 78%
+  );
 }
 
 /* ==========================================================================
    WRAPPER
+   Single column by default — that is the small-screen layout. The split is
+   opted into at 1100px, where there is actually room for two columns.
    ========================================================================== */
 
 .hero__wrapper {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1040px;
 
   margin-inline: auto;
+
+  display: grid;
+  gap: clamp(2rem, 4vh, 3rem);
+}
+
+.hero__col {
+  min-width: 0;
+}
+
+.hero__col--visual {
+  width: 100%;
 }
 
 /* ==========================================================================
@@ -97,17 +163,25 @@
    ========================================================================== */
 
 .hero__content {
-  max-width: 860px;
-
-  margin-inline: auto;
-
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  text-align: center;
+  gap: clamp(0.7rem, 1.9vh, 1.6rem);
 
-  gap: 1.5rem;
+  text-align: center;
+}
+
+/* ==========================================================================
+   BADGE
+   Scoped override so the pill tracks the rest of the hero rather than holding
+   a fixed size while everything around it scales.
+   ========================================================================== */
+
+.hero__content .badge {
+  padding: clamp(0.32rem, 0.8vh, 0.55rem) clamp(0.7rem, 1.3vw, 1.15rem);
+
+  font-size: clamp(0.62rem, min(0.72vw, 1.15vh), 0.8rem);
 }
 
 /* ==========================================================================
@@ -115,17 +189,46 @@
    ========================================================================== */
 
 .hero__title {
-  max-width: 18ch;
+  max-width: 17ch;
 
-  font-size: clamp(3.2rem, 5vw, 4.4rem);
+  font-size: clamp(2.1rem, min(4.9vw, 7.7vh), 4.3rem);
 
-  line-height: 1.08;
+  font-weight: var(--font-weight-bold);
 
-  letter-spacing: -0.04em;
+  line-height: 1.04;
 
-  font-weight: 700;
+  letter-spacing: -0.045em;
+
+  text-wrap: balance;
 
   color: var(--color-text-primary);
+}
+
+/* Oversized background + slow slide gives the gradient a slow travelling
+   sheen rather than a static fill. */
+.hero__title-accent {
+  background: linear-gradient(
+    100deg,
+    #0082f9 0%,
+    #8939fa 34%,
+    #b93ffb 58%,
+    #0082f9 100%
+  );
+
+  background-size: 220% 100%;
+
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  color: transparent;
+
+  animation: hero-sheen 9s linear infinite;
+}
+
+@keyframes hero-sheen {
+  to {
+    background-position: 220% 0;
+  }
 }
 
 /* ==========================================================================
@@ -133,11 +236,15 @@
    ========================================================================== */
 
 .hero__description {
-  max-width: 56ch;
+  max-width: 62ch;
 
-  font-size: 1.1rem;
+  margin: 0;
 
-  line-height: 1.75;
+  font-size: clamp(0.9rem, min(1.15vw, 1.85vh), 1.12rem);
+
+  line-height: 1.65;
+
+  text-wrap: pretty;
 
   color: var(--color-text-secondary);
 }
@@ -148,95 +255,316 @@
 
 .hero__actions {
   display: flex;
-
   justify-content: center;
   align-items: center;
-
-  gap: 1rem;
-
-  margin-top: 0.5rem;
-
   flex-wrap: wrap;
+
+  gap: clamp(0.5rem, 1.2vh, 0.875rem);
+
+  margin-top: clamp(0.1rem, 0.5vh, 0.35rem);
+}
+
+/* Scoped so the shared Button keeps its own sizes everywhere else. */
+.hero__actions .btn {
+  padding: clamp(0.58rem, 1.45vh, 0.95rem) clamp(1.05rem, 2vw, 2rem);
+
+  font-size: clamp(0.85rem, min(1vw, 1.6vh), 1.05rem);
 }
 
 /* ==========================================================================
-   STATS
+   TRUST ROW
    ========================================================================== */
 
-.hero__stats {
+.hero__trust {
   display: flex;
-
   justify-content: center;
-  align-items: center;
-
-  gap: 3rem;
-
-  margin-top: 2rem;
-
   flex-wrap: wrap;
+
+  gap: clamp(0.35rem, 0.9vh, 0.6rem) clamp(0.85rem, 1.8vw, 1.75rem);
+
+  margin-top: clamp(0.1rem, 0.5vh, 0.35rem);
 }
 
-.hero__stat {
-  display: flex;
-  flex-direction: column;
-
+.hero__trust-item {
+  display: inline-flex;
   align-items: center;
 
-  gap: 0.4rem;
+  gap: 0.45rem;
+
+  font-size: clamp(0.72rem, min(0.9vw, 1.42vh), 0.9rem);
+  font-weight: var(--font-weight-medium);
+
+  color: var(--color-text-muted);
 }
 
-.hero__stat h3 {
-  color: var(--color-primary);
+.hero__trust-item svg {
+  flex-shrink: 0;
 
-  font-size: 2rem;
-}
-
-.hero__stat span {
-  color: var(--color-text-secondary);
+  color: var(--color-success);
 }
 
 /* ==========================================================================
-   RESPONSIVE
+   TWO-COLUMN SPLIT
+   Locked to the viewport height so the whole hero is visible at once.
    ========================================================================== */
 
-@media (max-width: 992px) {
+@media (min-width: 1100px) {
   .hero {
-    min-height: auto;
+    /* Fixed rather than min: with dual-axis type the content always fits, and a
+       hard height guarantees the section never spills past the fold. The
+       min-height floor is the escape hatch for extreme letterbox windows, where
+       shrinking further would cost legibility. */
+    height: calc(100svh - var(--navbar-height));
+    min-height: 560px;
 
-    padding-block: 4rem;
+    /* Stretch, so the container can hand a full-height box to the visual. */
+    align-items: stretch;
+  }
+
+  .hero > .container {
+    display: flex;
+    align-items: center;
+  }
+
+  .hero__wrapper {
+    /* No cap of its own: the Container already holds the page's 1320px measure,
+       and a second, narrower cap here just inset the hero from every other
+       section and widened the dead margin beside the copy. */
+    max-width: none;
+    height: 100%;
+
+    /* Visual takes marginally more, since it carries the stream, the box and
+       two columns of cards. */
+    grid-template-columns: minmax(0, 0.94fr) minmax(0, 1.06fr);
+    align-items: center;
+
+    /* Only a hairline gutter between copy and visual — enough that the two
+       columns read as separate without touching. */
+    column-gap: clamp(1rem, 2%, 2rem);
+    row-gap: 0;
+  }
+
+  /* Runs the full height of the section, cancelling the hero's vertical padding,
+     so the stream enters from above and meets the header instead of starting at
+     an arbitrary line partway down. */
+  .hero__col--visual {
+    align-self: stretch;
+
+    /* Both edges. The status line that used to need clearance underneath is now
+       screen-reader only, so the stage can run the full height of the section —
+       stream meeting the header at the top, box settling near the fold. */
+    margin-block: calc(var(--hero-pad-y) * -1);
+  }
+
+  .hero__col--visual .awv {
+    height: 100%;
+  }
+
+  .hero__col--visual .awv__stage {
+    min-height: 0;
+  }
+
+  /* Copy left-aligns against the visual. */
+  .hero__content {
+    align-items: flex-start;
+
+    text-align: left;
+  }
+
+  /* Measures widened to sit comfortably in the column. At 14ch/44ch the copy
+     stopped well short of the gutter and left a dead band between the
+     description and the first card. */
+  .hero__title {
+    max-width: 15ch;
+  }
+
+  .hero__description {
+    max-width: 52ch;
+  }
+
+  .hero__actions,
+  .hero__trust {
+    justify-content: flex-start;
+  }
+}
+
+/* ==========================================================================
+   STACKED LAYOUT
+   Below the split the copy leads and the visual follows. The copy alone is
+   sized to land within the first viewport; the six workflow cards sit under
+   the stage, where making them fit the fold too would leave them unreadable.
+   ========================================================================== */
+
+/* ==========================================================================
+   SCROLL SNAP (small screens)
+
+   The document is the scroll container, so the snap type has to live on <html>.
+   It is `mandatory`, because `proximity` refuses to travel the distance between
+   two full-height panels — a nudge into the second panel just stays put.
+
+   Mandatory left on permanently would keep dragging the reader back to the hero
+   from anywhere further down the page, so Hero.jsx only adds this class while
+   the hero is actually intersecting the viewport. The section after the hero
+   carries a snap point too, giving the scroll somewhere forward to land.
+   ========================================================================== */
+
+@media (max-width: 1099px) {
+  /* Set on both: globals.css gives <body> `overflow-x: hidden`, so body's
+     overflow is what propagates to the viewport and body becomes the effective
+     scrolling box. scroll-snap-type does not propagate from the root the way
+     overflow does, so declaring it only on <html> leaves the viewport unsnapped. */
+  html.is-hero-snapping,
+  html.is-hero-snapping body {
+    scroll-snap-type: y mandatory;
+
+    /* Clears the sticky header by shrinking the snapport, rather than adding
+       scroll-margin to each panel. Margin grows the snap AREA instead, and a
+       snap area taller than the snapport is treated as unreachable — the
+       browser then stops snapping and scrolls straight past both panels. */
+    scroll-padding-top: var(--navbar-height);
+  }
+
+  .hero + section {
+    scroll-snap-align: start;
+  }
+}
+
+/* Snapping rides on `scroll-behavior: smooth` from globals.css. Without that
+   animation it becomes an abrupt jump, which is exactly what this preference
+   asks us not to do. */
+@media (prefers-reduced-motion: reduce) {
+  html.is-hero-snapping,
+  html.is-hero-snapping body {
+    scroll-snap-type: none;
+  }
+}
+
+/* ==========================================================================
+   STACKED LAYOUT
+   The copy panel takes the first viewport; the stream, cards and box take the
+   second. Card subtitles still drop below 992px — at this width they crowd the
+   stream channel rather than help.
+   ========================================================================== */
+
+@media (max-width: 1099px) {
+  .hero {
+    min-height: calc(100vh - var(--navbar-height));
+    min-height: calc(100svh - var(--navbar-height));
+
+    /* Zero here, so panel one measures exactly one viewport. The panels below
+       carry their own padding instead. */
+    padding-block: 0;
+
+    align-items: stretch;
+  }
+
+  .hero__wrapper {
+    gap: 0;
+  }
+
+  /* Two full-height panels: copy first, visual second. `proximity` snapping
+     (below) pulls the visual fully into view once the reader crosses into it,
+     rather than leaving a strip of stream showing under the copy. */
+  .hero__col--copy,
+  .hero__col--visual {
+    min-height: calc(100vh - var(--navbar-height));
+    min-height: calc(100svh - var(--navbar-height));
+
+    display: flex;
+    align-items: center;
+
+    /* The sticky header is cleared by scroll-padding-top on the container, not
+       by scroll-margin here — see the snap block above. */
+    scroll-snap-align: start;
+  }
+
+  .hero__col--copy > *,
+  .hero__col--visual > * {
+    width: 100%;
+  }
+
+  .hero__col--copy {
+    padding-block: clamp(1rem, 3vh, 2rem);
+  }
+
+  .hero__col--visual {
+    padding-bottom: clamp(0.75rem, 2.5vh, 1.75rem);
+  }
+
+  /* The visual fills its panel, so the stream gets a real run before the first
+     card instead of everything clumping at the top. */
+  .hero__col--visual .awv {
+    height: 100%;
+  }
+
+  /* The copy owns a whole viewport here, so it is sized to occupy it rather
+     than sit as a tight block in the middle of a mostly empty panel. */
+  .hero__content {
+    gap: clamp(1rem, 3.4vh, 2rem);
+  }
+
+  .hero__content .badge {
+    padding: clamp(0.42rem, 1.1vh, 0.6rem) clamp(0.85rem, 3.4vw, 1.25rem);
+
+    font-size: clamp(0.66rem, min(2.9vw, 1.4vh), 0.82rem);
   }
 
   .hero__title {
-    font-size: clamp(2.8rem, 7vw, 3.8rem);
+    /* Full width: every wrapped line is another line's worth of height. */
+    max-width: 100%;
+
+    font-size: clamp(2.2rem, min(9.5vw, 7vh), 3.8rem);
+  }
+
+  .hero__description {
+    max-width: 100%;
+
+    font-size: clamp(0.98rem, min(4.2vw, 2.1vh), 1.18rem);
+
+    line-height: 1.65;
+  }
+
+  .hero__trust {
+    gap: clamp(0.45rem, 1.4vh, 0.75rem) clamp(0.85rem, 3.4vw, 1.75rem);
+  }
+
+  .hero__trust-item {
+    font-size: clamp(0.75rem, min(3.1vw, 1.5vh), 0.92rem);
   }
 }
 
 @media (max-width: 768px) {
-  .hero {
-    padding-block: 3rem;
-  }
-
-  .hero__content {
-    gap: 1.25rem;
-  }
-
   .hero__title {
-    font-size: clamp(2.4rem, 8vw, 3rem);
-
-    max-width: 14ch;
+    letter-spacing: -0.035em;
   }
 
-  .hero__description {
-    font-size: 1rem;
-  }
-
+  /* Side by side rather than stacked full width — two stacked buttons cost
+     about 50px of height the visual needs. */
   .hero__actions {
     width: 100%;
-
-    flex-direction: column;
+    flex-direction: row;
   }
 
   .hero__actions > * {
-    width: 100%;
+    flex: 1 1 0;
+
+    min-width: 0;
+  }
+
+  .hero__actions .btn {
+    padding-block: clamp(0.7rem, 1.9vh, 1rem);
+    padding-inline: 0.6rem;
+
+    font-size: clamp(0.82rem, 3.4vw, 1.02rem);
+  }
+}
+
+/* ==========================================================================
+   REDUCED MOTION
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__title-accent {
+    animation: none;
   }
 }

@@ -1,5 +1,7 @@
 import Container from "../../ui/Container";
+import Reveal from "../../ui/Reveal";
 import SectionHeading from "../../ui/SectionHeading";
+import TiltCard from "../../ui/TiltCard";
 import whoWeHelpData from "./whoWeHelpData";
 
 import "./WhoWeHelp.css";
@@ -8,26 +10,35 @@ const WhoWeHelp = () => {
   return (
     <section className="who-we-help" id="who-we-help">
       <Container>
-        <SectionHeading
-          title={whoWeHelpData.title}
-          description={whoWeHelpData.description}
-          align="center"
-        />
+        <Reveal>
+          <SectionHeading
+            badge={whoWeHelpData.badge}
+            title={whoWeHelpData.title}
+            description={whoWeHelpData.description}
+            align="center"
+          />
+        </Reveal>
 
         <div className="who-we-help__grid">
-          {whoWeHelpData.industries.map((item) => {
+          {whoWeHelpData.industries.map((item, index) => {
             const Icon = item.icon;
 
             return (
-              <article key={item.title} className="who-we-help__card">
-                <div className="who-we-help__icon">
-                  <Icon size={32} strokeWidth={2} />
-                </div>
+              <Reveal key={item.title} delay={index * 0.09}>
+                <TiltCard className="who-we-help__card">
+                  <span className="who-we-help__index" aria-hidden="true">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
 
-                <h3>{item.title}</h3>
+                  <span className="who-we-help__icon">
+                    <Icon size={26} strokeWidth={1.9} />
+                  </span>
 
-                <p>{item.description}</p>
-              </article>
+                  <h3 className="who-we-help__card-title">{item.title}</h3>
+
+                  <p className="who-we-help__card-text">{item.description}</p>
+                </TiltCard>
+              </Reveal>
             );
           })}
         </div>

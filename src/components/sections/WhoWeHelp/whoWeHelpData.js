@@ -6,10 +6,12 @@ import {
 } from "lucide-react";
 
 const whoWeHelpData = {
-  title: "Who We Help",
+  badge: "Who We Help",
+
+  title: "Built for teams at every stage of growth",
 
   description:
-    "Whether you're launching a startup or scaling an established business, we build digital products that solve real business problems.",
+    "Whether you're validating a first idea or scaling an established operation, we build digital products that solve real business problems.",
 
   industries: [
     {

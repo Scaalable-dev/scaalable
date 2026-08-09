@@ -4,14 +4,21 @@
 
 .services {
   position: relative;
+
   overflow: hidden;
+  isolation: isolate;
+
+  /* Tinted surface breaks the run of white sections either side of it. */
+  background: linear-gradient(180deg, #ffffff 0%, #f7f9fd 18%, #f7f9fd 82%, #ffffff 100%);
 }
 
 .services__background {
   position: absolute;
   inset: 0;
+
+  z-index: -1;
+
   pointer-events: none;
-  z-index: 0;
 }
 
 .services__background::before,
@@ -23,43 +30,46 @@
   border-radius: 50%;
 
   filter: blur(120px);
-
-  opacity: 0.45;
 }
 
 .services__background::before {
-  width: 380px;
-  height: 380px;
-
-  top: -120px;
-  left: -100px;
-
-  background: rgba(99, 102, 241, 0.18);
-}
-
-.services__background::after {
   width: 420px;
   height: 420px;
 
-  right: -120px;
-  bottom: -160px;
+  top: -140px;
+  left: -120px;
 
-  background: rgba(168, 85, 247, 0.14);
+  background: rgba(0, 130, 249, 0.16);
 }
 
-.services .container {
-  position: relative;
-  z-index: 1;
+.services__background::after {
+  width: 460px;
+  height: 460px;
+
+  right: -140px;
+  bottom: -180px;
+
+  background: rgba(185, 63, 251, 0.13);
 }
+
+/* ==========================================================================
+   GRID
+   ========================================================================== */
 
 .services__grid {
   display: grid;
-
   grid-template-columns: repeat(3, minmax(0, 1fr));
 
-  gap: 2rem;
+  gap: var(--space-6);
+}
 
-  margin-top: 4rem;
+/* Reveal wrappers are the grid items; the card fills them so heights match. */
+.services__cell {
+  display: flex;
+}
+
+.services__cell--wide {
+  grid-column: 1 / -1;
 }
 
 /* ==========================================================================
@@ -74,10 +84,8 @@
 
 @media (max-width: 768px) {
   .services__grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
 
-    gap: 1.5rem;
-
-    margin-top: 3rem;
+    gap: var(--space-4);
   }
 }

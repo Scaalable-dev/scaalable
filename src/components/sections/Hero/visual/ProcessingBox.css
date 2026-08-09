@@ -1,0 +1,535 @@
+/* ==========================================================================
+   PROCESSING BOX
+   Every dimension derives from --pbox-w, resolved from the --pbox-width that
+   AgencyWorkflowVisual measures off the stage, so the CSS that draws the box
+   and the JS that aims the funnel at it share one source of truth.
+   ========================================================================== */
+
+.pbox {
+  /* --pbox-width is written by AgencyWorkflowVisual after measuring. The
+     fallback matters: that write happens in a post-paint effect, and without a
+     default every sizing declaration below would be invalid on the first
+     painted frame and the box would render collapsed. */
+  --pbox-w: var(--pbox-width, 240px);
+
+  /* Shallower lid than before: at 0.3 the top plane read as a wide flat slab
+     rather than the top of a box. */
+  --pbox-lid-h: calc(var(--pbox-w) * 0.25);
+  --pbox-face-h: calc(var(--pbox-w) * 0.42);
+  --pbox-radius: calc(var(--pbox-w) * 0.055);
+
+  /* Tracks the engaged workflow card; falls back to the brand blue. */
+  --pbox-accent: var(--awv-accent, var(--color-brand-primary));
+  --pbox-accent-rgb: var(--awv-accent-rgb, var(--color-brand-primary-rgb));
+
+  position: absolute;
+  left: 50%;
+  bottom: var(--pbox-bottom, 3%);
+
+  width: var(--pbox-w);
+
+  transform: translateX(-50%);
+
+  /* The stage owns pointer handling; the box must not intercept it. */
+  pointer-events: none;
+}
+
+.pbox__solid {
+  position: relative;
+
+  /* Lerped from the pointer, a few degrees at most. */
+  transform: perspective(1000px) rotateX(var(--pbox-rx, 0deg))
+    rotateY(var(--pbox-ry, 0deg));
+
+  transition: filter var(--transition-normal);
+}
+
+.pbox.is-pulsing .pbox__solid {
+  filter: brightness(1.05)
+    drop-shadow(0 0 20px rgba(var(--pbox-accent-rgb), 0.55));
+}
+
+/* ==========================================================================
+   LID
+   Trapezoid: the back edge is inset, so the plane reads as receding.
+   ========================================================================== */
+
+.pbox__lid {
+  position: relative;
+
+  height: var(--pbox-lid-h);
+
+  clip-path: polygon(11% 0%, 89% 0%, 100% 100%, 0% 100%);
+
+  background: linear-gradient(
+    180deg,
+    rgba(var(--pbox-accent-rgb), 0.16) 0%,
+    rgba(248, 250, 255, 0.82) 58%,
+    rgba(255, 255, 255, 0.74) 100%
+  );
+
+  overflow: hidden;
+
+  transition: background var(--transition-slow);
+}
+
+/* Illuminated back edge. */
+.pbox__lid::before {
+  content: "";
+
+  position: absolute;
+  left: 11%;
+  right: 11%;
+  top: 0;
+
+  height: 1px;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(var(--pbox-accent-rgb), 0.8),
+    transparent
+  );
+
+  transition: background var(--transition-slow);
+}
+
+.pbox__lid-sheen {
+  position: absolute;
+  inset: 0;
+
+  background: linear-gradient(
+    100deg,
+    transparent 42%,
+    rgba(255, 255, 255, 0.85) 50%,
+    transparent 58%
+  );
+
+  transform: translateX(-100%);
+
+  animation: pbox-sheen 6.5s var(--ease-out-quart) infinite 0.5s;
+}
+
+/* ==========================================================================
+   OPENING
+   Recessed ellipse. The canvas measures this element's rect each resize.
+   ========================================================================== */
+
+.pbox__opening {
+  position: absolute;
+  left: 50%;
+  top: 52%;
+
+  width: 46%;
+  height: 50%;
+
+  transform: translate(-50%, -50%);
+
+  border-radius: 50%;
+
+  background: radial-gradient(
+    ellipse at 50% 50%,
+    rgba(0, 36, 123, 0.55) 0%,
+    rgba(var(--pbox-accent-rgb), 0.3) 48%,
+    rgba(var(--pbox-accent-rgb), 0.14) 100%
+  );
+
+  box-shadow:
+    inset 0 3px 9px rgba(0, 36, 123, 0.45),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.6),
+    0 0 20px rgba(var(--pbox-accent-rgb), 0.5);
+
+  transition:
+    background var(--transition-slow),
+    box-shadow var(--transition-slow);
+}
+
+.pbox__pool {
+  position: absolute;
+  inset: 16%;
+
+  border-radius: 50%;
+
+  background: radial-gradient(
+    ellipse at 50% 38%,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(var(--pbox-accent-rgb), 0.85) 32%,
+    rgba(var(--pbox-accent-rgb), 0.6) 62%,
+    rgba(137, 57, 250, 0.4) 100%
+  );
+
+  animation: pbox-pool 2.6s ease-in-out infinite;
+
+  transition: background var(--transition-slow);
+}
+
+@keyframes pbox-pool {
+  0%,
+  100% {
+    opacity: 0.75;
+    transform: scale(0.93);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+.pbox__ring {
+  position: absolute;
+  inset: 0;
+
+  border: 1px solid currentColor;
+  border-radius: 50%;
+
+  opacity: 0;
+
+  animation: pbox-ring 3s linear infinite;
+}
+
+.pbox__ring--1 {
+  color: var(--pbox-accent);
+}
+
+.pbox__ring--2 {
+  color: var(--color-brand-cyan);
+
+  animation-delay: 1s;
+}
+
+.pbox__ring--3 {
+  color: var(--color-brand-accent);
+
+  animation-delay: 2s;
+}
+
+@keyframes pbox-ring {
+  0% {
+    opacity: 0.7;
+    transform: scale(0.45);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1.85);
+  }
+}
+
+.pbox__flash {
+  position: absolute;
+  inset: -35%;
+
+  border-radius: 50%;
+
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.95),
+    rgba(var(--pbox-accent-rgb), 0.6) 42%,
+    transparent 72%
+  );
+
+  opacity: 0;
+}
+
+.pbox.is-pulsing .pbox__flash {
+  animation: pbox-flash 0.75s var(--ease-out-expo);
+}
+
+@keyframes pbox-flash {
+  0% {
+    opacity: 1;
+    transform: scale(0.55);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1.6);
+  }
+}
+
+/* ==========================================================================
+   FRONT FACE
+   ========================================================================== */
+
+.pbox__face {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  /* max() floors throughout the box: below roughly a 170px box the pure ratio
+     sizes collapse the wordmark and tagline into unreadable slivers. */
+  gap: max(2px, calc(var(--pbox-w) * 0.02));
+
+  height: var(--pbox-face-h);
+
+  padding: max(6px, calc(var(--pbox-w) * 0.04));
+
+  /* The cheek is absolutely positioned over the right edge, so centred content
+     has to be inset past it or the tagline slides underneath and gets clipped
+     by the face's overflow. */
+  padding-right: calc(
+    max(6px, var(--pbox-w) * 0.04) + max(11px, var(--pbox-w) * 0.13)
+  );
+
+  border: 1px solid rgba(var(--pbox-accent-rgb), 0.36);
+  border-radius: 2px 2px var(--pbox-radius) var(--pbox-radius);
+
+  /* The glass itself carries the engaged card's colour, not just its edges. */
+  background: linear-gradient(
+    165deg,
+    rgba(255, 255, 255, 0.92) 0%,
+    rgba(var(--pbox-accent-rgb), 0.13) 52%,
+    rgba(var(--pbox-accent-rgb), 0.2) 100%
+  );
+
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -16px 28px rgba(var(--pbox-accent-rgb), 0.12),
+    0 0 26px rgba(var(--pbox-accent-rgb), 0.2);
+
+  overflow: hidden;
+
+  transition:
+    border-color var(--transition-slow),
+    box-shadow var(--transition-slow);
+}
+
+.pbox__face-sheen {
+  position: absolute;
+  inset: -60% -25%;
+
+  background: linear-gradient(
+    115deg,
+    transparent 41%,
+    rgba(255, 255, 255, 0.8) 50%,
+    transparent 59%
+  );
+
+  transform: translateX(-95%);
+
+  animation: pbox-sheen 6.5s var(--ease-out-quart) infinite;
+}
+
+@keyframes pbox-sheen {
+  0%,
+  60% {
+    transform: translateX(-95%);
+  }
+
+  100% {
+    transform: translateX(95%);
+  }
+}
+
+/* ==========================================================================
+   RIGHT CHEEK
+   ========================================================================== */
+
+.pbox__cheek {
+  position: absolute;
+  right: 0;
+  top: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  gap: max(2px, calc(var(--pbox-w) * 0.024));
+
+  width: max(11px, calc(var(--pbox-w) * 0.13));
+  height: 100%;
+
+  padding-inline: max(3px, calc(var(--pbox-w) * 0.028));
+
+  border-left: 1px solid rgba(255, 255, 255, 0.85);
+
+  background: linear-gradient(
+    90deg,
+    rgba(var(--pbox-accent-rgb), 0.2),
+    rgba(var(--pbox-accent-rgb), 0.1)
+  );
+
+  transition: background var(--transition-slow);
+}
+
+.pbox__vent {
+  height: 2px;
+
+  border-radius: var(--radius-full);
+
+  background: linear-gradient(
+    90deg,
+    rgba(var(--pbox-accent-rgb), 0.55),
+    rgba(137, 57, 250, 0.22)
+  );
+
+  transition: background var(--transition-slow);
+}
+
+/* ==========================================================================
+   BRAND
+   ========================================================================== */
+
+.pbox__brand {
+  display: flex;
+  align-items: center;
+
+  gap: max(4px, calc(var(--pbox-w) * 0.032));
+}
+
+/* The real mark from src/assets/images/logo-icon.png — square asset, square
+   box, so the aspect ratio is preserved untouched. */
+.pbox__logo {
+  width: max(17px, calc(var(--pbox-w) * 0.13));
+  height: max(17px, calc(var(--pbox-w) * 0.13));
+
+  object-fit: contain;
+
+  filter: drop-shadow(0 2px 6px rgba(137, 57, 250, 0.32));
+}
+
+.pbox__wordmark {
+  font-family: var(--font-family-heading);
+  font-size: max(0.72rem, calc(var(--pbox-w) * 0.082));
+  font-weight: var(--font-weight-extrabold);
+
+  line-height: 1;
+  letter-spacing: -0.02em;
+
+  background: linear-gradient(
+    90deg,
+    var(--color-brand-wordmark-start),
+    var(--color-brand-wordmark-end)
+  );
+
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  color: transparent;
+}
+
+.pbox__tagline {
+  font-size: max(0.44rem, calc(var(--pbox-w) * 0.038));
+  font-weight: var(--font-weight-semibold);
+
+  /* Tightened from 0.15em: at the small end the tracking alone pushed the
+     tagline wider than the face, and the face clips its overflow. */
+  letter-spacing: 0.07em;
+
+  white-space: nowrap;
+
+  color: var(--color-text-muted);
+}
+
+/* ==========================================================================
+   STATUS LEDS
+   ========================================================================== */
+
+.pbox__leds {
+  position: absolute;
+  left: max(6px, calc(var(--pbox-w) * 0.045));
+  bottom: max(6px, calc(var(--pbox-w) * 0.045));
+
+  display: flex;
+
+  gap: max(3px, calc(var(--pbox-w) * 0.02));
+}
+
+.pbox__led {
+  width: max(4px, calc(var(--pbox-w) * 0.021));
+  height: max(4px, calc(var(--pbox-w) * 0.021));
+
+  border-radius: 50%;
+
+  animation: pbox-led 2.4s ease-in-out infinite;
+}
+
+.pbox__led--1 {
+  background: var(--pbox-accent);
+  box-shadow: 0 0 7px rgba(var(--pbox-accent-rgb), 0.9);
+}
+
+.pbox__led--2 {
+  background: var(--color-brand-cyan);
+  box-shadow: 0 0 7px rgba(6, 182, 212, 0.9);
+
+  animation-delay: 0.4s;
+}
+
+.pbox__led--3 {
+  background: var(--color-brand-accent);
+  box-shadow: 0 0 7px rgba(185, 63, 251, 0.9);
+
+  animation-delay: 0.8s;
+}
+
+@keyframes pbox-led {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+/* ==========================================================================
+   GROUND SHADOW
+   ========================================================================== */
+
+.pbox__shadow {
+  position: absolute;
+  left: 50%;
+  bottom: calc(var(--pbox-w) * -0.05);
+
+  width: 84%;
+  height: calc(var(--pbox-w) * 0.12);
+
+  transform: translateX(-50%);
+
+  border-radius: 50%;
+
+  background: radial-gradient(
+    ellipse,
+    rgba(var(--pbox-accent-rgb), 0.3),
+    rgba(137, 57, 250, 0.13) 52%,
+    transparent 76%
+  );
+
+  filter: blur(10px);
+
+  transition: background var(--transition-slow);
+}
+
+/* ==========================================================================
+   REDUCED MOTION
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .pbox__face-sheen,
+  .pbox__lid-sheen,
+  .pbox__pool,
+  .pbox__ring,
+  .pbox__led,
+  .pbox.is-pulsing .pbox__flash {
+    animation: none;
+  }
+
+  .pbox__ring--1 {
+    opacity: 0.3;
+    transform: scale(1.25);
+  }
+
+  .pbox__ring--2,
+  .pbox__ring--3 {
+    opacity: 0;
+  }
+}

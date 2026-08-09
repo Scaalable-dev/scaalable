@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect } from "react";
+import { useEffect, useLayoutEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 
 /**
@@ -21,6 +21,10 @@ import { useLocation } from "react-router-dom";
 const ScrollToTop = () => {
   const { pathname, hash } = useLocation();
 
+  /* Null on first mount, so a direct load of `/contact#inquiry` counts as
+     arriving on a new page rather than as an in-page jump. */
+  const previousPath = useRef(null);
+
   useEffect(() => {
     if ("scrollRestoration" in window.history) {
       window.history.scrollRestoration = "manual";
@@ -28,12 +32,30 @@ const ScrollToTop = () => {
   }, []);
 
   useLayoutEffect(() => {
+    const changedPage = previousPath.current !== pathname;
+    previousPath.current = pathname;
+
     if (hash) {
       const target = document.querySelector(hash);
 
       if (target) {
-        target.scrollIntoView({ behavior: "smooth", block: "start" });
-        return undefined;
+        /* Smooth within a page, instant when the page itself just changed:
+           animating from the top of a freshly mounted page all the way down to
+           a deep section reads as a runaway scroll, and takes long enough that
+           the destination is not obviously connected to the click. */
+        const scrollToTarget = () =>
+          target.scrollIntoView({
+            behavior: changedPage ? "instant" : "smooth",
+            block: "start",
+          });
+
+        scrollToTarget();
+
+        /* Re-assert after layout settles — the incoming page's own height is
+           not final on the first pass, so the first landing can be short. */
+        const frame = requestAnimationFrame(scrollToTarget);
+
+        return () => cancelAnimationFrame(frame);
       }
     }
 

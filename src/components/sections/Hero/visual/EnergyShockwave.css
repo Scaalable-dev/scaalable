@@ -1,0 +1,68 @@
+/* ==========================================================================
+   ENERGY SHOCKWAVE
+   ========================================================================== */
+
+.shockwave {
+  position: absolute;
+  left: var(--shockwave-x, 50%);
+  top: var(--shockwave-y, 50%);
+
+  width: 0;
+  height: 0;
+
+  pointer-events: none;
+
+  z-index: 1;
+}
+
+.shockwave__ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+
+  width: 120px;
+  height: 40px;
+
+  border: 1.5px solid currentColor;
+  border-radius: 50%;
+
+  transform: translate(-50%, -50%) scale(0.2);
+
+  opacity: 0;
+
+  animation: shockwave-expand 900ms var(--ease-out-expo) forwards;
+}
+
+.shockwave__ring--blue {
+  color: var(--color-brand-primary);
+}
+
+.shockwave__ring--cyan {
+  color: var(--color-brand-cyan);
+
+  animation-delay: 90ms;
+}
+
+.shockwave__ring--violet {
+  color: var(--color-brand-accent);
+
+  animation-delay: 180ms;
+}
+
+@keyframes shockwave-expand {
+  0% {
+    opacity: 0.85;
+    transform: translate(-50%, -50%) scale(0.2);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(2.6);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shockwave {
+    display: none;
+  }
+}
