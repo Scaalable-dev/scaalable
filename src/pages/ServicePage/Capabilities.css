@@ -146,6 +146,12 @@
    ========================================================================== */
 
 .cap__tab {
+  /* Each tab carries an id, and the footer's capability links target them
+     directly. The global scroll-margin only covers <section>, so without this
+     an incoming link parked the tab underneath the sticky header. The extra
+     room above puts the directory heading back in view. */
+  scroll-margin-top: calc(var(--navbar-height) + 7rem);
+
   position: relative;
   overflow: hidden;
 

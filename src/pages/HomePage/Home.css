@@ -46,21 +46,11 @@
   padding-block: var(--home-rhythm);
 }
 
-/* The footer carries a 5rem top margin of its own, which lands on top of the
-   closing CTA's bottom padding and makes the last gap on the page the largest
-   one — exactly where it is most noticeable. Brought into the same rhythm.
-
-   Scoped to this page rather than changed on .footer itself: the other three
-   pages end on different sections and have not been reviewed for it. The
-   footer is a sibling of <main>, not of .home, so :has() is what reaches it. */
-@supports selector(:has(*)) {
-  main:has(> .home) + .footer {
-    /* The clamp is written out rather than referenced: --home-rhythm is
-       declared on .home, and the footer is outside it, so the variable does
-       not reach here. Keep the two in step. */
-    margin-top: clamp(2.25rem, 4.5vw, 3.25rem);
-  }
-}
+/* The footer used to carry a 5rem top margin, which landed on top of the
+   closing CTA's padding and made the last gap on the page the largest one.
+   That margin is gone: the footer now opens in the page's own background
+   colour and fades into its surface, so it needs no separation of its own and
+   there is nothing left here to trim. */
 
 /* ==========================================================================
    FALLBACK

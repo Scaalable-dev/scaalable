@@ -1,4 +1,4 @@
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, MapPin, Phone } from "lucide-react";
 
 import {
   FaFacebook,
@@ -8,121 +8,104 @@ import {
   FaXTwitter,
 } from "react-icons/fa6";
 
-export const quickLinks = [
+/* ==========================================================================
+   01 / NAVIGATE
+   The four routes the site actually has. Who We Help and FAQ were home-page
+   anchors, which only resolved from the home page.
+   ========================================================================== */
+
+export const navigateLinks = [
+  { id: "home", title: "Home", to: "/" },
+  { id: "services", title: "Services", to: "/services" },
+  { id: "about", title: "About", to: "/about" },
+  { id: "contact", title: "Contact", to: "/contact" },
+];
+
+/* ==========================================================================
+   02 / CAPABILITIES
+
+   The agency's seven practices, matching `capabilities` in
+   pages/ServicePage/servicesData.js. Each hash is a real element id on the
+   services page — Capabilities.jsx renders `cap-tab-<id>` on every tab — so
+   these scroll to the right row rather than to a hash that resolves nowhere.
+   ========================================================================== */
+
+export const capabilityLinks = [
+  { id: "web", title: "Website Design & Development", to: "/services#cap-tab-web" },
+  { id: "uxui", title: "UI/UX Engineering", to: "/services#cap-tab-uxui" },
+  { id: "seo", title: "Search Engine Optimization", to: "/services#cap-tab-seo" },
+  { id: "ai", title: "AI Automation Solutions", to: "/services#cap-tab-ai" },
+  { id: "software", title: "Software Engineering", to: "/services#cap-tab-software" },
+  { id: "growth", title: "Digital Growth", to: "/services#cap-tab-growth" },
   {
-    id: 1,
-    title: "Home",
-    href: "#",
-  },
-  {
-    id: 2,
-    title: "Who We Help",
-    href: "#who-we-help",
-  },
-  {
-    id: 3,
-    title: "Services",
-    href: "#services",
-  },
-  {
-    id: 4,
-    title: "About",
-    href: "#about",
-  },
-  {
-    id: 5,
-    title: "FAQ",
-    href: "#faq",
-  },
-  {
-    /* The home page no longer carries a contact section, so this points at the
-       contact page's form — the destination every other CTA on the site uses. */
-    id: 6,
-    title: "Contact",
-    href: "/contact#contact-form",
+    id: "itsupport",
+    title: "IT Support & Managed Services",
+    to: "/services#cap-tab-itsupport",
   },
 ];
 
-export const services = [
-  {
-    id: 1,
-    title: "Web Design & Development",
-  },
-  {
-    id: 2,
-    title: "User Interface / User Experience Design",
-  },
-  {
-    id: 3,
-    title: "Search Engine Optimization (SEO)",
-  },
-  {
-    id: 4,
-    title: "Google Ads Management",
-  },
-  {
-    id: 5,
-    title: "Meta Ads Management",
-  },
-  {
-    id: 6,
-    title: "Social Media Marketing",
-  },
-  {
-    id: 7,
-    title: "Website Maintenance & Support",
-  },
-];
+/* ==========================================================================
+   03 / CONNECT
+   ========================================================================== */
 
 export const contactInfo = [
   {
-    id: 1,
+    id: "email",
     icon: Mail,
+    label: "Email",
     value: "support@scaalable.com",
     href: "mailto:support@scaalable.com",
   },
   {
-    id: 2,
+    id: "phone",
     icon: Phone,
-    value: "+91-7596918803",
-    href: "tel:+91-7596918803",
+    label: "Phone",
+    value: "+91 75969 18803",
+    /* Digits only — a tel: URI with spaces or dashes is not reliably dialled. */
+    href: "tel:+917596918803",
   },
   {
-    id: 3,
+    id: "location",
     icon: MapPin,
-    value: "West Bengal, Kolkata, India",
+    label: "Location",
+    value: "Kolkata, West Bengal, India",
+    href: null,
   },
 ];
 
+/* ==========================================================================
+   SOCIAL
+   Real profiles, carried over unchanged.
+   ========================================================================== */
+
 export const socialLinks = [
+  { id: "github", icon: FaGithub, title: "GitHub", href: "https://github.com/Scaalable-dev" },
   {
-    id: 1,
-    icon: FaGithub,
-    title: "GitHub",
-    href: "https://github.com/Scaalable-dev",
-  },
-  {
-    id: 2,
+    id: "linkedin",
     icon: FaLinkedin,
     title: "LinkedIn",
     href: "https://www.linkedin.com/company/scaalable/",
   },
+  { id: "x", icon: FaXTwitter, title: "X", href: "https://x.com/scaalable" },
   {
-    id: 3,
-    icon: FaXTwitter,
-    title: "X",
-    href: "https://x.com/scaalable",
-  },
-  {
-    id: 4,
+    id: "instagram",
     icon: FaSquareInstagram,
     title: "Instagram",
     href: "https://instagram.com/scaalable",
   },
-  {
-    id: 5,
-    icon: FaFacebook,
-    title: "Facebook",
-    href: "https://facebook.com/scaalable",
-  },
+  { id: "facebook", icon: FaFacebook, title: "Facebook", href: "https://facebook.com/scaalable" },
+];
+
+/* ==========================================================================
+   LEGAL
+
+   These are modals, not routes — LegalModal keys off these exact types. There
+   are no /privacy-policy style pages in the router to link to.
+   ========================================================================== */
+
+export const legalLinks = [
+  { id: "privacy", title: "Privacy", type: "privacy" },
+  { id: "refund", title: "Refunds", type: "refund" },
+  { id: "cookie", title: "Cookies", type: "cookie" },
+  { id: "terms", title: "Terms", type: "terms" },
 ];
