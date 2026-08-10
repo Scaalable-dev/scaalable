@@ -59,14 +59,10 @@ import {
 export const industriesIntro = {
   badge: "Industries",
 
-  /* Position of this section on the services page — shown as the mobile
-     eyebrow ("02 / INDUSTRIES"), where there is no room for a badge. */
-  index: "02",
-
-  title: "Solutions shaped around your operating reality.",
+  title: "Digital solutions built around how your industry works.",
 
   description:
-    "Our systems adapt to different compliance needs, customer journeys, transaction models and stages of growth.",
+    "Every industry has different customers, workflows and growth challenges. We combine strategy, technology and execution to build solutions that fit your business — and scale with it.",
 };
 
 /* ==========================================================================

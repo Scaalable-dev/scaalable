@@ -235,24 +235,6 @@ export const coreValues = {
   ],
 };
 
-export const trackRecord = {
-  badge: "Track Record",
-
-  title: "Company Achievements",
-
-  subtitle:
-    "Numbers that showcase our commitment to excellence and client growth.",
-
-  stats: [
-    { id: 1, value: "10+", label: "Project Delivery" },
-    { id: 2, value: "99%", label: "Happy Clients" },
-    { id: 3, value: "20+", label: "Industries Served" },
-    { id: 4, value: "10+", label: "Years of Experience" },
-    { id: 5, value: "20+", label: "Countries Served" },
-    { id: 6, value: "99%", label: "Client Satisfaction" },
-  ],
-};
-
 export const ctaBanner = {
   title: "Let's Build Something That Grows Your Business",
 

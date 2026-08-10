@@ -158,7 +158,6 @@ const IndustriesBlueprintSection = () => {
             activeIndex={activeIndex}
             openStep={stepIndex}
             phase={phase}
-            reduceMotion={reduceMotion}
             onSelect={(index) => goTo(index, true)}
             onOpenStep={setStepIndex}
             onInteracting={setEngaged}
@@ -166,9 +165,21 @@ const IndustriesBlueprintSection = () => {
         ) : (
           <>
             <SectionHeading
+              className="ind__heading"
+              /* Matches Capabilities above — both titles are display size and
+                 need more than the 720px default to break well. */
+              maxWidth="940px"
               badge={industriesIntro.badge}
               title={industriesIntro.title}
               description={industriesIntro.description}
+            />
+
+            {/* Directly under the description: the choice is what the reader
+                acts on first, and the blueprint below is its answer. */}
+            <IndustrySelector
+              industries={industries}
+              activeIndex={activeIndex}
+              onSelect={(index) => goTo(index, true)}
             />
 
             <div className="ind-bp" data-phase={phase}>
@@ -186,12 +197,6 @@ const IndustriesBlueprintSection = () => {
                 onSelectStep={setStepIndex}
               />
             </div>
-
-            <IndustrySelector
-              industries={industries}
-              activeIndex={activeIndex}
-              onSelect={(index) => goTo(index, true)}
-            />
           </>
         )}
       </Container>

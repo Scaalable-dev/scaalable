@@ -12,7 +12,6 @@ import {
   features,
   visionMission,
   coreValues,
-  trackRecord,
   ctaBanner,
   story,
 } from "./aboutData";
@@ -30,12 +29,15 @@ const About = () => {
             mount, and a mount-triggered animation there would finish long
             before it was ever scrolled into view. */}
         <section className="about__hero">
-          <div className="about__hero-badge animate-fade-up">
-            <Badge>{aboutHero.badge}</Badge>
-          </div>
-
           <div className="about__hero-grid">
             <div className="about__hero-content">
+              {/* Inside the copy column rather than above the grid: on small
+                  screens the copy becomes a self-contained panel, and a badge
+                  stranded above it would belong to neither panel. */}
+              <div className="about__hero-badge animate-fade-up">
+                <Badge>{aboutHero.badge}</Badge>
+              </div>
+
               <h2
                 className="about__hero-title animate-fade-up"
                 style={{ "--delay": "80ms" }}
@@ -77,33 +79,10 @@ const About = () => {
           </div>
         </section>
 
-        {/* ------------------------ Track Record ---------------------- */}
-        <section className="about__track-record">
-          <div className="about__track-record-header">
-            <Badge>{trackRecord.badge}</Badge>
-
-            <h3 className="about__track-record-title">{trackRecord.title}</h3>
-
-            <p className="about__track-record-subtitle">
-              {trackRecord.subtitle}
-            </p>
-          </div>
-
-          <div className="about__track-record-grid">
-            {trackRecord.stats.map((stat) => (
-              <div className="stat-card" key={stat.id}>
-                <span className="stat-card__value">{stat.value}</span>
-
-                <span className="stat-card__label">{stat.label}</span>
-              </div>
-            ))}
-          </div>
-        </section>
-
         {/* ---------------------About The Company-------------------------------------- */}
         <section className="about__content">
           <div className="about__story">
-            <span className="about__eyebrow">{aboutCompany.eyebrow}</span>
+            <Badge>{aboutCompany.eyebrow}</Badge>
 
             <h3 className="about__story-title">{aboutCompany.title}</h3>
 
@@ -128,7 +107,7 @@ const About = () => {
         {/* ------------------------what set us apart section----------------------------  */}
         <section className="about__features">
           <div className="about__features-header">
-            <span className="about__eyebrow">{features.badge}</span>
+            <Badge>{features.badge}</Badge>
 
             <h3 className="about__features-title">{features.title}</h3>
           </div>
@@ -157,7 +136,7 @@ const About = () => {
         <section className="about__story-section">
           <div className="about__story-layout">
             <div className="story">
-              <span className="about__eyebrow">{story.badge}</span>
+              <Badge>{story.badge}</Badge>
 
               <h3 className="story__title">{story.title}</h3>
 

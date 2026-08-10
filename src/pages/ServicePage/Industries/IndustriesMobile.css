@@ -5,20 +5,19 @@
    none of it can reach the desktop layout in Industries.css. The accent and
    the section background still come from `.ind`, which wraps both.
 
-   Order on mobile: intro, carousel, selected card, blueprint accordion.
+   Order on mobile: intro, industry rail, selected card, blueprint accordion.
    ========================================================================== */
 
 .indm {
   --indm-ease: cubic-bezier(0.22, 1, 0.36, 1);
   --indm-marker: 32px;
-  --indm-gap: 10px;
 
   /* Container already insets 12px a side here, 8px below 576px. This tops
      each up to roughly the 20px the layout is drawn against. */
   padding-inline: 0.5rem;
 
-  /* Nothing inside may push the page sideways — the carousel deliberately
-     overflows its own viewport. */
+  /* Nothing inside may push the page sideways. The rail bleeds out to exactly
+     this padding — no further, or the clip would cut it. */
   overflow-x: clip;
 }
 
@@ -27,29 +26,13 @@
    ========================================================================== */
 
 .indm-intro {
-  margin-bottom: clamp(1.25rem, 5vw, 1.75rem);
+  margin-bottom: clamp(1.75rem, 6vw, 2.25rem);
 
   text-align: center;
 }
 
-.indm-intro__eyebrow {
-  display: inline-block;
-
-  margin-bottom: var(--space-3);
-
-  color: var(--ind-accent);
-
-  font-size: 0.68rem;
-  font-weight: 700;
-
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-}
-
-.indm-intro__eyebrow i {
-  color: var(--color-text-disabled);
-
-  font-style: normal;
+.indm-intro .badge {
+  margin-bottom: var(--space-4);
 }
 
 /* Sized to stay comfortable at 320px rather than scaled down from the
@@ -75,20 +58,22 @@
 }
 
 /* ==========================================================================
-   CAROUSEL
+   INDUSTRY RAIL
+
+   The same one-line rail the wide layout uses (.ind-pick, in Industries.css),
+   tuned for a thumb: larger targets, and a bleed out to the gutters so a
+   half-cut button at the screen edge shows there is more to swipe.
    ========================================================================== */
 
-.indm-car__bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  gap: var(--space-3);
-
-  margin-bottom: var(--space-3);
+.indm-pick {
+  margin-bottom: var(--space-5);
 }
 
-.indm-car__label {
+.indm-pick__label {
+  display: block;
+
+  margin-bottom: var(--space-3);
+
   color: var(--color-text-muted);
 
   font-size: 0.66rem;
@@ -98,230 +83,39 @@
   text-transform: uppercase;
 }
 
-.indm-car__arrows {
-  display: flex;
-
-  gap: var(--space-2);
-}
-
-.indm-car__arrow {
-  display: grid;
-  place-items: center;
-
-  flex-shrink: 0;
-
-  width: 44px;
-  height: 44px;
-
-  border: 1px solid var(--color-border-light);
-  border-radius: var(--radius-md);
-
-  background: var(--color-surface);
-
-  color: var(--color-text-secondary);
-
-  cursor: pointer;
-}
-
-.indm-car__arrow:disabled {
-  color: var(--color-text-disabled);
-
-  opacity: 0.45;
-}
-
-.indm-car__arrow:not(:disabled):active {
-  transform: scale(0.94);
-}
-
-.indm-car__arrow:focus-visible {
-  outline: 2px solid var(--color-border-focus);
-  outline-offset: 2px;
-}
-
-/* The gesture surface. `pan-y` hands vertical scrolling back to the browser
-   while leaving horizontal movement to the pointer handlers. */
-.indm-car__viewport {
-  overflow: hidden;
-
-  /* Room for the selected button's outer glow, which would otherwise be
-     clipped by the overflow rule above. */
-  margin-inline: -4px;
-  padding: 4px;
-
-  touch-action: pan-y;
-}
-
-.indm-car__track {
-  display: flex;
-
-  /* Fingers move the track; text selection during a drag would fight it. */
-  user-select: none;
-  -webkit-user-select: none;
-
-  transition: transform 460ms var(--indm-ease);
-}
-
-/* While a finger is down the track follows it one-to-one — a transition here
-   would lag behind the gesture. */
-.indm-car__track[data-dragging="true"] {
-  transition: none;
-}
-
-.indm-car__page {
-  display: grid;
-  grid-template-columns: repeat(var(--columns, 3), minmax(0, 1fr));
-
-  /* Fixed row height keeps every page the same height, so the last page —
-     which holds three buttons instead of six — shifts nothing. */
-  grid-auto-rows: 56px;
-  align-content: start;
-
-  gap: var(--indm-gap);
-
-  flex: 0 0 100%;
-}
-
-.indm-car__option {
-  display: grid;
-  place-items: center;
-
-  min-height: 56px;
-
-  padding: 0.5rem 0.4rem;
-
-  border: 1px solid var(--color-border-light);
-  border-radius: 11px;
-
-  background: var(--color-surface-alt);
-
-  color: var(--color-text-secondary);
-
-  font-size: 0.74rem;
-  font-weight: 600;
-
-  line-height: 1.3;
-
-  text-align: center;
-
-  cursor: pointer;
-
-  transition:
-    background 320ms var(--indm-ease),
-    border-color 320ms var(--indm-ease),
-    box-shadow 320ms var(--indm-ease),
-    color 320ms var(--indm-ease),
-    transform var(--transition-fast);
-}
-
-.indm-car__option:active {
-  transform: scale(0.98);
-}
-
-.indm-car__option:focus-visible {
-  outline: 2px solid var(--color-border-focus);
-  outline-offset: 2px;
-}
-
-.indm-car__option[aria-pressed="true"] {
-  position: relative;
-
-  border-color: var(--ind-accent);
-
-  background: var(--color-surface);
-
-  color: var(--color-text-primary);
-
-  box-shadow:
-    0 0 0 3px color-mix(in srgb, var(--ind-accent) 10%, transparent),
-    0 6px 18px -8px var(--ind-accent);
-}
-
-/* Restrained border highlight on the selected button — a second ring easing
-   in and out over the first. A gradient-masked border would read better still,
-   but the mask-composite syntax it needs is not dependable enough to put on a
-   primary control. */
-.indm-car__option[aria-pressed="true"]::after {
-  content: "";
-
-  position: absolute;
-  inset: -1px;
-
-  border: 1px solid color-mix(in srgb, var(--ind-accent) 65%, transparent);
-  border-radius: inherit;
-
-  opacity: 0;
-
-  pointer-events: none;
-
-  animation: indm-edge 3.6s var(--indm-ease) infinite;
-}
-
-@keyframes indm-edge {
-  0%,
-  100% {
-    opacity: 0;
+/* Scoped to the compact layout — the same classes carry the wide rail, which
+   sits inside the container like everything else around it. */
+@media (max-width: 767.98px) {
+  .indm-pick .ind-pick {
+    /* Exactly .indm's own padding — anything more is cut off by its clip. */
+    margin-inline: -0.5rem;
+    margin-bottom: 0;
   }
 
-  50% {
-    opacity: 1;
+  /* Put the inset back inside the scroller, so the first and last buttons
+     still line up with the text above at either end of the travel. */
+  .indm-pick .ind-pick__track {
+    padding-inline: 0.5rem;
+  }
+
+  .indm-pick .ind-pick__button {
+    min-height: 52px;
+
+    padding: 0.65rem 1.05rem;
+
+    font-size: 0.8rem;
   }
 }
 
-/* ==========================================================================
-   PAGINATION
-   ========================================================================== */
+/* .indm's padding grows below 576px, and the bleed grows with it. */
+@media (max-width: 576px) {
+  .indm-pick .ind-pick {
+    margin-inline: -0.75rem;
+  }
 
-.indm-car__dots {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  gap: var(--space-1);
-
-  margin-top: var(--space-2);
-}
-
-/* Small mark, full-size target. */
-.indm-car__dot {
-  display: grid;
-  place-items: center;
-
-  width: 28px;
-  height: 44px;
-
-  border: 0;
-
-  background: none;
-
-  cursor: pointer;
-}
-
-.indm-car__dot::before {
-  content: "";
-
-  width: 7px;
-  height: 7px;
-
-  border-radius: var(--radius-full);
-
-  background: var(--color-border-default);
-
-  transition:
-    width 360ms var(--indm-ease),
-    background 360ms var(--indm-ease);
-}
-
-.indm-car__dot[data-active="true"]::before {
-  width: 22px;
-
-  background: var(--ind-accent);
-}
-
-.indm-car__dot:focus-visible {
-  outline: 2px solid var(--color-border-focus);
-  outline-offset: -6px;
-
-  border-radius: var(--radius-sm);
+  .indm-pick .ind-pick__track {
+    padding-inline: 0.75rem;
+  }
 }
 
 /* ==========================================================================
@@ -1075,14 +869,10 @@
 }
 
 @media (max-width: 389px) {
-  .indm {
-    --indm-gap: 7px;
-  }
+  .indm-pick .ind-pick__button {
+    padding-inline: 0.85rem;
 
-  .indm-car__option {
-    font-size: 0.7rem;
-
-    padding-inline: 0.25rem;
+    font-size: 0.76rem;
   }
 
   .indm-card,
@@ -1091,7 +881,7 @@
   }
 }
 
-/* Two columns, and the pill drops under the counter so neither is squeezed. */
+/* The pill drops under the counter so neither is squeezed. */
 @media (max-width: 349px) {
   .indm-card__head {
     flex-wrap: wrap;
@@ -1102,10 +892,6 @@
 
     margin-left: calc(38px + var(--space-3));
   }
-
-  .indm-car__option {
-    font-size: 0.74rem;
-  }
 }
 
 /* ==========================================================================
@@ -1113,9 +899,6 @@
    ========================================================================== */
 
 @media (prefers-reduced-motion: reduce) {
-  .indm-car__track,
-  .indm-car__option,
-  .indm-car__dot::before,
   .indm-step,
   .indm-step::before,
   .indm-step__marker,
@@ -1142,8 +925,7 @@
   .indm-card__scan,
   .indm-card__flash,
   .indm-bp__glide,
-  .indm-bp__pulse,
-  .indm-car__option[aria-pressed="true"]::after {
+  .indm-bp__pulse {
     display: none;
   }
 
@@ -1152,9 +934,7 @@
     transform: rotate(180deg);
   }
 
-  .indm-step__head:active .indm-step__chevron,
-  .indm-car__option:active,
-  .indm-car__arrow:not(:disabled):active {
+  .indm-step__head:active .indm-step__chevron {
     transform: none;
   }
 }

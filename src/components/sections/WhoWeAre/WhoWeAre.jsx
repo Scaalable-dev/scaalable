@@ -2,6 +2,7 @@ import { Check } from "lucide-react";
 
 import "./WhoWeAre.css";
 
+import Badge from "../../ui/Badge";
 import { whoWeAreHighlights, whoWeArePrinciples } from "./whoWeAreData";
 
 const WhoWeAre = () => {
@@ -11,7 +12,7 @@ const WhoWeAre = () => {
         <div className="who-we-are__grid">
           {/* Left Content */}
           <div className="who-we-are__content">
-            <span className="who-we-are__badge">Who We Are</span>
+            <Badge>Who We Are</Badge>
 
             <h2 className="who-we-are__title">
               Engineers, Designers & Strategists Building Digital Products That

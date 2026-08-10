@@ -651,3 +651,52 @@
     opacity: 0.35;
   }
 }
+
+/* ==========================================================================
+   PHONES — LEGIBILITY
+
+   The card type is set in rem, so it does not shrink with the stage — but it
+   was authored for a 615px desktop ring and left the labels at 9.6px and the
+   state chips at 7.4px on a phone. The ring itself stays; only the text is
+   brought up to a size that can actually be read at arm's length.
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .flow {
+    /* The ring is as wide as it can go: the near-horizontal cards (SEO, IT
+       Support) reach 41% x cos(13deg) plus half their own width, which lands
+       them on the stage edge. Distance past this point has to come from the
+       middle, not from the ring. */
+    --orbit: 41%;
+  }
+
+  /* So the core gives it up instead. Dropping it from 23% to 20% adds that
+     width back to every stream at once — the runs get longer and the cards
+     stand further off the centre without any of them moving outward. */
+  .flow__core {
+    width: 20%;
+  }
+
+  .flow__card {
+    /* 25% of the stage put seven cards shoulder to shoulder around the ring —
+       11px between neighbours and 7px from the core at 360px. The floor came
+       down with the rate, so they keep shrinking with the stage. */
+    width: clamp(58px, 19.5%, 100px);
+
+    padding: 6px 7px;
+  }
+
+  .flow__card-index {
+    font-size: 0.62rem;
+  }
+
+  .flow__card-name {
+    font-size: 0.78rem;
+
+    line-height: 1.2;
+  }
+
+  .flow__card-state {
+    font-size: 0.56rem;
+  }
+}

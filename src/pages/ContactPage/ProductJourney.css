@@ -451,3 +451,39 @@
     display: none;
   }
 }
+
+/* An empty pill would still paint its border and padding. Hidden rather than
+   removed: a live region that comes and goes is not reliably announced. */
+.journey__status[data-empty="true"] {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* ==========================================================================
+   SMALL STAGES
+
+   The node sizes are set in cqw, but their clamp() floors were tuned for a
+   ~580px card and both bottom out well before a phone-sized stage — so the
+   discs, their labels and the halo stopped shrinking while the stage kept
+   going, and the four cards closed on the centre. Lower floors let them keep
+   scaling down and give the composition its spacing back.
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  /* A media query, not a container query: .journey__stage IS the container,
+     and an element cannot query its own. The container query that was here
+     silently never matched, which is why the floors stayed put. */
+  .journey__stage {
+    /* Both the floor and the rate come down. At a 58px floor the card was
+       still 58px on a 358px stage — 13px wider than its own cqw wanted — and
+       its corner sat flat against the centre disc. */
+    --node-size: clamp(34px, 12.5cqw, 88px);
+    --disc-size: clamp(26px, 9.5cqw, 70px);
+  }
+
+  .journey__label {
+    font-size: clamp(0.42rem, 1.75cqw, 0.65rem);
+
+    letter-spacing: 0.06em;
+  }
+}

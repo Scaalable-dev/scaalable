@@ -984,23 +984,190 @@
 }
 
 /* ==========================================================================
-   INDUSTRY SELECTOR — GRID
+   INDUSTRY SELECTOR — RAIL
+
+   One line that scrolls, sitting between the heading and the blueprint. Wide
+   enough and it centres itself; narrower and it becomes a swipeable rail,
+   with the ends faded so the overflow is visible rather than implied.
    ========================================================================== */
+
+/* Registered so the end fades can animate in and out with the scroll
+   position instead of appearing the instant an edge is crossed. */
+@property --ind-fade-start {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+
+@property --ind-fade-end {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+
+/* The rail sits directly under this, so the gap has to read as a break —
+   close enough to belong together, open enough not to look crowded. */
+.ind__heading {
+  gap: var(--space-5);
+
+  margin-bottom: clamp(2.25rem, 5vh, 3.25rem);
+}
+
+.ind__heading .section-heading__title {
+  line-height: 1.18;
+}
 
 .ind-pick {
   position: relative;
 
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  margin-bottom: var(--space-10);
+}
+
+.ind-pick__viewport {
+  --ind-fade-start: 0px;
+  --ind-fade-end: 0px;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  /* The section scrolls vertically inside a page that does too — keep a
+     flick that reaches the end of the rail from carrying the page with it. */
+  overscroll-behavior-x: contain;
+
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  cursor: grab;
+
+  /* Deliberately not scroll-behavior: smooth — that would also smooth the
+     scrollLeft written on every pointer move, and the drag would lag the
+     cursor. Programmatic scrolls ask for smooth themselves. */
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 var(--ind-fade-start),
+    #000 calc(100% - var(--ind-fade-end)),
+    transparent 100%
+  );
+
+  transition:
+    --ind-fade-start 220ms var(--ind-ease),
+    --ind-fade-end 220ms var(--ind-ease);
+}
+
+.ind-pick__viewport::-webkit-scrollbar {
+  display: none;
+}
+
+.ind-pick[data-overflow-start="true"] .ind-pick__viewport {
+  --ind-fade-start: 64px;
+}
+
+.ind-pick[data-overflow-end="true"] .ind-pick__viewport {
+  --ind-fade-end: 64px;
+}
+
+.ind-pick__viewport[data-dragging="true"] {
+  cursor: grabbing;
+}
+
+/* max-content so the row never wraps, min-width so a rail that fits sits
+   centred rather than pinned left. The padding is what keeps the indicator's
+   outer ring from being clipped by the scroll container. */
+.ind-pick__track {
+  position: relative;
+
+  display: flex;
+  justify-content: center;
 
   gap: var(--space-3);
 
-  margin-top: var(--space-5);
+  width: max-content;
+  min-width: 100%;
+
+  padding: 6px;
+}
+
+/* Nothing inside the rail should feel like text while it is being dragged. */
+.ind-pick__track * {
+  user-select: none;
+}
+
+/* Pointer affordance only — the same movement is on the arrow keys, so these
+   stay out of the tab order and the accessibility tree. */
+.ind-pick__nav {
+  position: absolute;
+  top: 50%;
+
+  z-index: 3;
+
+  display: grid;
+  place-items: center;
+
+  width: 34px;
+  height: 34px;
+
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-full);
+
+  background: var(--color-surface);
+
+  box-shadow: var(--shadow-sm);
+
+  color: var(--color-text-secondary);
+
+  cursor: pointer;
+
+  opacity: 0;
+
+  transform: translateY(-50%) scale(0.9);
+
+  pointer-events: none;
+
+  transition:
+    opacity 220ms var(--ind-ease),
+    transform 220ms var(--ind-ease),
+    color var(--transition-normal),
+    border-color var(--transition-normal);
+}
+
+.ind-pick__nav[data-side="start"] {
+  left: -10px;
+}
+
+.ind-pick__nav[data-side="end"] {
+  right: -10px;
+}
+
+.ind-pick[data-overflow-start="true"] .ind-pick__nav[data-side="start"],
+.ind-pick[data-overflow-end="true"] .ind-pick__nav[data-side="end"] {
+  opacity: 1;
+
+  transform: translateY(-50%) scale(1);
+
+  pointer-events: auto;
+}
+
+.ind-pick__nav:hover {
+  border-color: var(--ind-accent);
+
+  color: var(--ind-accent);
+}
+
+.ind-pick__nav:active {
+  transform: translateY(-50%) scale(0.92);
+}
+
+/* Nothing to press on a touch screen — the rail is swiped directly. */
+@media (hover: none) {
+  .ind-pick__nav {
+    display: none;
+  }
 }
 
 /* Single outline that travels to whichever button is selected, rather than
    one fading out while another fades in. Measured in JS from the button's
-   offset box, so it tracks the grid at any width. */
+   offset box, so it tracks the rail at any width. */
 .ind-pick__indicator {
   position: absolute;
   top: 0;
@@ -1032,12 +1199,15 @@
 
   z-index: 1;
 
+  /* Never squeezed and never wrapped — the rail scrolls instead. */
+  flex: 0 0 auto;
+
   display: grid;
   place-items: center;
 
-  min-height: 52px;
+  min-height: 46px;
 
-  padding: 0.7rem 0.85rem;
+  padding: 0.7rem 1.15rem;
 
   border: 1px solid var(--color-border-light);
   border-radius: var(--radius-md);
@@ -1054,11 +1224,15 @@
   cursor: pointer;
 
   text-align: center;
+  white-space: nowrap;
+
+  -webkit-tap-highlight-color: transparent;
 
   transition:
     background var(--transition-normal),
     border-color var(--transition-normal),
-    color var(--transition-normal);
+    color var(--transition-normal),
+    transform 220ms var(--ind-ease);
 }
 
 .ind-pick__button:hover {
@@ -1067,6 +1241,18 @@
   border-color: var(--color-border-default);
 
   color: var(--color-text-primary);
+
+  transform: translateY(-1px);
+}
+
+.ind-pick__button:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* A drag passes over buttons on its way — none of them should light up as
+   though they were about to be picked. */
+.ind-pick__viewport[data-dragging="true"] .ind-pick__button {
+  transform: none;
 }
 
 .ind-pick__button:focus-visible {
@@ -1195,7 +1381,9 @@
   .ind-step__description,
   .ind-step__arrow,
   .ind-pick__indicator,
-  .ind-pick__button {
+  .ind-pick__button,
+  .ind-pick__viewport,
+  .ind-pick__nav {
     transition: none;
   }
 
@@ -1232,7 +1420,9 @@
   .ind-step__button:hover,
   .ind-step[data-active="true"] .ind-step__arrow,
   .ind-step__button:hover .ind-step__arrow,
-  .ind-panel__next:hover svg {
+  .ind-panel__next:hover svg,
+  .ind-pick__button:hover,
+  .ind-pick__button:active {
     transform: none;
   }
 }

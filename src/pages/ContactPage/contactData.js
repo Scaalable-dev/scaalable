@@ -376,7 +376,6 @@ export const inquiryForm = {
 
 export const journeyViewBox = { width: 1000, height: 600 };
 
-export const journeyIdleMessage = "Move your cursor around";
 
 export const journeySegments = [
   {

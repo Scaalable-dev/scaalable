@@ -445,32 +445,9 @@
    down the page is ordinary free scrolling.
    ========================================================================== */
 
-@media (max-width: 1099px) {
-  /* Set on both: globals.css gives <body> `overflow-x: hidden`, so body's
-     overflow is what propagates to the viewport and body becomes the effective
-     scrolling box. scroll-snap-type does not propagate from the root the way
-     overflow does, so declaring it only on <html> leaves the viewport unsnapped. */
-  html.is-hero-snapping,
-  html.is-hero-snapping body {
-    scroll-snap-type: y mandatory;
-
-    /* Clears the sticky header by shrinking the snapport, rather than adding
-       scroll-margin to each panel. Margin grows the snap AREA instead, and a
-       snap area taller than the snapport is treated as unreachable — the
-       browser then stops snapping and scrolls straight past both panels. */
-    scroll-padding-top: var(--navbar-height);
-  }
-}
-
-/* Snapping rides on `scroll-behavior: smooth` from globals.css. Without that
-   animation it becomes an abrupt jump, which is exactly what this preference
-   asks us not to do. */
-@media (prefers-reduced-motion: reduce) {
-  html.is-hero-snapping,
-  html.is-hero-snapping body {
-    scroll-snap-type: none;
-  }
-}
+/* The rules for `html.is-hero-snapping` now live in globals.css: the class is
+   set on the document, three other heroes use the same mechanism, and this
+   stylesheet is only loaded when the home hero renders. */
 
 /* ==========================================================================
    STACKED LAYOUT

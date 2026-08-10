@@ -1,13 +1,15 @@
 const heroData = {
-  badge: "Trusted by 100+ Businesses",
+  /* Uppercased by Badge's own styles, so it is written in sentence case here
+     like every other badge on the site. */
+  badge: "One partner • From strategy to scale",
 
   title: {
-    lead: "Build digital products that",
-    highlight: "grow your business",
+    lead: "Websites, software and AI systems built to",
+    highlight: "grow with your business.",
   },
 
   description:
-    "Scaalable helps startups and established teams ship high-performance websites, SaaS platforms, and AI-powered software — designed around measurable business outcomes, not vanity metrics.",
+    "From strategy and engineering to AI, SEO and paid advertising, Scaalable brings technology and digital growth into one accountable team — supporting your business from idea and launch through ongoing growth.",
 
   /* Both route to a page and land on a specific section. `#contact-form` is the
      site-wide destination for conversion CTAs (ContactPage/InquiryForm);

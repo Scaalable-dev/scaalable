@@ -1,20 +1,11 @@
 import "./IndustriesMobile.css";
 
-import useMediaQuery from "../../../hooks/useMediaQuery";
-
-import MobileIndustryCarousel from "./MobileIndustryCarousel";
+import Badge from "../../../components/ui/Badge";
+import IndustrySelector from "./IndustrySelector";
 import SelectedIndustryCard from "./SelectedIndustryCard";
 import MobileBlueprintAccordion from "./MobileBlueprintAccordion";
 
 import { industriesIntro } from "./industriesData";
-
-/* Three columns of two rows is the default page. Under the narrow breakpoint
-   the labels get cramped, so the page drops to two columns and the industries
-   repaginate around it. */
-const NARROW_QUERY = "(max-width: 349px)";
-
-const WIDE_PAGE = { perPage: 6, columns: 3 };
-const NARROW_PAGE = { perPage: 4, columns: 2 };
 
 const MobileIndustriesSection = ({
   industries,
@@ -22,20 +13,16 @@ const MobileIndustriesSection = ({
   activeIndex,
   openStep,
   phase,
-  reduceMotion,
   onSelect,
   onOpenStep,
   onInteracting,
 }) => {
-  const isNarrow = useMediaQuery(NARROW_QUERY);
-  const { perPage, columns } = isNarrow ? NARROW_PAGE : WIDE_PAGE;
-
   return (
     <div className="indm" data-phase={phase}>
       <div className="indm-intro">
-        <span className="indm-intro__eyebrow">
-          {industriesIntro.index} <i>/</i> {industriesIntro.badge}
-        </span>
+        {/* The same badge the wide layout carries — the section should not
+            introduce itself differently just because the screen is narrow. */}
+        <Badge>{industriesIntro.badge}</Badge>
 
         <h2 className="indm-intro__title">{industriesIntro.title}</h2>
 
@@ -44,15 +31,18 @@ const MobileIndustriesSection = ({
         </p>
       </div>
 
-      <MobileIndustryCarousel
-        industries={industries}
-        activeIndex={activeIndex}
-        perPage={perPage}
-        columns={columns}
-        reduceMotion={reduceMotion}
-        onSelect={onSelect}
-        onInteracting={onInteracting}
-      />
+      {/* The same rail the wide layout uses — one line, swiped rather than
+          paged, so a thumb never has to hunt across a grid. */}
+      <div className="indm-pick">
+        <span className="indm-pick__label">Choose an Industry</span>
+
+        <IndustrySelector
+          industries={industries}
+          activeIndex={activeIndex}
+          onSelect={onSelect}
+          onInteracting={onInteracting}
+        />
+      </div>
 
       <SelectedIndustryCard
         industry={industry}

@@ -133,12 +133,17 @@ const Capabilities = () => {
   };
 
   return (
-    <section className="cap" id="capabilities">
+    <section className="cap" id="capabilities" aria-label="Capabilities">
       <Container>
         <SectionHeading
+          className="cap__heading"
           badge={capabilitiesIntro.badge}
           title={capabilitiesIntro.title}
           description={capabilitiesIntro.description}
+          /* Wider than the 720px default: at display size that ceiling puts
+             barely twenty characters on a line. The description keeps its own
+             narrower measure, so only the title takes the extra room. */
+          maxWidth="940px"
         />
 
         <div className="cap__layout" data-mode={isCompact ? "stack" : "split"}>

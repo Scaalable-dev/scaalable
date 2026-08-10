@@ -44,6 +44,10 @@
   letter-spacing: -0.04em;
 
   color: var(--color-text-primary);
+
+  /* Evens out the lines of a heading that wraps, instead of leaving a short
+     orphan on the last one. Ignored where unsupported. */
+  text-wrap: balance;
 }
 
 /* ==========================================================================
@@ -53,9 +57,14 @@
 .section-heading__description {
   margin: 0 auto;
 
+  /* Body copy has its own measure, independent of the block: a description
+     that ran as wide as a display title would be a chore to read. */
   max-width: 58ch;
 
   color: var(--color-text-secondary);
 
   line-height: 1.8;
+
+  /* Keeps a single word from being left alone on the last line. */
+  text-wrap: pretty;
 }

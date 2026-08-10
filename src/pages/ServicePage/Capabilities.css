@@ -563,3 +563,33 @@
     transform: none;
   }
 }
+
+/* Badge alone. The shared heading block reserves --space-16 beneath it for a
+   title and description; without them that gap reads as a hole. */
+/* Badge, title and description each get room: this block introduces the whole
+   section, and a cramped one reads as a label rather than an opening. */
+.cap__heading {
+  gap: var(--space-5);
+
+  margin-bottom: clamp(2.75rem, 6vh, 4.25rem);
+}
+
+.cap__heading .section-heading__title {
+  line-height: 1.18;
+}
+
+.cap__heading .section-heading__description {
+  max-width: 60ch;
+
+  font-size: 1.05rem;
+}
+
+@media (max-width: 767.98px) {
+  .cap__heading .section-heading__title {
+    font-size: clamp(1.75rem, 6.6vw, 2.4rem);
+  }
+
+  .cap__heading .section-heading__description {
+    font-size: 0.95rem;
+  }
+}

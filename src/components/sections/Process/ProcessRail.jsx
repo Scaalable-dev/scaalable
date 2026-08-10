@@ -71,9 +71,15 @@ const ProcessRail = ({ stages, activeIndex, reduceMotion, onSelect }) => {
     };
   }, []);
 
-  /* Centres the selected point, but only while the rail actually scrolls —
-     on a full-width desktop rail there is nothing to centre. `block: nearest`
-     keeps scrollIntoView from dragging the page vertically as a side effect. */
+  /* Centres the selected point, but only while the rail actually scrolls — on
+     a full-width desktop rail there is nothing to centre.
+
+     The rail is scrolled directly rather than through scrollIntoView. That API
+     walks every scrollable ancestor, and `block: "nearest"` only means "do not
+     move it if it is already visible" — with the section still below the fold
+     on mount it is not, so the document scrolled down to reveal it. Landing on
+     the home page from a link therefore jumped straight to the process rail.
+     Setting scrollLeft touches this element and nothing else. */
   useEffect(() => {
     const rail = railRef.current;
     const point = pointRefs.current[activeIndex];
@@ -81,10 +87,9 @@ const ProcessRail = ({ stages, activeIndex, reduceMotion, onSelect }) => {
     if (!rail || !point) return;
     if (rail.scrollWidth - rail.clientWidth <= 1) return;
 
-    point.scrollIntoView({
+    rail.scrollTo({
+      left: point.offsetLeft + point.offsetWidth / 2 - rail.clientWidth / 2,
       behavior: reduceMotion ? "auto" : "smooth",
-      inline: "center",
-      block: "nearest",
     });
   }, [activeIndex, reduceMotion]);
 

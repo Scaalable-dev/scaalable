@@ -1,5 +1,6 @@
 import "./WhyChooseUs.css";
 
+import Badge from "../../ui/Badge";
 import { whyChooseUsData } from "./whyChooseUsData";
 
 const WhyChooseUs = () => {
@@ -8,7 +9,7 @@ const WhyChooseUs = () => {
       <div className="container">
         {/* Section Header */}
         <div className="why-choose-us__header">
-          <span className="why-choose-us__badge">Why Choose Scaalable</span>
+          <Badge>Why Choose Scaalable</Badge>
 
           <h2 className="why-choose-us__title">
             Built for More Than Just Project Delivery

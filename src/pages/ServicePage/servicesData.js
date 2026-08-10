@@ -103,13 +103,15 @@ export const flowServices = [
    differs per capability (Technologies / Tools / Focus Areas / …).
    ========================================================================== */
 
+/* Badge only — the section deliberately carries no visible heading or intro;
+   the directory and its panel say what it is. */
 export const capabilitiesIntro = {
   badge: "Capabilities",
 
-  title: "A complete digital capability stack.",
+  title: "One team to design, build and grow your digital presence.",
 
   description:
-    "Choose a category to see the services, platforms and systems available within that practice.",
+    "From high-performance websites and custom software to AI automation, SEO and ongoing support, Scaalable connects every capability needed to move your business forward.",
 };
 
 export const capabilities = [

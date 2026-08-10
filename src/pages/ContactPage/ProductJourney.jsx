@@ -7,7 +7,6 @@ import {
   journeyNodes,
   journeySegments,
   journeyViewBox,
-  journeyIdleMessage,
 } from "./contactData";
 
 const percent = (value, total) => `${(value / total) * 100}%`;
@@ -16,7 +15,11 @@ const ProductJourney = () => {
   const [activeId, setActiveId] = useState(null);
 
   const activeNode = journeyNodes.find((node) => node.id === activeId);
-  const message = activeNode ? activeNode.message : journeyIdleMessage;
+
+  /* Null when nothing is active. There used to be an idle prompt here telling
+     the visitor to move their cursor, which is instruction rather than content
+     — and on a touch device it asks for a cursor that does not exist. */
+  const message = activeNode ? activeNode.message : null;
   const litSegments = activeNode ? activeNode.segments : [];
 
   const activate = (id) => () => setActiveId(id);
@@ -141,10 +144,18 @@ const ProductJourney = () => {
         })}
 
         {/* ------------------------ Status ------------------------ */}
-        <p className="journey__status" aria-live="polite">
-          <span key={message} className="journey__status-text">
-            {message}
-          </span>
+        {/* The element stays in the DOM whether or not it has anything to say:
+            a live region that is added and removed is not reliably announced. */}
+        <p
+          className="journey__status"
+          aria-live="polite"
+          data-empty={message ? undefined : "true"}
+        >
+          {message && (
+            <span key={message} className="journey__status-text">
+              {message}
+            </span>
+          )}
         </p>
       </div>
     </div>
