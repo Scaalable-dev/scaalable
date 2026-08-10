@@ -1,0 +1,457 @@
+/* ==========================================================================
+   CONTACT — INQUIRY FORM
+   ========================================================================== */
+
+.inquiry {
+  background: var(--color-background);
+}
+
+.inquiry__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(0, 0.95fr);
+
+  gap: var(--space-8);
+
+  align-items: start;
+}
+
+/* ==========================================================================
+   FORM CARD
+   ========================================================================== */
+
+.inquiry__form {
+  display: flex;
+  flex-direction: column;
+
+  gap: var(--space-6);
+
+  padding: var(--space-8);
+
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-2xl);
+
+  background: var(--color-surface);
+
+  box-shadow: var(--shadow-md);
+}
+
+.inquiry__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  gap: var(--space-5);
+}
+
+/* ==========================================================================
+   BUDGET — CURRENCY SWITCH
+
+   Sits on the field's own label row rather than above it as a separate
+   question: it changes how the amounts below are written, it is not another
+   thing to answer.
+   ========================================================================== */
+
+.inquiry__budget {
+  display: flex;
+  flex-direction: column;
+
+  gap: var(--space-2);
+}
+
+.inquiry__budget-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: var(--space-3);
+}
+
+/* Matches .select-group__label, so the field reads the same as its
+   neighbours despite carrying its own header. */
+.inquiry__budget-label {
+  color: var(--color-text-primary);
+
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.inquiry__currency {
+  display: inline-flex;
+
+  padding: 3px;
+
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-full);
+
+  background: var(--color-surface-alt);
+}
+
+.inquiry__currency-option {
+  padding: 0.3rem 0.7rem;
+
+  border: 0;
+  border-radius: var(--radius-full);
+
+  background: transparent;
+
+  color: var(--color-text-secondary);
+
+  font-size: 0.75rem;
+  font-weight: 600;
+
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+
+  cursor: pointer;
+
+  transition:
+    background var(--transition-normal),
+    color var(--transition-normal);
+}
+
+.inquiry__currency-option:hover {
+  color: var(--color-text-primary);
+}
+
+.inquiry__currency-option[aria-pressed="true"] {
+  background: var(--color-surface);
+
+  box-shadow: var(--shadow-xs);
+
+  color: var(--color-brand-600);
+}
+
+.inquiry__currency-option:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 1px;
+}
+
+/* ==========================================================================
+   PREFERRED CONTACT METHOD
+   ========================================================================== */
+
+.inquiry__methods {
+  margin: 0;
+  padding: 0;
+
+  border: 0;
+}
+
+.inquiry__methods-legend {
+  margin-bottom: var(--space-3);
+  padding: 0;
+
+  color: var(--color-text-primary);
+
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.inquiry__methods-options {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: var(--space-3);
+}
+
+.method {
+  display: inline-flex;
+  align-items: center;
+
+  gap: var(--space-2);
+
+  padding: 0.7rem 1.1rem;
+
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+
+  background: var(--color-surface);
+
+  color: var(--color-text-secondary);
+
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+
+  cursor: pointer;
+
+  transition:
+    background var(--transition-normal),
+    border-color var(--transition-normal),
+    color var(--transition-normal);
+}
+
+/* The radio stays focusable but visually hidden; the label is the control. */
+.method input {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+
+  opacity: 0;
+
+  pointer-events: none;
+}
+
+.method:hover {
+  border-color: var(--color-brand-primary);
+
+  color: var(--color-brand-primary);
+}
+
+.method:has(input:checked) {
+  border-color: transparent;
+
+  background: var(--gradient-brand);
+
+  color: var(--color-text-white);
+}
+
+.method:has(input:focus-visible) {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 3px;
+}
+
+/* ==========================================================================
+   SUBMIT
+   ========================================================================== */
+
+.inquiry__submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: var(--space-2);
+
+  align-self: flex-start;
+
+  padding: 0.95rem 1.9rem;
+
+  border: 0;
+  border-radius: var(--radius-lg);
+
+  background: var(--gradient-brand);
+
+  color: var(--color-text-white);
+
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-semibold);
+
+  cursor: pointer;
+
+  transition:
+    transform var(--transition-fast),
+    box-shadow var(--transition-normal),
+    opacity var(--transition-normal);
+}
+
+.inquiry__submit:hover:not(:disabled) {
+  transform: translateY(-2px);
+
+  box-shadow: var(--shadow-lg);
+}
+
+.inquiry__submit svg {
+  transition: transform var(--transition-normal);
+}
+
+.inquiry__submit:hover:not(:disabled) svg {
+  transform: translateX(4px);
+}
+
+.inquiry__submit:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* ==========================================================================
+   SIDEBAR
+   ========================================================================== */
+
+.inquiry__aside {
+  display: flex;
+  flex-direction: column;
+
+  gap: var(--space-5);
+
+  position: sticky;
+  top: calc(var(--header-height) + var(--space-6));
+}
+
+/* ---- What happens next ---- */
+
+.inquiry__next {
+  padding: var(--space-8) var(--space-6);
+
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-2xl);
+
+  background: var(--color-surface);
+
+  box-shadow: var(--shadow-sm);
+}
+
+.inquiry__next-title {
+  display: flex;
+  align-items: center;
+
+  gap: var(--space-2);
+
+  margin: 0 0 var(--space-5);
+
+  color: var(--color-text-primary);
+
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.inquiry__next-title svg {
+  color: var(--color-brand-primary);
+
+  flex-shrink: 0;
+}
+
+.inquiry__next-list {
+  display: flex;
+  flex-direction: column;
+
+  gap: var(--space-4);
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.inquiry__next-list li {
+  display: flex;
+  align-items: flex-start;
+
+  gap: var(--space-3);
+
+  color: var(--color-text-secondary);
+
+  font-size: 0.9rem;
+  line-height: 1.65;
+}
+
+.inquiry__next-check {
+  display: grid;
+  place-items: center;
+
+  flex-shrink: 0;
+
+  width: 20px;
+  height: 20px;
+
+  margin-top: 2px;
+
+  border-radius: 50%;
+
+  background: var(--color-brand-soft);
+
+  color: var(--color-brand-primary);
+}
+
+/* ---- NDA / privacy ---- */
+
+.inquiry__privacy {
+  padding: var(--space-8) var(--space-6);
+
+  border-radius: var(--radius-2xl);
+
+  background: var(--gradient-brand-horizontal);
+
+  color: var(--color-text-white);
+
+  box-shadow: var(--shadow-brand);
+}
+
+.inquiry__privacy-title {
+  margin: 0 0 var(--space-3);
+
+  color: var(--color-text-white);
+
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.inquiry__privacy-text {
+  margin: 0 0 var(--space-5);
+
+  color: rgba(255, 255, 255, 0.82);
+
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+.inquiry__privacy-note {
+  display: inline-flex;
+  align-items: center;
+
+  gap: var(--space-2);
+
+  padding: var(--space-3) var(--space-4);
+
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-md);
+
+  background: rgba(255, 255, 255, 0.1);
+
+  color: var(--color-text-white);
+
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.inquiry__privacy-note svg {
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+
+@media (max-width: 992px) {
+  .inquiry__layout {
+    grid-template-columns: 1fr;
+  }
+
+  /* Sticky only makes sense beside the form. */
+  .inquiry__aside {
+    position: static;
+  }
+}
+
+@media (max-width: 640px) {
+  .inquiry__form {
+    padding: var(--space-6) var(--space-5);
+  }
+
+  .inquiry__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .inquiry__submit {
+    align-self: stretch;
+  }
+}
+
+/* ==========================================================================
+   REDUCED MOTION
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .inquiry__submit,
+  .inquiry__submit svg,
+  .method {
+    transition: none;
+  }
+
+  .inquiry__submit:hover:not(:disabled) {
+    transform: none;
+  }
+
+  .inquiry__submit:hover:not(:disabled) svg {
+    transform: none;
+  }
+}

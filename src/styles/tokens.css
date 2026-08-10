@@ -14,6 +14,28 @@
   --color-brand-secondary: #8939fa;
   --color-brand-accent: #b93ffb;
 
+  /* The third band of the logo mark, and already used ad-hoc as a raw rgba() in
+     the hero glow. Named here so the canvas visual can read it as a token
+     rather than reintroducing the literal. */
+  --color-brand-cyan: #06b6d4;
+
+  /* Channel triples for the same ramp, so a stylesheet can build a translucent
+     brand glow — rgba(var(--color-brand-primary-rgb), 0.3) — without hardcoding
+     the numbers at every call site. Keep in step with the hexes above. */
+  --color-brand-primary-rgb: 0, 130, 249;
+  --color-brand-secondary-rgb: 137, 57, 250;
+  --color-brand-accent-rgb: 185, 63, 251;
+  --color-brand-cyan-rgb: 6, 182, 212;
+  --color-brand-600-rgb: 0, 108, 250;
+  --color-brand-700-rgb: 0, 86, 214;
+
+  /* Short aliases. Several stylesheets (ServiceCard, Hero, About) reference the
+     bare `--color-primary` / `--color-accent` names; without these the
+     declarations are invalid and browsers drop them, leaving accent bars
+     painted as `initial` and icons falling back to currentColor. */
+  --color-primary: var(--color-brand-primary);
+  --color-accent: var(--color-brand-accent);
+
   --color-brand-600: #006cfa;
   --color-brand-700: #0056d6;
   --color-brand-800: #003ea9;
@@ -102,6 +124,11 @@
   /* ========================================================================
      5. BORDER COLORS
      ======================================================================== */
+
+  /* Default border. Input, Textarea and Card reference the bare
+     `--color-border` name; without it those declarations are invalid and the
+     browser falls back to currentColor, painting dark borders. */
+  --color-border: #e5e7eb;
 
   --color-border-light: #e5e7eb;
 
@@ -201,6 +228,11 @@
   --transition-slow: 400ms ease;
 
   --transition-bounce: 350ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Bare easing curves, for composing custom durations. */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 
   /* ========================================================================
      11. LAYOUT

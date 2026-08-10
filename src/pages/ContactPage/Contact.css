@@ -1,0 +1,306 @@
+/* ==========================================================================
+   CONTACT — HERO
+   ========================================================================== */
+
+.contact-hero {
+  position: relative;
+
+  /* `clip`, not `hidden` — `hidden` makes this a scroll container and the
+     panels inside it stop being snap points for the document. */
+  overflow: clip;
+
+  isolation: isolate;
+
+  /* Sized to be seen in one viewport, like the home hero. Everything inside is
+     clamped on BOTH axes — clamp(min, min(Xvw, Yvh), max) — so the type answers
+     to whichever dimension is tighter. */
+  --hero-pad-y: clamp(1rem, 3.2vh, 2.6rem);
+
+  /* Exactly the height left for content once the header and this section's own
+     padding are taken out; the visual is capped to it rather than to a guessed
+     fraction of the viewport. */
+  --hero-fit: calc(100svh - var(--navbar-height) - 2 * var(--hero-pad-y));
+
+  display: flex;
+  align-items: center;
+
+  /* Capped as well as viewport-sized. The grid inside is about 26rem tall —
+     the visual is 1000x600 and the column caps its width long before the
+     viewport does — so a full-viewport hero centred that inside a much taller
+     box and left a couple of hundred pixels of nothing under the button. That
+     reads as a broken gap before the channels below, not as a full-bleed
+     hero. The viewport is the ceiling now rather than the target. */
+  min-height: min(calc(100vh - var(--navbar-height)), 34rem);
+  min-height: min(calc(100svh - var(--navbar-height)), 34rem);
+
+  padding-block: var(--hero-pad-y);
+
+  background:
+    radial-gradient(
+      circle at 12% 18%,
+      rgba(0, 130, 249, 0.14),
+      transparent 42%
+    ),
+    radial-gradient(
+      circle at 88% 12%,
+      rgba(185, 63, 251, 0.12),
+      transparent 44%
+    ),
+    /* Settles on the channels section's colour so the two meet without a seam. */
+    linear-gradient(
+      180deg,
+      #ffffff 0%,
+      #f8fbff 55%,
+      var(--color-surface-hover) 100%
+    );
+}
+
+/* The section is now a flex row, so its single child has to be told to take
+   the width it used to get for free as a block. */
+.contact-hero > .container {
+  width: min(100% - 2rem, var(--container-width));
+}
+
+/* ==========================================================================
+   PAGE RHYTHM
+
+   Every block below the hero is a full-bleed <section> carrying its own
+   background, so the space between two of them is the sum of their padding —
+   and the global `section { padding-block: 6rem }` makes that 12rem, which is
+   the hole between each set of cards and the badge under it.
+
+   Each section pays half of one comfortable break instead, so any two
+   neighbours add up to roughly 6rem however they are ordered. Declared here
+   rather than four times over: a rhythm only stays a rhythm if one value
+   drives it.
+   ========================================================================== */
+
+.channels,
+.inquiry,
+.office,
+.social {
+  padding-block: clamp(2.25rem, 4vw, 3rem);
+}
+
+.contact-hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+
+  align-items: center;
+
+  gap: clamp(1.25rem, min(6vw, 4vh), 4rem);
+}
+
+/* ==========================================================================
+   LEFT — CONTENT
+   ========================================================================== */
+
+.contact-hero__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  gap: clamp(0.7rem, 2.3vh, 1.5rem);
+
+  min-width: 0;
+}
+
+.contact-hero__title {
+  max-width: 20ch;
+
+  font-size: clamp(1.6rem, min(4vw, 5.2vh), 3.3rem);
+
+  line-height: 1.12;
+
+  letter-spacing: -0.04em;
+}
+
+.contact-hero__title-gradient {
+  /* Own line, so the hyphen in "AI-powered" never becomes a line break. */
+  display: block;
+
+  background: var(--gradient-brand);
+
+  background-clip: text;
+  -webkit-background-clip: text;
+
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+.contact-hero__description {
+  display: flex;
+  flex-direction: column;
+
+  gap: clamp(0.5rem, 1.5vh, 1rem);
+
+  max-width: 62ch;
+}
+
+.contact-hero__description p {
+  margin: 0;
+
+  color: var(--color-text-secondary);
+
+  font-size: clamp(0.875rem, min(1.15vw, 1.7vh), 1.05rem);
+  line-height: 1.7;
+}
+
+/* An instruction rather than a pitch, so it reads a shade firmer than the
+   paragraph above and sits with the button it is about. */
+.contact-hero__description .contact-hero__support {
+  margin-top: var(--space-2);
+
+  color: var(--color-text-primary);
+
+  font-weight: 600;
+}
+
+.contact-hero__actions {
+  margin-top: var(--space-2);
+}
+
+/* ==========================================================================
+   RIGHT — VISUAL
+   ========================================================================== */
+
+.contact-hero__visual {
+  display: flex;
+  justify-content: center;
+
+  min-width: 0;
+}
+
+/* The cap goes on the graphic, not on the grid cell holding it. A percentage
+   max-width on a grid item is measured against a track that is itself being
+   sized from that item, and the circular reference resolves to zero — the
+   column collapsed and the visual disappeared.
+
+   The graphic is 1000x600, so height follows width at 0.6 of it; capping the
+   width by vh is what keeps the row inside a short window. */
+.contact-hero .contact-hero__visual > * {
+  /* Over-qualified for the same reason as the services hero: ProductJourney.css
+     sets its own max-width at equal specificity and load order wins the tie. */
+  /* 1000x600, so height is 0.6 of width — the free height converts to a width
+     limit by dividing through by that ratio. */
+  max-width: min(100%, calc(var(--hero-fit) / 0.6));
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+
+/* ==========================================================================
+   STACKED
+
+   Below 992px the copy takes the first screen; the graphic follows at a
+   compact size rather than a second full viewport, so the page runs straight
+   on into the channels below it. Nothing snaps here.
+   ========================================================================== */
+
+@media (max-width: 992px) {
+  .contact-hero {
+    /* The panels carry their own height; centring a stack twice as tall as the
+       viewport would push the first one up under the header. */
+    display: block;
+
+    padding-block: 0;
+  }
+
+  /* The copy keeps the first screen to itself, as it did before. What changed
+     is what fills it: there were three paragraphs, and now there is one. The
+     type and the gaps below come up to match, so the column reads as sized
+     for the screen rather than centred in an empty one. */
+  .contact-hero__content {
+    min-height: calc(100vh - var(--navbar-height));
+    min-height: calc(100svh - var(--navbar-height));
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    gap: clamp(1rem, 3vh, 1.75rem);
+
+    padding-block: clamp(1.5rem, 4vh, 2.5rem);
+  }
+
+  /* All three of these were clamped small to fit a screen alongside two more
+     paragraphs. Nothing is competing for the height now. */
+  .contact-hero__title {
+    font-size: clamp(1.9rem, 8vw, 2.6rem);
+
+    line-height: 1.16;
+  }
+
+  .contact-hero__description {
+    gap: clamp(0.75rem, 2vh, 1.25rem);
+  }
+
+  .contact-hero__description p {
+    font-size: clamp(0.95rem, 4.2vw, 1.08rem);
+
+    line-height: 1.8;
+  }
+
+  .contact-hero__visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding-block: clamp(1.25rem, 4vh, 2.5rem);
+  }
+
+  .contact-hero__grid {
+    grid-template-columns: 1fr;
+
+    gap: 0;
+  }
+
+  .contact-hero__content {
+    align-items: center;
+
+    text-align: center;
+  }
+
+  .contact-hero__title,
+  .contact-hero__description {
+    max-width: 100%;
+
+    margin-inline: auto;
+  }
+
+  /* Visual sits below the copy once stacked. Stacking makes height the scarce
+     axis, so its cap tightens accordingly. */
+  .contact-hero__visual {
+    order: 2;
+  }
+
+  /* Compact. 1000x600, so this width is 0.6 of it in height. */
+  .contact-hero .contact-hero__visual > * {
+    max-width: min(100%, 26rem);
+  }
+
+  /* All three paragraphs are back: the copy has a viewport to itself now. */
+}
+
+@media (max-width: 576px) {
+  .contact-hero__actions,
+  .contact-hero__actions .btn {
+    width: 100%;
+  }
+}
+
+/* Nothing is hidden any more — the graphic has a screen of its own. */
+
+/* The narrowest screens: the title carries a gradient span on its own line, so
+   it is always at least two lines. Allowed below the shared floor to buy the
+   last few pixels back. */
+@media (max-width: 400px) {
+  .contact-hero__title {
+    font-size: clamp(1.65rem, 7.4vw, 2rem);
+  }
+
+  .contact-hero__description p {
+    line-height: 1.75;
+  }
+}

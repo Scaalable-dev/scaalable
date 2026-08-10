@@ -1,0 +1,940 @@
+/* ==========================================================================
+   SERVICES — INDUSTRIES / SOLUTION BLUEPRINT (MOBILE)
+
+   Everything here is namespaced `indm-` and rendered only below 768px, so
+   none of it can reach the desktop layout in Industries.css. The accent and
+   the section background still come from `.ind`, which wraps both.
+
+   Order on mobile: intro, industry rail, selected card, blueprint accordion.
+   ========================================================================== */
+
+.indm {
+  --indm-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --indm-marker: 32px;
+
+  /* Container already insets 12px a side here, 8px below 576px. This tops
+     each up to roughly the 20px the layout is drawn against. */
+  padding-inline: 0.5rem;
+
+  /* Nothing inside may push the page sideways. The rail bleeds out to exactly
+     this padding — no further, or the clip would cut it. */
+  overflow-x: clip;
+}
+
+/* ==========================================================================
+   INTRO
+   ========================================================================== */
+
+.indm-intro {
+  margin-bottom: clamp(1.75rem, 6vw, 2.25rem);
+
+  text-align: center;
+}
+
+.indm-intro .badge {
+  margin-bottom: var(--space-4);
+}
+
+/* Sized to stay comfortable at 320px rather than scaled down from the
+   desktop display size. */
+.indm-intro__title {
+  margin: 0 0 var(--space-3);
+
+  color: var(--color-text-primary);
+
+  font-size: clamp(1.5rem, 6.4vw, 2rem);
+
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+}
+
+.indm-intro__description {
+  margin: 0;
+
+  color: var(--color-text-secondary);
+
+  font-size: clamp(0.85rem, 3.6vw, 0.95rem);
+  line-height: 1.7;
+}
+
+/* ==========================================================================
+   INDUSTRY RAIL
+
+   The same one-line rail the wide layout uses (.ind-pick, in Industries.css),
+   tuned for a thumb: larger targets, and a bleed out to the gutters so a
+   half-cut button at the screen edge shows there is more to swipe.
+   ========================================================================== */
+
+.indm-pick {
+  margin-bottom: var(--space-5);
+}
+
+.indm-pick__label {
+  display: block;
+
+  margin-bottom: var(--space-3);
+
+  color: var(--color-text-muted);
+
+  font-size: 0.66rem;
+  font-weight: 700;
+
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* Scoped to the compact layout — the same classes carry the wide rail, which
+   sits inside the container like everything else around it. */
+@media (max-width: 767.98px) {
+  .indm-pick .ind-pick {
+    /* Exactly .indm's own padding — anything more is cut off by its clip. */
+    margin-inline: -0.5rem;
+    margin-bottom: 0;
+  }
+
+  /* Put the inset back inside the scroller, so the first and last buttons
+     still line up with the text above at either end of the travel. */
+  .indm-pick .ind-pick__track {
+    padding-inline: 0.5rem;
+  }
+
+  .indm-pick .ind-pick__button {
+    min-height: 52px;
+
+    padding: 0.65rem 1.05rem;
+
+    font-size: 0.8rem;
+  }
+}
+
+/* .indm's padding grows below 576px, and the bleed grows with it. */
+@media (max-width: 576px) {
+  .indm-pick .ind-pick {
+    margin-inline: -0.75rem;
+  }
+
+  .indm-pick .ind-pick__track {
+    padding-inline: 0.75rem;
+  }
+}
+
+/* ==========================================================================
+   SELECTED INDUSTRY CARD
+   ========================================================================== */
+
+.indm-card {
+  position: relative;
+  overflow: hidden;
+
+  margin-top: clamp(1rem, 4vw, 1.35rem);
+  padding: clamp(0.9rem, 4vw, 1.15rem);
+
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-xl);
+
+  background: rgba(0, 130, 249, 0.03);
+  background:
+    linear-gradient(
+      150deg,
+      color-mix(in srgb, var(--ind-accent) 6%, transparent),
+      transparent 60%
+    ),
+    var(--color-surface);
+
+  box-shadow: var(--shadow-sm);
+}
+
+/* One-shot border lift once the new data is in. */
+.indm-card__flash {
+  position: absolute;
+  inset: 0;
+
+  border: 1px solid var(--ind-accent);
+  border-radius: inherit;
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  animation: indm-flash 900ms var(--indm-ease);
+}
+
+@keyframes indm-flash {
+  0% {
+    opacity: 0;
+  }
+
+  25% {
+    opacity: 0.7;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Highlight crossing the card, clipped by the card's own overflow. */
+.indm-card__scan {
+  position: absolute;
+  top: -50%;
+  left: 0;
+
+  width: 45%;
+  height: 200%;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--ind-accent) 12%, transparent),
+    transparent
+  );
+
+  opacity: 0;
+
+  transform: rotate(14deg);
+
+  pointer-events: none;
+
+  animation: indm-scan 1100ms var(--indm-ease);
+}
+
+@keyframes indm-scan {
+  0% {
+    opacity: 0;
+    transform: translateX(-120%) rotate(14deg);
+  }
+
+  25% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(320%) rotate(14deg);
+  }
+}
+
+.indm-card__head {
+  display: flex;
+  align-items: center;
+
+  gap: var(--space-3);
+
+  margin-bottom: var(--space-3);
+}
+
+.indm-card__mark {
+  display: grid;
+  place-items: center;
+
+  flex-shrink: 0;
+
+  width: 38px;
+  height: 38px;
+
+  border-radius: var(--radius-md);
+
+  background: rgba(0, 130, 249, 0.1);
+  background: color-mix(in srgb, var(--ind-accent) 13%, transparent);
+
+  color: var(--ind-accent);
+
+  animation: indm-float 4.4s ease-in-out infinite;
+}
+
+@keyframes indm-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-2px);
+  }
+}
+
+.indm-card__meta {
+  display: flex;
+  flex-direction: column;
+
+  gap: 2px;
+
+  flex: 1;
+
+  min-width: 0;
+}
+
+.indm-card__label {
+  color: var(--color-text-muted);
+
+  font-size: 0.62rem;
+  font-weight: 700;
+
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.indm-card__counter {
+  color: var(--color-text-primary);
+
+  font-size: 0.78rem;
+  font-weight: 700;
+
+  letter-spacing: 0.06em;
+
+  font-variant-numeric: tabular-nums;
+}
+
+.indm-card__counter i {
+  color: var(--color-text-disabled);
+
+  font-style: normal;
+}
+
+.indm-card__status {
+  flex-shrink: 0;
+
+  padding: 0.26rem 0.6rem;
+
+  border-radius: var(--radius-full);
+
+  background: rgba(0, 130, 249, 0.1);
+  background: color-mix(in srgb, var(--ind-accent) 12%, transparent);
+
+  color: var(--ind-accent);
+
+  font-size: 0.6rem;
+  font-weight: 700;
+
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+
+  animation: indm-pulse-pill 900ms var(--indm-ease);
+}
+
+@keyframes indm-pulse-pill {
+  0% {
+    transform: scale(1);
+  }
+
+  35% {
+    transform: scale(1.07);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.indm-card__name {
+  margin: 0 0 var(--space-2);
+
+  color: var(--color-text-primary);
+
+  font-size: clamp(1.05rem, 4.6vw, 1.2rem);
+
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+/* Reserves the tallest description's height so the card, and everything
+   below it, holds still while the copy changes. */
+.indm-card__description {
+  min-height: 5.1em;
+
+  margin: 0;
+
+  color: var(--color-text-secondary);
+
+  font-size: 0.82rem;
+  line-height: 1.7;
+}
+
+/* ==========================================================================
+   BLUEPRINT ACCORDION
+   ========================================================================== */
+
+.indm-bp {
+  margin-top: clamp(1rem, 4vw, 1.35rem);
+  padding: clamp(0.9rem, 4vw, 1.15rem) clamp(0.75rem, 3vw, 1rem);
+
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-xl);
+
+  background: var(--color-surface);
+
+  box-shadow: var(--shadow-sm);
+}
+
+.indm-bp__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: var(--space-3);
+
+  margin-bottom: var(--space-4);
+}
+
+.indm-bp__label,
+.indm-bp__status {
+  color: var(--color-text-muted);
+
+  font-size: 0.64rem;
+  font-weight: 700;
+
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.indm-bp__status {
+  display: inline-flex;
+  align-items: center;
+
+  gap: var(--space-2);
+}
+
+.indm-bp__dot {
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: var(--color-success);
+
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.16);
+
+  animation:
+    indm-breathe 3.2s ease-in-out infinite,
+    indm-flash-dot 820ms var(--indm-ease);
+}
+
+@keyframes indm-breathe {
+  0%,
+  100% {
+    opacity: 0.65;
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.14);
+  }
+
+  50% {
+    opacity: 1;
+    box-shadow: 0 0 0 5px rgba(34, 197, 94, 0.2);
+  }
+}
+
+@keyframes indm-flash-dot {
+  0% {
+    transform: scale(1);
+  }
+
+  35% {
+    transform: scale(1.5);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* ==========================================================================
+   CONNECTOR RAIL
+
+   Drawn as one segment per row rather than a single line down the list: a
+   list-level line has to end at some fixed offset, and the last row's height
+   changes with its panel, so it always overshot the final marker and ran on
+   into empty space. Per-row segments stop exactly on the last marker in
+   every state.
+   ========================================================================== */
+
+.indm-bp__rail {
+  position: relative;
+}
+
+/* Above the rows, which the segments sit behind — a travelling light that
+   disappeared under every marker would not read as travelling at all. */
+.indm-bp__glide {
+  position: absolute;
+  left: calc(var(--indm-marker) / 2);
+
+  z-index: 2;
+
+  width: 1px;
+  height: 38px;
+
+  background: linear-gradient(
+    180deg,
+    transparent,
+    color-mix(in srgb, var(--ind-accent) 55%, transparent),
+    transparent
+  );
+
+  transform: translateX(-0.5px);
+
+  pointer-events: none;
+
+  animation: indm-glide 6.5s var(--indm-ease) infinite;
+}
+
+@keyframes indm-glide {
+  0% {
+    top: -38px;
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 0.8;
+  }
+
+  75% {
+    opacity: 0.8;
+  }
+
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+/* Brighter one-shot pulse, replayed on every industry and step change. */
+.indm-bp__pulse {
+  position: absolute;
+  top: -42px;
+  left: calc(var(--indm-marker) / 2);
+
+  z-index: 2;
+
+  width: 1px;
+  height: 42px;
+
+  background: linear-gradient(
+    180deg,
+    transparent,
+    var(--ind-accent),
+    transparent
+  );
+
+  opacity: 0;
+
+  transform: translateX(-0.5px);
+
+  pointer-events: none;
+
+  animation: indm-pulse 900ms var(--indm-ease);
+}
+
+@keyframes indm-pulse {
+  0% {
+    top: -42px;
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  70% {
+    opacity: 1;
+  }
+
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+.indm-bp__list {
+  position: relative;
+
+  z-index: 1;
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+/* ==========================================================================
+   ACCORDION ITEM
+   ========================================================================== */
+
+.indm-step {
+  position: relative;
+
+  animation: indm-rise 420ms var(--indm-ease) backwards;
+  animation-delay: calc(var(--i, 0) * 80ms);
+}
+
+/* One segment of connector per row, behind that row's own content. The first
+   row starts at its marker's centre and the last one stops there, so the line
+   is bounded by the markers it joins instead of running past them. */
+.indm-step::after {
+  content: "";
+
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(var(--indm-marker) / 2);
+
+  width: 1px;
+
+  background: var(--color-border-light);
+
+  transform: translateX(-0.5px);
+}
+
+.indm-step:first-child::after {
+  top: 28px;
+}
+
+.indm-step:last-child::after {
+  bottom: auto;
+
+  height: 28px;
+}
+
+@keyframes indm-rise {
+  from {
+    opacity: 0;
+
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: none;
+  }
+}
+
+/* Inset past the marker column so the highlight begins where the text does.
+   Filling the whole row would put a rounded box straight over the connector,
+   which read as the line cutting through the panel. */
+.indm-step::before {
+  content: "";
+
+  position: absolute;
+  inset: 0 0 0 calc(var(--indm-marker) + var(--space-2));
+
+  border-radius: var(--radius-md);
+
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--ind-accent) 8%, transparent),
+    transparent 88%
+  );
+
+  opacity: 0;
+
+  transition: opacity 320ms var(--indm-ease);
+}
+
+.indm-step[data-active="true"]::before {
+  opacity: 1;
+}
+
+/* Both sit above the highlight and the connector segment behind them. */
+.indm-step__head,
+.indm-step__panel {
+  position: relative;
+
+  z-index: 1;
+}
+
+.indm-step__head {
+  display: grid;
+  grid-template-columns: var(--indm-marker) minmax(0, 1fr) auto;
+  align-items: center;
+
+  gap: var(--space-3);
+
+  width: 100%;
+
+  min-height: 56px;
+
+  padding: 0.55rem 0.5rem;
+
+  border: 0;
+
+  background: none;
+
+  cursor: pointer;
+
+  text-align: left;
+}
+
+.indm-step__head:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: -2px;
+
+  border-radius: var(--radius-md);
+}
+
+.indm-step__marker {
+  position: relative;
+
+  display: grid;
+  place-items: center;
+
+  width: var(--indm-marker);
+  height: var(--indm-marker);
+
+  border: 1px solid var(--color-border-light);
+  border-radius: 50%;
+
+  /* Opaque so the rail terminates cleanly at each circle. */
+  background: var(--color-surface);
+
+  transition:
+    background 320ms var(--indm-ease),
+    border-color 320ms var(--indm-ease),
+    box-shadow 320ms var(--indm-ease);
+}
+
+.indm-step[data-active="true"] .indm-step__marker {
+  border-color: transparent;
+
+  background: var(--ind-accent);
+
+  box-shadow: 0 5px 14px -6px var(--ind-accent);
+}
+
+/* A single expanding ring when the row opens, not a repeating pulse. */
+.indm-step__ring {
+  position: absolute;
+  inset: -1px;
+
+  border: 1px solid var(--ind-accent);
+  border-radius: 50%;
+
+  opacity: 0;
+}
+
+.indm-step[data-active="true"] .indm-step__ring {
+  animation: indm-ring 900ms var(--indm-ease);
+}
+
+@keyframes indm-ring {
+  0% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1.55);
+  }
+}
+
+.indm-step__number {
+  color: var(--color-text-disabled);
+
+  font-size: 0.68rem;
+  font-weight: 700;
+
+  font-variant-numeric: tabular-nums;
+
+  transition: color 320ms var(--indm-ease);
+}
+
+.indm-step[data-active="true"] .indm-step__number {
+  color: var(--color-text-white);
+}
+
+.indm-step__title {
+  min-width: 0;
+
+  color: var(--color-text-secondary);
+
+  font-size: 0.84rem;
+  font-weight: 600;
+
+  line-height: 1.4;
+
+  transition: color 320ms var(--indm-ease);
+}
+
+.indm-step[data-active="true"] .indm-step__title {
+  color: var(--color-text-primary);
+}
+
+.indm-step__chevron {
+  flex-shrink: 0;
+
+  color: var(--color-text-disabled);
+
+  transition:
+    transform 380ms var(--indm-ease),
+    color 320ms var(--indm-ease);
+}
+
+.indm-step[data-active="true"] .indm-step__chevron {
+  color: var(--ind-accent);
+
+  transform: rotate(180deg);
+}
+
+.indm-step__head:active .indm-step__chevron {
+  transform: translateY(2px);
+}
+
+.indm-step[data-active="true"] .indm-step__head:active .indm-step__chevron {
+  transform: rotate(180deg) translateY(2px);
+}
+
+/* ==========================================================================
+   PANEL
+
+   grid-template-rows 0fr → 1fr eases to the text's real height with no
+   measurement and no guessed maximum, so nothing is ever clipped.
+   ========================================================================== */
+
+.indm-step__panel {
+  display: grid;
+  grid-template-rows: 0fr;
+
+  transition:
+    grid-template-rows 400ms var(--indm-ease),
+    opacity 400ms var(--indm-ease);
+
+  opacity: 0;
+}
+
+.indm-step__panel[data-open="true"] {
+  grid-template-rows: 1fr;
+
+  opacity: 1;
+}
+
+.indm-step__panel-inner {
+  overflow: hidden;
+
+  /* Keeps collapsed copy out of the tab order and off screen readers,
+     delayed on close so it stays visible for the length of the animation. */
+  visibility: hidden;
+
+  transition: visibility 0s linear 400ms;
+}
+
+.indm-step__panel[data-open="true"] .indm-step__panel-inner {
+  visibility: visible;
+
+  transition-delay: 0s;
+}
+
+.indm-step__description {
+  margin: 0;
+  padding: 0 0.5rem 0.9rem calc(var(--indm-marker) + var(--space-3) + 0.5rem);
+
+  color: var(--color-text-muted);
+
+  font-size: 0.8rem;
+  line-height: 1.7;
+}
+
+/* ==========================================================================
+   INDUSTRY CHANGE
+
+   The card copy and the step list leave together, then the keyed remount
+   replays the entry animations and the 80ms marker stagger.
+   ========================================================================== */
+
+.indm-card__body,
+.indm-bp__list {
+  transition:
+    opacity 190ms var(--indm-ease),
+    transform 190ms var(--indm-ease);
+}
+
+.indm[data-phase="out"] .indm-card__body,
+.indm[data-phase="out"] .indm-bp__list {
+  opacity: 0;
+
+  transform: translateY(-8px);
+}
+
+.indm-card__body {
+  animation: indm-rise 460ms var(--indm-ease) backwards;
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+
+/* Below 576px the shared container narrows, so the top-up padding grows to
+   hold the same visual inset. */
+@media (max-width: 576px) {
+  .indm {
+    padding-inline: 0.75rem;
+  }
+}
+
+@media (max-width: 389px) {
+  .indm-pick .ind-pick__button {
+    padding-inline: 0.85rem;
+
+    font-size: 0.76rem;
+  }
+
+  .indm-card,
+  .indm-bp {
+    padding: 0.8rem;
+  }
+}
+
+/* The pill drops under the counter so neither is squeezed. */
+@media (max-width: 349px) {
+  .indm-card__head {
+    flex-wrap: wrap;
+  }
+
+  .indm-card__status {
+    order: 3;
+
+    margin-left: calc(38px + var(--space-3));
+  }
+}
+
+/* ==========================================================================
+   REDUCED MOTION
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .indm-step,
+  .indm-step::before,
+  .indm-step__marker,
+  .indm-step__number,
+  .indm-step__title,
+  .indm-step__chevron,
+  .indm-step__panel,
+  .indm-step__panel-inner,
+  .indm-card__body,
+  .indm-bp__list {
+    transition: none;
+  }
+
+  .indm-card__body,
+  .indm-card__mark,
+  .indm-card__status,
+  .indm-step,
+  .indm-step__ring,
+  .indm-bp__dot {
+    animation: none;
+  }
+
+  /* Layers whose only purpose is movement. */
+  .indm-card__scan,
+  .indm-card__flash,
+  .indm-bp__glide,
+  .indm-bp__pulse {
+    display: none;
+  }
+
+  .indm-step[data-active="true"] .indm-step__chevron,
+  .indm-step[data-active="true"] .indm-step__head:active .indm-step__chevron {
+    transform: rotate(180deg);
+  }
+
+  .indm-step__head:active .indm-step__chevron {
+    transform: none;
+  }
+}

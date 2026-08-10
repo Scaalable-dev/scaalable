@@ -1,0 +1,378 @@
+/* ==========================================================================
+   SERVICES — HERO
+
+   Background language matches the Home and Contact heroes: white base with
+   soft brand radial glows in the upper corners.
+   ========================================================================== */
+
+.service-hero {
+  position: relative;
+
+  /* `clip`, not `hidden`. Both contain the glow, but `hidden` makes this a
+     scroll container, which re-parents the snap alignment of the panels inside
+     it away from the document — the page then sees no snap points at all. */
+  overflow: clip;
+
+  isolation: isolate;
+
+  /* Sized to be seen in one viewport, like the home hero. Everything inside is
+     clamped on BOTH axes — clamp(min, min(Xvw, Yvh), max) — so the type answers
+     to whichever dimension is tighter. Width-only clamps are why a hero that
+     fits 1440x900 overflowed the same window at 1366x768: the text never
+     learned the viewport got shorter. */
+  --hero-pad-y: clamp(1rem, 3.2vh, 2.6rem);
+
+  /* Exactly the height left for content once the header and this section's own
+     padding are taken out. The visual is capped to this rather than to a
+     guessed fraction of the viewport, so it grows to fill whatever room there
+     is and stops precisely at the fold. */
+  --hero-fit: calc(100svh - var(--navbar-height) - 2 * var(--hero-pad-y));
+
+  display: flex;
+  align-items: center;
+
+  min-height: calc(100vh - var(--navbar-height));
+  min-height: calc(100svh - var(--navbar-height));
+
+  padding-block: var(--hero-pad-y);
+
+  /* Full-size layers only. Constraining these with background-size cuts the
+     radial falloff off mid-fade and draws a hard line across the section. */
+  background:
+    radial-gradient(
+      circle at 15% 18%,
+      rgba(0, 130, 249, 0.14),
+      transparent 42%
+    ),
+    radial-gradient(
+      circle at 85% 14%,
+      rgba(185, 63, 251, 0.13),
+      transparent 45%
+    ),
+    linear-gradient(180deg, #ffffff 0%, #f8fbff 58%, #f4f8ff 100%);
+}
+
+/* ==========================================================================
+   AMBIENT LAYERS
+   ========================================================================== */
+
+/* Slow drifting brand glow behind the copy. */
+.service-hero__glow {
+  position: absolute;
+  /* Anchored in pixels, not percentages: a percentage offset scales with the
+     section, so shortening the hero dragged the blurred edge down onto the
+     bottom boundary and tinted it purple against the section below. */
+  top: -260px;
+  left: 50%;
+
+  z-index: -1;
+
+  width: min(110%, 860px);
+  aspect-ratio: 1 / 1;
+
+  border-radius: 50%;
+
+  background: var(--gradient-brand-soft-circle);
+
+  /* 90px was measurably costly; 55px reads the same at this opacity. */
+  filter: blur(55px);
+
+  opacity: 0.5;
+
+  transform: translateX(-50%);
+
+  /* Deliberately static. Animating a 55px-blurred layer re-runs the blur every
+     frame; the drift was imperceptible and cost ~3.5fps. */
+
+  pointer-events: none;
+}
+
+/* Faint technical grid, fading out toward the edges. */
+.service-hero__grid {
+  position: absolute;
+  inset: 0;
+
+  z-index: -1;
+
+  background-image:
+    linear-gradient(rgba(15, 23, 42, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15, 23, 42, 0.035) 1px, transparent 1px);
+
+  background-size: 64px 64px;
+
+  mask-image: radial-gradient(
+    ellipse 70% 60% at 50% 45%,
+    #000 25%,
+    transparent 75%
+  );
+  -webkit-mask-image: radial-gradient(
+    ellipse 70% 60% at 50% 45%,
+    #000 25%,
+    transparent 75%
+  );
+
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   CONTENT
+   ========================================================================== */
+
+/* The section is now a flex row, so its single child has to be told to take
+   the width it used to get for free as a block. */
+.service-hero > .container {
+  width: min(100% - 2rem, var(--container-width));
+}
+
+.service-hero__grid-layout {
+  display: grid;
+  /* Copy column takes the larger share; the visual scales as one piece so it
+     stays legible in less width. */
+  grid-template-columns: minmax(0, 1.06fr) minmax(0, 0.94fr);
+
+  align-items: center;
+
+  /* Near-zero — the visual carries its own internal breathing room. */
+  gap: clamp(0.25rem, 0.8vw, 0.85rem);
+}
+
+.service-hero__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  /* Dual-axis: the stack tightens on a short screen as well as a narrow one. */
+  gap: clamp(0.7rem, 2.3vh, 1.5rem);
+
+  min-width: 0;
+
+  text-align: left;
+}
+
+.service-hero__visual {
+  min-width: 0;
+}
+
+/* The cap goes on the diagram, not on the grid cell holding it. A percentage
+   max-width on a grid item is measured against a track that is itself being
+   sized from that item, and the circular reference resolves to zero — the
+   column collapsed and the visual disappeared. Against the cell, which is
+   definite by the time the child is laid out, the same percentage is fine.
+
+   The diagram is square, so capping width caps height; on a short window this
+   is what keeps the row inside the fold.
+
+   The selector is over-qualified deliberately. ServiceFlow.css sets
+   `.flow { max-width: 660px }` at the same specificity as a bare
+   `.service-hero__visual > *`, and load order handed it the win — so this cap
+   silently did nothing and the diagram kept its full 615px on a 730px-tall
+   window, pushing its lowest cards past the fold. */
+.service-hero .service-hero__visual > * {
+  /* Square, so width is height. It takes the full column unless the window is
+     too short for that, at which point the free height becomes the limit. */
+  max-width: min(100%, var(--hero-fit));
+
+  margin-inline: auto;
+}
+
+.service-hero__title {
+  max-width: 21ch;
+
+  margin: 0;
+
+  color: var(--color-text-primary);
+
+  font-size: clamp(1.55rem, min(4.4vw, 5.4vh), 3.4rem);
+
+  line-height: 1.14;
+  letter-spacing: -0.035em;
+}
+
+.service-hero__description {
+  max-width: 62ch;
+
+  margin: 0;
+
+  color: var(--color-text-secondary);
+
+  font-size: clamp(0.875rem, min(1.2vw, 1.75vh), 1.05rem);
+  line-height: 1.7;
+}
+
+.service-hero__actions {
+  margin-top: var(--space-2);
+}
+
+/* ==========================================================================
+   CTA
+   ========================================================================== */
+
+.service-hero__actions .btn__icon {
+  transition: transform var(--transition-normal);
+}
+
+.service-hero__actions .btn:hover .btn__icon {
+  transform: translateX(4px);
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+
+/* ==========================================================================
+   STACKED
+
+   Below 992px the copy takes the first screen — it is the page's opening
+   statement and it earns one. The diagram follows at a compact size rather
+   than a second full viewport: it is a supporting illustration, and holding a
+   whole screen for it only delayed the capabilities the visitor came for.
+   Nothing snaps here; the page scrolls straight on into the next section.
+   ========================================================================== */
+
+@media (max-width: 992px) {
+  .service-hero {
+    /* The panels carry their own height and padding now; the section just
+       holds them. Centring a stack twice as tall as the viewport would push
+       the first panel up under the header. */
+    display: block;
+
+    padding-block: 0;
+  }
+
+  .service-hero > .container {
+    width: min(100% - 2rem, var(--container-width));
+  }
+
+  .service-hero__content {
+    min-height: calc(100vh - var(--navbar-height));
+    min-height: calc(100svh - var(--navbar-height));
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .service-hero__content {
+    padding-block: clamp(1rem, 3vh, 2rem);
+  }
+
+  .service-hero__visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding-block: clamp(1.25rem, 4vh, 2.5rem);
+  }
+
+  .service-hero__grid-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .service-hero__content {
+    align-items: center;
+
+    text-align: center;
+  }
+
+  /* Visual sits below the copy once stacked. Stacking is what makes height the
+     scarce axis, so its cap tightens accordingly. */
+  .service-hero__visual {
+    order: 2;
+  }
+
+  /* Compact and square. The ring is a circle drawn on a square box, so any
+     stretch pulls the vertical gaps away from the horizontal ones; kept 1:1 it
+     reads evenly, and the cap stops it dominating the screen. */
+  .service-hero .service-hero__visual > * {
+    aspect-ratio: 1 / 1;
+
+    max-width: min(100%, 24rem);
+  }
+
+  .service-hero__grid-layout {
+    gap: 0;
+  }
+
+  /* The copy owns a whole viewport here, so it is sized to occupy it rather
+     than sit as a tight block in the middle of a mostly empty panel. The
+     desktop clamps are governed by vw against a two-column layout — left alone
+     they hold the type at its floor and strand it. */
+  .service-hero__content {
+    gap: clamp(1rem, 4vh, 2.4rem);
+
+    width: 100%;
+  }
+
+  .service-hero__title {
+    font-size: clamp(2rem, min(9.4vw, 6vh), 3.2rem);
+  }
+
+  .service-hero__description {
+    max-width: 46ch;
+
+    font-size: clamp(1.05rem, min(4.4vw, 2.4vh), 1.3rem);
+    line-height: 1.62;
+  }
+}
+
+@media (max-width: 768px) {
+  .service-hero__title {
+    max-width: 100%;
+  }
+
+  .service-hero__grid {
+    background-size: 44px 44px;
+  }
+}
+
+@media (max-width: 576px) {
+  .service-hero__actions,
+  .service-hero__actions .btn {
+    width: 100%;
+  }
+}
+
+/* The diagram stays on phones. It is only dropped where the window is too
+   short to seat it at any useful size at all — below this the copy alone fills
+   the fold. */
+/* Nothing is hidden any more — the diagram has its own screen. */
+
+/* The smallest phones cannot take the enlarged type: at 320x568 there are only
+   480px below the header, and the copy alone overran them. Held to 340px so
+   the common 360 and 390 widths keep the larger scale. */
+@media (max-width: 340px) {
+  .service-hero__content {
+    gap: clamp(0.7rem, 2.4vh, 1.2rem);
+  }
+
+  .service-hero__title {
+    font-size: clamp(1.6rem, min(7.6vw, 5.6vh), 2.1rem);
+  }
+
+  .service-hero__description {
+    font-size: clamp(0.9rem, min(4vw, 2.1vh), 1.05rem);
+  }
+}
+
+/* ==========================================================================
+   REDUCED MOTION
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .service-hero__actions .btn__icon {
+    transition: none;
+  }
+
+  .service-hero__actions .btn:hover .btn__icon {
+    transform: none;
+  }
+}
+
+/* The hero's diagram and the capabilities heading were separated by that
+   section's own opening rhythm, which reads as a hole on a phone where the
+   diagram is already compact. Halved, and scoped to this pairing only. */
+@media (max-width: 768px) {
+  .service-hero + .cap {
+    padding-top: clamp(1.5rem, 5vh, 2.5rem);
+  }
+}

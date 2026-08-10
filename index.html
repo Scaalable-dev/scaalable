@@ -23,16 +23,60 @@
     <!-- Apple -->
     <link rel="apple-touch-icon" sizes="180x180" href="/favicon-180x180.png" />
 
+    <!-- Fonts. Loaded here rather than via @import in the CSS bundle: the
+         import chained font discovery behind HTML -> JS -> CSS -> fonts CSS,
+         which alone put LCP past 6s on a throttled phone. The preconnects
+         let the browser open both origins while the stylesheet downloads. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap"
+    />
+
     <!-- meta links -->
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#006CFA" />
+    <!-- Base copy for crawlers that do not run JS; each page overwrites it on mount. -->
+    <meta
+      name="description"
+      content="Scaalable builds high-performance websites, SaaS platforms and AI-powered software for startups and established teams."
+    />
+
+    <!-- Social cards. Static, site-level: scrapers do not run JavaScript, so
+         per-route values set from React would never be seen by them anyway. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Scaalable" />
+    <meta property="og:title" content="Scaalable — Build Digital Products That Grow Your Business" />
+    <meta
+      property="og:description"
+      content="Scaalable builds high-performance websites, SaaS platforms and AI-powered software for startups and established teams."
+    />
+    <meta property="og:url" content="https://scaalable.com/" />
+    <meta property="og:image" content="https://scaalable.com/favicon-512x512.png" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Scaalable — Build Digital Products That Grow Your Business" />
+    <meta
+      name="twitter:description"
+      content="Scaalable builds high-performance websites, SaaS platforms and AI-powered software for startups and established teams."
+    />
+    <meta name="twitter:image" content="https://scaalable.com/favicon-512x512.png" />
+
     <title>Scaalable</title>
-    <!-- Google tag (gtag.js) -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-CN7N9RTL4T"
-    ></script>
+
+    <!-- Google tag (gtag.js). Kept inside the head element: it previously sat
+         after the head closed and before the body opened, invalid HTML the
+         parser has to repair. (Do not write a literal closing head tag in
+         this comment — Vite injects the build's script tags before the first
+         one it finds, comment or not, which commented out the entire app.)
+         `async` keeps it off the critical path. The config fires the initial
+         page_view; client-side route changes are reported from App.jsx, which
+         GA cannot see on its own in a single-page app. -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
@@ -41,6 +85,18 @@
       gtag("js", new Date());
 
       gtag("config", "G-CN7N9RTL4T");
+
+      /* The gtag script itself is injected after the window load event: its
+         180KB was executing during app boot and cost around half a second of
+         mobile main-thread before first paint. Everything queued in dataLayer
+         above — including the initial page_view — is sent the moment it
+         arrives, so no data is lost, it just stops competing with the page. */
+      window.addEventListener("load", function () {
+        var s = document.createElement("script");
+        s.async = true;
+        s.src = "https://www.googletagmanager.com/gtag/js?id=G-CN7N9RTL4T";
+        document.head.appendChild(s);
+      });
     </script>
   </head>
   <body>

@@ -1,0 +1,595 @@
+/* ==========================================================================
+   SERVICES — CAPABILITIES
+
+   Directory (tablist) on the left, detail panel on the right. Light surface
+   and brand tokens throughout so it reads as part of the same page.
+   ========================================================================== */
+
+/* Starts on exactly the colour the hero gradient ends on (#f4f8ff) so the two
+   sections meet without a visible step, then eases back to white. */
+.cap {
+  /* Both gaps trimmed off the global section rhythm — the top pairs with the
+     hero's reduced padding-bottom, the bottom with .ind's padding-top. Each
+     pair together halves the gap between the two sections. */
+  padding-top: clamp(1.5rem, 3vw, 2.6rem);
+  padding-bottom: clamp(1.5rem, 3vw, 2.6rem);
+
+  background: linear-gradient(
+    180deg,
+    #f4f8ff 0%,
+    #f8fbff 30%,
+    var(--color-background) 100%
+  );
+}
+
+.cap__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+
+  gap: var(--space-6);
+
+  align-items: start;
+}
+
+/* ==========================================================================
+   DIRECTORY
+   ========================================================================== */
+
+.cap__directory {
+  position: sticky;
+  top: calc(var(--header-height) + var(--space-6));
+
+  padding: var(--space-6);
+
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-2xl);
+
+  background: var(--color-surface);
+
+  box-shadow: var(--shadow-sm);
+}
+
+.cap__directory-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: var(--space-4);
+
+  margin-bottom: var(--space-5);
+  padding-bottom: var(--space-4);
+
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.cap__directory-label {
+  color: var(--color-text-muted);
+
+  font-size: 0.7rem;
+  font-weight: 700;
+
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.cap__directory-count {
+  color: var(--color-text-primary);
+
+  font-size: 0.75rem;
+  font-weight: 700;
+
+  letter-spacing: 0.08em;
+
+  font-variant-numeric: tabular-nums;
+}
+
+.cap__directory-count i {
+  color: var(--color-text-disabled);
+
+  font-style: normal;
+}
+
+.cap__list {
+  display: flex;
+  flex-direction: column;
+
+  gap: var(--space-2);
+}
+
+.cap__item {
+  display: flex;
+  flex-direction: column;
+
+  min-width: 0;
+}
+
+/* ==========================================================================
+   ACCORDION (compact viewports)
+
+   Height animates via grid-template-rows 0fr → 1fr, so it eases to the
+   content's natural height with no JS measurement and no max-height guess.
+   ========================================================================== */
+
+.cap__collapse {
+  display: grid;
+  grid-template-rows: 0fr;
+
+  transition: grid-template-rows 340ms ease;
+}
+
+.cap__collapse[data-open="true"] {
+  grid-template-rows: 1fr;
+}
+
+.cap__collapse-inner {
+  overflow: hidden;
+
+  /* Keeps collapsed content out of the tab order and off screen readers.
+     Delayed on close so it stays visible for the duration of the animation. */
+  visibility: hidden;
+
+  transition: visibility 0s linear 340ms;
+}
+
+.cap__collapse[data-open="true"] .cap__collapse-inner {
+  visibility: visible;
+
+  transition-delay: 0s;
+}
+
+.cap__collapse-body {
+  padding: var(--space-5) var(--space-4) var(--space-2);
+}
+
+/* ==========================================================================
+   TAB
+   ========================================================================== */
+
+.cap__tab {
+  /* Each tab carries an id, and the footer's capability links target them
+     directly. The global scroll-margin only covers <section>, so without this
+     an incoming link parked the tab underneath the sticky header. The extra
+     room above puts the directory heading back in view. */
+  scroll-margin-top: calc(var(--navbar-height) + 7rem);
+
+  position: relative;
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+
+  gap: var(--space-3);
+
+  width: 100%;
+
+  padding: 0.7rem 0.85rem;
+
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+
+  background: var(--color-surface-alt);
+
+  color: var(--color-text-secondary);
+
+  cursor: pointer;
+
+  text-align: left;
+
+  transition:
+    background var(--transition-normal),
+    border-color var(--transition-normal),
+    color var(--transition-normal);
+}
+
+/* Accent rail that grows in on selection. */
+.cap__tab::before {
+  content: "";
+
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+
+  width: 3px;
+
+  background: var(--gradient-brand);
+
+  transform: scaleY(0);
+  transform-origin: center;
+
+  transition: transform var(--transition-normal);
+}
+
+.cap__tab:hover {
+  background: var(--color-surface-hover);
+
+  color: var(--color-text-primary);
+}
+
+.cap__tab:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+
+.cap__tab[aria-selected="true"] {
+  border-color: rgba(0, 130, 249, 0.24);
+
+  background: var(--color-surface);
+
+  color: var(--color-text-primary);
+
+  box-shadow: var(--shadow-sm);
+}
+
+.cap__tab[aria-selected="true"]::before {
+  transform: scaleY(1);
+}
+
+.cap__tab-index {
+  flex-shrink: 0;
+
+  color: var(--color-text-disabled);
+
+  font-size: 0.7rem;
+  font-weight: 700;
+
+  font-variant-numeric: tabular-nums;
+
+  transition: color var(--transition-normal);
+}
+
+.cap__tab[aria-selected="true"] .cap__tab-index {
+  color: var(--color-brand-primary);
+}
+
+.cap__tab-icon {
+  display: grid;
+  place-items: center;
+
+  flex-shrink: 0;
+
+  color: var(--color-text-muted);
+
+  transition: color var(--transition-normal);
+}
+
+.cap__tab:hover .cap__tab-icon,
+.cap__tab[aria-selected="true"] .cap__tab-icon {
+  color: var(--color-brand-primary);
+}
+
+.cap__tab-name {
+  flex: 1;
+
+  min-width: 0;
+
+  font-size: 0.85rem;
+  font-weight: 600;
+
+  line-height: 1.35;
+}
+
+.cap__tab-arrow {
+  flex-shrink: 0;
+
+  color: var(--color-text-disabled);
+
+  transition:
+    transform var(--transition-normal),
+    color var(--transition-normal);
+}
+
+.cap__tab:hover .cap__tab-arrow,
+.cap__tab[aria-selected="true"] .cap__tab-arrow {
+  color: var(--color-brand-primary);
+
+  transform: translateX(3px);
+}
+
+/* ==========================================================================
+   DETAIL
+   ========================================================================== */
+
+.cap__detail {
+  padding: var(--space-8);
+
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-2xl);
+
+  background: var(--color-surface);
+
+  box-shadow: var(--shadow-sm);
+}
+
+.cap__detail:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 3px;
+}
+
+/* Whole panel eases in when the selection changes. */
+.cap__panel {
+  animation: cap-panel 380ms ease both;
+}
+
+@keyframes cap-panel {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.cap__panel-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: var(--space-4);
+
+  margin-bottom: var(--space-4);
+}
+
+.cap__eyebrow {
+  color: var(--color-text-muted);
+
+  font-size: 0.7rem;
+  font-weight: 700;
+
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.cap__mark {
+  display: grid;
+  place-items: center;
+
+  flex-shrink: 0;
+
+  width: 42px;
+  height: 42px;
+
+  border-radius: var(--radius-md);
+
+  background: var(--color-brand-soft);
+
+  color: var(--color-brand-primary);
+}
+
+.cap__title {
+  margin: 0 0 var(--space-2);
+
+  color: var(--color-text-primary);
+
+  font-size: clamp(1.4rem, 2.2vw, 1.85rem);
+
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+}
+
+.cap__subtitle {
+  margin: 0 0 var(--space-4);
+
+  color: var(--color-brand-primary);
+
+  font-size: 1rem;
+  font-weight: 600;
+
+  line-height: 1.45;
+}
+
+.cap__description {
+  max-width: 62ch;
+
+  margin: 0 0 var(--space-8);
+
+  color: var(--color-text-secondary);
+
+  font-size: 0.95rem;
+  line-height: 1.8;
+}
+
+/* ==========================================================================
+   GROUPS
+   ========================================================================== */
+
+.cap__group + .cap__group {
+  margin-top: var(--space-8);
+}
+
+.cap__group-label {
+  margin: 0 0 var(--space-4);
+
+  color: var(--color-text-muted);
+
+  font-size: 0.7rem;
+  font-weight: 700;
+
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.cap__services,
+.cap__meta {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: var(--space-2) var(--space-3);
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.cap__service {
+  padding: 0.42rem 0.8rem;
+
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-sm);
+
+  background: var(--color-surface-alt);
+
+  color: var(--color-text-secondary);
+
+  font-size: 0.82rem;
+  line-height: 1.4;
+
+  animation: cap-chip 320ms ease both;
+  animation-delay: calc(var(--i, 0) * 22ms + 90ms);
+
+  transition:
+    border-color var(--transition-fast),
+    color var(--transition-fast);
+}
+
+.cap__service:hover {
+  border-color: rgba(0, 130, 249, 0.3);
+
+  color: var(--color-text-primary);
+}
+
+.cap__chip {
+  padding: 0.36rem 0.8rem;
+
+  border-radius: var(--radius-full);
+
+  background: var(--color-brand-soft);
+
+  color: var(--color-brand-600);
+
+  font-size: 0.76rem;
+  font-weight: 600;
+
+  animation: cap-chip 320ms ease both;
+  animation-delay: calc(var(--i, 0) * 26ms + 150ms);
+}
+
+@keyframes cap-chip {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+
+@media (max-width: 992px) {
+  .cap__layout {
+    grid-template-columns: 1fr;
+  }
+
+  /* Sticky only makes sense beside the panel. */
+  .cap__directory {
+    position: static;
+  }
+
+  /* Single column — each row now expands to hold its own detail. */
+  .cap__list {
+    gap: var(--space-3);
+  }
+
+  /* The open row reads as a container for its panel. */
+  .cap__item:has(.cap__collapse[data-open="true"]) {
+    border: 1px solid rgba(0, 130, 249, 0.2);
+    border-radius: var(--radius-lg);
+
+    background: var(--color-surface);
+
+    box-shadow: var(--shadow-sm);
+  }
+
+  .cap__item:has(.cap__collapse[data-open="true"]) .cap__tab {
+    border-color: transparent;
+
+    background: transparent;
+
+    box-shadow: none;
+  }
+
+  /* Arrow points down once the row is open. */
+  .cap__tab[data-open="true"] .cap__tab-arrow {
+    transform: rotate(90deg);
+  }
+}
+
+@media (max-width: 640px) {
+  .cap__directory,
+  .cap__detail {
+    padding: var(--space-5);
+  }
+
+  .cap__collapse-body {
+    padding: var(--space-4) var(--space-2) var(--space-2);
+  }
+}
+
+/* ==========================================================================
+   REDUCED MOTION
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .cap__panel,
+  .cap__service,
+  .cap__chip {
+    animation: none;
+  }
+
+  .cap__collapse,
+  .cap__collapse-inner {
+    transition: none;
+  }
+
+  .cap__tab,
+  .cap__tab::before,
+  .cap__tab-arrow,
+  .cap__tab-icon,
+  .cap__tab-index {
+    transition: none;
+  }
+
+  .cap__tab:hover .cap__tab-arrow,
+  .cap__tab[aria-selected="true"] .cap__tab-arrow {
+    transform: none;
+  }
+}
+
+/* Badge alone. The shared heading block reserves --space-16 beneath it for a
+   title and description; without them that gap reads as a hole. */
+/* Badge, title and description each get room: this block introduces the whole
+   section, and a cramped one reads as a label rather than an opening. */
+.cap__heading {
+  gap: var(--space-5);
+
+  margin-bottom: clamp(2.75rem, 6vh, 4.25rem);
+}
+
+.cap__heading .section-heading__title {
+  line-height: 1.18;
+}
+
+.cap__heading .section-heading__description {
+  max-width: 60ch;
+
+  font-size: 1.05rem;
+}
+
+@media (max-width: 767.98px) {
+  .cap__heading .section-heading__title {
+    font-size: clamp(1.75rem, 6.6vw, 2.4rem);
+  }
+
+  .cap__heading .section-heading__description {
+    font-size: 0.95rem;
+  }
+}

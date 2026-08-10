@@ -1,0 +1,1283 @@
+/* ==========================================================================
+   ABOUT
+
+   Six sections around the founder carousel, deliberately alternating shape:
+   a two-column hero, an editorial split, a separated row, a story beside an
+   illustration, and three columns. Nothing here is a card grid — the page
+   used to be five of them in a row, which is what made it read as repetition
+   rather than as an argument.
+
+   Everything below draws on the shared tokens; no colour, radius or shadow is
+   invented here. The founder section at the bottom of this file is preserved
+   exactly as it was.
+   ========================================================================== */
+
+.about {
+  position: relative;
+
+  /* `clip`, not `hidden`. Both contain the hero's overscanning glow, but
+     `hidden` makes this a scroll container, which re-parents the snap
+     alignment of anything inside it away from the document. */
+  overflow: clip;
+
+  padding-top: 0;
+}
+
+/* ==========================================================================
+   SECTION RHYTHM
+
+   Every block on this page is itself a <section>, nested inside one. The
+   global `section { padding-block }` therefore lands twice between any two
+   neighbours — 12rem of dead space, before whatever padding a panel adds of
+   its own. So the page owns the spacing: one gap, declared once, instead of
+   each section guessing at half of it.
+   ========================================================================== */
+
+.about > .container {
+  display: flex;
+  flex-direction: column;
+
+  gap: clamp(3.5rem, 6vw, 5.5rem);
+}
+
+/* The specificity here is deliberate and narrow: :where() zeroes the page
+   scope, leaving two type selectors (0,0,2). That sits just above the global
+   `section` rule this has to beat (0,0,1) — including its three responsive
+   overrides — and still below any class, so a panel that needs real padding
+   (the founder card, the CTA) keeps its own without having to fight a reset.
+   Do not "tidy" this into `.about > .container > section`: at 0,2,1 it would
+   flatten every one of those panels. */
+:where(.about) > div > section {
+  padding-block: 0;
+}
+
+/* ==========================================================================
+   SHARED TYPE
+
+   One introduction block, one heading and one lede style across the four
+   content sections, so the page has a single voice at each level rather than
+   four near-identical ones. Centred, matching how every other section on the
+   site introduces itself.
+   ========================================================================== */
+
+.abt-intro {
+  max-width: 46rem;
+
+  margin-inline: auto;
+  margin-bottom: clamp(2.5rem, 5vw, 3.75rem);
+
+  text-align: center;
+}
+
+.abt-intro .abt-heading,
+.abt-intro .abt-lede {
+  margin-inline: auto;
+}
+
+.abt-heading {
+  max-width: 22ch;
+
+  margin: var(--space-5) 0 0;
+
+  color: var(--color-text-primary);
+
+  font-size: clamp(1.85rem, 3vw, 2.6rem);
+  font-weight: var(--font-weight-bold);
+
+  line-height: 1.18;
+  letter-spacing: -0.03em;
+
+  text-wrap: balance;
+}
+
+.abt-lede {
+  /* Around 70 characters — the comfortable end of the 45–75 range. */
+  max-width: 62ch;
+
+  margin: var(--space-4) 0 0;
+
+  color: var(--color-text-secondary);
+
+  font-size: 1.02rem;
+  line-height: 1.8;
+
+  text-wrap: pretty;
+}
+
+/* ==========================================================================
+   1 — HERO
+   ========================================================================== */
+
+.abt-hero {
+  position: relative;
+  isolation: isolate;
+
+  /* More above than below: this is the first thing under a sticky header, and
+     the badge sat almost against it. */
+  padding-top: clamp(2rem, 6vh, 4rem);
+  padding-bottom: clamp(1.5rem, 4vh, 3rem);
+}
+
+/* The atmosphere is two soft brand washes rather than a panel, so the hero
+   still reads as page rather than as another box. */
+.abt-hero__glow {
+  position: absolute;
+  inset: -20% -30% auto;
+
+  z-index: -1;
+
+  height: 130%;
+
+  background:
+    radial-gradient(
+      circle at 18% 22%,
+      rgba(var(--color-brand-accent-rgb), 0.14),
+      transparent 46%
+    ),
+    radial-gradient(
+      circle at 82% 12%,
+      rgba(var(--color-brand-primary-rgb), 0.12),
+      transparent 44%
+    );
+
+  /* The wash has to stop somewhere, and the element's own bottom edge cut it
+     off mid-colour — a straight tinted band across the full width, which read
+     as a rule dividing the hero from the section under it. Fading the layer
+     out means it ends where the colour does. */
+  mask-image: linear-gradient(to bottom, #000 40%, transparent 92%);
+
+  pointer-events: none;
+}
+
+.abt-hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.38fr) minmax(0, 1fr);
+
+  align-items: center;
+
+  gap: clamp(2rem, 5vw, 4.5rem);
+}
+
+.abt-hero__copy {
+  min-width: 0;
+}
+
+.abt-hero__title {
+  max-width: 18ch;
+
+  margin: var(--space-5) 0 0;
+
+  color: var(--color-text-primary);
+
+  font-size: clamp(2.1rem, 4.2vw, 3.4rem);
+  font-weight: var(--font-weight-bold);
+
+  line-height: 1.12;
+  letter-spacing: -0.035em;
+
+  text-wrap: balance;
+}
+
+.abt-hero__description {
+  max-width: 56ch;
+
+  margin: var(--space-5) 0 0;
+
+  color: var(--color-text-secondary);
+
+  font-size: 1.05rem;
+  line-height: 1.8;
+
+  text-wrap: pretty;
+}
+
+.abt-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: var(--space-4);
+
+  margin-top: var(--space-8);
+}
+
+.abt-hero__visual {
+  min-width: 0;
+}
+
+
+/* ==========================================================================
+   HERO VISUAL
+
+   The existing approved photograph, kept from the previous About page. Ratio
+   is fixed so the column's height is predictable and the two halves of the
+   hero stay balanced at every width; `cover` absorbs the difference against
+   the photo's own proportions.
+   ========================================================================== */
+
+.abt-hero__visual img {
+  display: block;
+
+  width: 100%;
+  max-width: 34rem;
+
+  margin-inline: auto;
+
+  aspect-ratio: 5 / 4;
+
+  object-fit: cover;
+
+  border-radius: var(--radius-2xl);
+
+  box-shadow: var(--shadow-md);
+}
+
+/* ==========================================================================
+   2 — ONE CONNECTED PARTNER
+   ========================================================================== */
+
+/* The one editorial split on the page: the introduction holds its column
+   while the stages scroll past it. Left-aligned deliberately — a centred
+   heading inside a 40% column would sit oddly against the list beside it. */
+.abt-flow__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+
+  align-items: start;
+
+  gap: clamp(2rem, 5vw, 4.5rem);
+}
+
+.abt-flow__intro {
+  position: sticky;
+  top: calc(var(--header-height) + var(--space-8));
+}
+
+.abt-stages {
+  /* Half the marker column, so the connector runs through their centres. */
+  --abt-marker: 2.5rem;
+
+  position: relative;
+}
+
+/* The connector. Scaled from the top by the section's one-time entrance, so
+   the four stages read as a direction rather than as a list. */
+.abt-stages__line {
+  position: absolute;
+  top: 0.4rem;
+  bottom: 0.4rem;
+  left: calc(var(--abt-marker) / 2);
+
+  width: 2px;
+
+  margin-left: -1px;
+
+  border-radius: var(--radius-full);
+
+  background: linear-gradient(
+    180deg,
+    var(--color-brand-primary),
+    var(--color-brand-accent)
+  );
+
+  opacity: 0.35;
+
+  transform-origin: top center;
+}
+
+.abt-stages__list {
+  display: flex;
+  flex-direction: column;
+
+  gap: var(--space-8);
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.abt-stage {
+  display: grid;
+  grid-template-columns: var(--abt-marker) minmax(0, 1fr);
+
+  align-items: start;
+
+  gap: var(--space-5);
+}
+
+/* Sits on the connector, which is why it carries an opaque background. */
+.abt-stage__marker {
+  display: grid;
+  place-items: center;
+
+  width: var(--abt-marker);
+  height: var(--abt-marker);
+
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-full);
+
+  background: var(--color-surface);
+
+  color: var(--color-brand-600);
+
+  font-size: 0.78rem;
+  font-weight: 700;
+
+  letter-spacing: 0.04em;
+}
+
+.abt-stage__name {
+  margin: 0;
+
+  color: var(--color-text-primary);
+
+  font-size: 1.15rem;
+  font-weight: 700;
+
+  letter-spacing: -0.01em;
+}
+
+.abt-stage__description {
+  max-width: 52ch;
+
+  margin: var(--space-2) 0 0;
+
+  color: var(--color-text-secondary);
+
+  line-height: 1.75;
+}
+
+/* ==========================================================================
+   3 — ACCOUNTABLE DELIVERY
+
+   One row, four promises, thin rules between them. Boxes here would read as
+   four separate features; separators read as one commitment.
+   ========================================================================== */
+
+.abt-promise__row {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+
+  gap: 0;
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.abt-promise__item {
+  padding-inline: clamp(1rem, 2.4vw, 2rem);
+
+  border-left: 1px solid var(--color-border-light);
+
+  text-align: center;
+}
+
+.abt-promise__item:first-child {
+  padding-left: 0;
+
+  border-left: 0;
+}
+
+.abt-promise__item:last-child {
+  padding-right: 0;
+}
+
+.abt-promise__icon {
+  display: grid;
+  place-items: center;
+
+  width: 2.75rem;
+  height: 2.75rem;
+
+  margin-inline: auto;
+
+  border-radius: var(--radius-lg);
+
+  background: var(--color-brand-soft);
+
+  color: var(--color-brand-600);
+}
+
+.abt-promise__name {
+  margin: var(--space-5) 0 0;
+
+  color: var(--color-text-primary);
+
+  font-size: 1.05rem;
+  font-weight: 700;
+
+  letter-spacing: -0.01em;
+}
+
+.abt-promise__description {
+  margin: var(--space-2) 0 0;
+
+  color: var(--color-text-secondary);
+
+  font-size: 0.95rem;
+  line-height: 1.75;
+}
+
+/* ==========================================================================
+   4 — WHY WE EXIST
+   ========================================================================== */
+
+.abt-why__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+
+  align-items: center;
+
+  gap: clamp(2.5rem, 6vw, 5rem);
+}
+
+.abt-why__body {
+  display: flex;
+  flex-direction: column;
+
+  gap: var(--space-5);
+}
+
+/* Shown at its own proportions. Cropping this one to a portrait box sliced
+   the branded wall behind the table, which is the only part of the photo that
+   is actually about Scaalable. */
+.abt-why__visual img {
+  display: block;
+
+  width: 100%;
+  height: auto;
+
+  border-radius: var(--radius-2xl);
+
+  box-shadow: var(--shadow-md);
+}
+
+.abt-why__body p {
+  max-width: 60ch;
+
+  margin: 0;
+
+  color: var(--color-text-secondary);
+
+  line-height: 1.85;
+
+  text-wrap: pretty;
+}
+
+/* A rule and a line of type — not a testimonial card, which would give a
+   sentence about ourselves the weight of something a client said. */
+.abt-why__closing {
+  max-width: 34ch;
+
+  margin: var(--space-8) 0 0;
+  padding-left: var(--space-5);
+
+  border-left: 3px solid var(--color-brand-primary);
+
+  color: var(--color-text-primary);
+
+  font-size: 1.1rem;
+  font-weight: 600;
+
+  line-height: 1.7;
+}
+
+/* ==========================================================================
+   5 — WORKING WITH SCAALABLE
+   ========================================================================== */
+
+.abt-work__columns {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+
+  gap: 0;
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.abt-work__item {
+  padding-inline: clamp(1.25rem, 3vw, 2.5rem);
+
+  border-left: 1px solid var(--color-border-light);
+
+  text-align: center;
+}
+
+.abt-work__item:first-child {
+  padding-left: 0;
+
+  border-left: 0;
+}
+
+.abt-work__item:last-child {
+  padding-right: 0;
+}
+
+/* Secondary to the words, per the brief — no filled tile. */
+.abt-work__icon {
+  display: grid;
+  place-items: center;
+
+  width: 2.25rem;
+  height: 2.25rem;
+
+  margin-inline: auto;
+
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-md);
+
+  color: var(--color-brand-600);
+}
+
+.abt-work__name {
+  max-width: 22ch;
+
+  margin: var(--space-5) auto 0;
+
+  color: var(--color-text-primary);
+
+  font-size: 1.12rem;
+  font-weight: 700;
+
+  line-height: 1.35;
+  letter-spacing: -0.015em;
+}
+
+.abt-work__description {
+  margin: var(--space-3) 0 0;
+
+  color: var(--color-text-secondary);
+
+  font-size: 0.97rem;
+  line-height: 1.8;
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  .abt-flow__grid,
+  .abt-why__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .abt-flow__intro {
+    position: static;
+  }
+
+  .abt-hero__grid {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  }
+
+  /* Two columns with the third centred under them, rather than a full-width
+     third that reads as a different kind of item. */
+  .abt-work__columns {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    row-gap: var(--space-10);
+  }
+
+  .abt-work__item:nth-child(3) {
+    padding-left: 0;
+
+    border-left: 0;
+    border-top: 1px solid var(--color-border-light);
+
+    padding-top: var(--space-10);
+
+    grid-column: 1 / -1;
+
+    /* Centred under the pair above rather than parked in the left half, which
+       left an empty column beside it. */
+    max-width: 34rem;
+    margin-inline: auto;
+  }
+
+  .abt-promise__row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    row-gap: var(--space-10);
+  }
+
+  .abt-promise__item:nth-child(3) {
+    padding-left: 0;
+
+    border-left: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .abt-hero__grid {
+    grid-template-columns: minmax(0, 1fr);
+
+    gap: var(--space-10);
+  }
+
+  /* The photograph follows the copy on a phone, and is never cropped to a
+     letterbox — the stacked column has the width to show it properly. */
+  .abt-hero__visual img {
+    aspect-ratio: 16 / 11;
+  }
+
+  .abt-hero__actions .btn {
+    width: 100%;
+  }
+
+  .abt-stages {
+    --abt-marker: 2.25rem;
+  }
+
+  .abt-stage {
+    gap: var(--space-4);
+  }
+
+  /* Stacked with rules between, never boxes. */
+  .abt-promise__row,
+  .abt-work__columns {
+    grid-template-columns: minmax(0, 1fr);
+
+    row-gap: 0;
+  }
+
+  .abt-promise__item,
+  .abt-work__item {
+    padding-inline: 0;
+    padding-block: var(--space-8);
+
+    border-left: 0;
+    border-top: 1px solid var(--color-border-light);
+  }
+
+  .abt-promise__item:first-child,
+  .abt-work__item:first-child {
+    padding-top: 0;
+
+    border-top: 0;
+  }
+
+  .abt-work__item:nth-child(3) {
+    padding-top: var(--space-8);
+
+    max-width: none;
+  }
+
+  .abt-promise__row,
+  .abt-work__columns {
+    margin-top: var(--space-10);
+  }
+}
+
+@media (max-width: 576px) {
+  .abt-hero__title,
+  .abt-heading {
+    max-width: 100%;
+  }
+
+  .abt-why__closing {
+    max-width: 100%;
+  }
+}
+
+/* ==========================================================================
+   REDUCED MOTION
+
+   Reveal already renders its final state; this covers the CSS-side feedback.
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .abt-stages__line {
+    transform: none;
+  }
+}
+
+/* ==========================================================================
+   FOUNDER + FINAL CTA
+
+   Preserved from the previous About stylesheet, declaration for
+   declaration and in their original order. The founder section was
+   explicitly out of scope for the rebuild.
+   ========================================================================== */
+
+.founder-card__socials {
+  display: flex;
+
+  align-items: center;
+
+  gap: 1rem;
+  margin-top: var(--space-8);
+}
+
+.founder-card__social {
+  width: 48px;
+
+  height: 48px;
+
+  display: grid;
+
+  place-items: center;
+
+  border-radius: 50%;
+
+  border: 1px solid var(--color-border);
+
+  background: #fff;
+
+  color: var(--color-text-primary);
+
+  transition: 0.3s ease;
+}
+
+.founder-card__social:hover {
+  background: var(--color-primary);
+
+  color: #fff;
+
+  transform: translateY(-3px);
+}
+
+.founder-card__social svg {
+  width: 20px;
+
+  height: 20px;
+}
+
+.founders {
+  --founders-pad: 5rem;
+
+  /* Only the top is the panel's own. The bottom is handed to the carousel
+     below, so the strip under the dots is part of the swipe surface rather
+     than dead panel padding. */
+  padding-top: var(--founders-pad);
+  padding-bottom: 0;
+
+  /* The carousel arrows are pulled 28px outside their track, so on a wide
+     screen a flat 20px here left them straddling the panel's own border. The
+     inset now grows past the arrow's radius before they appear at 769px. */
+  padding-inline: clamp(1.25rem, 3vw, 4.5rem);
+
+  border-radius: var(--radius-2xl);
+
+  background: var(--gradient-hero-bg), var(--color-surface-alt);
+
+  border: 1px solid var(--color-border-light);
+
+  box-shadow: var(--shadow-sm);
+}
+
+.founders .badge {
+  /* margin: 0 auto var(--space-16);
+
+  width: fit-content; */
+  display: inline-flex;
+
+  align-items: center;
+
+  width: fit-content;
+
+  margin-bottom: var(--space-16);
+}
+
+.founder-card {
+  display: grid;
+
+  grid-template-columns: 360px 1fr;
+
+  align-items: center;
+
+  gap: var(--space-20);
+}
+
+/* The portrait is deliberately taller than the circle behind it — the head
+   rises out of the gradient. Nothing reserved that overhang, so it was only
+   ever visible when the bio column happened to be tall enough to leave slack;
+   on the stacked layout the slide began at the circle and Swiper's own
+   `overflow: hidden` sliced the top of the head off.
+
+   Reserving the height here is the whole fix: the circle sits at the bottom
+   of a box tall enough to hold the overhang, so the portrait is always inside
+   the slide. 334px = the 270px circle plus the 64px the image rises above it
+   (320px tall, bottom-aligned, then nudged up 14px by the offsets below). */
+.founder-card__left {
+  display: flex;
+
+  align-items: flex-end;
+  justify-content: center;
+
+  min-height: 334px;
+}
+
+.founder-card__left,
+.founder-card__right {
+  animation: founderFade 0.7s ease;
+}
+
+@keyframes founderFade {
+  from {
+    opacity: 0;
+
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: none;
+  }
+}
+
+.founder-card__circle {
+  position: relative;
+
+  width: 280px;
+  height: 270px;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+
+  overflow: visible;
+
+  isolation: isolate;
+}
+
+.founder-card__circle::before {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  border-radius: 50%;
+
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.2) 0%,
+    var(--color-brand-secondary) 35%,
+    var(--color-brand-primary) 100%
+  );
+
+  opacity: 0.18;
+
+  filter: blur(10px);
+
+  z-index: -2;
+}
+
+/* Spill kept inside the 40px of slack the circle has in its column. At
+   -25px plus a 50px blur it reached ~75px and Swiper clipped the left of the
+   glow against the slide edge, which read as a straight grey line. */
+.founder-card__circle::after {
+  content: "";
+
+  position: absolute;
+
+  inset: -8px;
+
+  border-radius: 50%;
+
+  background: var(--gradient-hero-glow);
+
+  opacity: 0.35;
+
+  filter: blur(28px);
+
+  z-index: -3;
+}
+
+.founder-card__image {
+  width: 320px;
+
+  height: auto;
+
+  object-fit: contain;
+  position: relative;
+
+  z-index: 5;
+  transform: translateY(22px);
+  transition: transform 0.35s ease;
+  filter: drop-shadow(0 20px 40px rgba(15, 23, 42, 0.18));
+  bottom: 36px;
+}
+
+.founder-card:hover .founder-card__image {
+  transform: scale(1.03);
+}
+
+.founder-card__name {
+  margin-bottom: var(--space-2);
+
+  font-size: clamp(2rem, 3vw, 3rem);
+
+  line-height: 1.15;
+}
+
+.founder-card__role {
+  margin-bottom: var(--space-8);
+
+  color: var(--color-brand-primary);
+
+  font-weight: 600;
+}
+
+.founder-card__bio {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: var(--space-5);
+
+  /* Was justified, which opened rivers of white space once the column
+     narrowed on a tablet. */
+  text-align: start;
+
+  max-width: 62ch;
+  min-height: 180px;
+}
+
+.founder-card__bio p {
+  color: var(--color-text-secondary);
+
+  line-height: 1.9;
+}
+
+.founder-card__socials a {
+  width: 46px;
+  height: 46px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+
+  background: var(--color-background);
+
+  border: 1px solid var(--color-border-light);
+
+  color: var(--color-text-primary);
+
+  transition:
+    color var(--transition-normal),
+    border-color var(--transition-normal),
+    transform var(--transition-normal);
+  opacity: 0;
+
+  animation: socialFade 0.45s forwards;
+}
+
+/* The rule above starts these at opacity 0 and hands the reveal to this
+   animation. Without the keyframes the icons never come back — they hold the
+   initial frame and the row reads as blank space under the bio. */
+@keyframes socialFade {
+  to {
+    opacity: 1;
+  }
+}
+
+.founder-card__socials a:nth-child(1) {
+  animation-delay: 0.25s;
+}
+
+.founder-card__socials a:nth-child(2) {
+  animation-delay: 0.35s;
+}
+
+.founder-card__socials a:nth-child(3) {
+  animation-delay: 0.45s;
+}
+
+.founder-card__socials a:hover {
+  color: var(--color-brand-primary);
+
+  border-color: var(--color-brand-primary);
+
+  transform: translateY(-3px);
+}
+
+.founder-carousel {
+  position: relative;
+}
+
+/* The panel's bottom inset, carried by the element that handles the gesture.
+   Swiper's own `overflow: hidden` clips the slides above it; the padding is
+   still part of the element, so a thumb starting here is a swipe. */
+.founder-carousel .swiper {
+  padding-bottom: var(--founders-pad);
+}
+
+.founder-carousel__prev,
+.founder-carousel__next {
+  position: absolute;
+
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  z-index: 20;
+
+  width: 56px;
+  height: 56px;
+
+  border: none;
+
+  border-radius: 50%;
+
+  display: grid;
+  place-items: center;
+
+  cursor: pointer;
+
+  background: var(--color-background);
+
+  border: 1px solid var(--color-border-light);
+
+  transition:
+    background var(--transition-normal),
+    color var(--transition-normal);
+}
+
+.founder-carousel__prev {
+  left: -28px;
+}
+
+.founder-carousel__next {
+  right: -28px;
+}
+
+.founder-carousel__prev:hover,
+.founder-carousel__next:hover {
+  background: var(--color-brand-primary);
+
+  color: white;
+}
+
+.founder-carousel__footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: var(--space-3);
+
+  margin-top: var(--space-8);
+}
+
+.founder-carousel__pagination {
+  display: flex;
+  justify-content: center;
+}
+
+/* Only where there is something to swipe with. On a mouse the arrows already
+   say it. */
+.founder-carousel__hint {
+  display: none;
+
+  margin: 0;
+
+  color: var(--color-text-muted);
+
+  font-size: 0.78rem;
+  font-weight: 600;
+
+  letter-spacing: 0.02em;
+}
+
+@media (hover: none) {
+  .founder-carousel__hint {
+    display: inline-flex;
+    align-items: center;
+
+    gap: var(--space-2);
+  }
+}
+
+.swiper-pagination {
+  position: relative;
+  bottom: 0 !important;
+  margin-top: 3rem;
+}
+
+/* The visible dot is drawn by ::after inside a 24px box: 12px was both too
+   faint a signal that a second card exists and too small a touch target —
+   WCAG asks for 24px minimum, and thumbs agree. */
+/* Scoped under .founders: Swiper's own stylesheet loads after this file
+   (About.css is imported before FounderCarousel), so at equal specificity
+   its 8px width silently won and the 24px touch target never applied. */
+.founders .swiper-pagination-bullet {
+  position: relative;
+
+  width: 24px;
+  height: 24px;
+
+  border: 0;
+
+  background: transparent;
+
+  opacity: 1;
+
+  transition: width var(--transition-normal);
+}
+
+.founders .swiper-pagination-bullet::after {
+  content: "";
+
+  position: absolute;
+  inset: 6px;
+
+  border: 1px solid var(--color-border-dark);
+  border-radius: 999px;
+
+  transition:
+    background var(--transition-normal),
+    border-color var(--transition-normal);
+}
+
+.founders .swiper-pagination-bullet-active {
+  width: 44px;
+}
+
+.founders .swiper-pagination-bullet-active::after {
+  border-color: transparent;
+
+  background: var(--color-brand-primary);
+}
+
+.about__cta {
+  padding: 5rem 3rem;
+
+  border-radius: var(--radius-2xl);
+
+  background: var(--gradient-brand);
+
+  text-align: center;
+}
+
+.about__cta-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 1.25rem;
+
+  max-width: 720px;
+
+  margin: 0 auto;
+}
+
+.about__cta-title {
+  color: var(--color-text-white);
+
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+
+  line-height: 1.2;
+
+  letter-spacing: -0.03em;
+}
+
+.about__cta-description {
+  margin: 0;
+
+  color: rgba(255, 255, 255, 0.85);
+
+  font-size: 1rem;
+
+  line-height: 1.8;
+}
+
+.about__cta .btn {
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 992px) {
+  .founders {
+    --founders-pad: 4rem;
+  }
+
+  .founder-card {
+    grid-template-columns: 1fr;
+
+    text-align: center;
+
+    gap: var(--space-12);
+  }
+
+  .founder-card__bio {
+    margin-inline: auto;
+  }
+
+  .founder-card__socials {
+    justify-content: center;
+  }
+
+  .founders .badge {
+    display: flex;
+
+    justify-content: center;
+
+    margin-inline: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .about__cta {
+    padding: 3rem 1.5rem;
+  }
+
+  .founders {
+    --founders-pad: 3rem;
+  }
+
+  .founder-carousel__prev,
+  .founder-carousel__next {
+    display: none;
+  }
+}
+
+@media (max-width: 576px) {
+  /* The portrait is scaled down below and no longer overhangs, so the
+     reserved height comes back to the circle's own. */
+  .founder-card__left {
+    min-height: 230px;
+  }
+
+  .founder-card__circle {
+    width: 230px;
+    height: 230px;
+  }
+
+  .founder-card__circle::before {
+    inset: 12px;
+
+    filter: blur(6px);
+
+    opacity: 0.14;
+  }
+
+  .founder-card__circle::after {
+    inset: -12px;
+
+    filter: blur(24px);
+    display: none;
+
+    opacity: 0.22;
+  }
+
+  .founder-card__image {
+    width: 205px;
+
+    bottom: 28px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .founder-card *,
+  .founder-carousel * {
+    animation: none !important;
+
+    transition: none !important;
+  }
+}

@@ -1,0 +1,1428 @@
+/* ==========================================================================
+   SERVICES — INDUSTRIES / SOLUTION BLUEPRINT
+
+   Two-column interface: the selected industry on the left, its three-step
+   blueprint on the right, with the industry selector beneath. Everything is
+   driven by --ind-accent, which the section sets from the active entry.
+
+   All motion is CSS. Decorative loops are slow and low-amplitude; anything
+   that answers a click is quick. No canvas, no WebGL, no animation library.
+   ========================================================================== */
+
+/* Registering the accent lets it interpolate between industries instead of
+   snapping. Browsers without @property simply get the instant change. */
+@property --ind-accent {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #0082f9;
+}
+
+/* Starts and ends on white — Capabilities above finishes there, and whatever
+   follows can begin there — with the tint carried in the middle. */
+.ind {
+  --ind-accent: var(--color-brand-primary);
+  --ind-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ind-marker: 38px;
+  --ind-step-pad: 0.95rem;
+
+  /* Both gaps trimmed off the global section rhythm — the top pairs with
+     .cap's padding-bottom, the bottom with .proc's padding-top. Each pair
+     together halves the gap between the two sections. */
+  padding-top: clamp(1.5rem, 3vw, 2.6rem);
+  padding-bottom: clamp(1.5rem, 3vw, 2.6rem);
+
+  background: linear-gradient(
+    180deg,
+    var(--color-background) 0%,
+    #f7faff 38%,
+    #f7faff 62%,
+    var(--color-background) 100%
+  );
+
+  transition: --ind-accent 420ms var(--ind-ease);
+}
+
+/* ==========================================================================
+   SHELL
+   ========================================================================== */
+
+.ind-bp {
+  display: grid;
+  grid-template-columns: minmax(0, 0.38fr) minmax(0, 0.62fr);
+
+  overflow: hidden;
+
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-2xl);
+
+  background: linear-gradient(
+    150deg,
+    #ffffff 0%,
+    #fbfcff 46%,
+    #f5f9ff 100%
+  );
+
+  box-shadow: var(--shadow-md);
+}
+
+/* Everything that carries industry-specific content leaves together, so the
+   text is never seen changing mid-swap. */
+.ind-panel__body,
+.ind-panel__counter,
+.ind-line__steps {
+  transition:
+    opacity 200ms var(--ind-ease),
+    transform 200ms var(--ind-ease),
+    filter 200ms var(--ind-ease);
+}
+
+.ind-bp[data-phase="out"] .ind-panel__body,
+.ind-bp[data-phase="out"] .ind-panel__counter,
+.ind-bp[data-phase="out"] .ind-line__steps {
+  opacity: 0;
+
+  transform: translateY(-8px);
+
+  filter: blur(4px);
+}
+
+/* `backwards` rather than `both`: once the entry finishes the element must
+   return to its own styles, or the held final frame would outrank the hover
+   and tilt transforms for the rest of the session. */
+@keyframes ind-enter {
+  from {
+    opacity: 0;
+
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: none;
+  }
+}
+
+/* ==========================================================================
+   SELECTED INDUSTRY PANEL
+   ========================================================================== */
+
+.ind-panel {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  min-width: 0;
+
+  padding: var(--space-8) var(--space-8) var(--space-8) var(--space-10);
+}
+
+/* Thin glowing rail down the left edge. */
+.ind-panel__rail {
+  position: absolute;
+  top: var(--space-8);
+  bottom: var(--space-8);
+  left: var(--space-6);
+
+  overflow: hidden;
+
+  width: 2px;
+
+  border-radius: var(--radius-full);
+
+  background: rgba(0, 130, 249, 0.22);
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    color-mix(in srgb, var(--ind-accent) 38%, transparent) 22%,
+    color-mix(in srgb, var(--ind-accent) 38%, transparent) 78%,
+    transparent 100%
+  );
+
+  pointer-events: none;
+}
+
+.ind-panel__rail-light {
+  position: absolute;
+  left: 0;
+
+  width: 100%;
+  height: 44px;
+
+  background: linear-gradient(
+    180deg,
+    transparent,
+    var(--ind-accent),
+    transparent
+  );
+
+  animation: ind-rail 5.2s var(--ind-ease) infinite;
+}
+
+@keyframes ind-rail {
+  0% {
+    top: -44px;
+    opacity: 0;
+  }
+
+  18% {
+    opacity: 0.9;
+  }
+
+  82% {
+    opacity: 0.9;
+  }
+
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+.ind-panel__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: var(--space-4);
+
+  width: 100%;
+
+  margin-bottom: var(--space-6);
+}
+
+.ind-panel__label {
+  max-width: 8ch;
+
+  color: var(--color-text-muted);
+
+  font-size: 0.7rem;
+  font-weight: 700;
+
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.ind-panel__counter {
+  flex-shrink: 0;
+
+  color: var(--color-text-primary);
+
+  font-size: 0.8rem;
+  font-weight: 700;
+
+  letter-spacing: 0.06em;
+
+  font-variant-numeric: tabular-nums;
+}
+
+.ind-panel__counter i {
+  color: var(--color-text-disabled);
+
+  font-style: normal;
+}
+
+.ind-panel__body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  width: 100%;
+}
+
+/* ==========================================================================
+   VISUAL TILE
+
+   An active readout rather than a static card: layered translucent surface,
+   drifting icon, waveform at mixed speeds and a slow sheen crossing it.
+   ========================================================================== */
+
+.ind-panel__tile {
+  position: relative;
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: var(--space-4);
+
+  width: 100%;
+  max-width: 150px;
+
+  aspect-ratio: 1 / 1;
+
+  margin-bottom: var(--space-6);
+  padding: var(--space-4);
+
+  border: 1px solid rgba(0, 130, 249, 0.2);
+  border: 1px solid color-mix(in srgb, var(--ind-accent) 24%, transparent);
+  border-radius: var(--radius-lg);
+
+  background: rgba(0, 130, 249, 0.05);
+  background: linear-gradient(
+    150deg,
+    color-mix(in srgb, var(--ind-accent) 10%, transparent),
+    color-mix(in srgb, var(--ind-accent) 3%, transparent)
+  );
+
+  /* Tilt is written to these two properties by a pointermove handler. */
+  transform: perspective(700px) rotateX(var(--tilt-x, 0deg))
+    rotateY(var(--tilt-y, 0deg));
+
+  transition: transform 420ms var(--ind-ease);
+
+  animation: ind-enter 520ms var(--ind-ease) backwards;
+}
+
+.ind-panel__tile-grid {
+  position: absolute;
+  inset: 0;
+
+  background-image:
+    linear-gradient(rgba(15, 23, 42, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15, 23, 42, 0.05) 1px, transparent 1px);
+
+  background-size: 22px 22px;
+
+  mask-image: radial-gradient(circle at 50% 50%, #000 10%, transparent 78%);
+  -webkit-mask-image: radial-gradient(
+    circle at 50% 50%,
+    #000 10%,
+    transparent 78%
+  );
+}
+
+/* Faint highlight crossing the tile on a long cycle. */
+.ind-panel__tile-sheen {
+  position: absolute;
+  top: -60%;
+  left: -40%;
+
+  width: 40%;
+  height: 220%;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.75),
+    transparent
+  );
+
+  transform: rotate(18deg);
+
+  animation: ind-sheen 7s var(--ind-ease) infinite;
+}
+
+@keyframes ind-sheen {
+  0% {
+    opacity: 0;
+    transform: translateX(0) rotate(18deg);
+  }
+
+  12% {
+    opacity: 1;
+  }
+
+  55% {
+    opacity: 0;
+    transform: translateX(360%) rotate(18deg);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(360%) rotate(18deg);
+  }
+}
+
+.ind-panel__glyph {
+  position: relative;
+
+  display: grid;
+  place-items: center;
+
+  flex-shrink: 0;
+
+  width: 44px;
+  height: 44px;
+
+  border-radius: 50%;
+
+  background: rgba(0, 130, 249, 0.1);
+  background: color-mix(in srgb, var(--ind-accent) 14%, transparent);
+
+  color: var(--ind-accent);
+
+  animation: ind-float 4.6s ease-in-out infinite;
+}
+
+.ind-panel__glow {
+  position: absolute;
+  inset: -9px;
+
+  border-radius: 50%;
+
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--ind-accent) 26%, transparent),
+    transparent 68%
+  );
+
+  filter: blur(6px);
+}
+
+@keyframes ind-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+.ind-panel__wave {
+  display: flex;
+  align-items: center;
+
+  gap: 4px;
+
+  flex-shrink: 0;
+
+  height: 44px;
+}
+
+.ind-panel__bar {
+  width: 3px;
+  height: 100%;
+
+  border-radius: var(--radius-full);
+
+  background: rgba(0, 130, 249, 0.5);
+  background: color-mix(in srgb, var(--ind-accent) 58%, transparent);
+
+  transform-origin: center;
+  transform: scaleY(var(--h, 0.6));
+
+  /* Each bar runs at its own tempo, so the group never reads as one block. */
+  animation: ind-bar calc(1.5s + var(--i, 0) * 0.24s) ease-in-out infinite
+    alternate;
+}
+
+@keyframes ind-bar {
+  from {
+    transform: scaleY(calc(var(--h, 0.6) * 0.42));
+  }
+
+  to {
+    transform: scaleY(var(--h, 0.6));
+  }
+}
+
+/* ==========================================================================
+   PANEL COPY
+   ========================================================================== */
+
+.ind-panel__name {
+  margin: 0 0 var(--space-3);
+
+  color: var(--color-text-primary);
+
+  font-size: 1.35rem;
+
+  line-height: 1.25;
+  letter-spacing: -0.03em;
+
+  animation: ind-enter 520ms var(--ind-ease) 70ms backwards;
+}
+
+.ind-panel__description {
+  margin: 0 0 var(--space-5);
+
+  color: var(--color-text-secondary);
+
+  font-size: 0.875rem;
+  line-height: 1.75;
+
+  animation: ind-enter 520ms var(--ind-ease) 130ms backwards;
+}
+
+.ind-panel__status {
+  padding: 0.34rem 0.7rem;
+
+  border-radius: var(--radius-full);
+
+  background: rgba(0, 130, 249, 0.1);
+  background: color-mix(in srgb, var(--ind-accent) 12%, transparent);
+
+  color: var(--ind-accent);
+
+  font-size: 0.68rem;
+  font-weight: 700;
+
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+
+  animation: ind-enter 520ms var(--ind-ease) 190ms backwards;
+}
+
+.ind-panel__next {
+  display: inline-flex;
+  align-items: center;
+
+  gap: var(--space-2);
+
+  margin-top: var(--space-6);
+  padding: 0.4rem 0;
+
+  border: 0;
+
+  background: none;
+
+  color: var(--color-text-secondary);
+
+  font-size: 0.82rem;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.ind-panel__next:hover {
+  color: var(--ind-accent);
+}
+
+.ind-panel__next svg {
+  transition: transform var(--transition-normal);
+}
+
+.ind-panel__next:hover svg {
+  transform: translateX(4px);
+}
+
+.ind-panel__next:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 3px;
+
+  border-radius: var(--radius-xs);
+}
+
+/* ==========================================================================
+   BLUEPRINT TIMELINE
+   ========================================================================== */
+
+.ind-line {
+  display: flex;
+  flex-direction: column;
+
+  min-width: 0;
+
+  padding: var(--space-8) var(--space-6);
+
+  border-left: 1px solid var(--color-border-light);
+}
+
+.ind-line__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: var(--space-4);
+
+  margin-bottom: var(--space-6);
+  padding-inline: var(--ind-step-pad);
+}
+
+.ind-line__label,
+.ind-line__status {
+  color: var(--color-text-muted);
+
+  font-size: 0.7rem;
+  font-weight: 700;
+
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.ind-line__status {
+  display: inline-flex;
+  align-items: center;
+
+  gap: var(--space-2);
+}
+
+.ind-line__dot {
+  width: 8px;
+  height: 8px;
+
+  border-radius: 50%;
+
+  background: var(--color-success);
+
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.16);
+
+  /* Slow breathe underneath, plus a one-shot flash that replays whenever the
+     element is remounted on an industry change. */
+  animation:
+    ind-breathe 3.2s ease-in-out infinite,
+    ind-flash 820ms var(--ind-ease);
+}
+
+@keyframes ind-breathe {
+  0%,
+  100% {
+    opacity: 0.65;
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.14);
+  }
+
+  50% {
+    opacity: 1;
+    box-shadow: 0 0 0 5px rgba(34, 197, 94, 0.2);
+  }
+}
+
+@keyframes ind-flash {
+  0% {
+    transform: scale(1);
+  }
+
+  35% {
+    transform: scale(1.5);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* ==========================================================================
+   CONNECTOR
+   ========================================================================== */
+
+.ind-line__steps {
+  position: relative;
+}
+
+.ind-line__list {
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+/* Runs behind the markers, aligned to their centre line. */
+.ind-line__steps::before {
+  content: "";
+
+  position: absolute;
+  top: 8px;
+  bottom: 8px;
+  left: calc(var(--ind-step-pad) + var(--ind-marker) / 2);
+
+  width: 1px;
+
+  background: var(--color-border-light);
+
+  transform: translateX(-0.5px);
+}
+
+/* Runs once per change, so it needs a resting state of its own: without the
+   base top/opacity it would revert to a visible line sitting on the
+   connector once the animation finished. */
+.ind-line__pulse {
+  position: absolute;
+  top: -46px;
+  left: calc(var(--ind-step-pad) + var(--ind-marker) / 2);
+
+  width: 1px;
+  height: 46px;
+
+  background: linear-gradient(
+    180deg,
+    transparent,
+    var(--ind-accent),
+    transparent
+  );
+
+  opacity: 0;
+
+  transform: translateX(-0.5px);
+
+  pointer-events: none;
+
+  animation: ind-pulse 940ms var(--ind-ease);
+}
+
+@keyframes ind-pulse {
+  0% {
+    top: -46px;
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  70% {
+    opacity: 1;
+  }
+
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+/* ==========================================================================
+   BLUEPRINT STEP
+   ========================================================================== */
+
+.ind-step {
+  position: relative;
+
+  animation: ind-enter 520ms var(--ind-ease) backwards;
+  animation-delay: calc(var(--i, 0) * 100ms);
+}
+
+.ind-step + .ind-step::before {
+  content: "";
+
+  position: absolute;
+  top: 0;
+  right: var(--ind-step-pad);
+  left: calc(var(--ind-step-pad) + var(--ind-marker) + var(--space-3));
+
+  height: 1px;
+
+  background: var(--color-border-light);
+}
+
+.ind-step__button {
+  position: relative;
+
+  display: grid;
+  grid-template-columns: var(--ind-marker) auto minmax(0, 1fr) auto;
+  align-items: start;
+
+  gap: var(--space-3);
+
+  width: 100%;
+
+  padding: 0.85rem var(--ind-step-pad);
+
+  border: 0;
+
+  background: none;
+
+  cursor: pointer;
+
+  text-align: left;
+
+  transition:
+    padding var(--transition-normal),
+    transform var(--transition-fast);
+}
+
+/* The one active row grows and the others do not, so the column's total
+   height stays constant and nothing below it shifts. */
+.ind-step[data-active="true"] .ind-step__button {
+  padding-block: 1.15rem;
+}
+
+.ind-step__button:hover {
+  transform: translateY(-2px);
+}
+
+.ind-step__button:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: -2px;
+
+  border-radius: var(--radius-md);
+}
+
+/* Soft brand wash behind the active row. */
+.ind-step__surface {
+  position: absolute;
+  inset: 2px var(--space-2);
+
+  border-radius: var(--radius-md);
+
+  background: rgba(0, 130, 249, 0.05);
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--ind-accent) 8%, transparent),
+    transparent 82%
+  );
+
+  opacity: 0;
+
+  transition: opacity var(--transition-normal);
+}
+
+.ind-step[data-active="true"] .ind-step__surface {
+  opacity: 1;
+}
+
+/* Edge highlight on hover, kept off the active row which already has one. */
+.ind-step__button:hover .ind-step__surface {
+  opacity: 0.55;
+}
+
+/* One-shot sweep, triggered by the row becoming active. The wrapper is the
+   clip and stays put; the gradient inside it is what travels — animating the
+   wrapper would carry its own overflow rule along and spill past the row. */
+.ind-step__scan {
+  position: absolute;
+  inset: 2px var(--space-2);
+
+  overflow: hidden;
+
+  border-radius: var(--radius-md);
+
+  pointer-events: none;
+}
+
+.ind-step__scan::after {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--ind-accent) 16%, transparent),
+    transparent
+  );
+
+  opacity: 0;
+}
+
+.ind-step[data-active="true"] .ind-step__scan::after {
+  animation: ind-scan 1200ms var(--ind-ease);
+}
+
+@keyframes ind-scan {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+
+  25% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+/* ==========================================================================
+   STEP MARKER
+   ========================================================================== */
+
+.ind-step__marker {
+  position: relative;
+
+  display: grid;
+  place-items: center;
+
+  width: var(--ind-marker);
+  height: var(--ind-marker);
+
+  border: 1px solid var(--color-border-light);
+  border-radius: 50%;
+
+  background: var(--color-surface);
+
+  transition:
+    background var(--transition-normal),
+    border-color var(--transition-normal),
+    box-shadow var(--transition-normal);
+}
+
+.ind-step[data-active="true"] .ind-step__marker {
+  border-color: transparent;
+
+  background: var(--ind-accent);
+
+  box-shadow: 0 6px 16px -6px var(--ind-accent);
+}
+
+.ind-step__ring {
+  position: absolute;
+  inset: -1px;
+
+  border: 1px solid var(--ind-accent);
+  border-radius: 50%;
+
+  opacity: 0;
+}
+
+.ind-step[data-active="true"] .ind-step__ring {
+  animation: ind-ring 2.6s var(--ind-ease) infinite;
+}
+
+@keyframes ind-ring {
+  0% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+
+  70% {
+    opacity: 0;
+    transform: scale(1.45);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1.45);
+  }
+}
+
+.ind-step__number {
+  color: var(--color-text-disabled);
+
+  font-size: 0.72rem;
+  font-weight: 700;
+
+  font-variant-numeric: tabular-nums;
+
+  transition: color var(--transition-normal);
+}
+
+.ind-step[data-active="true"] .ind-step__number {
+  color: var(--color-text-white);
+}
+
+/* ==========================================================================
+   STEP CONTENT
+   ========================================================================== */
+
+.ind-step__icon {
+  display: grid;
+  place-items: center;
+
+  height: 1.35rem;
+
+  color: var(--color-text-disabled);
+
+  transition: color var(--transition-normal);
+}
+
+.ind-step[data-active="true"] .ind-step__icon,
+.ind-step__button:hover .ind-step__icon {
+  color: var(--ind-accent);
+}
+
+.ind-step__body {
+  display: block;
+
+  min-width: 0;
+}
+
+.ind-step__title {
+  display: block;
+
+  color: var(--color-text-secondary);
+
+  font-size: 0.9rem;
+  font-weight: 600;
+
+  line-height: 1.4;
+
+  transition: color var(--transition-normal);
+}
+
+.ind-step[data-active="true"] .ind-step__title,
+.ind-step__button:hover .ind-step__title {
+  color: var(--color-text-primary);
+}
+
+.ind-step__description {
+  display: block;
+
+  margin-top: var(--space-2);
+
+  color: var(--color-text-muted);
+
+  font-size: 0.82rem;
+  line-height: 1.65;
+
+  opacity: 0.72;
+
+  transition: opacity var(--transition-normal);
+}
+
+.ind-step[data-active="true"] .ind-step__description {
+  opacity: 1;
+}
+
+.ind-step__arrow {
+  align-self: center;
+
+  color: var(--color-text-disabled);
+
+  transition:
+    transform var(--transition-normal),
+    color var(--transition-normal);
+}
+
+.ind-step__button:hover .ind-step__arrow {
+  color: var(--ind-accent);
+
+  transform: translateX(3px);
+}
+
+.ind-step[data-active="true"] .ind-step__arrow {
+  color: var(--ind-accent);
+
+  transform: translateX(5px);
+}
+
+/* ==========================================================================
+   INDUSTRY SELECTOR — RAIL
+
+   One line that scrolls, sitting between the heading and the blueprint. Wide
+   enough and it centres itself; narrower and it becomes a swipeable rail,
+   with the ends faded so the overflow is visible rather than implied.
+   ========================================================================== */
+
+/* Registered so the end fades can animate in and out with the scroll
+   position instead of appearing the instant an edge is crossed. */
+@property --ind-fade-start {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+
+@property --ind-fade-end {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+
+/* The rail sits directly under this, so the gap has to read as a break —
+   close enough to belong together, open enough not to look crowded. */
+.ind__heading {
+  gap: var(--space-5);
+
+  margin-bottom: clamp(2.25rem, 5vh, 3.25rem);
+}
+
+.ind__heading .section-heading__title {
+  line-height: 1.18;
+}
+
+.ind-pick {
+  position: relative;
+
+  margin-bottom: var(--space-10);
+}
+
+.ind-pick__viewport {
+  --ind-fade-start: 0px;
+  --ind-fade-end: 0px;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  /* The section scrolls vertically inside a page that does too — keep a
+     flick that reaches the end of the rail from carrying the page with it. */
+  overscroll-behavior-x: contain;
+
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  cursor: grab;
+
+  /* Deliberately not scroll-behavior: smooth — that would also smooth the
+     scrollLeft written on every pointer move, and the drag would lag the
+     cursor. Programmatic scrolls ask for smooth themselves. */
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 var(--ind-fade-start),
+    #000 calc(100% - var(--ind-fade-end)),
+    transparent 100%
+  );
+
+  transition:
+    --ind-fade-start 220ms var(--ind-ease),
+    --ind-fade-end 220ms var(--ind-ease);
+}
+
+.ind-pick__viewport::-webkit-scrollbar {
+  display: none;
+}
+
+.ind-pick[data-overflow-start="true"] .ind-pick__viewport {
+  --ind-fade-start: 64px;
+}
+
+.ind-pick[data-overflow-end="true"] .ind-pick__viewport {
+  --ind-fade-end: 64px;
+}
+
+.ind-pick__viewport[data-dragging="true"] {
+  cursor: grabbing;
+}
+
+/* max-content so the row never wraps, min-width so a rail that fits sits
+   centred rather than pinned left. The padding is what keeps the indicator's
+   outer ring from being clipped by the scroll container. */
+.ind-pick__track {
+  position: relative;
+
+  display: flex;
+  justify-content: center;
+
+  gap: var(--space-3);
+
+  width: max-content;
+  min-width: 100%;
+
+  padding: 6px;
+}
+
+/* Nothing inside the rail should feel like text while it is being dragged. */
+.ind-pick__track * {
+  user-select: none;
+}
+
+/* Pointer affordance only — the same movement is on the arrow keys, so these
+   stay out of the tab order and the accessibility tree. */
+.ind-pick__nav {
+  position: absolute;
+  top: 50%;
+
+  z-index: 3;
+
+  display: grid;
+  place-items: center;
+
+  width: 34px;
+  height: 34px;
+
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-full);
+
+  background: var(--color-surface);
+
+  box-shadow: var(--shadow-sm);
+
+  color: var(--color-text-secondary);
+
+  cursor: pointer;
+
+  opacity: 0;
+
+  transform: translateY(-50%) scale(0.9);
+
+  pointer-events: none;
+
+  transition:
+    opacity 220ms var(--ind-ease),
+    transform 220ms var(--ind-ease),
+    color var(--transition-normal),
+    border-color var(--transition-normal);
+}
+
+.ind-pick__nav[data-side="start"] {
+  left: -10px;
+}
+
+.ind-pick__nav[data-side="end"] {
+  right: -10px;
+}
+
+.ind-pick[data-overflow-start="true"] .ind-pick__nav[data-side="start"],
+.ind-pick[data-overflow-end="true"] .ind-pick__nav[data-side="end"] {
+  opacity: 1;
+
+  transform: translateY(-50%) scale(1);
+
+  pointer-events: auto;
+}
+
+.ind-pick__nav:hover {
+  border-color: var(--ind-accent);
+
+  color: var(--ind-accent);
+}
+
+.ind-pick__nav:active {
+  transform: translateY(-50%) scale(0.92);
+}
+
+/* Nothing to press on a touch screen — the rail is swiped directly. */
+@media (hover: none) {
+  .ind-pick__nav {
+    display: none;
+  }
+}
+
+/* Single outline that travels to whichever button is selected, rather than
+   one fading out while another fades in. Measured in JS from the button's
+   offset box, so it tracks the rail at any width. */
+.ind-pick__indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  z-index: 2;
+
+  border: 1px solid var(--ind-accent);
+  border-radius: var(--radius-md);
+
+  box-shadow:
+    0 0 0 3px color-mix(in srgb, var(--ind-accent) 9%, transparent),
+    inset 0 0 16px color-mix(in srgb, var(--ind-accent) 12%, transparent);
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  transition:
+    transform 480ms var(--ind-ease),
+    width 480ms var(--ind-ease),
+    height 480ms var(--ind-ease),
+    opacity 240ms var(--ind-ease);
+}
+
+.ind-pick__button {
+  position: relative;
+  overflow: hidden;
+
+  z-index: 1;
+
+  /* Never squeezed and never wrapped — the rail scrolls instead. */
+  flex: 0 0 auto;
+
+  display: grid;
+  place-items: center;
+
+  min-height: 46px;
+
+  padding: 0.7rem 1.15rem;
+
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-md);
+
+  background: var(--color-surface-alt);
+
+  color: var(--color-text-secondary);
+
+  font-size: 0.85rem;
+  font-weight: 600;
+
+  line-height: 1.35;
+
+  cursor: pointer;
+
+  text-align: center;
+  white-space: nowrap;
+
+  -webkit-tap-highlight-color: transparent;
+
+  transition:
+    background var(--transition-normal),
+    border-color var(--transition-normal),
+    color var(--transition-normal),
+    transform 220ms var(--ind-ease);
+}
+
+.ind-pick__button:hover {
+  background: var(--color-surface);
+
+  border-color: var(--color-border-default);
+
+  color: var(--color-text-primary);
+
+  transform: translateY(-1px);
+}
+
+.ind-pick__button:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* A drag passes over buttons on its way — none of them should light up as
+   though they were about to be picked. */
+.ind-pick__viewport[data-dragging="true"] .ind-pick__button {
+  transform: none;
+}
+
+.ind-pick__button:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+
+.ind-pick__button[aria-pressed="true"] {
+  background: var(--color-surface);
+
+  border-color: transparent;
+
+  color: var(--color-text-primary);
+}
+
+/* Restrained shimmer, only on the selected button. */
+.ind-pick__shimmer {
+  position: absolute;
+  top: -50%;
+  left: -30%;
+
+  width: 26%;
+  height: 200%;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.85),
+    transparent
+  );
+
+  opacity: 0;
+
+  transform: rotate(16deg);
+
+  pointer-events: none;
+}
+
+.ind-pick__button[aria-pressed="true"] .ind-pick__shimmer {
+  animation: ind-shimmer 4.2s var(--ind-ease) infinite;
+}
+
+@keyframes ind-shimmer {
+  0% {
+    opacity: 0;
+    transform: translateX(0) rotate(16deg);
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  45% {
+    opacity: 0;
+    transform: translateX(520%) rotate(16deg);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(520%) rotate(16deg);
+  }
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+
+@media (max-width: 1200px) {
+  .ind-panel {
+    padding: var(--space-6) var(--space-6) var(--space-6) var(--space-8);
+  }
+
+  .ind-panel__rail {
+    top: var(--space-6);
+    bottom: var(--space-6);
+    left: var(--space-4);
+  }
+
+  .ind-line {
+    padding: var(--space-6) var(--space-4);
+  }
+
+  .ind-pick__button {
+    font-size: 0.8rem;
+  }
+}
+
+/* Stacked, and the divider becomes the seam between the two halves. */
+@media (max-width: 992px) {
+  .ind-bp {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ind-line {
+    border-top: 1px solid var(--color-border-light);
+    border-left: 0;
+  }
+
+  .ind-panel__tile {
+    max-width: 128px;
+  }
+}
+
+/* ==========================================================================
+   REDUCED MOTION
+
+   Everything decorative stops; the interface still changes state, it just
+   changes it immediately.
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .ind {
+    transition: none;
+  }
+
+  .ind-panel__body,
+  .ind-panel__counter,
+  .ind-line__steps,
+  .ind-panel__tile,
+  .ind-step__button,
+  .ind-step__surface,
+  .ind-step__marker,
+  .ind-step__number,
+  .ind-step__icon,
+  .ind-step__title,
+  .ind-step__description,
+  .ind-step__arrow,
+  .ind-pick__indicator,
+  .ind-pick__button,
+  .ind-pick__viewport,
+  .ind-pick__nav {
+    transition: none;
+  }
+
+  .ind-panel__tile,
+  .ind-panel__name,
+  .ind-panel__description,
+  .ind-panel__status,
+  .ind-panel__rail-light,
+  .ind-panel__tile-sheen,
+  .ind-panel__glyph,
+  .ind-panel__bar,
+  .ind-line__dot,
+  .ind-line__pulse,
+  .ind-step,
+  .ind-step__ring,
+  .ind-step__scan,
+  .ind-pick__shimmer {
+    animation: none;
+  }
+
+  /* Decorative layers that only exist to move. */
+  .ind-panel__rail-light,
+  .ind-panel__tile-sheen,
+  .ind-line__pulse,
+  .ind-step__scan,
+  .ind-pick__shimmer {
+    display: none;
+  }
+
+  .ind-panel__bar {
+    transform: scaleY(var(--h, 0.6));
+  }
+
+  .ind-step__button:hover,
+  .ind-step[data-active="true"] .ind-step__arrow,
+  .ind-step__button:hover .ind-step__arrow,
+  .ind-panel__next:hover svg,
+  .ind-pick__button:hover,
+  .ind-pick__button:active {
+    transform: none;
+  }
+}

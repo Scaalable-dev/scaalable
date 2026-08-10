@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 import "./Logo.css";
 
-import logo from "../../../assets/images/logo.png";
+import logo from "../../../assets/images/logo.webp";
 // Change to logo.svg if that's what you have.
 
 const Logo = () => {

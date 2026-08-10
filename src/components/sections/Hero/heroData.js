@@ -1,35 +1,30 @@
 const heroData = {
-  badge: "Trusted by 100+ Businesses",
+  /* Uppercased by Badge's own styles, so it is written in sentence case here
+     like every other badge on the site. */
+  badge: "One partner • From strategy to scale",
 
-  title: "Build Modern Digital Products That Grow Your Business.",
+  title: {
+    lead: "Websites, software and AI systems built to",
+    highlight: "grow with your business.",
+  },
 
   description:
-    "Scaalable helps startups and businesses build high-performance websites, SaaS platforms, AI-powered applications, and custom software that drive measurable growth.",
+    "From strategy and engineering to AI, SEO and paid advertising, Scaalable brings technology and digital growth into one accountable team — supporting your business from idea and launch through ongoing growth.",
 
+  /* Both route to a page and land on a specific section. `#contact-form` is the
+     site-wide destination for conversion CTAs (ContactPage/InquiryForm);
+     `#capabilities` is on ServicePage/Capabilities. */
   primaryButton: {
-    text: "Get a Free Quote",
-    href: "#contact",
+    text: "Start Your Project",
+    to: "/contact#contact-form",
   },
 
   secondaryButton: {
-    text: "View Portfolio",
-    href: "#portfolio",
+    text: "Explore Services",
+    to: "/services#capabilities",
   },
 
-  stats: [
-    {
-      value: "200+",
-      label: "Projects Delivered",
-    },
-    {
-      value: "50+",
-      label: "Happy Clients",
-    },
-    {
-      value: "99%",
-      label: "Client Satisfaction",
-    },
-  ],
+  trust: ["Free discovery call", "Fixed-scope quotes", "No hidden costs"],
 };
 
 export default heroData;

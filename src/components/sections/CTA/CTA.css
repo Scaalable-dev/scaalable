@@ -1,0 +1,517 @@
+/* ==========================================================================
+   HOME — CLOSING CTA
+
+   One panel: the invitation on the left, the way in on the right, and a line
+   travelling between them. The two halves are deliberately not framed as
+   separate columns — the signal is what ties them together.
+   ========================================================================== */
+
+.hcta {
+  --hcta-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --hcta-brand-rgb: var(--color-brand-primary-rgb);
+
+  position: relative;
+
+  /* Clear of both the section above and the footer below. */
+  padding-block: 7rem;
+
+  background: var(--color-background);
+}
+
+/* ==========================================================================
+   PANEL
+   ========================================================================== */
+
+.hcta__panel {
+  position: relative;
+
+  display: grid;
+  grid-template-columns: minmax(0, 67fr) minmax(0, 33fr);
+  align-items: center;
+
+  gap: clamp(1.5rem, 3vw, 3rem);
+
+  min-height: 13rem;
+
+  padding: clamp(2.25rem, 3.2vw, 3rem);
+
+  overflow: hidden;
+  isolation: isolate;
+
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-2xl);
+
+  background: var(--color-surface);
+
+  box-shadow:
+    var(--shadow-md),
+    0 24px 60px rgba(var(--hcta-brand-rgb), 0.07);
+
+  /* Entrance: the surround arrives first, then its contents. */
+  opacity: 0;
+
+  transition:
+    opacity 0.55s ease,
+    box-shadow 0.55s var(--hcta-ease);
+}
+
+.is-in .hcta__panel {
+  opacity: 1;
+}
+
+/* ==========================================================================
+   AMBIENT LAYERS
+   Both weighted to the CTA side; the content side stays clean.
+   ========================================================================== */
+
+.hcta__glow {
+  position: absolute;
+  top: 50%;
+  right: -6%;
+
+  z-index: -1;
+
+  width: 34rem;
+  height: 34rem;
+
+  border-radius: 50%;
+
+  background: radial-gradient(
+    circle,
+    rgba(var(--hcta-brand-rgb), 0.13) 0%,
+    rgba(var(--color-brand-secondary-rgb), 0.08) 42%,
+    transparent 70%
+  );
+
+  filter: blur(58px);
+
+  /* --cta-lx / --cta-ly are written by the pointer handler, capped at 4px. */
+  transform: translate(
+    calc(-50% + var(--cta-lx, 0px)),
+    calc(-50% + var(--cta-ly, 0px))
+  );
+
+  /* Slower than the pointer so it trails rather than tracks. */
+  transition: transform 0.5s var(--hcta-ease);
+
+  pointer-events: none;
+}
+
+/* Technical mesh, fading out before it reaches the copy. */
+.hcta__mesh {
+  position: absolute;
+  inset: 0 0 0 auto;
+
+  z-index: -1;
+
+  width: 46%;
+
+  background-image: radial-gradient(
+    circle,
+    rgba(var(--hcta-brand-rgb), 0.14) 1px,
+    transparent 1px
+  );
+  background-size: 20px 20px;
+
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 72%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 72%);
+
+  opacity: 0.55;
+
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   SIGNAL
+
+   pathLength="1" normalises the curve, so the dash values below are fractions
+   of it rather than user units that would have to be re-measured if the path
+   ever changed.
+   ========================================================================== */
+
+.hcta__signal {
+  position: absolute;
+  inset: 0;
+
+  z-index: -1;
+
+  width: 100%;
+  height: 100%;
+
+  /* Fades in well clear of the badge and heading. */
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 26%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 26%);
+
+  pointer-events: none;
+}
+
+.hcta__signal-base {
+  fill: none;
+  stroke: var(--color-border-default);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+
+  opacity: 0.5;
+}
+
+.hcta__signal-pulse {
+  fill: none;
+  stroke: var(--color-brand-primary);
+  stroke-width: 2;
+  stroke-linecap: round;
+
+  /* A 14% arc of the curve, with the remainder of the cycle empty. */
+  stroke-dasharray: 0.14 1;
+  stroke-dashoffset: 0.14;
+
+  filter: drop-shadow(0 0 4px rgba(var(--hcta-brand-rgb), 0.45));
+
+  opacity: 0;
+}
+
+/* Runs only once the entrance has finished. */
+.is-in .hcta__signal-pulse {
+  animation: hcta-travel 5s linear 1.15s infinite;
+}
+
+@keyframes hcta-travel {
+  0% {
+    stroke-dashoffset: 0.14;
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  76% {
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: -1;
+    opacity: 0;
+  }
+}
+
+/* ==========================================================================
+   CONTENT
+   ========================================================================== */
+
+.hcta__content {
+  position: relative;
+
+  z-index: 1;
+}
+
+/* Do not set `display` on the badge: it lays its mark and label out as a flex
+   row, and globals.css makes every svg `display: block` — override the flex
+   and the icon claims its own line. */
+.hcta__badge {
+  margin-bottom: 1.1rem;
+}
+
+.hcta__title {
+  margin: 0;
+
+  max-width: 18ch;
+
+  font-size: clamp(1.75rem, 3.1vw, 2.5rem);
+  font-weight: var(--font-weight-bold);
+
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+
+  color: var(--color-text-primary);
+
+  text-wrap: balance;
+}
+
+.hcta__description {
+  margin: 0.85rem 0 0;
+
+  max-width: 42rem;
+
+  font-size: clamp(0.95rem, 1.1vw, 1.05rem);
+
+  line-height: 1.7;
+
+  color: var(--color-text-secondary);
+}
+
+/* Badge, heading and copy rise in sequence behind the panel's own fade. */
+.hcta__badge,
+.hcta__title,
+.hcta__description,
+.hcta__action {
+  opacity: 0;
+  transform: translateY(10px);
+
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s var(--hcta-ease);
+}
+
+.hcta__badge {
+  transition-delay: 140ms;
+}
+
+.hcta__title {
+  transition-delay: 200ms;
+}
+
+.hcta__description {
+  transition-delay: 300ms;
+}
+
+.hcta__action {
+  transition-delay: 400ms;
+}
+
+.is-in .hcta__badge,
+.is-in .hcta__title,
+.is-in .hcta__description,
+.is-in .hcta__action {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   ACTION
+   ========================================================================== */
+
+.hcta__action {
+  position: relative;
+
+  z-index: 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+/* The shared button already lifts 2px on hover; this only slows the move into
+   the spec's range and warms the shadow toward the brand. */
+.hcta__action .btn {
+  transition:
+    background-color var(--transition-normal),
+    color var(--transition-normal),
+    transform 300ms var(--hcta-ease),
+    box-shadow 300ms var(--hcta-ease);
+}
+
+.hcta__action .btn:hover {
+  box-shadow: 0 14px 30px rgba(var(--hcta-brand-rgb), 0.28);
+}
+
+.hcta__action .btn__icon--end {
+  transition: transform 300ms var(--hcta-ease);
+}
+
+.hcta__action .btn:hover .btn__icon--end,
+.hcta__action .btn:focus-visible .btn__icon--end {
+  transform: translate(2px, -2px);
+}
+
+/* Mobile only — see the breakpoint below. */
+.hcta__wire {
+  display: none;
+}
+
+/* ==========================================================================
+   TABLET
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  .hcta {
+    padding-block: 5rem;
+  }
+
+  .hcta__panel {
+    grid-template-columns: minmax(0, 62fr) minmax(0, 38fr);
+
+    gap: 1.5rem;
+
+    padding: 2.25rem;
+  }
+
+  .hcta__title {
+    max-width: none;
+  }
+}
+
+/* Below this the two columns cannot hold a full-size button beside the copy
+   without the text crowding it, so the CTA drops underneath instead. */
+@media (max-width: 860px) and (min-width: 768px) {
+  .hcta__panel {
+    grid-template-columns: minmax(0, 1fr);
+
+    gap: 1.75rem;
+  }
+
+  .hcta__action {
+    justify-content: flex-start;
+  }
+}
+
+/* ==========================================================================
+   MOBILE
+   Stacked, left-aligned, with the curve replaced by one short run into the
+   button so nothing animates behind the paragraph.
+   ========================================================================== */
+
+@media (max-width: 767px) {
+  .hcta {
+    padding-block: 4rem;
+  }
+
+  .hcta__panel {
+    grid-template-columns: minmax(0, 1fr);
+
+    gap: 1.5rem;
+
+    min-height: 0;
+
+    padding: 1.6rem;
+
+    border-radius: var(--radius-xl);
+  }
+
+  .hcta__signal,
+  .hcta__mesh {
+    display: none;
+  }
+
+  .hcta__glow {
+    top: auto;
+    right: -30%;
+    bottom: -40%;
+
+    width: 22rem;
+    height: 22rem;
+  }
+
+  .hcta__title {
+    font-size: clamp(1.5rem, 6.4vw, 1.9rem);
+  }
+
+  .hcta__action {
+    flex-direction: column;
+    align-items: stretch;
+
+    gap: 1rem;
+  }
+
+  .hcta__action .btn {
+    width: 100%;
+
+    /* Comfortable target on a phone. */
+    min-height: 3rem;
+  }
+
+  .hcta__wire {
+    position: relative;
+
+    display: block;
+
+    height: 2px;
+
+    overflow: hidden;
+
+    border-radius: var(--radius-full);
+
+    background: var(--color-border-light);
+  }
+
+  .hcta__wire-pulse {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+
+    width: 28%;
+
+    border-radius: var(--radius-full);
+
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--color-brand-primary),
+      transparent
+    );
+
+    opacity: 0;
+  }
+
+  .is-in .hcta__wire-pulse {
+    animation: hcta-wire 4.5s linear 1.15s infinite;
+  }
+}
+
+@keyframes hcta-wire {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  14% {
+    opacity: 1;
+  }
+  78% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(357%);
+  }
+}
+
+@media (max-width: 400px) {
+  .hcta__panel {
+    padding: 1.4rem;
+  }
+}
+
+/* ==========================================================================
+   REDUCED MOTION
+   Nothing travels and nothing follows the cursor; the panel is simply there,
+   with the signal drawn as a static line.
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .hcta__panel,
+  .hcta__badge,
+  .hcta__title,
+  .hcta__description,
+  .hcta__action,
+  .hcta__glow {
+    opacity: 1;
+    transform: none;
+
+    transition-duration: 0.01ms;
+    transition-delay: 0ms;
+  }
+
+  /* Restores the centring the group rule above cleared, minus the pointer
+     offset the handler is no longer allowed to write. */
+  .hcta__glow {
+    transform: translate(-50%, -50%);
+  }
+
+  .hcta__signal-pulse,
+  .is-in .hcta__signal-pulse,
+  .hcta__wire-pulse,
+  .is-in .hcta__wire-pulse {
+    animation: none;
+  }
+
+  /* The connection still reads, it just does not move. */
+  .hcta__signal-pulse {
+    stroke-dasharray: none;
+    stroke-dashoffset: 0;
+
+    opacity: 0.55;
+  }
+
+  .hcta__wire-pulse {
+    width: 100%;
+
+    opacity: 0.55;
+  }
+}

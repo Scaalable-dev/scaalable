@@ -39,6 +39,25 @@
   --font-size-6xl: 4.5rem; /* 72px */
 
   /* ========================================================================
+     SEMANTIC SIZE ALIASES
+     Button, Input, Select, Textarea, WhoWeHelp and globals.css all reference
+     these names. They were never declared, so those font-size rules were
+     invalid and dropped — most visibly on WhoWeHelp card titles, which fell
+     back to the global h3 size (2.5rem) instead of a card-scale heading.
+     ======================================================================== */
+
+  --font-size-body: var(--font-size-base); /* 16px */
+  --font-size-body-lg: var(--font-size-md); /* 18px */
+  --font-size-body-sm: var(--font-size-sm); /* 14px */
+
+  --font-size-h1: var(--font-size-5xl);
+  --font-size-h2: var(--font-size-4xl);
+  --font-size-h3: var(--font-size-3xl);
+  --font-size-h4: var(--font-size-xl); /* 24px */
+  --font-size-h5: var(--font-size-lg);
+  --font-size-h6: var(--font-size-md);
+
+  /* ========================================================================
      LINE HEIGHTS
      ======================================================================== */
 

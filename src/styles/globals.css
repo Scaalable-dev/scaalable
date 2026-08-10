@@ -214,3 +214,39 @@ textarea {
     width: min(100% - 1rem, var(--container-width));
   }
 }
+
+/* ==========================================================================
+   HERO PANEL SNAPPING
+
+   Heroes that split into two full-height panels on small screens (home,
+   services, about, contact) arm this class on <html> through useHeroSnap.
+
+   Not wrapped in a media query: the hook already checks the breakpoint and the
+   motion preference, and each hero stacks at its own width. Leaving the rule
+   unconditional keeps one source of truth for what the class does.
+
+   Set on both <html> and <body>: globals gives <body> `overflow-x: hidden`, so
+   body's overflow propagates to the viewport and body becomes the effective
+   scrolling box. scroll-snap-type does not propagate from the root the way
+   overflow does, so declaring it only on <html> leaves the viewport unsnapped.
+   ========================================================================== */
+
+html.is-hero-snapping,
+html.is-hero-snapping body {
+  scroll-snap-type: y mandatory;
+
+  /* Clears the sticky header by shrinking the snapport, rather than adding
+     scroll-margin to each panel. Margin grows the snap AREA instead, and a
+     snap area taller than the snapport is treated as unreachable — the browser
+     then stops snapping and scrolls past both panels. */
+  scroll-padding-top: var(--navbar-height);
+}
+
+/* Snapping rides on `scroll-behavior: smooth`. Without that animation it is an
+   abrupt jump, which is what this preference asks us not to do. */
+@media (prefers-reduced-motion: reduce) {
+  html.is-hero-snapping,
+  html.is-hero-snapping body {
+    scroll-snap-type: none;
+  }
+}

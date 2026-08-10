@@ -1,0 +1,100 @@
+/* ==========================================================================
+   SELECT GROUP
+   Mirrors the Input component's structure and states.
+   ========================================================================== */
+
+.select-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.select-group__label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+}
+
+/* ==========================================================================
+   CONTROL
+   Wrapper draws the chevron, since native select arrows can't be styled.
+   ========================================================================== */
+
+.select-group__control {
+  position: relative;
+}
+
+.select-group__control::after {
+  content: "";
+
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+
+  width: 9px;
+  height: 9px;
+
+  border-right: 2px solid var(--color-text-muted);
+  border-bottom: 2px solid var(--color-text-muted);
+
+  transform: translateY(-70%) rotate(45deg);
+
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   SELECT
+   ========================================================================== */
+
+.select {
+  width: 100%;
+
+  padding: 0.875rem 2.5rem 0.875rem 1rem;
+
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+
+  background-color: var(--color-surface);
+  color: var(--color-text-primary);
+
+  font-family: inherit;
+  font-size: var(--font-size-body);
+
+  appearance: none;
+  -webkit-appearance: none;
+
+  cursor: pointer;
+
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+/* Placeholder option stays muted until a real value is chosen. */
+.select:has(option[value=""]:checked) {
+  color: var(--color-text-muted);
+}
+
+.select:focus {
+  outline: none;
+
+  border-color: var(--color-brand-primary);
+
+  box-shadow: 0 0 0 4px rgba(0, 130, 249, 0.12);
+}
+
+.select--error {
+  border-color: var(--color-error);
+}
+
+.select-group__error {
+  font-size: var(--font-size-sm);
+  color: var(--color-error);
+}
+
+.select:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+
+  background-color: var(--color-surface-hover);
+}

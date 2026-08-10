@@ -1,248 +1,500 @@
 /* ==========================================================================
-   FOOTER
+   SYSTEM GRID FOOTER
+
+   Three areas — brand masthead, system grid, bottom rail — held together by
+   linework rather than by cards. Deliberately static: there is no transition
+   and no keyframe in this file, and hover states change colour immediately.
    ========================================================================== */
 
-.footer {
-  margin-top: var(--space-24);
+.fx {
+  position: relative;
 
-  background: var(--color-surface-alt);
-
-  border-top: 1px solid var(--color-border-light);
+  /* No top border and no margin: the footer starts in the page's own colour
+     and settles into its surface over the first stretch, so there is no edge
+     to see at all — not a rule, not a wave, not a step. The pages above all
+     end on --color-background, which is where this gradient begins. */
+  background: linear-gradient(
+    180deg,
+    var(--color-background) 0%,
+    var(--color-surface-alt) 22%
+  );
 }
 
-.footer__content {
-  display: grid;
+/* This footer is deliberately static, but it inherits motion from two places:
+   globals.css puts a transition on every <a>, and the shared Button lifts 2px
+   on hover. Both are neutralised here rather than changed globally, so the
+   rest of the site keeps its behaviour. Hover states below still work — they
+   just land on the frame the pointer arrives. */
+.fx,
+.fx *,
+.fx *::before,
+.fx *::after {
+  transition: none;
+  animation: none;
+}
 
-  grid-template-columns: 1.5fr 1fr 1fr 1fr;
-
-  gap: var(--space-12);
-
-  padding: var(--space-16) 0;
+.fx .btn:hover,
+.fx .btn:focus-visible,
+.fx .btn:active {
+  transform: none;
 }
 
 /* ==========================================================================
-   COMPANY
+   1. BRAND MASTHEAD
    ========================================================================== */
 
-.footer__company {
-  max-width: 360px;
+.fx__masthead {
+  position: relative;
+
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+
+  gap: clamp(1.25rem, 3vw, 2.5rem);
+
+  /* Generous at the top: that stretch is where the background is still the
+     page's colour, and it is what the blend needs to happen in. */
+  padding-block: clamp(3rem, 5vw, 4.5rem) clamp(1.5rem, 2.6vw, 2rem);
 }
 
-.footer__company p {
-  margin: var(--space-5) 0 var(--space-6);
+.fx__brand {
+  position: relative;
+  z-index: 1;
+}
+
+.fx__lockup {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 0.7rem;
+
+  text-decoration: none;
+}
+
+/* Compact on purpose — the old footer led with a 150px logo. */
+.fx__mark {
+  width: 2.5rem;
+  height: auto;
+
+  display: block;
+}
+
+.fx__names {
+  display: flex;
+  flex-direction: column;
+
+  gap: 0.15rem;
+}
+
+.fx__wordmark {
+  font-family: var(--font-family-heading);
+  font-size: 1.15rem;
+  font-weight: var(--font-weight-bold);
+
+  letter-spacing: 0.02em;
+
+  color: var(--color-brand-primary);
+}
+
+.fx__tagline {
+  font-size: 0.62rem;
+  font-weight: var(--font-weight-semibold);
+
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+
+  color: var(--color-text-disabled);
+}
+
+.fx__summary {
+  max-width: 33rem;
+
+  margin: 0.9rem 0 0;
+
+  font-size: 0.92rem;
+
+  line-height: 1.7;
+
+  color: var(--color-text-secondary);
+}
+
+.fx__cta {
+  position: relative;
+  z-index: 1;
+
+  justify-self: end;
+}
+
+/* ==========================================================================
+   2. SYSTEM GRID
+   ========================================================================== */
+
+.fx__grid {
+  display: grid;
+  grid-template-columns: 24% 42% 34%;
+
+  border-top: 1px solid var(--color-border-light);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.fx__col {
+  padding-block: clamp(1.5rem, 2.6vw, 2rem);
+  padding-inline: clamp(1rem, 2.2vw, 2rem);
+}
+
+.fx__col:first-child {
+  padding-left: 0;
+}
+
+.fx__col:last-child {
+  padding-right: 0;
+}
+
+/* Dividers between columns, not around them — the grid is the structure. */
+.fx__col + .fx__col {
+  border-left: 1px solid var(--color-border-light);
+}
+
+/* Numbered column markers. */
+.fx__label {
+  display: flex;
+  align-items: center;
+
+  gap: 0.5rem;
+
+  margin: 0 0 1.1rem;
+
+  font-size: 0.68rem;
+  font-weight: var(--font-weight-semibold);
+
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+
+  color: var(--color-text-muted);
+}
+
+.fx__tick {
+  width: 1.35rem;
+  height: 2px;
+
+  border-radius: var(--radius-full);
+
+  background: linear-gradient(
+    90deg,
+    var(--color-brand-primary),
+    var(--color-brand-secondary)
+  );
+}
+
+/* ==========================================================================
+   LINK LISTS
+   ========================================================================== */
+
+.fx__links {
+  display: flex;
+  flex-direction: column;
+
+  gap: 0.6rem;
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.fx__links--split {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  column-gap: 1.25rem;
+}
+
+.fx__links a {
+  display: inline-flex;
+  align-items: baseline;
+
+  gap: 0.45rem;
+
+  font-size: 0.9rem;
+
+  line-height: 1.5;
 
   color: var(--color-text-secondary);
 
-  line-height: 1.8;
+  text-decoration: none;
 }
 
-.footer__socials {
-  display: flex;
+/* Immediate, per the no-motion rule: colour and underline change on the
+   frame the pointer arrives, with no transition to ease them in. */
+.fx__links a:hover,
+.fx__links a:focus-visible {
+  color: var(--color-text-primary);
 
-  align-items: center;
-
-  gap: var(--space-3);
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
-.footer__socials a {
+.fx__links a:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 3px;
+
+  border-radius: var(--radius-xs);
+}
+
+/* The marker replaces a bullet. */
+.fx__slash {
+  flex-shrink: 0;
+
+  font-weight: var(--font-weight-semibold);
+
+  color: rgba(var(--color-brand-primary-rgb), 0.55);
+}
+
+/* ==========================================================================
+   CONNECT
+   ========================================================================== */
+
+.fx__address {
   display: flex;
+  flex-direction: column;
 
-  justify-content: center;
+  gap: 0.7rem;
 
+  /* <address> is italic by default in every browser. */
+  font-style: normal;
+}
+
+.fx__contact {
+  display: flex;
   align-items: center;
 
-  width: 42px;
+  gap: 0.6rem;
 
-  height: 42px;
+  margin: 0;
+
+  font-size: 0.9rem;
+
+  color: var(--color-text-secondary);
+}
+
+.fx__contact svg {
+  flex-shrink: 0;
+
+  color: var(--color-brand-primary);
+}
+
+.fx__contact a {
+  color: inherit;
+
+  text-decoration: none;
+
+  /* The address is the longest string in the column and the first thing to
+     overflow a narrow screen. */
+  overflow-wrap: anywhere;
+}
+
+.fx__contact a:hover,
+.fx__contact a:focus-visible {
+  color: var(--color-text-primary);
+
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.fx__contact a:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 3px;
+
+  border-radius: var(--radius-xs);
+}
+
+/* ==========================================================================
+   3. BOTTOM RAIL
+   ========================================================================== */
+
+.fx__rail {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+
+  gap: 1rem;
+
+  padding-block: clamp(1.25rem, 2vw, 1.5rem);
+}
+
+.fx__social {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 0.5rem;
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.fx__social a {
+  display: grid;
+  place-items: center;
+
+  /* Comfortable target on a phone. */
+  width: 2.5rem;
+  height: 2.5rem;
+
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-full);
 
   background: var(--color-surface);
 
   color: var(--color-text-secondary);
-
-  border: 1px solid var(--color-border-light);
-
-  border-radius: 50%;
-
-  transition:
-    color var(--transition-normal),
-    border-color var(--transition-normal),
-    transform var(--transition-normal),
-    box-shadow var(--transition-normal);
 }
 
-.footer__socials a:hover {
+.fx__social a:hover,
+.fx__social a:focus-visible {
+  border-color: rgba(var(--color-brand-primary-rgb), 0.45);
+
   color: var(--color-brand-primary);
-
-  border-color: var(--color-brand-primary);
-
-  transform: translateY(-2px);
-
-  box-shadow: var(--shadow-md);
 }
 
-/* ==========================================================================
-   COLUMNS
-   ========================================================================== */
-
-.footer__column h3 {
-  margin-bottom: var(--space-5);
-
-  color: var(--color-text-primary);
-
-  font-size: 1rem;
-
-  font-weight: 600;
+.fx__social a:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
 }
 
-.footer__column ul {
+.fx__copyright {
+  margin: 0;
+
+  font-size: 0.82rem;
+
+  text-align: center;
+
+  color: var(--color-text-muted);
+}
+
+.fx__legal {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
 
-  flex-direction: column;
-
-  gap: var(--space-4);
-
-  list-style: none;
-
-  padding: 0;
+  gap: 0.35rem 1rem;
 
   margin: 0;
-}
-
-.footer__column li {
-  display: flex;
-
-  align-items: center;
-
-  gap: var(--space-3);
-}
-
-.footer__column a,
-.footer__column span {
-  color: var(--color-text-secondary);
-
-  text-decoration: none;
-
-  transition: color var(--transition-normal);
-}
-
-.footer__column a:hover {
-  color: var(--color-brand-primary);
-}
-
-.footer__column svg {
-  color: var(--color-brand-primary);
-
-  flex-shrink: 0;
-}
-
-/* ==========================================================================
-   BOTTOM
-   ========================================================================== */
-
-.footer__bottom {
-  display: flex;
-
-  justify-content: space-between;
-
-  align-items: center;
-
-  gap: var(--space-6);
-
-  padding: var(--space-6) 0;
-
-  border-top: 1px solid var(--color-border-light);
-}
-
-.footer__bottom p {
-  color: var(--color-text-muted);
-
-  font-size: 0.95rem;
-}
-
-.footer__legal {
-  display: flex;
-
-  align-items: center;
-
-  gap: var(--space-6);
-}
-
-.footer__legal button {
   padding: 0;
+
+  list-style: none;
+}
+
+.fx__legal button {
+  padding: 0;
+
+  border: 0;
 
   background: none;
 
-  border: none;
+  font-size: 0.82rem;
+  font-family: inherit;
 
   color: var(--color-text-muted);
 
-  font: inherit;
-
   cursor: pointer;
-
-  transition: color var(--transition-normal);
 }
 
-.footer__legal button:hover {
-  color: var(--color-brand-primary);
+.fx__legal button:hover,
+.fx__legal button:focus-visible {
+  color: var(--color-text-primary);
+
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
-.footer__logo {
-  display: inline-flex;
+.fx__legal button:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 3px;
 
-  align-items: center;
-
-  text-decoration: none;
-}
-
-.footer__logo img {
-  display: block;
-
-  width: 180px;
-
-  height: auto;
-
-  object-fit: contain;
+  border-radius: var(--radius-xs);
 }
 
 /* ==========================================================================
-   RESPONSIVE
+   TABLET — 900px and below
    ========================================================================== */
 
-@media (max-width: 992px) {
-  .footer__content {
-    grid-template-columns: repeat(2, 1fr);
+@media (max-width: 900px) {
+  .fx__grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
 
-    gap: var(--space-10);
+  /* Connect spans the full width beneath the other two, so it takes a rule
+     above it rather than one at its side. */
+  .fx__col--connect {
+    grid-column: 1 / -1;
+
+    border-top: 1px solid var(--color-border-light);
+    border-left: 0;
+
+    padding-left: 0;
+  }
+
+  .fx__col--capabilities {
+    padding-right: 0;
   }
 }
 
-@media (max-width: 768px) {
-  .footer__content {
-    grid-template-columns: 1fr;
-
-    padding: var(--space-12) 0;
+@media (max-width: 760px) {
+  .fx__masthead {
+    grid-template-columns: minmax(0, 1fr);
   }
 
-  .footer__company {
-    max-width: 100%;
-  }
-
-  .footer__bottom {
-    flex-direction: column;
-
-    text-align: center;
+  .fx__cta {
+    justify-self: start;
   }
 }
 
-@media (max-width: 576px) {
-  .footer__socials {
+/* ==========================================================================
+   MOBILE — 620px and below
+   ========================================================================== */
+
+@media (max-width: 620px) {
+  .fx__links--split {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .fx__rail {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: start;
+
+    gap: 1.1rem;
+  }
+
+  .fx__copyright {
+    text-align: left;
+  }
+
+  .fx__legal {
     justify-content: flex-start;
   }
+}
 
-  .footer__legal {
-    flex-direction: column;
+/* ==========================================================================
+   NARROW — 400px and below
+   ========================================================================== */
 
-    gap: var(--space-3);
+@media (max-width: 400px) {
+  .fx__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* One column, so every divider becomes horizontal. */
+  .fx__col {
+    padding-inline: 0;
+  }
+
+  .fx__col + .fx__col {
+    border-top: 1px solid var(--color-border-light);
+    border-left: 0;
+  }
+
+  .fx__summary {
+    font-size: 0.88rem;
   }
 }
