@@ -47,27 +47,125 @@
       name="description"
       content="Scaalable builds high-performance websites, SaaS platforms and AI-powered software for startups and established teams."
     />
+    <!-- Reset per route by setPageMeta; declared here so the value is present
+         before React mounts. max-image-preview:large opts the site into full
+         size image thumbnails in results, which the default 'standard' caps. -->
+    <meta
+      name="robots"
+      content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+    />
 
     <!-- Social cards. Static, site-level: scrapers do not run JavaScript, so
-         per-route values set from React would never be seen by them anyway. -->
+         per-route values set from React would never be seen by them anyway.
+
+         Every absolute URL on this page uses the www host: it is the canonical
+         origin, and pointing a card at a host that redirects costs a hop some
+         scrapers do not follow. This assumes the apex 301s to www at the DNS
+         or host level — without that redirect both hosts serve the same pages
+         and the duplicate the canonical is meant to settle stays live. -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Scaalable" />
+    <meta property="og:locale" content="en_US" />
     <meta property="og:title" content="Scaalable — Build Digital Products That Grow Your Business" />
     <meta
       property="og:description"
       content="Scaalable builds high-performance websites, SaaS platforms and AI-powered software for startups and established teams."
     />
-    <meta property="og:url" content="https://scaalable.com/" />
-    <meta property="og:image" content="https://scaalable.com/favicon-512x512.png" />
+    <meta property="og:url" content="https://www.scaalable.com/" />
+    <meta property="og:image" content="https://www.scaalable.com/favicon-512x512.png" />
+    <meta property="og:image:width" content="512" />
+    <meta property="og:image:height" content="512" />
+    <meta property="og:image:alt" content="Scaalable" />
+    <!-- 'summary', not 'summary_large_image': the only card asset is the 512px
+         square icon, and the large variant crops a square to 2:1. Switch both
+         once a 1200x630 banner exists. -->
     <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@scaalable" />
     <meta name="twitter:title" content="Scaalable — Build Digital Products That Grow Your Business" />
     <meta
       name="twitter:description"
       content="Scaalable builds high-performance websites, SaaS platforms and AI-powered software for startups and established teams."
     />
-    <meta name="twitter:image" content="https://scaalable.com/favicon-512x512.png" />
+    <meta name="twitter:image" content="https://www.scaalable.com/favicon-512x512.png" />
 
-    <title>Scaalable</title>
+    <!-- The home page's own title rather than the bare brand: this is what a
+         crawler that does not render JavaScript indexes, and what shows in the
+         tab for the fraction of a second before React mounts. -->
+    <title>Scaalable — Build Digital Products That Grow Your Business</title>
+
+    <!-- Site-wide structured data. Static on purpose: the business identity is
+         the one thing that must survive a crawler that never runs the app.
+         Per-route nodes (breadcrumbs, FAQ, service catalogue) are injected by
+         src/lib/structuredData.js and reference these two by @id. -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": ["Organization", "ProfessionalService"],
+            "@id": "https://www.scaalable.com/#organization",
+            "name": "Scaalable",
+            "url": "https://www.scaalable.com/",
+            "description": "Scaalable builds high-performance websites, SaaS platforms and AI-powered software for startups and established teams.",
+            "email": "info@scaalable.com",
+            "telephone": "+91-7596918803",
+            "logo": {
+              "@type": "ImageObject",
+              "@id": "https://www.scaalable.com/#logo",
+              "url": "https://www.scaalable.com/favicon-512x512.png",
+              "width": 512,
+              "height": 512
+            },
+            "image": "https://www.scaalable.com/favicon-512x512.png",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Konnagar",
+              "addressRegion": "West Bengal",
+              "addressCountry": "IN"
+            },
+            "geo": {
+              "@type": "GeoCoordinates",
+              "latitude": 22.6946012,
+              "longitude": 88.3496334
+            },
+            "areaServed": "Worldwide",
+            "contactPoint": [
+              {
+                "@type": "ContactPoint",
+                "contactType": "sales",
+                "telephone": "+91-7596918803",
+                "email": "info@scaalable.com",
+                "availableLanguage": ["en"],
+                "areaServed": "Worldwide"
+              },
+              {
+                "@type": "ContactPoint",
+                "contactType": "customer support",
+                "email": "support@scaalable.com",
+                "availableLanguage": ["en"],
+                "areaServed": "Worldwide"
+              }
+            ],
+            "sameAs": [
+              "https://www.linkedin.com/company/scaalable/",
+              "https://x.com/scaalable",
+              "https://instagram.com/scaalable",
+              "https://facebook.com/scaalable",
+              "https://github.com/Scaalable-dev"
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://www.scaalable.com/#website",
+            "url": "https://www.scaalable.com/",
+            "name": "Scaalable",
+            "description": "Scaalable builds high-performance websites, SaaS platforms and AI-powered software for startups and established teams.",
+            "publisher": { "@id": "https://www.scaalable.com/#organization" },
+            "inLanguage": "en"
+          }
+        ]
+      }
+    </script>
 
     <!-- Google tag (gtag.js). Kept inside the head element: it previously sat
          after the head closed and before the body opened, invalid HTML the

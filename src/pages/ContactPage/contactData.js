@@ -13,6 +13,8 @@ import {
 } from "lucide-react";
 
 import { socialLinks } from "../../components/layout/Footer/footerData";
+import { absoluteUrl } from "../../lib/site";
+import { breadcrumbs, webPage } from "../../lib/structuredData";
 
 /* ==========================================================================
    CONTACT DETAILS
@@ -50,14 +52,38 @@ const MAPS_EMBED_URL = `https://maps.google.com/maps?q=${encodeURIComponent(
   MAPS_EMBED_QUERY,
 )}&z=17&hl=en&output=embed`;
 
+export const CONTACT_PATH = "/contact";
+
 export const contactMeta = {
   title: "Contact Scaalable | Start a Conversation",
 
   description:
     "Tell us about your project. Reach Scaalable by phone, email or WhatsApp, or share a few details through the inquiry form and we'll reply within two business hours.",
 
-  canonical: "https://scaalable.com/contact",
+  /* Built from the shared origin rather than written out: the host has moved
+     once already, and a canonical naming the wrong one is worse than none. */
+  canonical: absoluteUrl(CONTACT_PATH),
 };
+
+/* The route's complete SEO payload — read by the page effect and by the
+   build-time prerender. See homeSeo for why it lives beside the data.
+
+   Typed as a ContactPage so the phone number and address already declared on
+   the organisation node in index.html are attached to the page that actually
+   carries them. */
+export const contactSeo = () => ({
+  meta: contactMeta,
+
+  jsonLd: [
+    webPage({
+      path: CONTACT_PATH,
+      title: contactMeta.title,
+      description: contactMeta.description,
+      type: "ContactPage",
+    }),
+    breadcrumbs([{ name: "Contact", path: CONTACT_PATH }]),
+  ],
+});
 
 export const contactHero = {
   badge: "Get in touch",

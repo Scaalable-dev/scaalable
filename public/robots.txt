@@ -1,7 +1,25 @@
 User-agent: *
 Allow: /
 
+# Answer-engine crawlers, named explicitly. They are already covered by the
+# wildcard above; the separate blocks are here so that narrowing the wildcard
+# later cannot silently drop them.
 User-agent: OAI-SearchBot
 Allow: /
 
-Sitemap: https://scaalable.com/sitemap.xml
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+# Absolute, and on the canonical www host — a sitemap URL is required to be
+# absolute, and one pointing at the apex sends every crawler through a
+# redirect before it reaches the file.
+Sitemap: https://www.scaalable.com/sitemap.xml

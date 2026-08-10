@@ -8,9 +8,14 @@ import Badge from "../components/ui/Badge";
 import Button from "../components/ui/Button";
 import Container from "../components/ui/Container";
 
+import { applyPageSeo } from "../lib/pageMeta";
+import { notFoundSeo } from "./notFoundData";
+
 const NotFound = () => {
   useEffect(() => {
-    document.title = "Page Not Found | Scaalable";
+    /* Reset by the next route's own applyPageSeo call, which is why nothing
+       has to be undone here on unmount. */
+    applyPageSeo(notFoundSeo());
   }, []);
 
   return (

@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 
 import { technologies } from "./techMarqueeData";
+import { IS_PRERENDER } from "../../../lib/prerender";
 
 import "./TechMarquee.css";
 
@@ -76,11 +77,16 @@ const TechMarquee = () => {
             ))}
           </ul>
 
-          <ul className="tech-marquee__track" aria-hidden="true">
-            {technologies.map((tech) => (
-              <TechItem key={`${tech.id}-echo`} tech={tech} />
-            ))}
-          </ul>
+          {/* Skipped in the prerendered HTML — it is a visual echo of the
+              track above, so a crawler gains nothing from a second copy of
+              the list. See lib/prerender.js. */}
+          {!IS_PRERENDER && (
+            <ul className="tech-marquee__track" aria-hidden="true">
+              {technologies.map((tech) => (
+                <TechItem key={`${tech.id}-echo`} tech={tech} />
+              ))}
+            </ul>
+          )}
         </div>
       </div>
     </section>

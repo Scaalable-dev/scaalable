@@ -1,16 +1,29 @@
 {
+  "id": "/",
   "name": "Scaalable",
   "short_name": "Scaalable",
+  "description": "Scaalable builds high-performance websites, SaaS platforms and AI-powered software for startups and established teams.",
+  "lang": "en",
+  "start_url": "/",
+  "scope": "/",
   "icons": [
     {
       "src": "/favicon-192x192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     },
     {
       "src": "/favicon-512x512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ],
   "theme_color": "#006CFA",

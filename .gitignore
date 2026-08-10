@@ -11,6 +11,9 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
+# Intermediate SSR bundle the prerender step renders from — a build artefact,
+# never deployed. Only its output in dist/ ships.
+.prerender
 *.local
 
 # Editor directories and files
