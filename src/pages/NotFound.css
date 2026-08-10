@@ -1,0 +1,122 @@
+/* ==========================================================================
+   NOT FOUND
+
+   One centred panel inside the normal header/footer frame, so a dead link
+   still lands somewhere that is recognisably the site — with the two ways
+   back a visitor actually wants.
+   ========================================================================== */
+
+.not-found {
+  position: relative;
+  isolation: isolate;
+
+  overflow: clip;
+
+  display: flex;
+  align-items: center;
+
+  /* Fills the viewport under the header without ever forcing a scrollbar of
+     its own; short windows simply get a shorter panel. */
+  min-height: calc(100vh - var(--navbar-height));
+  min-height: calc(100svh - var(--navbar-height));
+
+  padding-block: clamp(2rem, 6vh, 4rem);
+
+  text-align: center;
+}
+
+/* The same soft brand washes the page heroes open on. */
+.not-found__glow {
+  position: absolute;
+  inset: 0;
+
+  z-index: -1;
+
+  background:
+    radial-gradient(
+      circle at 18% 20%,
+      rgba(var(--color-brand-accent-rgb), 0.12),
+      transparent 45%
+    ),
+    radial-gradient(
+      circle at 82% 75%,
+      rgba(var(--color-brand-primary-rgb), 0.1),
+      transparent 45%
+    );
+
+  pointer-events: none;
+}
+
+.not-found__panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  max-width: 40rem;
+
+  margin-inline: auto;
+}
+
+/* Display-size wallpaper for the message, not the message itself. */
+.not-found__code {
+  margin: var(--space-4) 0 0;
+
+  background: var(--gradient-brand);
+  background-clip: text;
+  -webkit-background-clip: text;
+
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+
+  font-size: clamp(5.5rem, 18vw, 9rem);
+  font-weight: var(--font-weight-bold);
+
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.not-found__title {
+  margin: var(--space-4) 0 0;
+
+  color: var(--color-text-primary);
+
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+
+  text-wrap: balance;
+}
+
+.not-found__description {
+  max-width: 46ch;
+
+  margin: var(--space-4) 0 0;
+
+  color: var(--color-text-secondary);
+
+  font-size: 1.02rem;
+  line-height: 1.8;
+
+  text-wrap: pretty;
+}
+
+.not-found__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  gap: var(--space-4);
+
+  margin-top: var(--space-8);
+}
+
+@media (max-width: 576px) {
+  .not-found__actions {
+    width: 100%;
+  }
+
+  .not-found__actions .btn {
+    width: 100%;
+  }
+}

@@ -11,6 +11,7 @@ import ScrollToTop from "./components/ScrollToTop";
 const About = lazy(() => import("./pages/AboutPage/About"));
 const Contact = lazy(() => import("./pages/ContactPage"));
 const Services = lazy(() => import("./pages/ServicePage"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 
 function App() {
   return (
@@ -26,6 +27,11 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/services" element={<Services />} />
+
+            {/* Inside MainLayout on purpose: a dead link should still land
+                on a page with the site's own header and footer, so the way
+                back is always in reach. */}
+            <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
       </Suspense>
