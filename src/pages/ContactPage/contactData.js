@@ -50,6 +50,13 @@ const MAPS_EMBED_URL = `https://maps.google.com/maps?q=${encodeURIComponent(
   MAPS_EMBED_QUERY,
 )}&z=17&hl=en&output=embed`;
 
+export const contactMeta = {
+  title: "Contact Scaalable | Start a Conversation",
+
+  description:
+    "Tell us about your project. Reach Scaalable by phone, email or WhatsApp, or share a few details through the inquiry form and we'll reply within two business hours.",
+};
+
 export const contactHero = {
   badge: "Get in touch",
 

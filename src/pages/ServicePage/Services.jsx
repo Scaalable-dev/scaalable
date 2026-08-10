@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 
@@ -12,9 +13,20 @@ import IndustriesBlueprintSection from "./Industries";
 import TechnologiesSection from "./Technologies";
 import ServicesPageCTA from "./ServicesPageCTA";
 
-import { servicesHero } from "./servicesData";
+import { servicesHero, servicesMeta } from "./servicesData";
 
 const Services = () => {
+  /* No Helmet provider is mounted in main.jsx, so the page metadata is set
+     directly — the same approach the home and About pages use. */
+  useEffect(() => {
+    document.title = servicesMeta.title;
+
+    const description = document.querySelector('meta[name="description"]');
+    if (description) {
+      description.setAttribute("content", servicesMeta.description);
+    }
+  }, []);
+
   return (
     <>
       <section className="service-hero" id="service-hero">

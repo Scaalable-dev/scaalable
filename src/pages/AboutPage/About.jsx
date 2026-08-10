@@ -105,8 +105,8 @@ const About = () => {
               <img
                 src={aboutHero.image}
                 alt={aboutHero.imageAlt}
-                width="1680"
-                height="936"
+                width="1280"
+                height="713"
                 loading="eager"
                 decoding="async"
               />
@@ -239,8 +239,8 @@ const About = () => {
               <img
                 src={whyWeExist.image}
                 alt={whyWeExist.imageAlt}
-                width="1677"
-                height="938"
+                width="1280"
+                height="716"
                 loading="lazy"
                 decoding="async"
               />

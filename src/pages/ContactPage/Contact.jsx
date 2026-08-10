@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { ArrowDown } from "lucide-react";
 
 import "./Contact.css";
@@ -11,9 +12,20 @@ import InquiryForm from "./InquiryForm";
 import OfficeLocation from "./OfficeLocation";
 import SocialChannels from "./SocialChannels";
 
-import { contactHero } from "./contactData";
+import { contactHero, contactMeta } from "./contactData";
 
 const Contact = () => {
+  /* No Helmet provider is mounted in main.jsx, so the page metadata is set
+     directly — the same approach the home and About pages use. */
+  useEffect(() => {
+    document.title = contactMeta.title;
+
+    const description = document.querySelector('meta[name="description"]');
+    if (description) {
+      description.setAttribute("content", contactMeta.description);
+    }
+  }, []);
+
   return (
     <>
       <section className="contact-hero" id="contact-hero">

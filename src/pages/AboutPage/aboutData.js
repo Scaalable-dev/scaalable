@@ -10,8 +10,11 @@ import {
 
 import founderImage from "../../assets/images/founder.png";
 import coFounderImage from "../../assets/images/coFounder.png";
-import aboutHeroImage from "../../assets/images/about-hero.png";
-import aboutStoryImage from "../../assets/images/about-story.png";
+/* WebP re-encodes of the original PNGs (which remain in git history) —
+   96% smaller at 1280px wide, comfortably past the ~1100px the layout can
+   ever display them at on a 2x screen. */
+import aboutHeroImage from "../../assets/images/about-hero.webp";
+import aboutStoryImage from "../../assets/images/about-story.webp";
 
 export const aboutMeta = {
   title: "About Scaalable | Your Accountable Digital Partner",
