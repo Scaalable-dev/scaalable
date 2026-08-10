@@ -1,65 +1,22 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-
-  "//": [
-    "Routing and caching for the static build in dist/.",
-    "",
-    "Rewrites run after the filesystem check, so /services still resolves",
-    "straight to the prerendered dist/services/index.html and never touches",
-    "the catch-all below. Only a path matching no real file falls through to",
-    "it — a plain static deployment does not serve dist/404.html on its own,",
-    "so without this rewrite an unknown URL hit Vercel's own NOT_FOUND page",
-    "instead of the site's branded one."
-  ],
-
-  "//trailingSlash": [
-    "Matches the canonical tags, which name /services rather than /services/.",
-    "Vercel 308s the slashed form to the bare one, so only one of the two ever",
-    "answers with content."
-  ],
   "trailingSlash": false,
-
   "redirects": [
     {
-      "//": [
-        "The apex to www 301. Kept here rather than only in the dashboard so",
-        "the canonical host is recorded in the repo alongside the tags that",
-        "depend on it — every canonical, og:url and sitemap entry names www,",
-        "and without this redirect both hosts would serve the whole site.",
-        "Harmless if the dashboard already redirects: that happens at the edge",
-        "first and this never matches."
-      ],
       "source": "/:path*",
       "has": [{ "type": "host", "value": "scaalable.com" }],
       "destination": "https://www.scaalable.com/:path*",
       "permanent": true
     }
   ],
-
   "rewrites": [
     {
-      "//": [
-        "Catch-all, evaluated only for a path that matched no real file. It",
-        "serves dist/404.html's markup — the branded page, the noindex meta",
-        "tag, the empty JSON-LD — but a rewrite cannot change the response's",
-        "status code, so this answers 200 rather than 404. The noindex tag is",
-        "what actually keeps a JS-rendering crawler from indexing it; Google",
-        "treats that as equivalent to a 404/410 for de-indexing purposes. A",
-        "non-JS crawler reading raw status codes is the one audience this",
-        "does not fully satisfy — closing that gap needs a serverless",
-        "function or Vercel's legacy `routes` config instead of `rewrites`."
-      ],
       "source": "/(.*)",
       "destination": "/404.html"
     }
   ],
-
   "headers": [
     {
-      "//": [
-        "Asset filenames carry a content hash, so a given URL's bytes never",
-        "change and the response can be cached indefinitely."
-      ],
       "source": "/assets/(.*)",
       "headers": [
         {
@@ -69,11 +26,6 @@
       ]
     },
     {
-      "//": [
-        "The HTML is not hashed and now carries the prerendered content, so a",
-        "cached copy would keep serving yesterday's markup and yesterday's",
-        "asset URLs after a deploy. Revalidate every time."
-      ],
       "source": "/((?!assets/).*)",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
@@ -81,9 +33,7 @@
     },
     {
       "source": "/(robots.txt|sitemap.xml)",
-      "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=3600" }
-      ]
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=3600" }]
     }
   ]
 }
