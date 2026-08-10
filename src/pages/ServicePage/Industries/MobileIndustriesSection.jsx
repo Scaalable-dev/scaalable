@@ -2,7 +2,7 @@ import "./IndustriesMobile.css";
 
 import Badge from "../../../components/ui/Badge";
 import IndustrySelector from "./IndustrySelector";
-import SelectedIndustryCard from "./SelectedIndustryCard";
+import IndustryCardCarousel from "./IndustryCardCarousel";
 import MobileBlueprintAccordion from "./MobileBlueprintAccordion";
 
 import { industriesIntro } from "./industriesData";
@@ -13,6 +13,7 @@ const MobileIndustriesSection = ({
   activeIndex,
   openStep,
   phase,
+  reduceMotion,
   onSelect,
   onOpenStep,
   onInteracting,
@@ -44,10 +45,14 @@ const MobileIndustriesSection = ({
         />
       </div>
 
-      <SelectedIndustryCard
-        industry={industry}
-        position={activeIndex + 1}
-        total={industries.length}
+      {/* Swipeable, so the card can be moved through directly rather than
+          only by tapping the rail above it. */}
+      <IndustryCardCarousel
+        industries={industries}
+        activeIndex={activeIndex}
+        reduceMotion={reduceMotion}
+        onSelect={onSelect}
+        onInteracting={onInteracting}
       />
 
       <MobileBlueprintAccordion

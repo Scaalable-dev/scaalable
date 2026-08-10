@@ -103,6 +103,34 @@
 
   --color-surface-active: #e4eeff;
 
+  /* Section washes. Blue-leaning rather than grey, so a tinted band reads as
+     belonging to the blue in the logo rather than as unpainted card stock.
+
+     Deliberately stronger than --color-surface-alt (#f8f9fb), which is 2% off
+     white and disappears on most screens — the page it was tinting read as
+     uniformly white from top to bottom. */
+  --color-wash: #eff4fc;
+
+  /* The footer, several steps deeper and turned slightly toward the brand
+     violet. It is the only band on the page that does not return to white,
+     and it is meant to be plainly darker than any section above it rather
+     than a shade you have to look for.
+
+     This is as dark as the ground can go before the page's default ink stops
+     clearing AA on it; the footer answers that by darkening its own text
+     rather than by lightening back. See .fx in Footer.css. */
+  --color-wash-deep: #dae1f6;
+
+  /* The wash gradients themselves are NOT tokens — they are the
+     .section-wash utilities in globals.css. That is not a style preference;
+     a custom property resolves the var()s inside it against the element it is
+     *declared* on, then inherits already-resolved. A gradient token declared
+     here would therefore bake in whatever tint :root had at this point and
+     inherit that everywhere, and a section setting its own tint further down
+     the tree could not change it. Written as a real `background` declaration
+     in a rule that matches the section, the tint resolves per element, which
+     is the whole point. */
+
   /* ========================================================================
      4. TEXT COLORS
      ======================================================================== */
@@ -111,7 +139,11 @@
 
   --color-text-secondary: #475569;
 
-  --color-text-muted: #64748b;
+  /* Darkened from #64748b, which cleared AA on white by 0.26 and failed on
+     every tinted background — including the --color-surface-alt cards it was
+     already being used on. This holds 4.9:1 or better on white, on the
+     section wash and on the footer. */
+  --color-text-muted: #5a6779;
 
   --color-text-disabled: #94a3b8;
 

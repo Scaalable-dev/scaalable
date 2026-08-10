@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { ArrowDown } from "lucide-react";
 
 import "./Contact.css";
@@ -6,6 +6,7 @@ import "./Contact.css";
 import Badge from "../../components/ui/Badge";
 import Button from "../../components/ui/Button";
 import Container from "../../components/ui/Container";
+import AuroraBackdrop from "../../components/ui/AuroraBackdrop";
 import ProductJourney from "./ProductJourney";
 import ContactChannels from "./ContactChannels";
 import InquiryForm from "./InquiryForm";
@@ -16,6 +17,9 @@ import { contactHero, contactSeo } from "./contactData";
 import { applyPageSeo } from "../../lib/pageMeta";
 
 const Contact = () => {
+  /* Read by AuroraBackdrop for pointer position and scroll progress. */
+  const heroRef = useRef(null);
+
   /* No Helmet provider is mounted in main.jsx, so the page metadata is set
      directly — the same approach the home and About pages use. */
   useEffect(() => {
@@ -24,7 +28,10 @@ const Contact = () => {
 
   return (
     <>
-      <section className="contact-hero" id="contact-hero">
+      <section className="contact-hero hero-wash hero-wash--tint" id="contact-hero" ref={heroRef}>
+        {/* The same ambient layer the home and Services heroes carry. */}
+        <AuroraBackdrop targetRef={heroRef} />
+
         <Container>
           <div className="contact-hero__grid">
             {/* ------------------------ Left : Content ------------------------ */}

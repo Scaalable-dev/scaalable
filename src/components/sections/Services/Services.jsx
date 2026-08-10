@@ -14,7 +14,7 @@ import "./Services.css";
 /* The rail itself — motion, dragging and the loop — lives in ServiceRail. */
 const Services = () => {
   return (
-    <section className="services" id="services">
+    <section className="services section-wash" id="services">
       <div className="services__background" aria-hidden="true"></div>
 
       <Container>

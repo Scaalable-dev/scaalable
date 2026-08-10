@@ -18,8 +18,13 @@ const SWAP_MS = 180;
 
 const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
 
+/* Where the panel becomes a swipeable carousel. Matches the breakpoint at
+   which Process.css already drops the panel to a single column. */
+const COMPACT_QUERY = "(max-width: 767px)";
+
 const ProcessSection = () => {
   const reduceMotion = useMediaQuery(REDUCED_MOTION_QUERY);
+  const isCompact = useMediaQuery(COMPACT_QUERY);
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [phase, setPhase] = useState("in");
@@ -55,8 +60,13 @@ const ProcessSection = () => {
       };
 
       /* No cross-fade to run — swap immediately rather than dimming the panel
-         for the length of a transition that will not happen. */
-      if (reduceMotion) {
+         for the length of a transition that will not happen.
+
+         The compact layout is in the same position for a different reason:
+         there the carousel's own scroll is the transition, and holding the
+         stage back for the fade window would put a visible lag between the
+         Next button and the card moving. */
+      if (reduceMotion || isCompact) {
         commit();
         return;
       }
@@ -66,7 +76,7 @@ const ProcessSection = () => {
       setPhase("out");
       swapTimer.current = setTimeout(commit, SWAP_MS);
     },
-    [activeIndex, reduceMotion],
+    [activeIndex, isCompact, reduceMotion],
   );
 
   const active = stages[activeIndex];
@@ -117,6 +127,8 @@ const ProcessSection = () => {
           stage={active}
           activeIndex={activeIndex}
           phase={phase}
+          isCompact={isCompact}
+          reduceMotion={reduceMotion}
           onSelect={goTo}
         />
       </Container>

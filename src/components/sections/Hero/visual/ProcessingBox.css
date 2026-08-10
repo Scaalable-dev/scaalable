@@ -332,21 +332,17 @@
    RIGHT CHEEK
    ========================================================================== */
 
+/* An empty shaded panel. The flex column, gap and inline padding that used to
+   lay out the vent bars went with them — the width still has to be reserved
+   because .pbox__face pads its content clear of this panel by that same
+   measurement. */
 .pbox__cheek {
   position: absolute;
   right: 0;
   top: 0;
 
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-
-  gap: max(2px, calc(var(--pbox-w) * 0.024));
-
   width: max(11px, calc(var(--pbox-w) * 0.13));
   height: 100%;
-
-  padding-inline: max(3px, calc(var(--pbox-w) * 0.028));
 
   border-left: 1px solid rgba(255, 255, 255, 0.85);
 
@@ -354,20 +350,6 @@
     90deg,
     rgba(var(--pbox-accent-rgb), 0.2),
     rgba(var(--pbox-accent-rgb), 0.1)
-  );
-
-  transition: background var(--transition-slow);
-}
-
-.pbox__vent {
-  height: 2px;
-
-  border-radius: var(--radius-full);
-
-  background: linear-gradient(
-    90deg,
-    rgba(var(--pbox-accent-rgb), 0.55),
-    rgba(137, 57, 250, 0.22)
   );
 
   transition: background var(--transition-slow);
@@ -512,6 +494,22 @@
 /* ==========================================================================
    REDUCED MOTION
    ========================================================================== */
+
+/* ==========================================================================
+   SMALL SCREENS
+   ========================================================================== */
+
+/* The face gains 1% of its height on phones. Every other dimension still
+   derives from --pbox-w, so overriding the one custom property is the whole
+   change — the lid, the cheek and the shadow follow on their own.
+
+   768px matches the breakpoint the rest of the hero treats as mobile, in
+   Hero.css and in RadiationCanvas's own media query. */
+@media (max-width: 768px) {
+  .pbox {
+    --pbox-face-h: calc(var(--pbox-w) * 0.42 * 1.01);
+  }
+}
 
 @media (prefers-reduced-motion: reduce) {
   .pbox__face-sheen,

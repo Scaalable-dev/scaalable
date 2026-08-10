@@ -18,7 +18,7 @@ const FAQ = () => {
   };
 
   return (
-    <section className="faq" id="faq">
+    <section className="faq section-wash" id="faq">
       <div className="container">
         <div className="faq__layout">
           <Reveal className="faq__aside" direction="right">

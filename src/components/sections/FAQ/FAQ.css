@@ -2,10 +2,10 @@
    FAQ SECTION
    ========================================================================== */
 
+/* Washed, alternating with the plain Process section above it. The tint
+   itself comes from the .section-wash utility on the element. */
 .faq {
   position: relative;
-
-  background: var(--color-background);
 }
 
 .faq__layout {

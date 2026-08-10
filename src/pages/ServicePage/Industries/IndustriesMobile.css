@@ -119,6 +119,63 @@
 }
 
 /* ==========================================================================
+   SELECTED INDUSTRY CARD — SWIPEABLE
+
+   Every industry in a row that snaps, one card per screen. The gesture is the
+   browser's own: scroll-snap gives momentum, end-of-list rubber banding and a
+   card that tracks the finger, which a hand-rolled drag handler does not
+   reproduce convincingly on a phone. The two-way sync between scroll position
+   and selection lives in hooks/useSnapCarousel.js.
+   ========================================================================== */
+
+.indm-swipe__track {
+  /* Positioned, so a slide's offsetLeft is measured against the track — the
+     hook compares that to scrollLeft to work out which card landed. */
+  position: relative;
+
+  /* Inherited from .indm-card, which no longer carries it inside the track. */
+  margin-top: clamp(1rem, 4vw, 1.35rem);
+
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 100%;
+
+  gap: clamp(0.75rem, 3vw, 1rem);
+
+  overflow-x: auto;
+
+  scroll-snap-type: x mandatory;
+
+  /* Stops a swipe past the last card turning into a browser back gesture or a
+     bounce of the page behind it. */
+  overscroll-behavior-x: contain;
+
+  /* `touch-action` is deliberately not set. Constraining it to pan-x would
+     stop a vertical drag that started on a card from scrolling the page. */
+
+  scrollbar-width: none;
+}
+
+.indm-swipe__track::-webkit-scrollbar {
+  display: none;
+}
+
+/* The grid stretches every column to the tallest card on its own, so industries
+   with shorter copy do not resize the section as they scroll past. The card
+   fills the slide it was given rather than sitting at its own height. */
+.indm-swipe__slide {
+  display: grid;
+
+  scroll-snap-align: start;
+}
+
+/* The margin belongs to the track now — carried per card it would indent
+   every slide inside the row instead of separating the row from the rail. */
+.indm-swipe__track .indm-card {
+  margin-top: 0;
+}
+
+/* ==========================================================================
    SELECTED INDUSTRY CARD
    ========================================================================== */
 

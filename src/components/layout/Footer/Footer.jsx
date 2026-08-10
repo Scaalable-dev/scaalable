@@ -19,12 +19,16 @@ import {
 import "./Footer.css";
 
 /**
- * System grid footer.
+ * Footer.
  *
- * Three areas: a brand masthead, a three-column system grid, and a bottom rail.
- * Everything here is static — the technical character comes from the linework,
- * the numbered column markers and the spacing, not from motion. There is no
- * transition or keyframe in the stylesheet.
+ * One row of columns — the brand block and the link lists side by side,
+ * separated by hairline rules — over a bottom bar carrying the copyright and
+ * the legal links. It is the only band on the page that keeps its tint rather
+ * than draining back to white, which is what gives the page a bottom.
+ *
+ * The social links sit in the brand block rather than the bottom bar: they
+ * belong to the identity above them, and the bar reads as a single quiet line
+ * once it holds only the copyright and the legal set.
  */
 const Footer = () => {
   const [modalType, setModalType] = useState(null);
@@ -33,8 +37,8 @@ const Footer = () => {
     <>
       <footer className="fx">
         <Container>
-          {/* ==================== 1. Brand masthead ==================== */}
-          <div className="fx__masthead">
+          {/* ==================== 1. Columns ==================== */}
+          <div className="fx__grid">
             <div className="fx__brand">
               {/* No aria-label: the wordmark and tagline are the visible
                   name, and an accessible name that differs from them fails
@@ -52,38 +56,43 @@ const Footer = () => {
                 Strategy, design, engineering, AI, and growth—working as one
                 digital partner.
               </p>
-            </div>
 
-            <div className="fx__cta">
               <Button
                 as={Link}
                 to="/contact#contact-form"
+                className="fx__cta"
                 endIcon={
                   <ArrowUpRight size={17} strokeWidth={2.2} aria-hidden="true" />
                 }
               >
                 Start a project
               </Button>
-            </div>
-          </div>
 
-          {/* ==================== 2. System grid ==================== */}
-          <div className="fx__grid">
+              <ul className="fx__social">
+                {socialLinks.map(({ id, icon: Icon, title, href }) => (
+                  <li key={id}>
+                    <a
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={title}
+                    >
+                      <Icon size={17} aria-hidden="true" />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
             <nav className="fx__col" aria-labelledby="fx-navigate">
               <p className="fx__label" id="fx-navigate">
-                <span className="fx__tick" aria-hidden="true" />
-                01 / Navigate
+                Navigate
               </p>
 
               <ul className="fx__links">
                 {navigateLinks.map(({ id, title, to }) => (
                   <li key={id}>
-                    <Link to={to}>
-                      <span className="fx__slash" aria-hidden="true">
-                        /
-                      </span>
-                      {title}
-                    </Link>
+                    <Link to={to}>{title}</Link>
                   </li>
                 ))}
               </ul>
@@ -94,40 +103,32 @@ const Footer = () => {
               aria-labelledby="fx-capabilities"
             >
               <p className="fx__label" id="fx-capabilities">
-                <span className="fx__tick" aria-hidden="true" />
-                02 / Capabilities
+                Capabilities
               </p>
 
               <ul className="fx__links fx__links--split">
                 {capabilityLinks.map(({ id, title, to }) => (
                   <li key={id}>
-                    <Link to={to}>
-                      <span className="fx__slash" aria-hidden="true">
-                        /
-                      </span>
-                      {title}
-                    </Link>
+                    <Link to={to}>{title}</Link>
                   </li>
                 ))}
               </ul>
             </nav>
 
             <div className="fx__col fx__col--connect">
-              <p className="fx__label">
-                <span className="fx__tick" aria-hidden="true" />
-                03 / Connect
-              </p>
+              <p className="fx__label">Get In Touch</p>
 
               <address className="fx__address">
                 {contactInfo.map(({ id, icon: Icon, label, value, href }) => (
                   <p className="fx__contact" key={id}>
-                    <Icon size={16} strokeWidth={1.9} aria-hidden="true" />
+                    {/* The icon sits in its own chip rather than inline with
+                        the text, so the three rows align on one edge whatever
+                        the glyph's width. */}
+                    <span className="fx__contact-icon" aria-hidden="true">
+                      <Icon size={15} strokeWidth={1.9} />
+                    </span>
 
-                    {href ? (
-                      <a href={href}>{value}</a>
-                    ) : (
-                      <span>{value}</span>
-                    )}
+                    {href ? <a href={href}>{value}</a> : <span>{value}</span>}
 
                     <span className="visually-hidden">{label}</span>
                   </p>
@@ -136,23 +137,8 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* ==================== 3. Bottom rail ==================== */}
+          {/* ==================== 2. Bottom bar ==================== */}
           <div className="fx__rail">
-            <ul className="fx__social">
-              {socialLinks.map(({ id, icon: Icon, title, href }) => (
-                <li key={id}>
-                  <a
-                    href={href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={title}
-                  >
-                    <Icon size={18} aria-hidden="true" />
-                  </a>
-                </li>
-              ))}
-            </ul>
-
             <p className="fx__copyright">
               © {new Date().getFullYear()} Scaalable. All rights reserved.
             </p>

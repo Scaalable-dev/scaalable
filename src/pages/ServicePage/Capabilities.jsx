@@ -144,7 +144,7 @@ const Capabilities = () => {
   };
 
   return (
-    <section className="cap" id="capabilities" aria-label="Capabilities">
+    <section className="cap section-wash--out" id="capabilities" aria-label="Capabilities">
       <Container>
         <SectionHeading
           className="cap__heading"

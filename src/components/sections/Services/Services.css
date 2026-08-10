@@ -10,8 +10,10 @@
   overflow-x: clip;
   isolation: isolate;
 
-  /* Tinted surface breaks the run of white sections either side of it. */
-  background: linear-gradient(180deg, #ffffff 0%, #f7f9fd 18%, #f7f9fd 82%, #ffffff 100%);
+  /* Washed via the .section-wash utility on the element. This section
+     invented the blend-in, blend-out gradient the rest of the page now
+     shares; its old local #f7f9fd was 2% off white and never actually broke
+     the run of white it was meant to break. */
 }
 
 .services__background {

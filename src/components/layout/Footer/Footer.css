@@ -1,22 +1,38 @@
 /* ==========================================================================
-   SYSTEM GRID FOOTER
+   FOOTER
 
-   Three areas — brand masthead, system grid, bottom rail — held together by
-   linework rather than by cards. Deliberately static: there is no transition
-   and no keyframe in this file, and hover states change colour immediately.
+   One row of columns — brand block, then the link lists — separated by
+   hairline rules, over a bottom bar. Held together by linework rather than by
+   cards. Deliberately static: there is no transition and no keyframe in this
+   file, and hover states change colour immediately.
    ========================================================================== */
 
 .fx {
+  /* On this deeper ground the page's default ink loses contrast, so the
+     footer darkens its own — one step along the same scales, scoped here so
+     nothing else on the site is touched.
+
+     Muted at #5a6779 fell to 4.4:1 on --color-wash-deep, and brand text at
+     #0082f9 to 2.9:1. Both clear AA again at these values. */
+  --color-text-muted: #525f74;
+
+  /* Brand-coloured *text*: labels, the wordmark, hovers. The contact chips
+     keep the brighter --color-brand-primary because they sit on white. */
+  --fx-brand-ink: var(--color-brand-700);
+
   position: relative;
 
   /* No top border and no margin: the footer starts in the page's own colour
      and settles into its surface over the first stretch, so there is no edge
      to see at all — not a rule, not a wave, not a step. The pages above all
-     end on --color-background, which is where this gradient begins. */
+     end on --color-background, which is where this gradient begins.
+
+     Unlike a section wash it does not drain back to white, because nothing
+     follows it. That is what gives the page a bottom. */
   background: linear-gradient(
     180deg,
     var(--color-background) 0%,
-    var(--color-surface-alt) 22%
+    var(--color-wash-deep) 18%
   );
 }
 
@@ -40,22 +56,30 @@
 }
 
 /* ==========================================================================
-   1. BRAND MASTHEAD
+   1. COLUMNS
    ========================================================================== */
 
-.fx__masthead {
-  position: relative;
-
+/* Columns are separated by space and by the accent above each label, not by
+   rules. Full-height hairlines drew four hard verticals through the quietest
+   part of the page and made the grid the loudest thing in it — the eye should
+   land on the headings, and whitespace groups these lists perfectly well. */
+.fx__grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: center;
+  grid-template-columns:
+    minmax(0, 1.5fr) minmax(0, 0.75fr)
+    minmax(0, 1.6fr) minmax(0, 1.15fr);
 
-  gap: clamp(1.25rem, 3vw, 2.5rem);
+  column-gap: clamp(1.75rem, 4vw, 4.5rem);
+  row-gap: clamp(2.25rem, 4vw, 3rem);
 
   /* Generous at the top: that stretch is where the background is still the
      page's colour, and it is what the blend needs to happen in. */
-  padding-block: clamp(3rem, 5vw, 4.5rem) clamp(1.5rem, 2.6vw, 2rem);
+  padding-block: clamp(3rem, 5vw, 4.5rem) clamp(2rem, 3.5vw, 3rem);
 }
+
+/* ==========================================================================
+   BRAND BLOCK
+   ========================================================================== */
 
 .fx__brand {
   position: relative;
@@ -93,9 +117,14 @@
 
   letter-spacing: 0.02em;
 
-  color: var(--color-brand-primary);
+  /* The logo mark beside it carries the brighter brand blue, so the wordmark
+     going a shade deeper here reads as weight rather than as a colour shift —
+     and #0082f9 sat at 2.9:1 on this ground. */
+  color: var(--fx-brand-ink);
 }
 
+/* --color-text-disabled here read at 2.6:1, well under AA — and this is
+   visible brand copy, not a disabled control. */
 .fx__tagline {
   font-size: 0.62rem;
   font-weight: var(--font-weight-semibold);
@@ -103,13 +132,13 @@
   letter-spacing: 0.22em;
   text-transform: uppercase;
 
-  color: var(--color-text-disabled);
+  color: var(--color-text-muted);
 }
 
 .fx__summary {
-  max-width: 33rem;
+  max-width: 26rem;
 
-  margin: 0.9rem 0 0;
+  margin: 1rem 0 0;
 
   font-size: 0.92rem;
 
@@ -119,50 +148,68 @@
 }
 
 .fx__cta {
-  position: relative;
-  z-index: 1;
-
-  justify-self: end;
+  margin-top: 1.35rem;
 }
 
 /* ==========================================================================
-   2. SYSTEM GRID
+   SOCIAL
    ========================================================================== */
 
-.fx__grid {
-  display: grid;
-  grid-template-columns: 24% 42% 34%;
-
-  border-top: 1px solid var(--color-border-light);
-  border-bottom: 1px solid var(--color-border-light);
-}
-
-.fx__col {
-  padding-block: clamp(1.5rem, 2.6vw, 2rem);
-  padding-inline: clamp(1rem, 2.2vw, 2rem);
-}
-
-.fx__col:first-child {
-  padding-left: 0;
-}
-
-.fx__col:last-child {
-  padding-right: 0;
-}
-
-/* Dividers between columns, not around them — the grid is the structure. */
-.fx__col + .fx__col {
-  border-left: 1px solid var(--color-border-light);
-}
-
-/* Numbered column markers. */
-.fx__label {
+.fx__social {
   display: flex;
-  align-items: center;
+  flex-wrap: wrap;
 
   gap: 0.5rem;
 
-  margin: 0 0 1.1rem;
+  margin: 1.5rem 0 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.fx__social a {
+  display: grid;
+  place-items: center;
+
+  /* Comfortable target on a phone. */
+  width: 2.5rem;
+  height: 2.5rem;
+
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-full);
+
+  /* White chips read as lifted off the tinted ground; on the old white
+     footer the same fill was invisible. */
+  background: var(--color-surface);
+
+  color: var(--color-text-secondary);
+}
+
+.fx__social a:hover,
+.fx__social a:focus-visible {
+  border-color: rgba(var(--color-brand-primary-rgb), 0.45);
+
+  color: var(--color-brand-primary);
+}
+
+.fx__social a:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
+   COLUMN LABELS
+   ========================================================================== */
+
+/* A short brand rule above each heading. It does the work the full-height
+   dividers were doing — marking where a column starts — in a mark the width
+   of a word rather than a line the height of the footer. */
+.fx__label {
+  position: relative;
+
+  margin: 0 0 1.35rem;
+
+  padding-top: 0.9rem;
 
   font-size: 0.68rem;
   font-weight: var(--font-weight-semibold);
@@ -170,11 +217,16 @@
   letter-spacing: 0.16em;
   text-transform: uppercase;
 
-  color: var(--color-text-muted);
+  color: var(--fx-brand-ink);
 }
 
-.fx__tick {
-  width: 1.35rem;
+.fx__label::before {
+  content: "";
+
+  position: absolute;
+  top: 0;
+
+  width: 1.75rem;
   height: 2px;
 
   border-radius: var(--radius-full);
@@ -194,7 +246,7 @@
   display: flex;
   flex-direction: column;
 
-  gap: 0.6rem;
+  gap: 0.7rem;
 
   margin: 0;
   padding: 0;
@@ -202,18 +254,24 @@
   list-style: none;
 }
 
+/* Two columns that fill downwards, not across.
+
+   Row-wise flow made every row as tall as its tallest item, so a two-line
+   entry opposite a one-line entry left a gap the eye read as a missing link.
+   Filling down keeps the leading even and lets the two columns end at
+   different heights, which is what a list of uneven items should do. */
 .fx__links--split {
   display: grid;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(4, auto);
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-content: start;
 
-  column-gap: 1.25rem;
+  column-gap: clamp(1rem, 2vw, 1.75rem);
 }
 
 .fx__links a {
-  display: inline-flex;
-  align-items: baseline;
-
-  gap: 0.45rem;
+  display: inline-block;
 
   font-size: 0.9rem;
 
@@ -228,7 +286,7 @@
    frame the pointer arrives, with no transition to ease them in. */
 .fx__links a:hover,
 .fx__links a:focus-visible {
-  color: var(--color-text-primary);
+  color: var(--fx-brand-ink);
 
   text-decoration: underline;
   text-underline-offset: 3px;
@@ -241,24 +299,15 @@
   border-radius: var(--radius-xs);
 }
 
-/* The marker replaces a bullet. */
-.fx__slash {
-  flex-shrink: 0;
-
-  font-weight: var(--font-weight-semibold);
-
-  color: rgba(var(--color-brand-primary-rgb), 0.55);
-}
-
 /* ==========================================================================
-   CONNECT
+   GET IN TOUCH
    ========================================================================== */
 
 .fx__address {
   display: flex;
   flex-direction: column;
 
-  gap: 0.7rem;
+  gap: 0.85rem;
 
   /* <address> is italic by default in every browser. */
   font-style: normal;
@@ -268,7 +317,7 @@
   display: flex;
   align-items: center;
 
-  gap: 0.6rem;
+  gap: 0.7rem;
 
   margin: 0;
 
@@ -277,8 +326,21 @@
   color: var(--color-text-secondary);
 }
 
-.fx__contact svg {
+/* The glyph gets a chip of its own so the three rows align on one edge
+   whatever the icon's natural width. */
+.fx__contact-icon {
+  display: grid;
+  place-items: center;
+
   flex-shrink: 0;
+
+  width: 1.9rem;
+  height: 1.9rem;
+
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-full);
+
+  background: var(--color-surface);
 
   color: var(--color-brand-primary);
 }
@@ -295,7 +357,7 @@
 
 .fx__contact a:hover,
 .fx__contact a:focus-visible {
-  color: var(--color-text-primary);
+  color: var(--fx-brand-ink);
 
   text-decoration: underline;
   text-underline-offset: 3px;
@@ -309,65 +371,26 @@
 }
 
 /* ==========================================================================
-   3. BOTTOM RAIL
+   2. BOTTOM BAR
    ========================================================================== */
 
 .fx__rail {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
-  align-items: center;
-
-  gap: 1rem;
-
-  padding-block: clamp(1.25rem, 2vw, 1.5rem);
-}
-
-.fx__social {
   display: flex;
+  align-items: center;
+  justify-content: space-between;
   flex-wrap: wrap;
 
-  gap: 0.5rem;
+  gap: 0.75rem 1.5rem;
 
-  margin: 0;
-  padding: 0;
+  padding-block: clamp(1.25rem, 2vw, 1.5rem);
 
-  list-style: none;
-}
-
-.fx__social a {
-  display: grid;
-  place-items: center;
-
-  /* Comfortable target on a phone. */
-  width: 2.5rem;
-  height: 2.5rem;
-
-  border: 1px solid var(--color-border-light);
-  border-radius: var(--radius-full);
-
-  background: var(--color-surface);
-
-  color: var(--color-text-secondary);
-}
-
-.fx__social a:hover,
-.fx__social a:focus-visible {
-  border-color: rgba(var(--color-brand-primary-rgb), 0.45);
-
-  color: var(--color-brand-primary);
-}
-
-.fx__social a:focus-visible {
-  outline: 2px solid var(--color-border-focus);
-  outline-offset: 2px;
+  border-top: 1px solid var(--color-border-light);
 }
 
 .fx__copyright {
   margin: 0;
 
   font-size: 0.82rem;
-
-  text-align: center;
 
   color: var(--color-text-muted);
 }
@@ -377,7 +400,7 @@
   flex-wrap: wrap;
   justify-content: flex-end;
 
-  gap: 0.35rem 1rem;
+  gap: 0.35rem 1.5rem;
 
   margin: 0;
   padding: 0;
@@ -402,7 +425,7 @@
 
 .fx__legal button:hover,
 .fx__legal button:focus-visible {
-  color: var(--color-text-primary);
+  color: var(--fx-brand-ink);
 
   text-decoration: underline;
   text-underline-offset: 3px;
@@ -416,85 +439,103 @@
 }
 
 /* ==========================================================================
-   TABLET — 900px and below
+   RESPONSIVE
+
+   Four steps, each one dropping the arrangement a column at a time rather
+   than collapsing straight to a stack. Nothing here has to unpick dividers,
+   because there are none — only the track counts change.
    ========================================================================== */
 
-@media (max-width: 900px) {
+/* Laptop — the brand block takes its own row and the three lists share the
+   one beneath. Four columns of this content stop fitting well above the
+   tablet breakpoint, mostly because Capabilities needs the width. */
+@media (max-width: 1080px) {
   .fx__grid {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-columns:
+      minmax(0, 0.8fr) minmax(0, 1.7fr)
+      minmax(0, 1.15fr);
   }
 
-  /* Connect spans the full width beneath the other two, so it takes a rule
-     above it rather than one at its side. */
-  .fx__col--connect {
+  .fx__brand {
     grid-column: 1 / -1;
 
-    border-top: 1px solid var(--color-border-light);
-    border-left: 0;
+    /* The one rule kept anywhere in the grid. Here it is separating rows
+       rather than columns, which is the reading order — everything below it
+       is a list, everything above it is the identity. */
+    padding-bottom: clamp(2rem, 3.5vw, 2.75rem);
 
-    padding-left: 0;
+    border-bottom: 1px solid var(--color-border-light);
   }
 
-  .fx__col--capabilities {
-    padding-right: 0;
+  .fx__summary {
+    max-width: 34rem;
   }
 }
 
-@media (max-width: 760px) {
-  .fx__masthead {
+/* Tablet — Navigate and Capabilities share the row, Get In Touch takes the
+   next one whole so its three chip rows are never squeezed. */
+@media (max-width: 800px) {
+  .fx__grid {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.6fr);
+  }
+
+  .fx__col--connect {
+    grid-column: 1 / -1;
+  }
+
+  /* Wide again on its own row, so the contact rows can sit side by side
+     instead of running down a narrow column. */
+  .fx__address {
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    gap: 0.85rem 2rem;
+  }
+}
+
+/* Mobile — one column throughout. */
+@media (max-width: 560px) {
+  .fx__grid {
     grid-template-columns: minmax(0, 1fr);
+
+    row-gap: clamp(1.75rem, 6vw, 2.25rem);
   }
 
-  .fx__cta {
-    justify-self: start;
-  }
-}
-
-/* ==========================================================================
-   MOBILE — 620px and below
-   ========================================================================== */
-
-@media (max-width: 620px) {
+  /* Back to a single run: two columns of link text at this width leaves
+     every other entry wrapping mid-phrase. */
   .fx__links--split {
+    grid-auto-flow: row;
+    grid-template-rows: auto;
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .fx__address {
+    flex-direction: column;
   }
 
   .fx__rail {
-    grid-template-columns: minmax(0, 1fr);
-    justify-items: start;
+    justify-content: flex-start;
 
     gap: 1.1rem;
-  }
-
-  .fx__copyright {
-    text-align: left;
   }
 
   .fx__legal {
     justify-content: flex-start;
   }
-}
-
-/* ==========================================================================
-   NARROW — 400px and below
-   ========================================================================== */
-
-@media (max-width: 400px) {
-  .fx__grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  /* One column, so every divider becomes horizontal. */
-  .fx__col {
-    padding-inline: 0;
-  }
-
-  .fx__col + .fx__col {
-    border-top: 1px solid var(--color-border-light);
-    border-left: 0;
-  }
 
   .fx__summary {
     font-size: 0.88rem;
+  }
+}
+
+/* Narrow — the CTA stops being a shrink-wrapped button and takes the width,
+   which is the only size that still reads as a target on a 320px screen. */
+@media (max-width: 400px) {
+  .fx__cta {
+    width: 100%;
+  }
+
+  .fx__social {
+    gap: 0.45rem;
   }
 }

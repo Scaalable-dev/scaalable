@@ -250,3 +250,81 @@ html.is-hero-snapping body {
     scroll-snap-type: none;
   }
 }
+
+/* ==========================================================================
+   SECTION WASH
+
+   The alternating tinted bands. Each opens and closes on --color-background,
+   so two consecutive sections always meet at exactly the same colour and no
+   edge is ever drawn between them — the tint swells through the middle of a
+   section and drains away before it ends. A washed section can therefore sit
+   next to an untinted one, or next to another washed one, with no seam
+   either way.
+
+   These are utility classes rather than custom properties on purpose. A
+   gradient held in a custom property resolves the var()s inside it against
+   the element it is declared on and then inherits already-resolved, so a
+   token declared on :root bakes in :root's tint — a section setting its own
+   tint further down cannot change it, and every washed section silently
+   paints the page background instead. Declared here as a real `background`
+   in a rule that matches the section, --section-wash resolves per element.
+
+   Sections may override --section-wash; it defaults to the standard tint.
+   ========================================================================== */
+
+.section-wash {
+  background: linear-gradient(
+    180deg,
+    var(--color-background) 0%,
+    var(--section-wash, var(--color-wash)) 12%,
+    var(--section-wash, var(--color-wash)) 88%,
+    var(--color-background) 100%
+  );
+}
+
+/* Opens at full tint instead of fading in, for the section sitting directly
+   under a hero that ends on the tint. The two then read as one fall of colour
+   rather than as a tinted hero, a white pinch, and a tinted section — that
+   pale band between them is what looks like a divider even though nothing
+   draws a line.
+
+   This pairs with .hero-wash--tint. Both ends take their colour from
+   --color-wash, so the join cannot drift the way it did when each side
+   carried its own hand-picked hex. */
+.section-wash--out {
+  background: linear-gradient(
+    180deg,
+    var(--section-wash, var(--color-wash)) 0%,
+    var(--section-wash, var(--color-wash)) 22%,
+    var(--color-background) 100%
+  );
+}
+
+/* The hero ground: a soft rise to the section tint through the middle. Shared
+   by all three heroes so they are provably the same, rather than three
+   hand-tuned gradients that drift apart.
+
+   Where it finishes is the load-bearing part, and it depends on what comes
+   next. By default it returns to white, which is right when a white section
+   follows — the home hero runs into the tech strip. */
+.hero-wash {
+  background: linear-gradient(
+    180deg,
+    var(--color-background) 0%,
+    #fbfcff 38%,
+    var(--color-wash) 74%,
+    var(--hero-wash-end, var(--color-background)) 100%
+  );
+}
+
+/* Holds the tint all the way to the bottom edge instead, for a hero whose
+   next section opens on it — Services into Capabilities, Contact into
+   Channels, both carrying .section-wash--out. The colour then falls straight
+   through the join with nothing pale in between.
+
+   Safe as a custom property because it is consumed by a real `background`
+   declaration on the element that sets it, not stored inside another token —
+   which is the trap that made the section washes paint white. */
+.hero-wash--tint {
+  --hero-wash-end: var(--color-wash);
+}

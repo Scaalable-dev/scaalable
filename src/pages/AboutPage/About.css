@@ -13,6 +13,10 @@
    ========================================================================== */
 
 .about {
+  /* Named because the section washes below have to reach half of it in each
+     direction to meet each other; see the SECTION WASH block. */
+  --about-gap: clamp(3.5rem, 6vw, 5.5rem);
+
   position: relative;
 
   /* `clip`, not `hidden`. Both contain the hero's overscanning glow, but
@@ -37,7 +41,7 @@
   display: flex;
   flex-direction: column;
 
-  gap: clamp(3.5rem, 6vw, 5.5rem);
+  gap: var(--about-gap);
 }
 
 /* The specificity here is deliberate and narrow: :where() zeroes the page
@@ -49,6 +53,60 @@
    flatten every one of those panels. */
 :where(.about) > div > section {
   padding-block: 0;
+}
+
+/* ==========================================================================
+   SECTION WASH
+
+   The alternating tinted bands the rest of the site uses, adapted to this
+   page's structure. Two things make it different here:
+
+   - Every section is nested inside one .container, so a background set on a
+     section would stop at the container's edge — a floating tinted box
+     rather than a band reaching across the page.
+   - The rule above strips their padding, so that box would also hug the type
+     exactly, with no room for the gradient to fade in.
+
+   Both are answered by painting the wash from a pseudo-element instead: it
+   breaks out to the full viewport width, and extends half the section gap
+   above and below so consecutive bands tile edge to edge and the fade lands
+   in the space between sections rather than against the text.
+
+   100vw is safe only because .about clips its overflow — without that, the
+   scrollbar's width would open a horizontal scroll on the document. */
+.abt-flow,
+.abt-why,
+.abt-work {
+  position: relative;
+}
+
+.abt-flow::before,
+.abt-why::before,
+.abt-work::before {
+  content: "";
+
+  position: absolute;
+  inset-block: calc(var(--about-gap) / -2);
+  left: 50%;
+
+  /* Behind the section's own content. .about sets no background of its own,
+     so nothing between here and the page ground can hide it. */
+  z-index: -1;
+
+  width: 100vw;
+
+  transform: translateX(-50%);
+
+  /* Written out rather than taking the .section-wash utility, because the
+     band is painted by a pseudo-element and a pseudo cannot carry a class.
+     Same stops as that utility — keep the two in step. */
+  background: linear-gradient(
+    180deg,
+    var(--color-background) 0%,
+    var(--color-wash) 12%,
+    var(--color-wash) 88%,
+    var(--color-background) 100%
+  );
 }
 
 /* ==========================================================================

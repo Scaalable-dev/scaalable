@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 /**
  * Resets scroll position on navigation.
  *
- * Fixes two separate browser behaviours:
+ * Fixes three separate behaviours:
  *
  * 1. Reload — browsers restore the previous scroll offset by default, so
  *    refreshing halfway down a page leaves you halfway down. Opting out of
@@ -14,12 +14,24 @@ import { useLocation } from "react-router-dom";
  *    window keeps its old offset when the route swaps. Clicking a nav link
  *    from halfway down would otherwise drop you halfway down the next page.
  *
+ * 3. A link to the route already on screen — the logos link to "/", so on the
+ *    home page nothing about the location changes and no scroll was triggered
+ *    at all. That one scrolls smoothly, since it is a "back to top" rather
+ *    than a page swap; see the `key` note below.
+ *
  * Hash links (`#faq`) are left alone and scrolled to instead, so in-page
  * anchors keep working. The global `scroll-margin-top` on sections handles
  * clearing the sticky header.
  */
 const ScrollToTop = () => {
-  const { pathname, hash } = useLocation();
+  /* `key` is in here for the sake of links that point at the route already on
+     screen — the header and footer logos both link to "/", so on the home page
+     they resolve to the current location. React Router treats that as a
+     replace rather than a push, and `pathname` comes back identical, so an
+     effect watching only the path never re-runs and the click did nothing at
+     all. A replace still mints a fresh `key`, which is the one part of the
+     location that reliably changes. */
+  const { pathname, hash, key } = useLocation();
 
   /* Null on first mount, so a direct load of `/contact#contact-form` counts as
      arriving on a new page rather than as an in-page jump. */
@@ -94,19 +106,28 @@ const ScrollToTop = () => {
     }
 
     /* Instant, not smooth — animating a long scroll while the next page
-       renders reads as a glitch. Overrides html { scroll-behavior: smooth }. */
-    const toTop = () =>
-      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+       renders reads as a glitch. Overrides html { scroll-behavior: smooth }.
 
-    toTop();
+       Re-clicking the route already on screen is the exception. There is no
+       incoming page to race there, and the gesture means "take me back to the
+       top", which is what a smooth scroll says and an instant jump does not. */
+    const behavior = changedPage ? "instant" : "smooth";
+
+    window.scrollTo({ top: 0, left: 0, behavior });
+
+    /* Nothing to correct for when the page did not change, and re-asserting
+       would restart the smooth scroll a frame after it began. */
+    if (!changedPage) return undefined;
 
     /* Re-assert once the browser has laid out the incoming page. Resetting
        during commit alone leaves a small residual offset, because the outgoing
        page's height is still in effect when the first call runs. */
-    const frame = requestAnimationFrame(toTop);
+    const frame = requestAnimationFrame(() =>
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" }),
+    );
 
     return () => cancelAnimationFrame(frame);
-  }, [pathname, hash]);
+  }, [pathname, hash, key]);
 
   return null;
 };

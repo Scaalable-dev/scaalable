@@ -1,0 +1,122 @@
+/* ==========================================================================
+   AURORA BACKDROP
+
+   The ambient layer behind every hero on the site — three blurred brand glows
+   over a masked grid. Lifted out of the home hero so the Services and Contact
+   heroes read as the same page rather than as flatter relatives of it.
+   ========================================================================== */
+
+.aurora {
+  position: absolute;
+
+  /* Overhangs the host on every side: a 100px blur cut off at the element's
+     edge shows a straight line where the glow should have faded out. */
+  inset: -18% -12%;
+
+  z-index: -1;
+
+  pointer-events: none;
+
+  /* Faded out before the host's bottom edge.
+
+     The overhang above is what causes this: the layer extends 18% past the
+     hero on each side, and the hero clips its overflow, so any glow still
+     bright at the cut is sliced square — a hard horizontal line directly
+     under the hero, exactly the divider the ground gradient is shaped to
+     avoid. The hero's own background already resolves to white by then; this
+     makes the glows do the same.
+
+     87% is where the host's bottom edge falls in this element's box: the
+     layer is 136% of the hero's height (18% over at each end), so the hero
+     ends at 118/136 of it. Keep the two in step if the inset changes. */
+  -webkit-mask-image: linear-gradient(
+    180deg,
+    #000 0%,
+    #000 74%,
+    transparent 87%
+  );
+
+  mask-image: linear-gradient(180deg, #000 0%, #000 74%, transparent 87%);
+}
+
+.aurora__glow {
+  position: absolute;
+
+  display: block;
+
+  aspect-ratio: 1;
+
+  border-radius: 50%;
+
+  filter: blur(100px);
+
+  will-change: transform;
+}
+
+.aurora__glow--blue {
+  width: clamp(320px, 42vw, 620px);
+
+  top: 6%;
+  left: -2%;
+
+  background: radial-gradient(
+    circle,
+    rgba(0, 130, 249, 0.34),
+    rgba(0, 130, 249, 0) 68%
+  );
+}
+
+.aurora__glow--violet {
+  width: clamp(300px, 40vw, 580px);
+
+  top: -4%;
+  right: -2%;
+
+  background: radial-gradient(
+    circle,
+    rgba(185, 63, 251, 0.28),
+    rgba(185, 63, 251, 0) 68%
+  );
+}
+
+/* Lifted clear of the fade above rather than left hanging past the bottom
+   edge, where the mask would simply have deleted it. */
+.aurora__glow--cyan {
+  width: clamp(280px, 36vw, 520px);
+
+  bottom: 16%;
+  left: 34%;
+
+  background: radial-gradient(
+    circle,
+    rgba(6, 182, 212, 0.2),
+    rgba(6, 182, 212, 0) 70%
+  );
+}
+
+/* Faint technical grid, faded off at the edges so it never meets them as a
+   hard rectangle. */
+.aurora__mesh {
+  position: absolute;
+  inset: 0;
+
+  display: block;
+
+  background-image:
+    linear-gradient(to right, rgba(26, 26, 46, 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(26, 26, 46, 0.045) 1px, transparent 1px);
+
+  background-size: 64px 64px;
+
+  -webkit-mask-image: radial-gradient(
+    ellipse 70% 55% at 50% 42%,
+    #000 0%,
+    transparent 78%
+  );
+
+  mask-image: radial-gradient(
+    ellipse 70% 55% at 50% 42%,
+    #000 0%,
+    transparent 78%
+  );
+}

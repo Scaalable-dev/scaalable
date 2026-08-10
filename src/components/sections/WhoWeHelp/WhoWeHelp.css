@@ -5,10 +5,10 @@
    from a dark surface.
    ========================================================================== */
 
+/* Washed. First of the alternating tinted bands on the home page — see the
+   .section-wash utility in globals.css for why this leaves no seam. */
 .who-we-help {
   position: relative;
-
-  background: var(--color-background);
 }
 
 /* Badge alone. The shared heading block reserves --space-16 beneath it for a
