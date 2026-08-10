@@ -103,6 +103,45 @@
 
   --color-surface-active: #e4eeff;
 
+  /* Section washes. Blue-leaning rather than grey, so a tinted band reads as
+     belonging to the blue in the logo rather than as unpainted card stock.
+
+     Deliberately stronger than --color-surface-alt (#f8f9fb), which is 2% off
+     white and disappears on most screens — the page it was tinting read as
+     uniformly white from top to bottom. */
+  --color-wash: #eff4fc;
+
+  /* The footer, several steps deeper and turned slightly toward the brand
+     violet. It is the only band on the page that does not return to white,
+     and it is meant to be plainly darker than any section above it rather
+     than a shade you have to look for.
+
+     This is as dark as the ground can go before the page's default ink stops
+     clearing AA on it; the footer answers that by darkening its own text
+     rather than by lightening back. See .fx in Footer.css. */
+  --color-wash-deep: #dae1f6;
+
+  /* The wash recipe, as one gradient every section shares.
+
+     It opens and closes on --color-background, so two consecutive sections
+     always meet at exactly the same colour and no edge is ever drawn between
+     them — the tint simply swells through the middle of a section and drains
+     away before it ends. Sections set --section-wash to opt in; the default
+     resolves to the page colour, which paints nothing.
+
+     Custom properties resolve where they are used, not where they are
+     declared, so a section overriding --section-wash locally re-colours this
+     gradient without redeclaring it. */
+  --section-wash: var(--color-background);
+
+  --gradient-section-wash: linear-gradient(
+    180deg,
+    var(--color-background) 0%,
+    var(--section-wash) 12%,
+    var(--section-wash) 88%,
+    var(--color-background) 100%
+  );
+
   /* ========================================================================
      4. TEXT COLORS
      ======================================================================== */
@@ -111,7 +150,11 @@
 
   --color-text-secondary: #475569;
 
-  --color-text-muted: #64748b;
+  /* Darkened from #64748b, which cleared AA on white by 0.26 and failed on
+     every tinted background — including the --color-surface-alt cards it was
+     already being used on. This holds 4.9:1 or better on white, on the
+     section wash and on the footer. */
+  --color-text-muted: #5a6779;
 
   --color-text-disabled: #94a3b8;
 

@@ -5,10 +5,14 @@
    from a dark surface.
    ========================================================================== */
 
+/* Washed. First of the alternating tinted bands on the home page — see
+   --gradient-section-wash in tokens.css for why this leaves no seam. */
 .who-we-help {
+  --section-wash: var(--color-wash);
+
   position: relative;
 
-  background: var(--color-background);
+  background: var(--gradient-section-wash);
 }
 
 /* Badge alone. The shared heading block reserves --space-16 beneath it for a

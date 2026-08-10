@@ -8,9 +8,9 @@
    All motion is CSS. No canvas, no WebGL, no animation library.
    ========================================================================== */
 
-/* Industries above ends on white, so this starts and ends on white too, with
-   the tint carried in the middle. Whatever section follows is free to begin
-   on the background colour without a visible step. */
+/* Plain, by design. The home page alternates washed and untinted bands, and
+   this is the untinted one between Services and the FAQ — both of which carry
+   --color-wash. See --gradient-section-wash in tokens.css. */
 .proc {
   --proc-accent: var(--color-brand-primary);
   --proc-ease: cubic-bezier(0.22, 1, 0.36, 1);
@@ -26,13 +26,7 @@
   padding-top: clamp(1.5rem, 3vw, 2.6rem);
   padding-bottom: clamp(1.5rem, 3vw, 2.6rem);
 
-  background: linear-gradient(
-    180deg,
-    var(--color-background) 0%,
-    #f7faff 38%,
-    #f7faff 62%,
-    var(--color-background) 100%
-  );
+  background: var(--color-background);
 }
 
 /* ==========================================================================
