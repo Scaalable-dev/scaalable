@@ -125,7 +125,7 @@
      5. BORDER COLORS
      ======================================================================== */
 
-  /* Default border. Input, Textarea, Card and ValueCard reference the bare
+  /* Default border. Input, Textarea and Card reference the bare
      `--color-border` name; without it those declarations are invalid and the
      browser falls back to currentColor, painting dark borders. */
   --color-border: #e5e7eb;
