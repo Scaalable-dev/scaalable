@@ -170,6 +170,85 @@
 }
 
 /* ==========================================================================
+   CTA SHINE
+
+   Scoped to the header's own button — deliberately `.navbar__actions .btn`
+   rather than a variant on Button, so no other button on the site can pick
+   this up. A single highlight crosses the face, then the animation idles for
+   most of its cycle: a sweep that never stopped would read as a loading bar
+   sitting in the header.
+   ========================================================================== */
+
+.navbar__actions .btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.navbar__actions .btn::after {
+  content: "";
+
+  position: absolute;
+  top: -50%;
+  left: -40%;
+
+  width: 34%;
+  height: 200%;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.55),
+    transparent
+  );
+
+  opacity: 0;
+
+  transform: rotate(18deg);
+
+  pointer-events: none;
+
+  /* Linear on purpose. An eased curve front-loads the travel, which threw the
+     highlight off the far edge inside about 300ms — technically animating,
+     but too quick to read as anything. */
+  animation: navbar-cta-shine 5.5s linear infinite;
+}
+
+@keyframes navbar-cta-shine {
+  0% {
+    opacity: 0;
+    transform: translateX(0) rotate(18deg);
+  }
+
+  5% {
+    opacity: 1;
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  /* Across in about 1.3s, then still for the remaining four — the pause is
+     what keeps it from reading as a loading bar parked in the header. */
+  24% {
+    opacity: 0;
+    transform: translateX(600%) rotate(18deg);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(600%) rotate(18deg);
+  }
+}
+
+/* A highlight that crosses the button on a loop is exactly the kind of
+   motion this setting is for. */
+@media (prefers-reduced-motion: reduce) {
+  .navbar__actions .btn::after {
+    display: none;
+  }
+}
+
+/* ==========================================================================
    MOBILE TOGGLE
    ========================================================================== */
 

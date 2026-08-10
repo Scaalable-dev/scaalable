@@ -51,24 +51,24 @@ const MAPS_EMBED_URL = `https://maps.google.com/maps?q=${encodeURIComponent(
 )}&z=17&hl=en&output=embed`;
 
 export const contactHero = {
-  badge: "Get in Touch with Scaalable",
+  badge: "Get in touch",
 
-  title: "Automating business operations with",
+  title: "Let’s move your next",
 
-  titleHighlight: "AI-powered workflows.",
+  titleHighlight: "digital project forward.",
 
   paragraphs: [
-    "Whether you're looking to develop custom software, build a high-performance website, improve your digital marketing, implement AI automation, or transform your business with modern technology, the Scaalable team is here to help.",
-
-    "We work with startups, small and medium-sized businesses (SMBs), and enterprises to deliver innovative IT solutions, software development, branding, UI/UX design, SEO, cloud services, and performance marketing that drive measurable business growth.",
-
-    "Have a project in mind? Let's discuss your goals and explore the best solution for your business.",
+    "Whether you need a high-performance website, custom software, AI automation, SEO or paid growth support, tell us what you’re working toward. We’ll listen, ask the right questions and help identify the clearest next step.",
   ],
+
+  /* Sits closer to the button than to the paragraph above it — it is about
+     what to do next, not part of the pitch. */
+  supportingLine: "Share a few details below to start the conversation.",
 
   /* In-page anchor: the hero already sits on /contact, so this scrolls down to
      the inquiry form rather than re-navigating to the same route. */
   cta: {
-    text: "Book Free Strategy Call",
+    text: "Discuss Your Project",
     href: "#contact-form",
   },
 };
@@ -280,14 +280,40 @@ export const inquiryForm = {
     "Other",
   ],
 
-  budgets: [
-    "Under ₹50,000",
-    "₹50,000 - ₹1,50,000",
-    "₹1,50,000 - ₹5,00,000",
-    "₹5,00,000 - ₹15,00,000",
-    "Above ₹15,00,000",
-    "Not sure yet",
-  ],
+  /* Two currencies, one set of bands. The dollar figures are the rupee ones
+     converted at roughly ₹83 to $1 and rounded, so a band means the same
+     amount whichever the sender picks — if the rate moves far enough to
+     matter, adjust these rather than adding a third scale. */
+  budget: {
+    currencies: [
+      {
+        id: "INR",
+        symbol: "₹",
+        label: "INR",
+        ranges: [
+          "Under ₹50,000",
+          "₹50,000 - ₹1,50,000",
+          "₹1,50,000 - ₹5,00,000",
+          "₹5,00,000 - ₹15,00,000",
+          "Above ₹15,00,000",
+          "Not sure yet",
+        ],
+      },
+      {
+        id: "USD",
+        symbol: "$",
+        label: "USD",
+        ranges: [
+          "Under $600",
+          "$600 - $1,800",
+          "$1,800 - $6,000",
+          "$6,000 - $18,000",
+          "Above $18,000",
+          "Not sure yet",
+        ],
+      },
+    ],
+  },
 
   industries: [
     "Technology / SaaS",

@@ -1,3 +1,5 @@
+import { ArrowDown } from "lucide-react";
+
 import "./Contact.css";
 
 import Badge from "../../components/ui/Badge";
@@ -40,13 +42,23 @@ const Contact = () => {
                 {contactHero.paragraphs.map((paragraph, index) => (
                   <p key={index}>{paragraph}</p>
                 ))}
+
+                <p className="contact-hero__support">
+                  {contactHero.supportingLine}
+                </p>
               </div>
 
               <div
                 className="contact-hero__actions animate-fade-up"
                 style={{ "--delay": "240ms" }}
               >
-                <Button href={contactHero.cta.href} size="lg">
+                {/* Points down because that is where it goes — the form is
+                    further along this same page, not another route. */}
+                <Button
+                  href={contactHero.cta.href}
+                  size="lg"
+                  endIcon={<ArrowDown size={18} />}
+                >
                   {contactHero.cta.text}
                 </Button>
               </div>

@@ -43,6 +43,89 @@
 }
 
 /* ==========================================================================
+   BUDGET — CURRENCY SWITCH
+
+   Sits on the field's own label row rather than above it as a separate
+   question: it changes how the amounts below are written, it is not another
+   thing to answer.
+   ========================================================================== */
+
+.inquiry__budget {
+  display: flex;
+  flex-direction: column;
+
+  gap: var(--space-2);
+}
+
+.inquiry__budget-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: var(--space-3);
+}
+
+/* Matches .select-group__label, so the field reads the same as its
+   neighbours despite carrying its own header. */
+.inquiry__budget-label {
+  color: var(--color-text-primary);
+
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.inquiry__currency {
+  display: inline-flex;
+
+  padding: 3px;
+
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-full);
+
+  background: var(--color-surface-alt);
+}
+
+.inquiry__currency-option {
+  padding: 0.3rem 0.7rem;
+
+  border: 0;
+  border-radius: var(--radius-full);
+
+  background: transparent;
+
+  color: var(--color-text-secondary);
+
+  font-size: 0.75rem;
+  font-weight: 600;
+
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+
+  cursor: pointer;
+
+  transition:
+    background var(--transition-normal),
+    color var(--transition-normal);
+}
+
+.inquiry__currency-option:hover {
+  color: var(--color-text-primary);
+}
+
+.inquiry__currency-option[aria-pressed="true"] {
+  background: var(--color-surface);
+
+  box-shadow: var(--shadow-xs);
+
+  color: var(--color-brand-600);
+}
+
+.inquiry__currency-option:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 1px;
+}
+
+/* ==========================================================================
    PREFERRED CONTACT METHOD
    ========================================================================== */
 

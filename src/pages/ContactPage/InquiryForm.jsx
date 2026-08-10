@@ -16,6 +16,16 @@ import { inquiryForm } from "./contactData";
 const InquiryForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  /* Rupees first — the business is based in India — with dollars a tap away
+     for everyone else. */
+  const [currencyId, setCurrencyId] = useState(
+    inquiryForm.budget.currencies[0].id,
+  );
+
+  const currency =
+    inquiryForm.budget.currencies.find((item) => item.id === currencyId) ??
+    inquiryForm.budget.currencies[0];
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -152,12 +162,50 @@ const InquiryForm = () => {
                 required
               />
 
-              <Select
-                label="Estimated Project Budget"
-                id="budget"
-                name="Estimated Project Budget"
-                placeholder="Select budget range"
-                options={inquiryForm.budgets}
+              {/* The label carries its own currency switch, so the sender
+                  picks the scale before the amounts rather than mentally
+                  converting ours. Keyed on the currency: swapping it replaces
+                  every option, and a stale selection from the other scale
+                  would otherwise sit in the field. */}
+              <div className="inquiry__budget">
+                <div className="inquiry__budget-head">
+                  <span className="inquiry__budget-label" id="budget-label">
+                    Estimated Project Budget
+                  </span>
+
+                  <div
+                    className="inquiry__currency"
+                    role="group"
+                    aria-label="Budget currency"
+                  >
+                    {inquiryForm.budget.currencies.map((option) => (
+                      <button
+                        type="button"
+                        className="inquiry__currency-option"
+                        key={option.id}
+                        aria-pressed={option.id === currency.id}
+                        onClick={() => setCurrencyId(option.id)}
+                      >
+                        {option.symbol} {option.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <Select
+                  key={currency.id}
+                  id="budget"
+                  name="Estimated Project Budget"
+                  placeholder="Select budget range"
+                  options={currency.ranges}
+                  aria-labelledby="budget-label"
+                />
+              </div>
+
+              <input
+                type="hidden"
+                name="Budget Currency"
+                value={currency.id}
               />
 
               <Input

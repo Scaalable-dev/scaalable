@@ -1,254 +1,213 @@
 import {
-  Handshake,
-  BriefcaseBusiness,
-  Sparkles,
-  ShieldCheck,
-  Zap,
-  Rocket,
-  Code2,
-  BarChart3,
-  Users,
-  Target,
+  ClipboardList,
   Eye,
-  Lightbulb,
-  Award,
-  Palette,
-  TrendingUp,
+  KeyRound,
+  LifeBuoy,
+  Ear,
+  GitBranch,
+  Sparkles,
 } from "lucide-react";
+
 import founderImage from "../../assets/images/founder.png";
 import coFounderImage from "../../assets/images/coFounder.png";
 import aboutHeroImage from "../../assets/images/about-hero.png";
-import aboutHeroStory from "../../assets/images/about-story.png";
+import aboutStoryImage from "../../assets/images/about-story.png";
 
-export const aboutHero = {
-  badge: "About Us",
-
-  title: "More Than a Development Agency. Your Technology Partner.",
+export const aboutMeta = {
+  title: "About Scaalable | Your Accountable Digital Partner",
 
   description:
-    "Scaalable is a comprehensive technology solution and digital growth firm providing startups, SMEs, and enterprises with a wide range of services related to designing effective digital products, creating highly scalable software, implementing intelligent automation, and devising performance-based marketing strategies. These include customized software solutions, enterprise web applications, branding services, search engine optimization, AI automation, cloud solutions, and paid advertising.",
+    "Learn how Scaalable combines strategy, design, engineering, AI and accountable delivery to build dependable digital solutions for growing businesses.",
+
+  canonical: "https://scaalable.com/about",
+};
+
+/* ==========================================================================
+   1 — HERO
+   ========================================================================== */
+
+export const aboutHero = {
+  badge: "About Scaalable",
+
+  title: "A digital partner built for accountable growth.",
+
+  description:
+    "Scaalable brings strategy, UX, engineering, AI automation, SEO, paid advertising and ongoing optimization into one accountable team. We help businesses build dependable digital products, strengthen their online presence and continue improving beyond launch.",
+
+  primaryCta: { text: "Start a Conversation", to: "/contact#contact-form" },
+
+  secondaryCta: { text: "Explore Our Services", to: "/services" },
+
+  /* The existing approved photograph, kept from the previous About page. */
   image: aboutHeroImage,
+
+  imageAlt: "Two Scaalable team members reviewing app designs at a workstation",
 };
 
-export const aboutCompany = {
-  eyebrow: "About Scaalable",
+/* ==========================================================================
+   2 — ONE CONNECTED PARTNER
+   ========================================================================== */
 
-  title: "More Than a Development Agency. Your Technology Partner.",
+export const connectedPartner = {
+  badge: "One connected partner",
+
+  title: "Technology and digital growth, working as one.",
+
+  description:
+    "From product strategy and UX to engineering, automation, SEO and paid campaigns, every discipline works around the same business goals. You get clearer communication, shared ownership and a more consistent experience from one connected team.",
+
+  stages: [
+    {
+      id: "understand",
+      name: "Understand",
+      description:
+        "We begin with your business, customers, challenges and priorities.",
+    },
+    {
+      id: "design",
+      name: "Design",
+      description:
+        "We turn complex requirements into clear and intuitive experiences.",
+    },
+    {
+      id: "build",
+      name: "Build",
+      description:
+        "We engineer secure, maintainable and scalable digital solutions.",
+    },
+    {
+      id: "grow",
+      name: "Grow",
+      description:
+        "We improve performance, visibility, campaigns and support after launch.",
+    },
+  ],
+};
+
+/* ==========================================================================
+   3 — ACCOUNTABLE DELIVERY
+   ========================================================================== */
+
+export const accountableDelivery = {
+  badge: "Built for accountable delivery",
+
+  title: "Clear from the first conversation.",
+
+  description:
+    "Good partnerships are built on visible progress, clear ownership and fewer surprises.",
+
+  commitments: [
+    {
+      id: "scope",
+      icon: ClipboardList,
+      name: "Written scope",
+      description: "Clear deliverables, responsibilities and change control.",
+    },
+    {
+      id: "progress",
+      icon: Eye,
+      name: "Visible progress",
+      description: "Regular demonstrations, useful updates and early decisions.",
+    },
+    {
+      id: "handoff",
+      icon: KeyRound,
+      name: "Secure handoff",
+      description:
+        "Organized documentation, access, source code and deployment ownership.",
+    },
+    {
+      id: "support",
+      icon: LifeBuoy,
+      name: "Support beyond launch",
+      description:
+        "Monitoring, improvements and a clear path for ongoing support.",
+    },
+  ],
+};
+
+/* ==========================================================================
+   4 — WHY WE EXIST
+   ========================================================================== */
+
+export const whyWeExist = {
+  badge: "Why we exist",
+
+  title: "Digital work should feel connected—not complicated.",
 
   paragraphs: [
-    `"Scaalable" is dedicated to providing businesses worldwide, regardless of being startups, SMEs, or multinational enterprises, access to high-end digital solutions which contribute to their development."`,
+    "Businesses often lose time and momentum when their website, software, automation and marketing are handled by disconnected teams. Communication becomes harder, responsibility becomes unclear and the final result can lose sight of the original goal.",
 
-    "Being a full-service Digital Marketing & IT Solutions Company”, Scaalable aims at assisting businesses in creating, growing, and scaling up their digital presence through such services as websites building, brand development, performance marketing, SEO, social media marketing, software development, artificial intelligence solutions for business, cloud services, and automation of businesses.",
+    "Scaalable was created around a more connected approach: understand the business first, bring the right capabilities together and keep progress visible throughout the engagement.",
 
-    "In today’s highly dynamic digital environment, just the mere presence of businesses on the internet won’t suffice. The necessity arises in strategy planning, innovative technology application, storytelling, and execution based on the data analysis. And it is Scaalable which can help with all of that.",
-
-    "Scaalable merges creativity and technology into custom solutions which will boost the visibility, engagement, generation of quality leads, and ROI maximization.",
-
-    "No matter whether it’s about your very first website launch or digital transformation of your whole ecosystem, Scaalable will become your technology and growth partner.",
+    "We help turn ideas and operational challenges into dependable digital solutions. Our role does not end when something goes live—we remain available to support, improve and evolve it as the business changes.",
   ],
 
-  quote:
-    "We don't just deliver projects. We build digital foundations for business growth.",
+  closing: "One team. Clear ownership. Progress you can see.",
+
+  /* The existing approved photograph, kept from the previous About page. */
+  image: aboutStoryImage,
+
+  imageAlt:
+    "Scaalable team members talking through a project around a meeting table",
 };
 
-export const values = [
-  {
-    id: 1,
-    icon: BriefcaseBusiness,
-    title: "Business First",
-    description:
-      "Every solution starts with understanding your business goals before writing a single line of code.",
-  },
+/* ==========================================================================
+   5 — WORKING WITH SCAALABLE
+   ========================================================================== */
 
-  {
-    id: 2,
-    icon: Sparkles,
-    title: "Modern Technology",
-    description:
-      "We build modular applications using modern technologies that are fast, secure, and future-ready.",
-  },
+export const workingWithUs = {
+  badge: "Working with Scaalable",
 
-  {
-    id: 3,
-    icon: Handshake,
-    title: "Transparent Communication",
-    description:
-      "Clear timelines, honest updates, and collaboration throughout every stage of the project.",
-  },
+  title: "Professional in delivery. Easy to work with.",
 
-  {
-    id: 4,
-    icon: ShieldCheck,
-    title: "Long-Term Partnership",
-    description:
-      "Our relationship doesn't end after launch. We provide ongoing support to help your business grow.",
-  },
-];
-
-export const features = {
-  badge: "What Sets Scaalable Apart?",
-
-  title:
-    "We combine strategy, design, and technology to deliver real business impact.",
+  description:
+    "We bring structure to the project without making the relationship feel complicated.",
 
   items: [
     {
-      id: 1,
-      icon: Zap,
-      title: "Problem Solvers",
-      description: "We solve real business problems, not just build features.",
-    },
-
-    {
-      id: 2,
-      icon: Rocket,
-      title: "Agile & Adaptive",
+      id: "listen",
+      icon: Ear,
+      name: "We listen before recommending",
       description:
-        "We adapt quickly to changes and deliver in iterative, measurable steps.",
+        "We take time to understand the problem, context and priorities before proposing technology or marketing solutions.",
     },
-
     {
-      id: 3,
-      icon: Code2,
-      title: "Clean & Modular Code",
-      description: "We write maintainable code that grows with your business.",
-    },
-
-    {
-      id: 4,
-      icon: BarChart3,
-      title: "Results-Driven",
+      id: "visible",
+      icon: GitBranch,
+      name: "We make progress visible",
       description:
-        "Every decision is made with performance, engagement and growth in mind.",
+        "You see what is being built, understand important decisions and always know what comes next.",
     },
-
     {
-      id: 5,
-      icon: Users,
-      title: "Client Partnership",
+      id: "improve",
+      icon: Sparkles,
+      name: "We keep improving",
       description:
-        "We work as an extension of your team instead of another vendor.",
+        "After launch, we can continue supporting, monitoring and evolving the solution alongside your business.",
     },
   ],
 };
 
-export const story = {
-  badge: "Our Story",
-
-  title: "Vision Makes Every Great Brand Start.",
-
-  subtitle: "We started Scaalable with one simple belief.",
-
-  quote:
-    "Businesses shouldn't need more than one agency for their digital success.",
-
-  paragraphs: [
-    "Too often, businesses rely on one agency for websites, another for SEO, freelancers for social media, and someone else for software development. This fragmented approach creates inconsistent branding, poor communication, unnecessary costs, and slower growth.",
-
-    "Scaalable was built to solve this problem by bringing strategy, design, development, digital marketing, AI solutions, cloud services, and business automation together under one roof.",
-
-    "Today, we partner with businesses across industries to strengthen their digital presence, streamline operations, and build sustainable long-term growth through one unified digital partner.",
-  ],
-
-  image: aboutHeroStory,
-};
-
-export const visionMission = {
-  cards: [
-    {
-      id: 1,
-      icon: Eye,
-      title: "Our Vision",
-      description:
-        "Scaalable aims to become a globally trusted partner in digital transformation by helping all kinds of organizations make use of technology to achieve sustainability.",
-    },
-
-    {
-      id: 2,
-      icon: Target,
-      title: "Our Mission",
-      description:
-        "Scaalable mission is to facilitate business growth in the world by providing cutting-edge digital marketing and IT services which generate value in the long run.",
-    },
-  ],
-};
-
-export const coreValues = {
-  badge: "Core Values",
-
-  title: "Principles That Drive Everything We Do",
-
-  items: [
-    {
-      id: 1,
-      icon: Lightbulb,
-      accent: "blue",
-      title: "Innovation",
-      description:
-        "We continuously explore modern technologies, AI tools, and industry best practices to build future-ready digital solutions.",
-    },
-
-    {
-      id: 2,
-      icon: Eye,
-      accent: "purple",
-      title: "Transparency",
-      description:
-        "We believe successful partnerships are built on honest communication, clear expectations, and complete project visibility.",
-    },
-
-    {
-      id: 3,
-      icon: Award,
-      accent: "magenta",
-      title: "Quality",
-      description:
-        "Every website, campaign, design, and software solution is developed with attention to detail, performance, security, and long-term maintainability.",
-    },
-
-    {
-      id: 4,
-      icon: Palette,
-      accent: "blue",
-      title: "Creativity",
-      description:
-        "Creative thinking helps businesses stand out. We design meaningful experiences that connect brands with their audiences.",
-    },
-
-    {
-      id: 5,
-      icon: Handshake,
-      accent: "purple",
-      title: "Partnership",
-      description:
-        "Our clients are more than customers—they are long-term partners. We work collaboratively to support their business objectives.",
-    },
-
-    {
-      id: 6,
-      icon: TrendingUp,
-      accent: "magenta",
-      title: "Growth",
-      description:
-        "Every decision we make is focused on helping businesses increase revenue, improve efficiency, and achieve measurable digital growth.",
-    },
-  ],
-};
+/* ==========================================================================
+   6 — FINAL CTA
+   ========================================================================== */
 
 export const ctaBanner = {
-  title: "Let's Build Something That Grows Your Business",
+  title: "Have something you want to build or improve?",
 
-  paragraphs: [
-    "Whether you're launching a new startup, redesigning your website, improving your digital marketing, or exploring AI-powered automation, Scaalable is ready to help.",
-
-    "Let's create digital experiences that attract customers, strengthen your brand, and support sustainable business growth.",
-  ],
+  description:
+    "Tell us where you are today, and we’ll help you identify the clearest next step.",
 
   cta: {
-    text: "Book Free Strategy Call",
+    text: "Start a Conversation",
     href: "/contact#contact-form",
   },
 };
+
+/* ==========================================================================
+   FOUNDERS — unchanged
+   ========================================================================== */
 
 export const founders = [
   {
