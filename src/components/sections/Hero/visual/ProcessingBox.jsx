@@ -41,13 +41,10 @@ const ProcessingBox = forwardRef(function ProcessingBox(
         <div className="pbox__face">
           <span className="pbox__face-sheen" aria-hidden="true" />
 
-          {/* Right cheek — vents and technical marks. */}
-          <span className="pbox__cheek" aria-hidden="true">
-            <span className="pbox__vent" />
-            <span className="pbox__vent" />
-            <span className="pbox__vent" />
-            <span className="pbox__vent" />
-          </span>
+          {/* Right cheek. Kept as a plain shaded panel — it is what reads as
+              the box turning away from the viewer, and the face would look
+              flat without it. The vent bars it used to carry are gone. */}
+          <span className="pbox__cheek" aria-hidden="true" />
 
           <div className="pbox__brand">
             <img

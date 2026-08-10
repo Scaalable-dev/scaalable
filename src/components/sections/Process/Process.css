@@ -434,11 +434,12 @@
    SELECTED STAGE PANEL
    ========================================================================== */
 
-.proc-panel {
+/* The card surface, shared by the desktop panel and each carousel slide so
+   the two cannot drift apart. */
+.proc-panel,
+.proc-swipe__slide {
   position: relative;
   overflow: hidden;
-
-  margin-top: clamp(1.5rem, 4vw, 2.5rem);
 
   border: 1px solid var(--color-border-light);
   border-radius: var(--radius-2xl);
@@ -446,6 +447,67 @@
   background: var(--color-surface);
 
   box-shadow: var(--shadow-sm);
+}
+
+.proc-panel,
+.proc-swipe {
+  margin-top: clamp(1.5rem, 4vw, 2.5rem);
+}
+
+/* ==========================================================================
+   SWIPEABLE PANEL — small screens
+
+   Every stage in a row that snaps, one card per screen. The gesture is the
+   browser's own: scroll-snap gives momentum, end-of-list rubber banding and a
+   card that tracks the finger, which a hand-rolled drag handler does not
+   reproduce convincingly on a phone.
+   ========================================================================== */
+
+.proc-swipe__track {
+  /* Positioned, so a slide's offsetLeft is measured against the track — the
+     carousel compares that to scrollLeft to work out which stage landed. */
+  position: relative;
+
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 100%;
+
+  gap: var(--space-4);
+
+  overflow-x: auto;
+
+  scroll-snap-type: x mandatory;
+
+  /* Stops a swipe that reaches the last card from turning into a browser back
+     gesture or a bounce of the page behind it. */
+  overscroll-behavior-x: contain;
+
+  /* `touch-action` is deliberately not set here. Constraining it to pan-x — as
+     the stage rail does — would stop a vertical drag that started on a card
+     from scrolling the page, and these cards are tall enough to cover most of
+     the screen. */
+
+  scrollbar-width: none;
+}
+
+.proc-swipe__track::-webkit-scrollbar {
+  display: none;
+}
+
+/* The grid stretches every column to the tallest card on its own, so stages
+   with fewer deliverables do not resize the section as they scroll past. */
+.proc-swipe__slide {
+  scroll-snap-align: start;
+}
+
+/* Here the controls steer the carousel rather than belonging to any one card,
+   so they stand apart with their own edges — the attached-footer border they
+   carry inside the desktop panel would be a seam joining nothing. */
+.proc-swipe .proc-nav {
+  margin-top: var(--space-4);
+
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-2xl);
 }
 
 /* One-shot edge lift once the new stage is in. */

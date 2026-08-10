@@ -90,8 +90,13 @@ const IndustriesBlueprintSection = () => {
       };
 
       /* No cross-fade to run — swap immediately rather than leaving the panel
-         blank for the length of a transition that will not happen. */
-      if (reduceMotion) {
+         blank for the length of a transition that will not happen.
+
+         The compact layout is in the same position for a different reason:
+         its card is swiped, so the carousel's own scroll is already the
+         transition. Fading the whole section a fifth of a second after the
+         finger let go would read as the interface stuttering, not as a swap. */
+      if (reduceMotion || isCompact) {
         commit();
         return;
       }
@@ -101,13 +106,18 @@ const IndustriesBlueprintSection = () => {
       setPhase("out");
       swapTimer.current = setTimeout(commit, SWAP_MS);
     },
-    [activeIndex, reduceMotion],
+    [activeIndex, isCompact, reduceMotion],
   );
 
   const goToNext = useCallback(
     (manual = false) => goTo((activeIndex + 1) % industries.length, manual),
     [activeIndex, goTo],
   );
+
+  /* Every pick a person makes, from either layout: the rail, or a swipe of the
+     card carousel. Held in a callback rather than inlined so the swipe handler
+     is not a new function on every render. */
+  const handleSelect = useCallback((index) => goTo(index, true), [goTo]);
 
   /* Re-armed after every change, so the full interval always elapses between
      advances rather than the timer running down mid-transition. */
@@ -158,7 +168,8 @@ const IndustriesBlueprintSection = () => {
             activeIndex={activeIndex}
             openStep={stepIndex}
             phase={phase}
-            onSelect={(index) => goTo(index, true)}
+            reduceMotion={reduceMotion}
+            onSelect={handleSelect}
             onOpenStep={setStepIndex}
             onInteracting={setEngaged}
           />
@@ -179,7 +190,7 @@ const IndustriesBlueprintSection = () => {
             <IndustrySelector
               industries={industries}
               activeIndex={activeIndex}
-              onSelect={(index) => goTo(index, true)}
+              onSelect={handleSelect}
             />
 
             <div className="ind-bp" data-phase={phase}>
