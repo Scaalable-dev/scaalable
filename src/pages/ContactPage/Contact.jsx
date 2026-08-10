@@ -12,14 +12,14 @@ import InquiryForm from "./InquiryForm";
 import OfficeLocation from "./OfficeLocation";
 import SocialChannels from "./SocialChannels";
 
-import { contactHero, contactMeta } from "./contactData";
-import { setPageMeta } from "../../lib/pageMeta";
+import { contactHero, contactSeo } from "./contactData";
+import { applyPageSeo } from "../../lib/pageMeta";
 
 const Contact = () => {
   /* No Helmet provider is mounted in main.jsx, so the page metadata is set
      directly — the same approach the home and About pages use. */
   useEffect(() => {
-    setPageMeta(contactMeta);
+    applyPageSeo(contactSeo());
   }, []);
 
   return (

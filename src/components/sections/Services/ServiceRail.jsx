@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 
 import ServiceRailCard from "./ServiceRailCard";
+import { IS_PRERENDER } from "../../../lib/prerender";
 
 /* How many copies of the list sit side by side. Two is the minimum for a
    seamless loop; three keeps the strip filled on very wide monitors, where a
@@ -300,7 +301,10 @@ const ServiceRail = ({ cards }) => {
     <div className="srail">
       <div className="srail__viewport" ref={viewportRef}>
         <div className="srail__strip" ref={stripRef}>
-          {Array.from({ length: COPIES }, (_, copy) => (
+          {/* The prerender emits the first copy only: the other two are
+              aria-hidden loop filler, and three copies of every service card
+              tripled the landing page's static HTML. See lib/prerender.js. */}
+          {Array.from({ length: IS_PRERENDER ? 1 : COPIES }, (_, copy) => (
             <ul
               className="srail__track"
               key={copy}

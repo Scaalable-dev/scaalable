@@ -16,14 +16,37 @@ import coFounderImage from "../../assets/images/coFounder.webp";
 import aboutHeroImage from "../../assets/images/about-hero.webp";
 import aboutStoryImage from "../../assets/images/about-story.webp";
 
+import { absoluteUrl } from "../../lib/site";
+import { breadcrumbs, webPage } from "../../lib/structuredData";
+
+export const ABOUT_PATH = "/about";
+
 export const aboutMeta = {
   title: "About Scaalable | Your Accountable Digital Partner",
 
   description:
     "Learn how Scaalable combines strategy, design, engineering, AI and accountable delivery to build dependable digital solutions for growing businesses.",
 
-  canonical: "https://scaalable.com/about",
+  /* Built from the shared origin rather than written out: the host has moved
+     once already, and a canonical naming the wrong one is worse than none. */
+  canonical: absoluteUrl(ABOUT_PATH),
 };
+
+/* The route's complete SEO payload — read by the page effect and by the
+   build-time prerender. See homeSeo for why it lives beside the data. */
+export const aboutSeo = () => ({
+  meta: aboutMeta,
+
+  jsonLd: [
+    webPage({
+      path: ABOUT_PATH,
+      title: aboutMeta.title,
+      description: aboutMeta.description,
+      type: "AboutPage",
+    }),
+    breadcrumbs([{ name: "About", path: ABOUT_PATH }]),
+  ],
+});
 
 /* ==========================================================================
    1 — HERO

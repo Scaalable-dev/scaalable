@@ -9,17 +9,20 @@ import Services from "../../components/sections/Services";
 import TechMarquee from "../../components/sections/TechMarquee";
 import WhoWeHelp from "../../components/sections/WhoWeHelp";
 
-import homeData from "./homeData";
-import { setPageMeta } from "../../lib/pageMeta";
+import { homeSeo } from "./homeData";
+import { applyPageSeo } from "../../lib/pageMeta";
 
 import "./Home.css";
 
 const Home = () => {
-  /* No Helmet provider is mounted in main.jsx, so the title, description and
-     canonical are set directly. Without this every route inherits whatever
-     index.html says. */
+  /* No Helmet provider is mounted in main.jsx, so the metadata is applied
+     directly. Without this every route inherits whatever index.html says.
+
+     Prerendered HTML already carries these tags, so on a first load this
+     rewrites them with identical values; it earns its keep on client-side
+     navigations, which produce no new document at all. */
   useEffect(() => {
-    setPageMeta(homeData.meta);
+    applyPageSeo(homeSeo());
   }, []);
 
   return (

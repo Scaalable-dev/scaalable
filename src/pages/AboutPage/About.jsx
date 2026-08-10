@@ -13,13 +13,15 @@ import FounderCarousel from "./FounderCarousel";
 
 import {
   aboutHero,
-  aboutMeta,
+  aboutSeo,
   accountableDelivery,
   connectedPartner,
   ctaBanner,
   whyWeExist,
   workingWithUs,
 } from "./aboutData";
+
+import { applyPageSeo } from "../../lib/pageMeta";
 
 const EASE = [0.16, 1, 0.3, 1];
 
@@ -28,31 +30,14 @@ const About = () => {
 
   /* No Helmet provider is mounted in main.jsx, so the page metadata is set
      directly — the same approach the home page uses. Without this every route
-     inherits whatever index.html says. */
+     inherits whatever index.html says.
+
+     This was the same three DOM lookups the other pages ran, written out a
+     second time; it now goes through the shared helper, which also mirrors the
+     values onto the Open Graph tags. The tags no longer need restoring on
+     unmount — every route, the 404 included, writes its own on mount. */
   useEffect(() => {
-    document.title = aboutMeta.title;
-
-    const description = document.querySelector('meta[name="description"]');
-    if (description) description.setAttribute("content", aboutMeta.description);
-
-    let canonical = document.querySelector('link[rel="canonical"]');
-    const existing = canonical?.getAttribute("href") ?? null;
-
-    if (!canonical) {
-      canonical = document.createElement("link");
-      canonical.setAttribute("rel", "canonical");
-      document.head.appendChild(canonical);
-    }
-
-    canonical.setAttribute("href", aboutMeta.canonical);
-
-    /* Put it back on the way out. A canonical is the one tag here that would
-       actively mislead if it outlived the page — leaving /about on top of
-       /services would tell a crawler the two are the same document. */
-    return () => {
-      if (existing === null) canonical.remove();
-      else canonical.setAttribute("href", existing);
-    };
+    applyPageSeo(aboutSeo());
   }, []);
 
   return (

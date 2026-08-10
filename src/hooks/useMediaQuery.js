@@ -16,6 +16,8 @@ const getList = (query) => {
   return list;
 };
 
+const getServerSnapshot = () => false;
+
 /* Reads a media query without setting state in an effect: the store is
    subscribed to directly and re-read on every render, so there is never a
    first paint at the wrong breakpoint. */
@@ -33,7 +35,12 @@ const useMediaQuery = (query) => {
 
   const getSnapshot = useCallback(() => getList(query).matches, [query]);
 
-  return useSyncExternalStore(subscribe, getSnapshot);
+  /* The prerender runs this in Node, where matchMedia does not exist and
+     useSyncExternalStore requires a server snapshot of its own. False is the
+     right answer for every query the site asks: they all describe a narrower
+     viewport than the default, so the static HTML is the desktop layout and
+     the client corrects it on mount. */
+  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 };
 
 export default useMediaQuery;

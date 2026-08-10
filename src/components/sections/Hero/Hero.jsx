@@ -5,6 +5,7 @@ import Container from "../../ui/Container";
 import HeroBackground from "./HeroBackground";
 import HeroContent from "./HeroContent";
 import AgencyWorkflowVisual from "./visual";
+import { IS_PRERENDER } from "../../../lib/prerender";
 
 import "./Hero.css";
 
@@ -31,7 +32,12 @@ const Hero = () => {
           </div>
 
           <div className="hero__col hero__col--visual">
-            <AgencyWorkflowVisual />
+            {/* Left out of the prerendered HTML: it is an animated diagram
+                that only means anything once it is moving, and its static
+                SVG was 46 kB of the landing page's markup — a third of the
+                file, for nothing a crawler can read. The client renders it on
+                mount exactly as before. See lib/prerender.js. */}
+            {!IS_PRERENDER && <AgencyWorkflowVisual />}
           </div>
         </div>
       </Container>

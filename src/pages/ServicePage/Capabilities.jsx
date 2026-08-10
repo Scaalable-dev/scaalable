@@ -30,12 +30,23 @@ const subscribeToBreakpoint = (onChange) => {
 
 const getBreakpointSnapshot = () => getMediaQuery().matches;
 
+/* The prerender runs this in Node, where matchMedia does not exist. False
+   prerenders the desktop tab layout, which is the one whose markup carries
+   every capability's copy — the accordion renders only the open row, so
+   prerendering that variant would hide six of the seven from a crawler that
+   does not run the app. */
+const getServerBreakpointSnapshot = () => false;
+
 /* Below the breakpoint the pattern changes from tabs to an accordion, so the
    panel has to render inside the list rather than beside it. useSyncExternalStore
    is the right primitive here: it subscribes without setting state in an effect,
    and reads the live value on every render. */
 const useIsCompact = () =>
-  useSyncExternalStore(subscribeToBreakpoint, getBreakpointSnapshot);
+  useSyncExternalStore(
+    subscribeToBreakpoint,
+    getBreakpointSnapshot,
+    getServerBreakpointSnapshot,
+  );
 
 /* Shared body — rendered in the right-hand column on desktop and inside the
    expanded row on mobile, so the markup exists in exactly one place. */

@@ -9,9 +9,18 @@ import {
   LifeBuoy,
 } from "lucide-react";
 
+import { absoluteUrl } from "../../lib/site";
+import {
+  breadcrumbs,
+  serviceCatalog,
+  webPage,
+} from "../../lib/structuredData";
+
 /* ==========================================================================
    SERVICES — HERO
    ========================================================================== */
+
+export const SERVICES_PATH = "/services";
 
 export const servicesMeta = {
   title: "Services | Scaalable — Web, Software, AI & Digital Growth",
@@ -19,8 +28,31 @@ export const servicesMeta = {
   description:
     "Explore Scaalable's capabilities: website design and development, custom software, UI/UX, SEO, performance marketing, AI automation and cloud — delivered by one connected team.",
 
-  canonical: "https://scaalable.com/services",
+  /* Built from the shared origin rather than written out: the host has moved
+     once already, and a canonical naming the wrong one is worse than none. */
+  canonical: absoluteUrl(SERVICES_PATH),
 };
+
+/* The route's complete SEO payload — read by the page effect and by the
+   build-time prerender. See homeSeo for why it lives beside the data.
+
+   The catalogue is generated from `capabilities` further down this file
+   rather than written out again, so a practice added to that array is
+   described to search engines by the same edit that renders it. */
+export const servicesSeo = () => ({
+  meta: servicesMeta,
+
+  jsonLd: [
+    webPage({
+      path: SERVICES_PATH,
+      title: servicesMeta.title,
+      description: servicesMeta.description,
+      type: "CollectionPage",
+    }),
+    breadcrumbs([{ name: "Services", path: SERVICES_PATH }]),
+    serviceCatalog(capabilities, SERVICES_PATH),
+  ],
+});
 
 export const servicesHero = {
   badge: "End-to-End Digital & IT Solutions",
