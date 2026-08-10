@@ -10,13 +10,10 @@
   overflow-x: clip;
   isolation: isolate;
 
-  /* Washed. This section invented the blend-in, blend-out gradient the rest of
-     the page now shares; it reads from the common recipe so the whole run of
-     tinted bands stays one colour. The old local #f7f9fd was 2% off white and
-     never actually broke the run of white it was meant to break. */
-  --section-wash: var(--color-wash);
-
-  background: var(--gradient-section-wash);
+  /* Washed via the .section-wash utility on the element. This section
+     invented the blend-in, blend-out gradient the rest of the page now
+     shares; its old local #f7f9fd was 2% off white and never actually broke
+     the run of white it was meant to break. */
 }
 
 .services__background {

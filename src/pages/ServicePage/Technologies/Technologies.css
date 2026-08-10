@@ -9,8 +9,8 @@
    All motion is CSS. No canvas, no WebGL, no animation library.
    ========================================================================== */
 
-/* Process above ends on white, so this starts and ends on white too, with the
-   tint carried in the middle. */
+/* Washed via .section-wash on the element, alternating with the untinted
+   Industries section above it. */
 .tech {
   --tech-accent: var(--color-brand-primary);
   --tech-ease: cubic-bezier(0.22, 1, 0.36, 1);
@@ -21,14 +21,6 @@
      together halves the gap between the two sections. */
   padding-top: clamp(1.5rem, 3vw, 2.6rem);
   padding-bottom: clamp(1.5rem, 3vw, 2.6rem);
-
-  background: linear-gradient(
-    180deg,
-    var(--color-background) 0%,
-    #f7faff 38%,
-    #f7faff 62%,
-    var(--color-background) 100%
-  );
 }
 
 /* ==========================================================================

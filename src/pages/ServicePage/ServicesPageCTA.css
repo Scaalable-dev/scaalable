@@ -6,8 +6,9 @@
    starting a conversation.
    ========================================================================== */
 
-/* Technologies above ends on white, and so does this — the footer below
-   begins on the background colour with no visible step. */
+/* Plain — the untinted band after washed Technologies, and the one the footer
+   opens against. The footer begins on the background colour, so this ending
+   there means there is no step between page and footer. */
 .scta {
   --scta-accent: var(--color-brand-primary);
   --scta-ease: cubic-bezier(0.22, 1, 0.36, 1);
@@ -15,12 +16,7 @@
   /* Pairs with .tech's trimmed padding-bottom to halve the gap between them. */
   padding-top: clamp(1.5rem, 3vw, 2.6rem);
 
-  background: linear-gradient(
-    180deg,
-    var(--color-background) 0%,
-    #f7faff 42%,
-    var(--color-background) 100%
-  );
+  background: var(--color-background);
 }
 
 /* ==========================================================================

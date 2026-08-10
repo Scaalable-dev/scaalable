@@ -121,26 +121,15 @@
      rather than by lightening back. See .fx in Footer.css. */
   --color-wash-deep: #dae1f6;
 
-  /* The wash recipe, as one gradient every section shares.
-
-     It opens and closes on --color-background, so two consecutive sections
-     always meet at exactly the same colour and no edge is ever drawn between
-     them — the tint simply swells through the middle of a section and drains
-     away before it ends. Sections set --section-wash to opt in; the default
-     resolves to the page colour, which paints nothing.
-
-     Custom properties resolve where they are used, not where they are
-     declared, so a section overriding --section-wash locally re-colours this
-     gradient without redeclaring it. */
-  --section-wash: var(--color-background);
-
-  --gradient-section-wash: linear-gradient(
-    180deg,
-    var(--color-background) 0%,
-    var(--section-wash) 12%,
-    var(--section-wash) 88%,
-    var(--color-background) 100%
-  );
+  /* The wash gradients themselves are NOT tokens — they are the
+     .section-wash utilities in globals.css. That is not a style preference;
+     a custom property resolves the var()s inside it against the element it is
+     *declared* on, then inherits already-resolved. A gradient token declared
+     here would therefore bake in whatever tint :root had at this point and
+     inherit that everywhere, and a section setting its own tint further down
+     the tree could not change it. Written as a real `background` declaration
+     in a rule that matches the section, the tint resolves per element, which
+     is the whole point. */
 
   /* ========================================================================
      4. TEXT COLORS

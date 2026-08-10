@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 
@@ -7,6 +7,7 @@ import "./Services.css";
 import Badge from "../../components/ui/Badge";
 import Button from "../../components/ui/Button";
 import Container from "../../components/ui/Container";
+import AuroraBackdrop from "../../components/ui/AuroraBackdrop";
 import ServiceFlow from "./ServiceFlow";
 import Capabilities from "./Capabilities";
 import IndustriesBlueprintSection from "./Industries";
@@ -17,6 +18,9 @@ import { servicesHero, servicesSeo } from "./servicesData";
 import { applyPageSeo } from "../../lib/pageMeta";
 
 const Services = () => {
+  /* Read by AuroraBackdrop for pointer position and scroll progress. */
+  const heroRef = useRef(null);
+
   /* No Helmet provider is mounted in main.jsx, so the page metadata is set
      directly — the same approach the home and About pages use. */
   useEffect(() => {
@@ -25,9 +29,11 @@ const Services = () => {
 
   return (
     <>
-      <section className="service-hero" id="service-hero">
-        <span className="service-hero__glow" aria-hidden="true" />
-        <span className="service-hero__grid" aria-hidden="true" />
+      <section className="service-hero hero-wash hero-wash--tint" id="service-hero" ref={heroRef}>
+        {/* The same ambient layer the home hero carries, so the two pages read
+            as one site rather than as a rich landing page and a flat inner
+            one. Replaces a single static glow and a grid of this page's own. */}
+        <AuroraBackdrop targetRef={heroRef} />
 
         <Container>
           <div className="service-hero__grid-layout">

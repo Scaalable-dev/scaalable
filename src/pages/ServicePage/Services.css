@@ -1,8 +1,9 @@
 /* ==========================================================================
    SERVICES — HERO
 
-   Background language matches the Home and Contact heroes: white base with
-   soft brand radial glows in the upper corners.
+   Background language is shared outright with the Home and Contact heroes:
+   the .hero-wash ground plus <AuroraBackdrop>, rather than a local imitation
+   of them.
    ========================================================================== */
 
 .service-hero {
@@ -36,82 +37,10 @@
 
   padding-block: var(--hero-pad-y);
 
-  /* Full-size layers only. Constraining these with background-size cuts the
-     radial falloff off mid-fade and draws a hard line across the section. */
-  background:
-    radial-gradient(
-      circle at 15% 18%,
-      rgba(0, 130, 249, 0.14),
-      transparent 42%
-    ),
-    radial-gradient(
-      circle at 85% 14%,
-      rgba(185, 63, 251, 0.13),
-      transparent 45%
-    ),
-    linear-gradient(180deg, #ffffff 0%, #f8fbff 58%, #f4f8ff 100%);
-}
-
-/* ==========================================================================
-   AMBIENT LAYERS
-   ========================================================================== */
-
-/* Slow drifting brand glow behind the copy. */
-.service-hero__glow {
-  position: absolute;
-  /* Anchored in pixels, not percentages: a percentage offset scales with the
-     section, so shortening the hero dragged the blurred edge down onto the
-     bottom boundary and tinted it purple against the section below. */
-  top: -260px;
-  left: 50%;
-
-  z-index: -1;
-
-  width: min(110%, 860px);
-  aspect-ratio: 1 / 1;
-
-  border-radius: 50%;
-
-  background: var(--gradient-brand-soft-circle);
-
-  /* 90px was measurably costly; 55px reads the same at this opacity. */
-  filter: blur(55px);
-
-  opacity: 0.5;
-
-  transform: translateX(-50%);
-
-  /* Deliberately static. Animating a 55px-blurred layer re-runs the blur every
-     frame; the drift was imperceptible and cost ~3.5fps. */
-
-  pointer-events: none;
-}
-
-/* Faint technical grid, fading out toward the edges. */
-.service-hero__grid {
-  position: absolute;
-  inset: 0;
-
-  z-index: -1;
-
-  background-image:
-    linear-gradient(rgba(15, 23, 42, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(15, 23, 42, 0.035) 1px, transparent 1px);
-
-  background-size: 64px 64px;
-
-  mask-image: radial-gradient(
-    ellipse 70% 60% at 50% 45%,
-    #000 25%,
-    transparent 75%
-  );
-  -webkit-mask-image: radial-gradient(
-    ellipse 70% 60% at 50% 45%,
-    #000 25%,
-    transparent 75%
-  );
-
-  pointer-events: none;
+  /* The ground comes from the .hero-wash utility on the element, and the
+     colour above it from <AuroraBackdrop>. The two flat radials and the
+     single static glow this used before are gone: they gave the page a
+     noticeably plainer hero than the home page's. */
 }
 
 /* ==========================================================================
@@ -318,10 +247,6 @@
 @media (max-width: 768px) {
   .service-hero__title {
     max-width: 100%;
-  }
-
-  .service-hero__grid {
-    background-size: 44px 44px;
   }
 }
 

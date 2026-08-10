@@ -75,7 +75,7 @@ const WhoWeHelp = () => {
      otherwise it would be an unlabelled region in the landmark list. */
   return (
     <section
-      className="who-we-help"
+      className="who-we-help section-wash"
       id="who-we-help"
       aria-label="Who we help"
     >

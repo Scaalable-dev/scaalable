@@ -9,7 +9,7 @@ import { contactChannels } from "./contactData";
 
 const ContactChannels = () => {
   return (
-    <section className="channels" id="channels">
+    <section className="channels section-wash--out" id="channels">
       <Container>
         <SectionHeading
           badge={contactChannels.badge}

@@ -35,24 +35,10 @@
 
   padding-block: var(--hero-pad-y);
 
-  background:
-    radial-gradient(
-      circle at 12% 18%,
-      rgba(0, 130, 249, 0.14),
-      transparent 42%
-    ),
-    radial-gradient(
-      circle at 88% 12%,
-      rgba(185, 63, 251, 0.12),
-      transparent 44%
-    ),
-    /* Settles on the channels section's colour so the two meet without a seam. */
-    linear-gradient(
-      180deg,
-      #ffffff 0%,
-      #f8fbff 55%,
-      var(--color-surface-hover) 100%
-    );
+  /* The ground comes from the .hero-wash utility on the element, and the
+     colour above it from <AuroraBackdrop> — the same pair the home and
+     Services heroes use. The two flat radials this had before were a thinner
+     imitation of that layer. */
 }
 
 /* The section is now a flex row, so its single child has to be told to take

@@ -8,17 +8,25 @@ import {
   useTransform,
 } from "framer-motion";
 
+import "./AuroraBackdrop.css";
+
 /* Loose spring: the glows should trail the cursor, not track it 1:1. */
 const DRIFT_SPRING = { stiffness: 70, damping: 22, mass: 0.8 };
 
 /**
- * Ambient aurora layer behind the hero.
+ * Ambient aurora layer behind a hero.
  *
  * Two motion sources are combined per glow: pointer drift (normalised to
- * -0.5..0.5 around the hero's centre) and scroll progress, so the field keeps
+ * -0.5..0.5 around the host's centre) and scroll progress, so the field keeps
  * moving as the section leaves the viewport.
+ *
+ * The host must establish a stacking context and clip its overflow — the
+ * backdrop sits at z-index -1 so it paints over the host's own background but
+ * under its content, and it overhangs the edges so the blurred glows are never
+ * cut off square. Every hero using this already sets `isolation: isolate` and
+ * `overflow: clip` for its own reasons.
  */
-const HeroBackground = ({ targetRef }) => {
+const AuroraBackdrop = ({ targetRef }) => {
   const reduceMotion = useReducedMotion();
 
   const pointerX = useMotionValue(0);
@@ -82,28 +90,28 @@ const HeroBackground = ({ targetRef }) => {
   }, [targetRef, reduceMotion, pointerX, pointerY]);
 
   return (
-    <div className="hero__backdrop" aria-hidden="true">
+    <div className="aurora" aria-hidden="true">
       <m.span
-        className="hero__glow hero__glow--blue"
+        className="aurora__glow aurora__glow--blue"
         style={reduceMotion ? undefined : { x: blueX, y: blueY }}
       />
 
       <m.span
-        className="hero__glow hero__glow--violet"
+        className="aurora__glow aurora__glow--violet"
         style={reduceMotion ? undefined : { x: violetX, y: violetY }}
       />
 
       <m.span
-        className="hero__glow hero__glow--cyan"
+        className="aurora__glow aurora__glow--cyan"
         style={reduceMotion ? undefined : { x: cyanX, y: cyanY }}
       />
 
       <m.span
-        className="hero__mesh"
+        className="aurora__mesh"
         style={reduceMotion ? undefined : { opacity: gridOpacity }}
       />
     </div>
   );
 };
 
-export default HeroBackground;
+export default AuroraBackdrop;

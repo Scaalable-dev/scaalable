@@ -2,17 +2,8 @@
    CONTACT — HEADQUARTERS
    ========================================================================== */
 
-/* Fades in from the white section above and back out before the footer, so
-   neither boundary shows a hard colour step. */
-.office {
-  background: linear-gradient(
-    180deg,
-    var(--color-background) 0%,
-    var(--color-surface-hover) 16%,
-    var(--color-surface-hover) 84%,
-    var(--color-background) 100%
-  );
-}
+/* Washed via .section-wash on the element, alternating with the untinted form
+   above it. Fades in from white and back out, so neither boundary steps. */
 
 .office__layout {
   display: grid;

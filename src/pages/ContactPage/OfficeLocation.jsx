@@ -9,7 +9,7 @@ import { officeLocation } from "./contactData";
 
 const OfficeLocation = () => {
   return (
-    <section className="office" id="office">
+    <section className="office section-wash" id="office">
       <Container>
         <SectionHeading
           badge={officeLocation.badge}

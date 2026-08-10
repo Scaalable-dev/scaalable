@@ -31,17 +31,11 @@
   overflow: clip;
   isolation: isolate;
 
-  /* Returns to white at the bottom. Ending on a tint (#f5f8ff) drew a hard line
-     against the white section that follows, which read as a divider. Services
-     already resolves to #ffffff at both ends, which is why its boundaries are
-     invisible; the hero was the odd one out. */
-  background: linear-gradient(
-    180deg,
-    #ffffff 0%,
-    #fbfcff 38%,
-    #f4f8ff 70%,
-    #ffffff 100%
-  );
+  /* The ground comes from the .hero-wash utility on the element, shared with
+     the Services and Contact heroes. This one takes the plain form, which
+     returns to white: the tech strip below it is untinted, so anything else
+     would leave a step. The other two add .hero-wash--tint, because the
+     sections under them open on the tint instead. */
 }
 
 /* Dissolves the aurora and the mesh into the page before the section ends.
@@ -77,98 +71,6 @@
   }
 }
 
-/* ==========================================================================
-   BACKDROP
-   Overscanned so the parallax drift never exposes a hard edge.
-   ========================================================================== */
-
-.hero__backdrop {
-  position: absolute;
-  inset: -18% -12%;
-
-  z-index: -1;
-
-  pointer-events: none;
-}
-
-.hero__glow {
-  position: absolute;
-
-  display: block;
-
-  aspect-ratio: 1;
-
-  border-radius: 50%;
-
-  filter: blur(100px);
-
-  will-change: transform;
-}
-
-.hero__glow--blue {
-  width: clamp(320px, 42vw, 620px);
-
-  top: 6%;
-  left: -2%;
-
-  background: radial-gradient(
-    circle,
-    rgba(0, 130, 249, 0.34),
-    rgba(0, 130, 249, 0) 68%
-  );
-}
-
-.hero__glow--violet {
-  width: clamp(300px, 40vw, 580px);
-
-  top: -4%;
-  right: -2%;
-
-  background: radial-gradient(
-    circle,
-    rgba(185, 63, 251, 0.28),
-    rgba(185, 63, 251, 0) 68%
-  );
-}
-
-.hero__glow--cyan {
-  width: clamp(280px, 36vw, 520px);
-
-  bottom: -8%;
-  left: 34%;
-
-  background: radial-gradient(
-    circle,
-    rgba(6, 182, 212, 0.2),
-    rgba(6, 182, 212, 0) 70%
-  );
-}
-
-/* Faint grid, masked to an ellipse so it dissolves before the section edges. */
-.hero__mesh {
-  position: absolute;
-  inset: 0;
-
-  display: block;
-
-  background-image:
-    linear-gradient(to right, rgba(26, 26, 46, 0.045) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(26, 26, 46, 0.045) 1px, transparent 1px);
-
-  background-size: 64px 64px;
-
-  -webkit-mask-image: radial-gradient(
-    ellipse 70% 55% at 50% 42%,
-    #000 0%,
-    transparent 78%
-  );
-
-  mask-image: radial-gradient(
-    ellipse 70% 55% at 50% 42%,
-    #000 0%,
-    transparent 78%
-  );
-}
 
 /* ==========================================================================
    WRAPPER

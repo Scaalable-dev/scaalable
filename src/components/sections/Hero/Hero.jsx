@@ -2,7 +2,7 @@ import { useRef } from "react";
 
 import useHeroSnap from "../../../hooks/useHeroSnap";
 import Container from "../../ui/Container";
-import HeroBackground from "./HeroBackground";
+import AuroraBackdrop from "../../ui/AuroraBackdrop";
 import HeroContent from "./HeroContent";
 import AgencyWorkflowVisual from "./visual";
 import { IS_PRERENDER } from "../../../lib/prerender";
@@ -13,7 +13,7 @@ import "./Hero.css";
 const STACKED_QUERY = "(max-width: 1099px)";
 
 const Hero = () => {
-  /* Shared with HeroBackground: it reads pointer position and scroll progress
+  /* Shared with AuroraBackdrop: it reads pointer position and scroll progress
      relative to this section. */
   const sectionRef = useRef(null);
 
@@ -22,8 +22,8 @@ const Hero = () => {
   useHeroSnap(sectionRef, STACKED_QUERY);
 
   return (
-    <section className="hero" ref={sectionRef}>
-      <HeroBackground targetRef={sectionRef} />
+    <section className="hero hero-wash" ref={sectionRef}>
+      <AuroraBackdrop targetRef={sectionRef} />
 
       <Container>
         <div className="hero__wrapper">

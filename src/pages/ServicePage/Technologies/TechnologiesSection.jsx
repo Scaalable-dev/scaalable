@@ -47,7 +47,7 @@ const TechnologiesSection = () => {
   );
 
   return (
-    <section className="tech" id="technologies">
+    <section className="tech section-wash" id="technologies">
       <Container>
         {/* ------------------------ Introduction ------------------------ */}
         <div className="tech-intro">

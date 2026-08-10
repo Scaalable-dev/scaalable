@@ -5,21 +5,16 @@
    and brand tokens throughout so it reads as part of the same page.
    ========================================================================== */
 
-/* Starts on exactly the colour the hero gradient ends on (#f4f8ff) so the two
-   sections meet without a visible step, then eases back to white. */
+/* Washed via .section-wash--out on the element: it opens on exactly the colour
+   the hero ends on so the two meet without a step, then drains to white for
+   the section below. The local #f4f8ff it used before was 3% off white and
+   never read as a tint at all. */
 .cap {
   /* Both gaps trimmed off the global section rhythm — the top pairs with the
      hero's reduced padding-bottom, the bottom with .ind's padding-top. Each
      pair together halves the gap between the two sections. */
   padding-top: clamp(1.5rem, 3vw, 2.6rem);
   padding-bottom: clamp(1.5rem, 3vw, 2.6rem);
-
-  background: linear-gradient(
-    180deg,
-    #f4f8ff 0%,
-    #f8fbff 30%,
-    var(--color-background) 100%
-  );
 }
 
 .cap__layout {

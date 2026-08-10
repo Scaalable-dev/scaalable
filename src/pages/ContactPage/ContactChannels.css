@@ -2,16 +2,10 @@
    CONTACT — DIRECT CHANNELS
    ========================================================================== */
 
-/* Picks up exactly where the hero gradient lands, holds the tint through the
-   cards, then releases back to white before the footer's margin gap. */
-.channels {
-  background: linear-gradient(
-    180deg,
-    var(--color-surface-hover) 0%,
-    var(--color-surface-hover) 62%,
-    var(--color-background) 100%
-  );
-}
+/* Washed via .section-wash--out on the element: it opens exactly where the
+   hero gradient lands and drains to white for the form below. The local
+   --color-surface-hover it used before was standing in for a wash colour that
+   did not exist yet. */
 
 .channels__grid {
   display: grid;

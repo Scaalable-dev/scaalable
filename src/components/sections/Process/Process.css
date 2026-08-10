@@ -10,7 +10,7 @@
 
 /* Plain, by design. The home page alternates washed and untinted bands, and
    this is the untinted one between Services and the FAQ — both of which carry
-   --color-wash. See --gradient-section-wash in tokens.css. */
+   the .section-wash utility. See globals.css. */
 .proc {
   --proc-accent: var(--color-brand-primary);
   --proc-ease: cubic-bezier(0.22, 1, 0.36, 1);
