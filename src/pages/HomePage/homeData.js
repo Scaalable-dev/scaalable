@@ -7,6 +7,7 @@
 const homeData = {
   meta: {
     title: "Scaalable — Build Digital Products That Grow Your Business",
+    canonical: "https://scaalable.com/",
     description:
       "Scaalable helps startups and established teams ship high-performance websites, SaaS platforms, and AI-powered software designed around measurable business outcomes.",
   },

@@ -3,28 +3,37 @@ import { ArrowRight, Check } from "lucide-react";
 
 import Badge from "../../ui/Badge";
 import Button from "../../ui/Button";
-import Reveal from "../../ui/Reveal";
 import heroData from "./heroData";
 
+/* The entrance here is the CSS `animate-fade-up` utility — the same one the
+   About, Services and Contact heroes use — rather than the framer Reveal the
+   rest of the page keeps. Deliberate: this copy is the page's LCP, and Reveal
+   holds it at opacity 0 until the lazy motion-features chunk has loaded and
+   run, which on a throttled phone pushed LCP two seconds past first paint.
+   The CSS animation starts the moment the element exists and looks the same. */
 const HeroContent = () => {
   return (
     <div className="hero__content">
-      <Reveal delay={0.05} amount={0}>
+      <div className="animate-fade-up" style={{ "--delay": "50ms" }}>
         <Badge>{heroData.badge}</Badge>
-      </Reveal>
+      </div>
 
-      <Reveal delay={0.14} amount={0}>
-        <h1 className="hero__title">
-          {heroData.title.lead}{" "}
-          <span className="hero__title-accent">{heroData.title.highlight}</span>
-        </h1>
-      </Reveal>
+      <h1
+        className="hero__title animate-fade-up"
+        style={{ "--delay": "140ms" }}
+      >
+        {heroData.title.lead}{" "}
+        <span className="hero__title-accent">{heroData.title.highlight}</span>
+      </h1>
 
-      <Reveal delay={0.22} amount={0}>
-        <p className="hero__description">{heroData.description}</p>
-      </Reveal>
+      <p
+        className="hero__description animate-fade-up"
+        style={{ "--delay": "220ms" }}
+      >
+        {heroData.description}
+      </p>
 
-      <Reveal className="hero__actions" delay={0.3} amount={0}>
+      <div className="hero__actions animate-fade-up" style={{ "--delay": "300ms" }}>
         {/* Link, not a bare href — these cross routes now, and a plain anchor
             would reload the app instead of navigating client-side. */}
         <Button
@@ -44,19 +53,17 @@ const HeroContent = () => {
         >
           {heroData.secondaryButton.text}
         </Button>
-      </Reveal>
+      </div>
 
-      <Reveal delay={0.38} amount={0}>
-        <ul className="hero__trust">
-          {heroData.trust.map((item) => (
-            <li key={item} className="hero__trust-item">
-              <Check size={15} strokeWidth={3} />
+      <ul className="hero__trust animate-fade-up" style={{ "--delay": "380ms" }}>
+        {heroData.trust.map((item) => (
+          <li key={item} className="hero__trust-item">
+            <Check size={15} strokeWidth={3} />
 
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
-      </Reveal>
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

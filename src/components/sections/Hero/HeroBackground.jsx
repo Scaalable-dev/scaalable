@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import {
-  motion,
+  m,
   useMotionValue,
   useReducedMotion,
   useScroll,
@@ -83,22 +83,22 @@ const HeroBackground = ({ targetRef }) => {
 
   return (
     <div className="hero__backdrop" aria-hidden="true">
-      <motion.span
+      <m.span
         className="hero__glow hero__glow--blue"
         style={reduceMotion ? undefined : { x: blueX, y: blueY }}
       />
 
-      <motion.span
+      <m.span
         className="hero__glow hero__glow--violet"
         style={reduceMotion ? undefined : { x: violetX, y: violetY }}
       />
 
-      <motion.span
+      <m.span
         className="hero__glow hero__glow--cyan"
         style={reduceMotion ? undefined : { x: cyanX, y: cyanY }}
       />
 
-      <motion.span
+      <m.span
         className="hero__mesh"
         style={reduceMotion ? undefined : { opacity: gridOpacity }}
       />

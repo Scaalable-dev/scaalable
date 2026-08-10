@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import "./ProductJourney.css";
 
-import logoIcon from "../../assets/images/logo-icon.png";
+import logoIcon from "../../assets/images/logo-icon.webp";
 import {
   journeyNodes,
   journeySegments,

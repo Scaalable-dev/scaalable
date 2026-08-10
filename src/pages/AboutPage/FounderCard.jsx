@@ -31,19 +31,39 @@ function FounderCard({ founder }) {
           ))}
         </div>
 
+        {/* aria-labels only — icon-only links otherwise have no accessible
+            name at all, and a screen reader announces four bare "link"s. */}
         <div className="founder-card__socials">
-          <a href={founder.socials.linkedin} target="_blank" rel="noreferrer">
+          <a
+            href={founder.socials.linkedin}
+            target="_blank"
+            rel="noreferrer"
+            aria-label={`${founder.name} on LinkedIn`}
+          >
             <FaLinkedin />
           </a>
 
-          <a href={founder.socials.instagram} target="_blank" rel="noreferrer">
+          <a
+            href={founder.socials.instagram}
+            target="_blank"
+            rel="noreferrer"
+            aria-label={`${founder.name} on Instagram`}
+          >
             <FaInstagram />
           </a>
-          <a href={founder.socials.facebook} target="_blank" rel="noreferrer">
+          <a
+            href={founder.socials.facebook}
+            target="_blank"
+            rel="noreferrer"
+            aria-label={`${founder.name} on Facebook`}
+          >
             <FaFacebook />
           </a>
 
-          <a href={founder.socials.email}>
+          <a
+            href={founder.socials.email}
+            aria-label={`Email ${founder.name}`}
+          >
             <HiOutlineMail />
           </a>
         </div>

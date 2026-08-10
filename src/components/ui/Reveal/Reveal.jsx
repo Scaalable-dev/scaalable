@@ -1,4 +1,4 @@
-import { motion, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 
 /* Distance each direction travels before settling. Kept small — a long throw
    reads as a slideshow rather than a page that simply arrives. */
@@ -33,7 +33,7 @@ const Reveal = ({
 }) => {
   const reduceMotion = useReducedMotion();
 
-  const MotionTag = motion[as] ?? motion.div;
+  const MotionTag = m[as] ?? m.div;
   const offset = OFFSETS[direction] ?? OFFSETS.up;
 
   if (reduceMotion) {

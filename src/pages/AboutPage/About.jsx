@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { motion, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
 import "./About.css";
@@ -135,7 +135,7 @@ const About = () => {
               {reduceMotion ? (
                 <span className="abt-stages__line" aria-hidden="true" />
               ) : (
-                <motion.span
+                <m.span
                   className="abt-stages__line"
                   aria-hidden="true"
                   initial={{ scaleY: 0 }}

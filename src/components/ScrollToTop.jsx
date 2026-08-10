@@ -36,27 +36,61 @@ const ScrollToTop = () => {
     previousPath.current = pathname;
 
     if (hash) {
+      /* Smooth within a page, instant when the page itself just changed:
+         animating from the top of a freshly mounted page all the way down to
+         a deep section reads as a runaway scroll, and takes long enough that
+         the destination is not obviously connected to the click. */
+      const behavior = changedPage ? "instant" : "smooth";
+
+      const land = (target) => {
+        target.scrollIntoView({ behavior, block: "start" });
+
+        /* Keyboard and screen-reader position should follow the visual jump.
+           preventScroll, or focusing would fight the scroll it follows. */
+        if (!target.hasAttribute("tabindex")) {
+          target.setAttribute("tabindex", "-1");
+        }
+        target.focus({ preventScroll: true });
+      };
+
       const target = document.querySelector(hash);
 
       if (target) {
-        /* Smooth within a page, instant when the page itself just changed:
-           animating from the top of a freshly mounted page all the way down to
-           a deep section reads as a runaway scroll, and takes long enough that
-           the destination is not obviously connected to the click. */
-        const scrollToTarget = () =>
-          target.scrollIntoView({
-            behavior: changedPage ? "instant" : "smooth",
-            block: "start",
-          });
-
-        scrollToTarget();
+        land(target);
 
         /* Re-assert after layout settles — the incoming page's own height is
            not final on the first pass, so the first landing can be short. */
-        const frame = requestAnimationFrame(scrollToTarget);
+        const frame = requestAnimationFrame(() =>
+          target.scrollIntoView({ behavior, block: "start" }),
+        );
 
         return () => cancelAnimationFrame(frame);
       }
+
+      /* Routes are lazy: on a direct load of /contact#contact-form this
+         effect runs while the Suspense fallback is up and the target does not
+         exist yet — the old code fell through to scroll-to-top and the link
+         appeared broken. Watch the tree until the section mounts, then land
+         on it; give up quietly if it never arrives (bad hash). */
+      const observer = new MutationObserver(() => {
+        const mounted = document.querySelector(hash);
+
+        if (!mounted) return;
+
+        observer.disconnect();
+        clearTimeout(timeout);
+
+        land(mounted);
+      });
+
+      observer.observe(document.body, { childList: true, subtree: true });
+
+      const timeout = setTimeout(() => observer.disconnect(), 4000);
+
+      return () => {
+        observer.disconnect();
+        clearTimeout(timeout);
+      };
     }
 
     /* Instant, not smooth — animating a long scroll while the next page

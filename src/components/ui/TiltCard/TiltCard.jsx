@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import {
-  motion,
+  m,
   useMotionTemplate,
   useMotionValue,
   useReducedMotion,
@@ -62,7 +62,7 @@ const TiltCard = ({
     pointerY.set(50);
   };
 
-  const MotionTag = motion[as] ?? motion.article;
+  const MotionTag = m[as] ?? m.article;
 
   return (
     <MotionTag
@@ -76,7 +76,7 @@ const TiltCard = ({
       {...props}
     >
       {spotlight && !reduceMotion && (
-        <motion.span
+        <m.span
           className="tilt-card__spotlight"
           style={{ background: spotlightBackground }}
           aria-hidden="true"

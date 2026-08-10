@@ -14,17 +14,13 @@ import TechnologiesSection from "./Technologies";
 import ServicesPageCTA from "./ServicesPageCTA";
 
 import { servicesHero, servicesMeta } from "./servicesData";
+import { setPageMeta } from "../../lib/pageMeta";
 
 const Services = () => {
   /* No Helmet provider is mounted in main.jsx, so the page metadata is set
      directly — the same approach the home and About pages use. */
   useEffect(() => {
-    document.title = servicesMeta.title;
-
-    const description = document.querySelector('meta[name="description"]');
-    if (description) {
-      description.setAttribute("content", servicesMeta.description);
-    }
+    setPageMeta(servicesMeta);
   }, []);
 
   return (

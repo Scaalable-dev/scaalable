@@ -8,8 +8,8 @@ import {
   Sparkles,
 } from "lucide-react";
 
-import founderImage from "../../assets/images/founder.png";
-import coFounderImage from "../../assets/images/coFounder.png";
+import founderImage from "../../assets/images/founder.webp";
+import coFounderImage from "../../assets/images/coFounder.webp";
 /* WebP re-encodes of the original PNGs (which remain in git history) —
    96% smaller at 1280px wide, comfortably past the ~1100px the layout can
    ever display them at on a 2x screen. */

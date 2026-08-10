@@ -10,17 +10,16 @@ import TechMarquee from "../../components/sections/TechMarquee";
 import WhoWeHelp from "../../components/sections/WhoWeHelp";
 
 import homeData from "./homeData";
+import { setPageMeta } from "../../lib/pageMeta";
 
 import "./Home.css";
 
 const Home = () => {
-  /* No Helmet provider is mounted in main.jsx, so the title and description are
-     set directly. Without this every route inherits whatever index.html says. */
+  /* No Helmet provider is mounted in main.jsx, so the title, description and
+     canonical are set directly. Without this every route inherits whatever
+     index.html says. */
   useEffect(() => {
-    document.title = homeData.meta.title;
-
-    const description = document.querySelector('meta[name="description"]');
-    if (description) description.setAttribute("content", homeData.meta.description);
+    setPageMeta(homeData.meta);
   }, []);
 
   return (

@@ -1,6 +1,6 @@
 import { createPortal } from "react-dom";
 import { Link } from "react-router-dom";
-import { motion, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 import { X } from "lucide-react";
 
 import Button from "../../ui/Button";
@@ -22,7 +22,7 @@ const MobileMenu = ({ onClose }) => {
     <>
       {/* Overlay */}
 
-      <motion.div
+      <m.div
         className="mobile-menu__overlay"
         onClick={onClose}
         initial={{ opacity: 0 }}
@@ -33,7 +33,7 @@ const MobileMenu = ({ onClose }) => {
 
       {/* Drawer */}
 
-      <motion.aside
+      <m.aside
         id="mobile-navigation"
         className="mobile-menu"
         role="dialog"
@@ -57,14 +57,14 @@ const MobileMenu = ({ onClose }) => {
           </button>
         </div>
 
-        <motion.ul
+        <m.ul
           className="mobile-menu__links"
           variants={NAV_LIST_VARIANTS}
           initial={reduceMotion ? false : "hidden"}
           animate="visible"
         >
           <NavLinks variant="mobile" onLinkClick={onClose} />
-        </motion.ul>
+        </m.ul>
 
         <div className="mobile-menu__footer">
           <Button
@@ -76,7 +76,7 @@ const MobileMenu = ({ onClose }) => {
             Book an Appointment
           </Button>
         </div>
-      </motion.aside>
+      </m.aside>
     </>,
     document.body,
   );

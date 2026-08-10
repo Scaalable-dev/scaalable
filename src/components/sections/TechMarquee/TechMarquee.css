@@ -97,7 +97,10 @@
 }
 
 .tech-marquee__viewport:hover .tech-marquee__track,
-.tech-marquee__viewport:focus-within .tech-marquee__track {
+.tech-marquee__viewport:focus-within .tech-marquee__track,
+/* Set from an IntersectionObserver in the component — no reason to keep the
+   compositor moving a strip nobody can see. */
+.tech-marquee[data-offscreen] .tech-marquee__track {
   animation-play-state: paused;
 }
 

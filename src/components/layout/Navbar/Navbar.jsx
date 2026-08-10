@@ -9,7 +9,7 @@ import Button from "../../ui/Button";
 import NavLinks from "./NavLinks.jsx";
 import MobileMenu from "./MobileMenu";
 
-import logo from "../../../assets/images/logo.png";
+import logo from "../../../assets/images/logo.webp";
 
 import "./Navbar.css";
 
@@ -58,10 +58,15 @@ const Navbar = () => {
       <nav className="navbar" aria-label="Primary">
         {/* Logo */}
 
-        <Link to="/" className="navbar__logo" aria-label="Go to homepage">
+        {/* No aria-label: the visible wordmark IS the accessible name. A
+            label that says something different from the visible text fails
+            label-in-name — speech-input users say what they can see. */}
+        <Link to="/" className="navbar__logo">
           <img
             src={logo}
-            alt="Scaalable Agency Logo"
+            alt=""
+            width="168"
+            height="201"
             className="navbar__logo-image"
           />
 

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, m, useReducedMotion } from "framer-motion";
 import { ArrowUpRight, Sparkles } from "lucide-react";
 
 import Container from "../../ui/Container";
@@ -127,7 +127,7 @@ const WhoWeHelp = () => {
             {/* Copy swaps; the grid and pathway behind it never blank out. */}
             <div className="wwh-panel__content" aria-live="polite">
               <AnimatePresence mode="wait" initial={false}>
-                <motion.div key={audience.id} className="wwh-copy" {...swap}>
+                <m.div key={audience.id} className="wwh-copy" {...swap}>
                   <p className="wwh-copy__label">
                     <Sparkles size={15} strokeWidth={2} aria-hidden="true" />
                     <span>{audience.label}</span>
@@ -141,7 +141,7 @@ const WhoWeHelp = () => {
                     <ArrowUpRight size={17} strokeWidth={2.2} aria-hidden="true" />
                     <span>{audience.outcome}</span>
                   </p>
-                </motion.div>
+                </m.div>
               </AnimatePresence>
             </div>
 

@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 import "./ServiceFlow.css";
 
-import logoIcon from "../../assets/images/logo-icon.png";
+import logoIcon from "../../assets/images/logo-icon.webp";
 import { flowServices } from "./servicesData";
 
 /* ==========================================================================

@@ -1,3 +1,5 @@
+import { useEffect, useRef } from "react";
+
 import { technologies } from "./techMarqueeData";
 
 import "./TechMarquee.css";
@@ -34,8 +36,33 @@ const TechItem = ({ tech }) => {
  * under prefers-reduced-motion.
  */
 const TechMarquee = () => {
+  const sectionRef = useRef(null);
+
+  /* The scroll is compositor-only, but it still ran forever after the strip
+     left the viewport — which on this page is most of every visit. The
+     animation now pauses off-screen and picks up where it left off. */
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return undefined;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        section.toggleAttribute("data-offscreen", !entry.isIntersecting);
+      },
+      { threshold: 0 },
+    );
+
+    observer.observe(section);
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section className="tech-marquee" aria-labelledby="tech-marquee-heading">
+    <section
+      className="tech-marquee"
+      aria-labelledby="tech-marquee-heading"
+      ref={sectionRef}
+    >
       <h2 id="tech-marquee-heading" className="visually-hidden">
         Technologies we build with
       </h2>

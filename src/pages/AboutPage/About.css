@@ -961,7 +961,10 @@
 
   color: var(--color-text-primary);
 
-  transition: all var(--transition-normal);
+  transition:
+    color var(--transition-normal),
+    border-color var(--transition-normal),
+    transform var(--transition-normal);
   opacity: 0;
 
   animation: socialFade 0.45s forwards;
@@ -1033,7 +1036,9 @@
 
   border: 1px solid var(--color-border-light);
 
-  transition: all var(--transition-normal);
+  transition:
+    background var(--transition-normal),
+    color var(--transition-normal);
 }
 
 .founder-carousel__prev {
@@ -1096,30 +1101,47 @@
   margin-top: 3rem;
 }
 
-/* The inactive dot used to be a light grey the same weight as the panel it
-   sits on, so nothing signalled that a second card existed. It now holds a
-   visible outline and a proper touch target. */
-.swiper-pagination-bullet {
-  width: 12px;
-  height: 12px;
+/* The visible dot is drawn by ::after inside a 24px box: 12px was both too
+   faint a signal that a second card exists and too small a touch target —
+   WCAG asks for 24px minimum, and thumbs agree. */
+/* Scoped under .founders: Swiper's own stylesheet loads after this file
+   (About.css is imported before FounderCarousel), so at equal specificity
+   its 8px width silently won and the 24px touch target never applied. */
+.founders .swiper-pagination-bullet {
+  position: relative;
 
-  border: 1px solid var(--color-border-dark);
+  width: 24px;
+  height: 24px;
+
+  border: 0;
 
   background: transparent;
 
   opacity: 1;
 
+  transition: width var(--transition-normal);
+}
+
+.founders .swiper-pagination-bullet::after {
+  content: "";
+
+  position: absolute;
+  inset: 6px;
+
+  border: 1px solid var(--color-border-dark);
+  border-radius: 999px;
+
   transition:
-    width var(--transition-normal),
     background var(--transition-normal),
     border-color var(--transition-normal);
 }
 
-.swiper-pagination-bullet-active {
-  width: 36px;
+.founders .swiper-pagination-bullet-active {
+  width: 44px;
+}
 
+.founders .swiper-pagination-bullet-active::after {
   border-color: transparent;
-  border-radius: 999px;
 
   background: var(--color-brand-primary);
 }

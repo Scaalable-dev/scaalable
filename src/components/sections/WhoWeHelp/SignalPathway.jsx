@@ -1,4 +1,4 @@
-import { motion, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 
 import {
   PATHWAY_D,
@@ -13,7 +13,7 @@ const NodeLabel = ({ audienceId, children }) => {
   const reduceMotion = useReducedMotion();
 
   return (
-    <motion.span
+    <m.span
       key={audienceId}
       className="wwh-node__label"
       initial={reduceMotion ? false : { opacity: 0, y: 7 }}
@@ -21,7 +21,7 @@ const NodeLabel = ({ audienceId, children }) => {
       transition={{ duration: reduceMotion ? 0 : 0.4, ease: SWAP_EASE }}
     >
       {children}
-    </motion.span>
+    </m.span>
   );
 };
 

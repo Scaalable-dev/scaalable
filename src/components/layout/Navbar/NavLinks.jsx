@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { motion, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 import { ChevronRight } from "lucide-react";
 
 import navLinks from "./navLinks";
@@ -13,7 +13,7 @@ const NavLinks = ({ onLinkClick, variant = "desktop" }) => {
   return (
     <>
       {navLinks.map(({ id, label, to, end }) => (
-        <motion.li
+        <m.li
           key={id}
           className="navbar__item"
           variants={NAV_ITEM_VARIANTS}
@@ -34,7 +34,7 @@ const NavLinks = ({ onLinkClick, variant = "desktop" }) => {
                     underline, and a layout animation there would measure
                     against the entry stagger's in-flight transform. */}
                 {isActive && !isMobile && (
-                  <motion.span
+                  <m.span
                     layoutId="navbar-indicator"
                     className="navbar__indicator"
                     transition={
@@ -55,7 +55,7 @@ const NavLinks = ({ onLinkClick, variant = "desktop" }) => {
               </>
             )}
           </NavLink>
-        </motion.li>
+        </m.li>
       ))}
     </>
   );

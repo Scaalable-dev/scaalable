@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
 
-import logo from "../../../assets/images/logo.png";
+import logo from "../../../assets/images/logo.webp";
 
 import Button from "../../ui/Button";
 import Container from "../../ui/Container";
@@ -36,11 +36,10 @@ const Footer = () => {
           {/* ==================== 1. Brand masthead ==================== */}
           <div className="fx__masthead">
             <div className="fx__brand">
-              <Link
-                to="/"
-                className="fx__lockup"
-                aria-label="Scaalable — go to homepage"
-              >
+              {/* No aria-label: the wordmark and tagline are the visible
+                  name, and an accessible name that differs from them fails
+                  label-in-name. */}
+              <Link to="/" className="fx__lockup">
                 <img className="fx__mark" src={logo} alt="" />
 
                 <span className="fx__names">

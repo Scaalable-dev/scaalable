@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 
-import logoIcon from "../../../../assets/images/logo-icon.png";
+import logoIcon from "../../../../assets/images/logo-icon.webp";
 
 import "./ProcessingBox.css";
 
@@ -54,8 +54,8 @@ const ProcessingBox = forwardRef(function ProcessingBox(
               className="pbox__logo"
               src={logoIcon}
               alt=""
-              width="512"
-              height="512"
+              width="128"
+              height="128"
               aria-hidden="true"
             />
 

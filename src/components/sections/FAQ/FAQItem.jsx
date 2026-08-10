@@ -1,4 +1,4 @@
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, m, useReducedMotion } from "framer-motion";
 import { Plus } from "lucide-react";
 
 const EASE = [0.16, 1, 0.3, 1];
@@ -32,7 +32,7 @@ const FAQItem = ({ item, isActive, onToggle }) => {
           answers and makes the easing depend on how much slack is left over. */}
       <AnimatePresence initial={false}>
         {isActive && (
-          <motion.div
+          <m.div
             id={panelId}
             role="region"
             aria-labelledby={buttonId}
@@ -49,7 +49,7 @@ const FAQItem = ({ item, isActive, onToggle }) => {
             <div className="faq__answer">
               <p>{item.answer}</p>
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </article>

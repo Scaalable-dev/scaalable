@@ -18,6 +18,8 @@ export const servicesMeta = {
 
   description:
     "Explore Scaalable's capabilities: website design and development, custom software, UI/UX, SEO, performance marketing, AI automation and cloud — delivered by one connected team.",
+
+  canonical: "https://scaalable.com/services",
 };
 
 export const servicesHero = {

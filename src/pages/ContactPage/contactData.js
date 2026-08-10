@@ -55,6 +55,8 @@ export const contactMeta = {
 
   description:
     "Tell us about your project. Reach Scaalable by phone, email or WhatsApp, or share a few details through the inquiry form and we'll reply within two business hours.",
+
+  canonical: "https://scaalable.com/contact",
 };
 
 export const contactHero = {
