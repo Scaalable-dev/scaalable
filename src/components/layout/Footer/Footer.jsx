@@ -44,7 +44,7 @@ const Footer = () => {
                   name, and an accessible name that differs from them fails
                   label-in-name. */}
               <Link to="/" className="fx__lockup">
-                <img className="fx__mark" src={logo} alt="" />
+               <img className="fx__mark" src={logo} alt="Scaalable" />
 
                 <span className="fx__names">
                   <span className="fx__wordmark">SCAALABLE</span>
