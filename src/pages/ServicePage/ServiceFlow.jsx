@@ -645,7 +645,7 @@ const ServiceFlow = () => {
         />
 
         <span className="flow__core-body">
-          <img className="flow__core-logo" src={logoIcon} alt="" />
+          <img className="flow__core-logo" src={logoIcon} alt="Scaalable" />
 
           <span className="flow__core-brand">SCAALABLE</span>
           <span className="flow__core-label">DIGITAL FLOW CORE</span>

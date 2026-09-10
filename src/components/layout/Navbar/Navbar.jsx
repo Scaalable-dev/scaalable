@@ -64,7 +64,7 @@ const Navbar = () => {
         <Link to="/" className="navbar__logo">
           <img
             src={logo}
-            alt=""
+            alt="Scaalable"
             width="168"
             height="201"
             className="navbar__logo-image"

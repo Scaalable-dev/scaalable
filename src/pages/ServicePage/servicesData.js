@@ -26,7 +26,7 @@ export const servicesMeta = {
   title: "Services | Scaalable — Web, Software, AI & Digital Growth",
 
   description:
-    "Explore Scaalable's capabilities: website design and development, custom software, UI/UX, SEO, performance marketing, AI automation and cloud — delivered by one connected team.",
+  "Scaalable delivers web development, custom software, UI/UX, SEO, AI automation and cloud solutions for growing businesses.",
 
   /* Built from the shared origin rather than written out: the host has moved
      once already, and a canonical naming the wrong one is worse than none. */
