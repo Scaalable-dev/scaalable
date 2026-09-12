@@ -19,8 +19,7 @@ const HeroContent = () => {
       </div>
 
       <h1
-        className="hero__title animate-fade-up"
-        style={{ "--delay": "140ms" }}
+        className="hero__title"
       >
         {heroData.title.lead}{" "}
         <span className="hero__title-accent">{heroData.title.highlight}</span>
