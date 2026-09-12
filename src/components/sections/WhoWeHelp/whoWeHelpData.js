@@ -35,7 +35,7 @@ export const audiences = [
     id: "startups",
     tab: "Startups",
     label: "For early-stage teams",
-    heading: "Move from idea to a launch-ready product.",
+    heading: "Transforming Concepts into Launch-Ready Web & AI Products",
     description:
       "Focused strategy, product design, and scalable engineering—without unnecessary complexity.",
     outcome: "Validate faster and launch with confidence",

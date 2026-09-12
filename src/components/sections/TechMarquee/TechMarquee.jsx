@@ -65,7 +65,7 @@ const TechMarquee = () => {
       ref={sectionRef}
     >
       <h2 id="tech-marquee-heading" className="visually-hidden">
-        Technologies we build with
+        Technologies We Use for Scalable Web & AI Engineering
       </h2>
 
       {/* Deliberately outside .container — the bar runs edge to edge. */}

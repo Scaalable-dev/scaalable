@@ -4,8 +4,8 @@ const heroData = {
   badge: "One partner • From strategy to scale",
 
   title: {
-    lead: "Websites, software and AI systems built to",
-    highlight: "grow with your business.",
+    lead: "Custom AI Systems, Enterprise Web Engineering",
+    highlight: "& Software",
   },
 
   description:

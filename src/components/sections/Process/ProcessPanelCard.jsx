@@ -19,7 +19,7 @@ const ProcessPanelCard = ({ stage }) => (
     </div>
 
     <div className="proc-panel__aside">
-      <h4 className="proc-panel__aside-label">What You Receive</h4>
+      <p className="proc-panel__aside-label">What You Receive</p>
 
       <DeliverablesList deliverables={stage.deliverables} />
     </div>

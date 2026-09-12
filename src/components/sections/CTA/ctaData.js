@@ -8,7 +8,7 @@ const ctaData = {
      itself — the same treatment every other section label gets. */
   badge: "Ready when you are",
 
-  title: "Have a project in mind?",
+  title: "Start Your Custom AI & Web Development Project Today",
 
   description:
     "Tell us what you're building. We'll help define the clearest path from idea to a secure, scalable launch.",

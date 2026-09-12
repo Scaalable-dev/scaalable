@@ -25,7 +25,9 @@ const FAQ = () => {
             <div className="faq__aside-inner">
               <Badge>Before we begin</Badge>
 
-              <h2 className="faq__title">Clear answers reduce risk.</h2>
+              <h2 className="faq__title">
+                Frequently Asked Questions About Our Web & AI Services
+              </h2>
 
               <p className="faq__description">
                 Scaalable answered the questions we hear most often from

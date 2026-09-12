@@ -5,7 +5,7 @@ export const deliveryPromiseIntro = {
      itself — the same treatment every other section label gets. */
   badge: "Built for accountable delivery",
 
-  title: "A clear engagement from the first conversation.",
+  title: "Our Transparent Engagement & Development Process",
 
   description:
     "A reliable partnership is built on visible progress, clear ownership, and fewer surprises.",

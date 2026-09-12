@@ -5,7 +5,7 @@
 export const processIntro = {
   badge: "Our Process",
 
-  title: "From Strategy to Scaalable Success",
+  title: "End-to-End AI Engineering & Digital Growth Framework",
 
   description:
     "Every successful project starts with a clear strategy and ends with measurable business results. Our proven delivery framework ensures transparency, quality, and continuous innovation at every stage.",
@@ -24,7 +24,7 @@ export const stages = [
   {
     number: "01",
     shortLabel: "Discovery",
-    title: "Discovery & Consultation",
+    title: "01. Discovery & Business Workflow Consultation",
     phase: "Strategy",
     description:
       "We start by understanding your business model, current systems and the outcome you need. Goals, constraints and success measures are agreed before a single line of code is written.",
