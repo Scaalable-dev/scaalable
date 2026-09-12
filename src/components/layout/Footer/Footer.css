@@ -493,6 +493,13 @@
   }
 }
 
+@media (max-width: 768px) {
+  .fx__social a {
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+}
+
 /* Mobile — one column throughout. */
 @media (max-width: 560px) {
   .fx__grid {
