@@ -22,10 +22,10 @@ import { breadcrumbs, webPage } from "../../lib/structuredData";
 export const ABOUT_PATH = "/about";
 
 export const aboutMeta = {
-  title: "About Scaalable | Your Accountable Digital Partner",
+  title: "About Scaalable | AI & Software Engineering Company",
 
   description:
-    "Learn how Scaalable combines strategy, design, engineering, AI and accountable delivery to build dependable digital solutions for growing businesses.",
+    "Learn about Scaalable, a digital engineering company building custom AI systems, web applications and software solutions for modern businesses.",
 
   /* Built from the shared origin rather than written out: the host has moved
      once already, and a canonical naming the wrong one is worse than none. */

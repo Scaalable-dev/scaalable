@@ -23,10 +23,10 @@ import {
 export const SERVICES_PATH = "/services";
 
 export const servicesMeta = {
-  title: "Services | Scaalable — Web, Software, AI & Digital Growth",
+  title: "AI, Web & Software Development Services | Scaalable",
 
   description:
-  "Scaalable delivers web development, custom software, UI/UX, SEO, AI automation and cloud solutions for growing businesses.",
+  "Explore Scaalable's web development, custom software, AI automation, UI/UX, SEO and cloud solutions built for growing businesses.",
 
   /* Built from the shared origin rather than written out: the host has moved
      once already, and a canonical naming the wrong one is worse than none. */
@@ -380,7 +380,7 @@ export const capabilities = [
 export const servicesCta = {
   eyebrow: "Ready when you are",
 
-  title: "Have a project in mind?",
+  title: "Start Your Custom AI & Web Development Project Today",
 
   description:
     "Tell us what you are building. We will help define the clearest path from idea to a secure, scalable launch.",

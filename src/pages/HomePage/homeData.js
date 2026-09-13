@@ -12,13 +12,13 @@ export const HOME_PATH = "/";
 
 const homeData = {
   meta: {
-    title: "Scaalable — Build Digital Products That Grow Your Business",
+    title: "AI & Web Development Company | Scaalable",
     /* Built from the shared origin rather than written out: the host has
        moved once already, and a canonical naming the wrong one is worse
        than none at all. */
     canonical: absoluteUrl(HOME_PATH),
     description:
-      "Scaalable helps startups and established teams ship high-performance websites, SaaS platforms, and AI-powered software designed around measurable business outcomes.",
+      "Scaalable builds custom AI systems, enterprise web applications and software solutions that help businesses scale, automate and grow.",
   },
 
   /* Section ids in render order. Anchor links and in-page navigation resolve

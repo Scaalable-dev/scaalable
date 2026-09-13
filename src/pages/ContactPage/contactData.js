@@ -55,10 +55,10 @@ const MAPS_EMBED_URL = `https://maps.google.com/maps?q=${encodeURIComponent(
 export const CONTACT_PATH = "/contact";
 
 export const contactMeta = {
-  title: "Contact Scaalable | Start a Conversation",
+  title: "Contact Scaalable | AI & Web Development Experts",
 
   description:
-    "Tell us about your project. Reach Scaalable by phone, email or WhatsApp, or share a few details through the inquiry form and we'll reply within two business hours.",
+    "Have a project in mind? Contact Scaalable to discuss custom AI systems, web development, software engineering and digital growth solutions.",
 
   /* Built from the shared origin rather than written out: the host has moved
      once already, and a canonical naming the wrong one is worse than none. */
