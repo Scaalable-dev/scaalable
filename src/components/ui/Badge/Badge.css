@@ -78,7 +78,7 @@
    ========================================================================== */
 
 .badge--primary {
-  color: var(--color-brand-primary);
+  color: var(--color-brand-700);
 }
 
 .badge--secondary {

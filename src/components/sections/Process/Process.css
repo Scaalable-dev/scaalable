@@ -651,7 +651,7 @@
   background: rgba(0, 130, 249, 0.1);
   background: color-mix(in srgb, var(--proc-accent) 12%, transparent);
 
-  color: var(--color-brand-600);
+  color: var(--color-brand-800);
 
   font-size: 0.66rem;
   font-weight: 700;
@@ -854,7 +854,7 @@
 .proc-nav__button[data-variant="primary"] {
   border-color: transparent;
 
-  background: var(--proc-accent);
+  background: var(--color-brand-700);
 
   color: var(--color-text-white);
 
