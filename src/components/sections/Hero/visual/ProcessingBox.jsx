@@ -50,10 +50,9 @@ const ProcessingBox = forwardRef(function ProcessingBox(
             <img
               className="pbox__logo"
               src={logoIcon}
-              alt=""
+              alt="Scaalable"
               width="128"
               height="128"
-              aria-hidden="true"
             />
 
             <span className="pbox__wordmark">SCAALABLE</span>
