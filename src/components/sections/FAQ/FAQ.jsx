@@ -26,7 +26,7 @@ const FAQ = () => {
               <Badge>Before we begin</Badge>
 
               <h2 className="faq__title">
-                Frequently Asked Questions About Our Web & AI Services
+                 Frequently Asked Questions About Our Custom Website Development & AI Solutions
               </h2>
 
               <p className="faq__description">

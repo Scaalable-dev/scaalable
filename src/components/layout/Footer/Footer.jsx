@@ -53,8 +53,8 @@ const Footer = () => {
               </Link>
 
               <p className="fx__summary">
-                Strategy, design, engineering, AI, and growth—working as one
-                digital partner.
+                Strategy, design, SaaS software development services, AI automation, and search
+growth—working as your all-in-one digital expansion partner.
               </p>
 
               <Button

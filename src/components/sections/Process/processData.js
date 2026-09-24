@@ -27,7 +27,7 @@ export const stages = [
     title: "01. Discovery & Business Workflow Consultation",
     phase: "Strategy",
     description:
-      "We start by understanding your business model, current systems and the outcome you need. Goals, constraints and success measures are agreed before a single line of code is written.",
+      "We start by understanding your business model, evaluating scope for Custom AI automation solutions for small business, and defining clear success measures before writing code.",
     deliverables: [
       "Requirement analysis",
       "Business goal mapping",
@@ -43,7 +43,7 @@ export const stages = [
     title: "Research & Strategy",
     phase: "Strategy",
     description:
-      "Market, competitor and user research turn assumptions into evidence. The result is a positioning and technology strategy your team can defend to stakeholders.",
+      "Market and competitor analysis to position you among the top 10 it companies in india.",
     deliverables: [
       "Competitor benchmarking",
       "Audience and user research",
@@ -59,7 +59,7 @@ export const stages = [
     title: "Planning & Architecture",
     phase: "Foundation",
     description:
-      "Systems, data and integrations are designed before the build begins. Clear architecture keeps later phases fast and prevents rework once the product is live.",
+      "Architecting scalable systems, including Custom LLM and Chatbot development for business automation, ensuring seamless data integration before building.",
     deliverables: [
       "Information architecture",
       "System and data architecture",
@@ -72,10 +72,10 @@ export const stages = [
   {
     number: "04",
     shortLabel: "Design",
-    title: "UI/UX Design",
+    title: "Custom UI/UX design services for mobile and web apps.",
     phase: "Experience",
     description:
-      "Wireframes become an interface your users can navigate without instruction. Every screen is designed against the journeys agreed during strategy.",
+      "As a Conversion-focused UI/UX design agency for SaaS products, we build intuitive wireframes and high-fidelity interfaces tailored for user journey.",
     deliverables: [
       "Wireframes and user flows",
       "High-fidelity UI design",
@@ -91,7 +91,7 @@ export const stages = [
     title: "Engineering & Development",
     phase: "Build",
     description:
-      "Your product is built in reviewable increments on maintainable architecture, so progress is visible every week rather than only at the end.",
+      "Delivering high-grade engineering and Software Development Services in reviewable increments on robust, maintainable architecture.",
     deliverables: [
       "Front-end development",
       "Back-end and API development",
@@ -139,7 +139,7 @@ export const stages = [
     title: "Growth, Support & Optimization",
     phase: "Scale",
     description:
-      "After launch the work shifts to measurement: what to improve, what to automate, and where the next increment of growth comes from.",
+      "Continuous growth, performance monitoring, and AI Automation Services to maximize long-term scale after launch.",
     deliverables: [
       "Ongoing maintenance and SLA support",
       "Performance monitoring",

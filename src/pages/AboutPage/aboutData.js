@@ -58,7 +58,7 @@ export const aboutHero = {
   title: "A digital partner built for accountable growth.",
 
   description:
-    "Scaalable brings strategy, UX, engineering, AI automation, SEO, paid advertising and ongoing optimization into one accountable team. We help businesses build dependable digital products, strengthen their online presence and continue improving beyond launch.",
+    "As a premier software development agency and web development company in kolkata, Scaalable brings strategy, UX design, custom engineering, AI automation, and technical SEO into one unified team. We help businesses build dependable digital products, strengthen their search presence, and scale seamlessly post-launch.",
 
   primaryCta: { text: "Start a Conversation", to: "/contact#contact-form" },
 
@@ -80,30 +80,30 @@ export const connectedPartner = {
   title: "Technology and digital growth, working as one.",
 
   description:
-    "From product strategy and UX to engineering, automation, SEO and paid campaigns, every discipline works around the same business goals. You get clearer communication, shared ownership and a more consistent experience from one connected team.",
+    " From product strategy and UX to custom software development services, workflow automation, and SEO campaigns, every discipline aligns with your revenue goals. Work with a top custom software development company for scalable applications that delivers clear communication, full ownership, and consistent execution.",
 
   stages: [
     {
       id: "understand",
-      name: "Understand",
+      name: " Understand (Business analysis)",
       description:
         "We begin with your business, customers, challenges and priorities.",
     },
     {
       id: "design",
-      name: "Design",
+      name: " Design (UI/UX)",
       description:
         "We turn complex requirements into clear and intuitive experiences.",
     },
     {
       id: "build",
-      name: "Build",
+      name: " Build (Scalable code)",
       description:
         "We engineer secure, maintainable and scalable digital solutions.",
     },
     {
       id: "grow",
-      name: "Grow",
+      name: " Grow (SEO & performance marketing)",
       description:
         "We improve performance, visibility, campaigns and support after launch.",
     },
@@ -120,32 +120,32 @@ export const accountableDelivery = {
   title: "Clear from the first conversation.",
 
   description:
-    "Good partnerships are built on visible progress, clear ownership and fewer surprises.",
+    "Engineered by the best software company in india, our web and software delivery process relies on full transparency, milestone tracking, and dependable execution.",
 
   commitments: [
     {
       id: "scope",
       icon: ClipboardList,
-      name: "Written scope",
+      name: "Clear deliverables & scope control",
       description: "Clear deliverables, responsibilities and change control.",
     },
     {
       id: "progress",
       icon: Eye,
-      name: "Visible progress",
+      name: "Real-time progress demonstrations",
       description: "Regular demonstrations, useful updates and early decisions.",
     },
     {
       id: "handoff",
       icon: KeyRound,
-      name: "Secure handoff",
+      name: " IP & code ownership handof",
       description:
         "Organized documentation, access, source code and deployment ownership.",
     },
     {
       id: "support",
       icon: LifeBuoy,
-      name: "Support beyond launch",
+      name: " Long-term technical maintenance & support",
       description:
         "Monitoring, improvements and a clear path for ongoing support.",
     },
@@ -162,7 +162,7 @@ export const whyWeExist = {
   title: "Digital work should feel connected—not complicated.",
 
   paragraphs: [
-    "Businesses often lose time and momentum when their website, software, automation and marketing are handled by disconnected teams. Communication becomes harder, responsibility becomes unclear and the final result can lose sight of the original goal.",
+    "Businesses often lose momentum when custom apps, software, and marketing are fragmented across vendors. As a full-service web development agency, Scaalable integrates engineering, SEO, and AI automation under one roof.",
 
     "Scaalable was created around a more connected approach: understand the business first, bring the right capabilities together and keep progress visible throughout the engagement.",
 
@@ -188,27 +188,27 @@ export const workingWithUs = {
   title: "Professional in delivery. Easy to work with.",
 
   description:
-    "We bring structure to the project without making the relationship feel complicated.",
+    " Experience high-converting website development services and software engineering with complete operational clarity",
 
   items: [
     {
       id: "listen",
       icon: Ear,
-      name: "We listen before recommending",
+      name: "Consultative discovery before architecture",
       description:
         "We take time to understand the problem, context and priorities before proposing technology or marketing solutions.",
     },
     {
       id: "visible",
       icon: GitBranch,
-      name: "We make progress visible",
+      name: "Transparent milestone tracking",
       description:
         "You see what is being built, understand important decisions and always know what comes next.",
     },
     {
       id: "improve",
       icon: Sparkles,
-      name: "We keep improving",
+      name: "Continuous optimization & post-launch support",
       description:
         "After launch, we can continue supporting, monitoring and evolving the solution alongside your business.",
     },

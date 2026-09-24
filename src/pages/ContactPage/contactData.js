@@ -93,7 +93,7 @@ export const contactHero = {
   titleHighlight: "digital project forward.",
 
   paragraphs: [
-    "Whether you need a high-performance website, custom software, AI automation, SEO or paid growth support, tell us what you’re working toward. We’ll listen, ask the right questions and help identify the clearest next step.",
+    "Whether you need high-performance website development services, scalable custom software, AI automation, or target-driven campaigns from a professional seo company india, tell us what you are building. Consult with a top web development company in kolkata to map out your digital roadmap.",
   ],
 
   /* Sits closer to the button than to the paragraph above it — it is about
@@ -119,7 +119,7 @@ export const contactChannels = {
   title: "Reach Out Through Your Preferred Channel",
 
   description:
-    "Whether you have a question, need technical advice, or want to discuss a new project, our team is ready to assist you.",
+    "Get in touch with a leading software development agency for technical advice, custom software estimates, or digital growth inquiries.",
 
   items: [
     {
@@ -128,7 +128,7 @@ export const contactChannels = {
       title: "Phone",
       value: PHONE_DISPLAY,
       description:
-        "Speak directly with our team for project discussions, technical consultations, or business inquiries.",
+        "Speak directly with our custom software development services expert team",
       action: "Call Now",
       href: `tel:${PHONE_E164}`,
       external: false,
@@ -140,7 +140,7 @@ export const contactChannels = {
       title: "Email",
       value: EMAIL,
       description:
-        "Send us your requirements, project details, or partnership inquiries, and we'll get back to you as soon as possible.",
+        "Send project requirements to the best software company in india",
       action: "Send an Email",
       href: `mailto:${EMAIL}`,
       external: false,
@@ -151,7 +151,7 @@ export const contactChannels = {
       icon: MapPin,
       title: "Office",
       value: "Kolkata, India",
-      description: "Connect with us remotely from anywhere in the world.",
+      description: "Visit or connect remotely with our web development agency",
       action: "Get Directions",
       href: MAPS_URL,
       external: true,
@@ -162,7 +162,7 @@ export const contactChannels = {
       icon: MessageCircle,
       title: "WhatsApp Direct",
       value: PHONE_DISPLAY,
-      description: "Instant messaging for quick queries.",
+      description: "Instant chat for fast project estimations",
       action: "Chat on WhatsApp",
       href: WHATSAPP_URL,
       external: true,
@@ -179,31 +179,31 @@ export const contactChannels = {
 
 const SOCIAL_META = {
   LinkedIn: {
-    subtitle: "Company Page",
+    subtitle: "Company Page & Tech Articles",
     action: "Connect on LinkedIn",
     accent: "#0a66c2",
   },
 
   Instagram: {
-    subtitle: "Design & Culture",
+    subtitle: "Agency Culture & UX Case Studies",
     action: "Follow on Instagram",
     accent: "#dd2a7b",
   },
 
   Facebook: {
-    subtitle: "Community",
+    subtitle: "Community Updates",
     action: "Visit on Facebook",
     accent: "#1877f2",
   },
 
   GitHub: {
-    subtitle: "Open Source",
+    subtitle: "Open Source  Repositories",
     action: "Explore on GitHub",
     accent: "#24292f",
   },
 
   X: {
-    subtitle: "News & Updates",
+    subtitle: "Tech & SEO News",
     action: "Follow on X",
     accent: "#0f1419",
   },
@@ -218,7 +218,7 @@ export const socialChannels = {
   title: "Connect to Scaalable on Social Channels",
 
   description:
-    "Connect with Scaalable across social platforms and messaging channels for instant updates, insights, and direct messaging.",
+    "Follow our journey as a custom software development company for scalable applications. Connect with us for tech insights, open-source code updates, and agency culture.",
 
   items: SOCIAL_ORDER.map((name) => {
     const link = socialLinks.find((social) => social.title === name);

@@ -380,10 +380,10 @@ export const capabilities = [
 export const servicesCta = {
   eyebrow: "Ready when you are",
 
-  title: "Start Your Custom AI & Web Development Project Today",
+  title: " Start Your Custom AI & Web Development Project Today.",
 
   description:
-    "Tell us what you are building. We will help define the clearest path from idea to a secure, scalable launch.",
+    " Partner with a premier web development company in kolkata to transform your vision into secure, AI-powered scalable digital platforms.",
 
   /* Reads as the page handing over: services behind you, conversation ahead. */
   signal: {

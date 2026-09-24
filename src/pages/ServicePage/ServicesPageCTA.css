@@ -13,8 +13,7 @@
   --scta-accent: var(--color-brand-primary);
   --scta-ease: cubic-bezier(0.22, 1, 0.36, 1);
 
-  /* Pairs with .tech's trimmed padding-bottom to halve the gap between them. */
-  padding-top: clamp(1.5rem, 3vw, 2.6rem);
+  padding-block: clamp(2.25rem, 4.5vw, 3.25rem);
 
   background: var(--color-background);
 }
@@ -105,12 +104,14 @@
 
 .scta__panel {
   display: grid;
-  grid-template-columns: minmax(0, 0.68fr) minmax(0, 0.32fr);
+  grid-template-columns: minmax(0, 67fr) minmax(0, 33fr);
   align-items: center;
 
-  gap: var(--space-8);
+  gap: clamp(1.5rem, 3vw, 3rem);
 
-  padding: clamp(1.5rem, 4vw, 2.5rem);
+  min-height: 13rem;
+
+  padding: clamp(2.25rem, 3.2vw, 3rem);
 
   border: 1px solid var(--color-border-light);
   border-radius: var(--radius-2xl);
@@ -152,14 +153,18 @@
 
   color: var(--color-text-primary);
 
-  font-size: clamp(1.5rem, 3vw, 2.1rem);
+  max-width: 18ch;
 
-  line-height: 1.18;
+  font-size: clamp(1.75rem, 3.1vw, 2.5rem);
+
+  line-height: 1.15;
   letter-spacing: -0.03em;
+
+  text-wrap: balance;
 }
 
 .scta__description {
-  max-width: 56ch;
+  max-width: 42rem;
 
   margin: 0;
 
@@ -167,6 +172,32 @@
 
   font-size: clamp(0.88rem, 1.05vw, 0.98rem);
   line-height: 1.75;
+}
+
+@media (max-width: 1024px) {
+  .scta__panel {
+    grid-template-columns: minmax(0, 62fr) minmax(0, 38fr);
+
+    gap: 1.5rem;
+
+    padding: 2.25rem;
+  }
+
+  .scta__title {
+    max-width: none;
+  }
+}
+
+@media (max-width: 860px) and (min-width: 768px) {
+  .scta__panel {
+    grid-template-columns: minmax(0, 1fr);
+
+    gap: 1.75rem;
+  }
+
+  .scta__action {
+    justify-content: flex-start;
+  }
 }
 
 /* ==========================================================================
@@ -222,11 +253,19 @@
   .scta__panel {
     grid-template-columns: minmax(0, 1fr);
 
-    gap: var(--space-4);
+    gap: 1.5rem;
 
-    padding: clamp(1.125rem, 5vw, 1.375rem);
+    min-height: 0;
+
+    padding: 1.6rem;
 
     text-align: left;
+  }
+
+  .scta__title {
+    max-width: none;
+
+    font-size: clamp(1.5rem, 6.4vw, 1.9rem);
   }
 
   .scta__action {
@@ -235,6 +274,12 @@
 
   .scta__action .btn {
     width: 100%;
+  }
+}
+
+@media (max-width: 400px) {
+  .scta__panel {
+    padding: 1.4rem;
   }
 }
 

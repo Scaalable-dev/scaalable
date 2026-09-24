@@ -31,9 +31,9 @@ export const navigateLinks = [
    ========================================================================== */
 
 export const capabilityLinks = [
-  { id: "web", title: "Website Design & Development", to: "/services#cap-tab-web" },
-  { id: "uxui", title: "UI/UX Engineering", to: "/services#cap-tab-uxui" },
-  { id: "seo", title: "Search Engine Optimization", to: "/services#cap-tab-seo" },
+  { id: "web", title: " High-Performance website development services", to: "/services#cap-tab-web" },
+  { id: "uxui", title: "UI/UX Design", to: "/services#cap-tab-uxui" },
+  { id: "seo", title: "Technical SEO & Search Optimization", to: "/services#cap-tab-seo" },
   { id: "ai", title: "AI Automation Solutions", to: "/services#cap-tab-ai" },
   { id: "software", title: "Software Engineering", to: "/services#cap-tab-software" },
   { id: "growth", title: "Digital Growth", to: "/services#cap-tab-growth" },

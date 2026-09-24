@@ -5,11 +5,11 @@ const heroData = {
 
   title: {
     lead: "Custom AI Systems, Enterprise Web Engineering",
-    highlight: "& Software",
+    highlight: " & Software Development Services",
   },
 
   description:
-    "From strategy and engineering to AI, SEO and paid advertising, Scaalable brings technology and digital growth into one accountable team — supporting your business from idea and launch through ongoing growth.",
+    "As a leading web development company in kolkata, Scaalable brings technology and digital growth into one accountable team. From strategy and engineering to AI Solutions, professional seo company india services, and paid advertising—supporting your business from idea to scale.",
 
   /* Both route to a page and land on a specific section. `#contact-form` is the
      site-wide destination for conversion CTAs (ContactPage/InquiryForm);

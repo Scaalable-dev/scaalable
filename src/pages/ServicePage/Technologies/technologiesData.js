@@ -20,7 +20,7 @@ export const technologiesIntro = {
   title: "Modern Technologies Powering Future-Ready Solutions",
 
   description:
-    "At Scaalable, we leverage industry-leading technologies to build secure, scalable, and high-performance digital solutions engineered for long-term business growth.",
+    "As a leading custom software development company for scalable applications, we leverage cutting-edge tech stacks (React, Next.js, Node, Python) to build high-performance web applications engineered for growth.",
 };
 
 /* ==========================================================================

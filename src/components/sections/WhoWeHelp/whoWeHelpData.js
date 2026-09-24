@@ -37,7 +37,7 @@ export const audiences = [
     label: "For early-stage teams",
     heading: "Transforming Concepts into Launch-Ready Web & AI Products",
     description:
-      "Focused strategy, product design, and scalable engineering—without unnecessary complexity.",
+      "Focused strategy, Digital Product Design, and scalable engineering as a trusted Custom software development company for scalable applications—without unnecessary complexity.",
     outcome: "Validate faster and launch with confidence",
     nodes: {
       need: { label: "Clear direction", icon: Lightbulb },
@@ -52,7 +52,7 @@ export const audiences = [
     label: "For growing businesses",
     heading: "Turn manual work into a connected digital system.",
     description:
-      "Modern websites, automation, and practical software that help lean teams operate more efficiently.",
+      "Custom Website Development, AI Automation Services, and practical software that help lean teams operate more efficiently.",
     outcome: "Save time and create a stronger growth engine",
     nodes: {
       need: { label: "Less friction", icon: Workflow },
@@ -65,9 +65,9 @@ export const audiences = [
     id: "ecommerce",
     tab: "E-commerce",
     label: "For commerce brands",
-    heading: "Create a faster path from discovery to purchase.",
+    heading: "Create a faster path from discovery to purchase with E-commerce Website Development.",
     description:
-      "Conversion-focused storefronts, integrations, and performance improvements built around the customer journey.",
+      "Delivering High-performance web development services for e-commerce with conversion-focused storefronts, integrations, and performance improvements.",
     outcome: "Improve shopping experience and conversion",
     nodes: {
       need: { label: "Buyer intent", icon: MousePointerClick },
@@ -82,7 +82,7 @@ export const audiences = [
     label: "For established operations",
     heading: "Modernize complex systems without disrupting momentum.",
     description:
-      "Secure platforms, internal tools, and integrations designed for reliability, governance, and scale.",
+      "Secure platforms, Generative AI Integration, internal tools, and End-to-end SaaS software development services designed for reliability, governance, and scale.",
     outcome: "Reduce complexity and strengthen operations",
     nodes: {
       need: { label: "System clarity", icon: Network },
