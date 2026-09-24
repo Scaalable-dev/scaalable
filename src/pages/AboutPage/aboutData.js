@@ -162,11 +162,9 @@ export const whyWeExist = {
   title: "Digital work should feel connected—not complicated.",
 
   paragraphs: [
-    "Businesses often lose momentum when custom apps, software, and marketing are fragmented across vendors. As a full-service web development agency, Scaalable integrates engineering, SEO, and AI automation under one roof.",
+    " Businesses often lose momentum when custom apps, software, and marketing are fragmented across vendors. As a full-service web development agency, Scaalable integrates engineering, SEO, and AI automation under one roof.",
 
-    "Scaalable was created around a more connected approach: understand the business first, bring the right capabilities together and keep progress visible throughout the engagement.",
-
-    "We help turn ideas and operational challenges into dependable digital solutions. Our role does not end when something goes live—we remain available to support, improve and evolve it as the business changes.",
+    "We turn ideas and complex operations into dependable digital platforms. Our role extends beyond deployment—we provide ongoing optimization as a professional seo company india to guarantee business continuity and traffic growth.",
   ],
 
   closing: "One team. Clear ownership. Progress you can see.",
