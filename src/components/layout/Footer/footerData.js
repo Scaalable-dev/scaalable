@@ -65,12 +65,12 @@ export const contactInfo = [
     href: "tel:+917596918803",
   },
   {
-    id: "location",
-    icon: MapPin,
-    label: "Location",
-    value: "Kolkata, West Bengal, India",
-    href: null,
-  },
+  id: "location",
+  icon: MapPin,
+  label: "Location",
+  value: "189/10/b, Haran Chandra Banerjee Ln, Arabinda Pally, Konnagar, West Bengal 712235",
+  href: "https://www.google.com/maps/place/Scaalable/@22.6946012,88.3496334,17z/data=!4m6!3m5!1s0x39f89d61f8cfb215:0x9dfcdea5408afe52!8m2!3d22.6946012!4d88.3496334!16s%2Fg%2F11nr1nnfmd",
+},,
 ];
 
 /* ==========================================================================

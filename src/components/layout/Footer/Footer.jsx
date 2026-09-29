@@ -128,7 +128,17 @@ growth—working as your all-in-one digital expansion partner.
                       <Icon size={15} strokeWidth={1.9} />
                     </span>
 
-                    {href ? <a href={href}>{value}</a> : <span>{value}</span>}
+                    {href ? (
+  <a
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    {value}
+  </a>
+) : (
+  <span>{value}</span>
+)}
 
                     <span className="visually-hidden">{label}</span>
                   </p>
