@@ -62,7 +62,7 @@ const ArticleVisual = ({ categorySlug }) => {
 						</defs>
 						<rect width="400" height="225" fill="url(#ai-brain-bg)" />
 
-						{/* Circuit traces in background */}
+						
 						<path d="M40 50 H90 V90 H140" stroke="#00d2ff" strokeWidth="1" strokeOpacity="0.25" fill="none" />
 						<path d="M360 50 H310 V90 H260" stroke="#00d2ff" strokeWidth="1" strokeOpacity="0.25" fill="none" />
 						<path d="M40 180 H100 V140 H150" stroke="#00d2ff" strokeWidth="1" strokeOpacity="0.25" fill="none" />
