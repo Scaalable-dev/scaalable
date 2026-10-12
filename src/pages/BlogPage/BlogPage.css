@@ -1,0 +1,486 @@
+/* ==========================================================================
+   BLOG PAGE STYLES
+   Pixel-aligned with the reference image:
+   - Clean Hero with left-aligned copy & pill search bar
+   - Rich SVG 3D tech/laptop illustration on right
+   - Left-aligned Featured Articles header with pill badge
+   - 3-column grid of clean SaaS cards with domain-specific artwork
+   ========================================================================== */
+
+.blog-page {
+  background-color: #ffffff;
+  color: var(--color-text-primary, #0f172a);
+  min-height: 100vh;
+  position: relative;
+}
+
+/* ==========================================================================
+   1. BLOG HERO
+   ========================================================================== */
+
+.blog-hero {
+  position: relative;
+  background:
+    radial-gradient(circle at 82% 28%, rgba(224, 233, 254, 0.55) 0%, rgba(240, 245, 255, 0.3) 45%, transparent 70%),
+    linear-gradient(180deg, #f8faff 0%, #ffffff 100%);
+  padding-block: clamp(3.5rem, 5.5vw, 5rem);
+  border-bottom: 1px solid #edf1f7;
+  overflow: hidden;
+}
+
+.blog-hero__grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  align-items: center;
+  gap: 3.5rem;
+}
+
+.blog-hero__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+/* Hero Pill Badge */
+.blog-hero__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.3rem 0.8rem;
+  border-radius: 9999px;
+  background: #eef2ff;
+  border: 1px solid rgba(59, 130, 246, 0.18);
+  color: #3b82f6;
+  font-size: 0.775rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  margin-bottom: 1.25rem;
+}
+
+.blog-hero__pill-icon-box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #3b82f6;
+}
+
+/* Hero Title */
+.blog-hero__title {
+  font-family: var(--font-family-heading, "Poppins", sans-serif);
+  font-size: clamp(2.4rem, 4.2vw, 3.4rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  color: #0f172a;
+  margin: 0 0 1.25rem 0;
+}
+
+/* Hero Paragraph */
+.blog-hero__paragraph {
+  font-size: 0.975rem;
+  line-height: 1.6;
+  color: #64748b;
+  max-width: 460px;
+  margin: 0 0 2rem 0;
+}
+
+/* ==========================================================================
+   2. ARTICLE SEARCH BAR
+   Positioned directly below About Scaalable and before Featured Articles.
+   ========================================================================== */
+
+.blog-search-bar {
+  padding-block: 0;
+  margin-bottom: clamp(1rem, 1.8vw, 1.5rem);
+}
+
+.blog-hero__search,
+.blog-search-bar__form {
+  width: 100%;
+  max-width: 380px;
+}
+
+.blog-hero__search-box,
+.blog-search-bar__box {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.blog-hero__search-icon,
+.blog-search-bar__icon {
+  position: absolute;
+  left: 1rem;
+  color: #94a3b8;
+  pointer-events: none;
+}
+
+.blog-hero__search-box input,
+.blog-search-bar__box input {
+  width: 100%;
+  height: 46px;
+  border-radius: 9999px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  padding: 0.5rem 1.25rem 0.5rem 2.65rem;
+  font-family: var(--font-family-body, "Inter", sans-serif);
+  font-size: 0.875rem;
+  color: #1e293b;
+  outline: none;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.blog-hero__search-box input:focus,
+.blog-search-bar__box input:focus {
+  border-color: #3b82f6;
+  box-shadow:
+    0 0 0 3px rgba(59, 130, 246, 0.12),
+    0 2px 6px rgba(15, 23, 42, 0.04);
+}
+
+.blog-hero__search-box input::placeholder,
+.blog-search-bar__box input::placeholder {
+  color: #94a3b8;
+}
+
+/* ==========================================================================
+   HERO RIGHT: TECH/BLOG ILLUSTRATION
+   ========================================================================== */
+
+.blog-hero__visual-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.blog-hero__illustration {
+  width: 100%;
+  max-width: 460px;
+  height: auto;
+  display: block;
+}
+
+/* ==========================================================================
+   2. FEATURED ARTICLES SECTION
+   ========================================================================== */
+
+.blog-featured {
+  padding-block: clamp(0.75rem, 1.5vw, 1.25rem) clamp(2rem, 3.5vw, 2.75rem);
+  background-color: #ffffff;
+}
+
+/* Left-aligned header matching reference */
+.blog-featured__header {
+  text-align: left;
+  max-width: 580px;
+  margin: 0 0 clamp(2rem, 3.5vw, 2.75rem) 0;
+}
+
+.blog-featured__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.3rem 0.85rem;
+  border-radius: 9999px;
+  background: #f0f2fe;
+  color: #4f46e5;
+  font-size: 0.775rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.blog-featured__pill-icon {
+  color: #4f46e5;
+}
+
+.blog-featured__title {
+  font-family: var(--font-family-heading, "Poppins", sans-serif);
+  font-size: clamp(2rem, 3.2vw, 2.6rem);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: #0f172a;
+  margin: 0 0 0.75rem 0;
+}
+
+.blog-featured__description {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #64748b;
+  margin: 0;
+}
+
+/* ==========================================================================
+   ARTICLE GRID & CARDS
+   ========================================================================== */
+
+.blog-featured__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.75rem;
+}
+
+.blog-featured__empty {
+  text-align: center;
+  padding: clamp(3rem, 6vw, 4.5rem) 1rem;
+}
+
+.blog-featured__empty-text {
+  font-size: 0.95rem;
+  color: #64748b;
+  margin: 0;
+}
+
+.blog-card {
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border: 1px solid #eef2f6;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.03);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.blog-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.06);
+  border-color: #e2e8f0;
+}
+
+.blog-card__link {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  text-decoration: none;
+  color: inherit;
+}
+
+.blog-card__media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #f8fafc;
+  border-bottom: 1px solid #edf1f7;
+}
+
+.blog-card__visual {
+  width: 100%;
+  height: 100%;
+}
+
+.blog-card__svg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.35s ease;
+}
+
+.blog-card:hover .blog-card__svg {
+  transform: scale(1.02);
+}
+
+.blog-card__body {
+  padding: 1.35rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.blog-card__category-wrap {
+  margin-bottom: 0.75rem;
+}
+
+.blog-card__category {
+  display: inline-block;
+  padding: 0.22rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.725rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+/* Reference Image Category Badges */
+.blog-card__category--ai-automation {
+  background: #fdf2f8;
+  color: #a21caf;
+}
+
+.blog-card__category--software-development {
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.blog-card__category--ui-ux {
+  background: #fdf4ff;
+  color: #c026d3;
+}
+
+.blog-card__category--seo-aeo-geo {
+  background: #fff7ed;
+  color: #ea580c;
+}
+
+.blog-card__category--business-growth {
+  background: #f0fdf4;
+  color: #16a34a;
+}
+
+.blog-card__category--case-studies {
+  background: #f5f3ff;
+  color: #4f46e5;
+}
+
+/* Card Title */
+.blog-card__title {
+  font-family: var(--font-family-heading, "Poppins", sans-serif);
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: #0f172a;
+  margin: 0 0 0.65rem 0;
+  transition: color 0.2s ease;
+}
+
+.blog-card:hover .blog-card__title {
+  color: #2563eb;
+}
+
+/* Card Description */
+.blog-card__description {
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: #64748b;
+  margin: 0 0 1.25rem 0;
+  flex-grow: 1;
+}
+
+/* Card Footer */
+.blog-card__footer {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding-top: 0.85rem;
+  margin-top: auto;
+  font-size: 0.775rem;
+  color: #64748b;
+}
+
+.blog-card__meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.blog-card__meta-icon {
+  color: #94a3b8;
+}
+
+/* ==========================================================================
+   RESPONSIVENESS
+   - Desktop: 3 columns
+   - Tablet: 2 columns
+   - Mobile: 1 column
+   ========================================================================== */
+
+@media (max-width: 992px) {
+  .blog-hero__grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .blog-hero__content {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .blog-hero__visual-wrap {
+    max-width: 420px;
+    margin: 0 auto;
+  }
+
+  .blog-featured__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .blog-hero {
+    padding-block: 2.75rem;
+  }
+
+  .blog-search-bar {
+    margin-bottom: 1.25rem;
+  }
+
+  .blog-hero__search,
+  .blog-search-bar__form {
+    max-width: 100%;
+  }
+
+  .blog-featured {
+    padding-block: 0.75rem 2rem;
+  }
+
+  .blog-featured__grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .blog-card__body {
+    padding: 1.2rem;
+  }
+}
+
+
+/* Company overview block between the blog hero and the article collection. */
+.blog-about {
+  padding-block: clamp(3.5rem, 5vw, 4.5rem) clamp(1.75rem, 2.8vw, 2.5rem);
+  background: linear-gradient(180deg, #f8faff 0%, #ffffff 100%);
+  scroll-margin-top: 100px;
+}
+.blog-about__grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(280px, .85fr); align-items: center; gap: clamp(2rem, 6vw, 5rem); }
+.blog-about__content h2 { max-width: 760px; margin: 1rem 0; color: #101a3a; font-size: clamp(2rem, 4vw, 3.15rem); line-height: 1.12; letter-spacing: -.04em; }
+.blog-about__content p { color: #59647b; line-height: 1.8; margin: .9rem 0; }
+.blog-about__link { display: inline-flex; align-items: center; gap: .65rem; margin-top: .65rem; color: #4359df; font-weight: 650; text-decoration: none; }
+.blog-about__link:hover { gap: .9rem; }
+.blog-about__panel { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .85rem; padding: clamp(1.1rem, 3vw, 2rem); border: 1px solid #e1e7f5; border-radius: 1.4rem; background: rgba(255,255,255,.9); box-shadow: 0 22px 60px rgba(34, 53, 112, .08); }
+.blog-about__panel span { display: flex; align-items: center; min-height: 86px; padding: 1rem; border-radius: .9rem; background: linear-gradient(135deg, #f4f7ff, #ffffff); border: 1px solid #e9edfa; color: #26345b; font-weight: 600; font-size: .94rem; line-height: 1.45; }
+.blog-featured { scroll-margin-top: 100px; }
+.blog-page__cta-anchor { scroll-margin-top: 90px; }
+.blog-card__footer { display: none; }
+
+/* Reduce excessive spacing between Featured Articles and CTA */
+.blog-page .hcta {
+  padding-block: clamp(1.75rem, 3vw, 2.5rem) clamp(3.5rem, 5vw, 4.5rem);
+}
+
+@media (max-width: 760px) {
+  .blog-about {
+    padding-block: 2.75rem 1.5rem;
+  }
+  .blog-about__grid { grid-template-columns: 1fr; }
+  .blog-about__panel { grid-template-columns: 1fr 1fr; }
+  .blog-about__panel span { min-height: 76px; padding: .8rem; font-size: .86rem; }
+}
+@media (max-width: 640px) {
+  .blog-page .hcta {
+    padding-block: 1.5rem 3rem;
+  }
+}
+@media (max-width: 420px) { .blog-about__panel { grid-template-columns: 1fr; } }
+
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }

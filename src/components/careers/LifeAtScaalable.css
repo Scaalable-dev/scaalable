@@ -1,0 +1,161 @@
+/* ==========================================================================
+   LIFE AT SCAALABLE SECTION STYLES
+   ========================================================================== */
+
+.life-at-scaalable {
+  position: relative;
+  padding-block: clamp(3.5rem, 6vw, 6rem);
+}
+
+.life-at-scaalable__wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2rem, 4vw, 3.5rem);
+}
+
+.life-at-scaalable__grid {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  align-items: center;
+  gap: clamp(2rem, 5vw, 4rem);
+}
+
+/* Visual Column */
+
+.life-at-scaalable__visual-col {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.life-at-scaalable__art-card {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: 1.5rem;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+}
+
+.life-at-scaalable__art-glow {
+  position: absolute;
+  inset: -15px;
+  border-radius: var(--radius-2xl);
+  background: radial-gradient(
+    circle,
+    rgba(0, 130, 249, 0.15) 0%,
+    rgba(137, 57, 250, 0.1) 45%,
+    transparent 70%
+  );
+  filter: blur(25px);
+  z-index: -1;
+}
+
+.life-at-scaalable__art-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.life-at-scaalable__art-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 1rem;
+  padding: 0.35rem 0.85rem;
+  background: rgba(239, 244, 252, 0.8);
+  border: 1px solid rgba(0, 130, 249, 0.2);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-brand-primary);
+}
+
+.life-at-scaalable__art-tag-icon {
+  color: var(--color-brand-accent);
+}
+
+/* Pillars Column */
+
+.life-at-scaalable__pillars {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.life-at-scaalable__pillar-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.5rem;
+  box-shadow: var(--shadow-xs);
+  transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.life-at-scaalable__pillar-card:hover {
+  transform: translateX(4px);
+  border-color: rgba(0, 130, 249, 0.3);
+  box-shadow: 0 8px 24px rgba(0, 130, 249, 0.08);
+}
+
+.life-at-scaalable__pillar-num {
+  font-family: var(--font-family-heading);
+  font-size: 1.25rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-brand-primary);
+  background: rgba(0, 130, 249, 0.08);
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.life-at-scaalable__pillar-content {
+  flex: 1;
+}
+
+.life-at-scaalable__pillar-title {
+  font-family: var(--font-family-heading);
+  font-size: 1.1rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-slate-900);
+  margin: 0 0 0.35rem 0;
+}
+
+.life-at-scaalable__pillar-desc {
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-body);
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.life-at-scaalable__action {
+  display: flex;
+  align-items: center;
+}
+
+/* ================= Responsive ================= */
+
+@media (max-width: 992px) {
+  .life-at-scaalable__grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .life-at-scaalable__visual-col {
+    order: 2;
+  }
+
+  .life-at-scaalable__pillars-col {
+    order: 1;
+  }
+}
