@@ -20,6 +20,16 @@ const navLinks = [
     to: "/about",
   },
   {
+    id: "blog",
+    label: "Blog",
+    to: "/blog",
+  },
+  {
+    id: "careers",
+    label: "Careers",
+    to: "/careers",
+  },
+  {
     id: "contact",
     label: "Contact",
     to: "/contact",

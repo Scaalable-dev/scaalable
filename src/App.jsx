@@ -44,6 +44,18 @@ const TrackPageViews = () => {
 const About = lazy(() => import("./pages/AboutPage/About"));
 const Contact = lazy(() => import("./pages/ContactPage"));
 const Services = lazy(() => import("./pages/ServicePage"));
+const Careers = lazy(() => import("./pages/CareersPage"));
+const JobDetailPage = lazy(() =>
+  import("./pages/CareersPage").then((module) => ({
+    default: module.JobDetailPage,
+  }))
+);
+const Blog = lazy(() => import("./pages/BlogPage"));
+const ArticlePage = lazy(() =>
+  import("./pages/BlogPage").then((module) => ({
+    default: module.ArticlePage,
+  }))
+);
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 function App() {
@@ -64,6 +76,10 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/services" element={<Services />} />
+            <Route path="/careers" element={<Careers />} />
+            <Route path="/careers/:slug" element={<JobDetailPage />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:slug" element={<ArticlePage />} />
 
             {/* Inside MainLayout on purpose: a dead link should still land
                 on a page with the site's own header and footer, so the way

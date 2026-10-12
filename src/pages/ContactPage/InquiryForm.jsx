@@ -35,8 +35,13 @@ const InquiryForm = () => {
     setIsSubmitting(true);
 
     try {
+      const formId = import.meta.env.VITE_FORMSPREE_FORM_ID;
+      if (!formId) {
+        throw new Error("Form ID is not configured. Please set VITE_FORMSPREE_FORM_ID in your .env file.");
+      }
+
       const response = await fetch(
-        `https://formspree.io/f/${import.meta.env.VITE_FORMSPREE_FORM_ID}`,
+        `https://formspree.io/f/${formId}`,
         {
           method: "POST",
           body: formData,
