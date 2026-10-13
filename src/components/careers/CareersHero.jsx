@@ -83,7 +83,7 @@ const CareersHero = () => {
               </div>
               <div className="careers-hero__highlight-item">
                 <span className="careers-hero__highlight-bullet" />
-                <span><strong>Unpaid Learning &amp; Volunteer</strong> Roles</span>
+                <span><strong>Learning &amp; Volunteer</strong> Roles</span>
               </div>
               <div className="careers-hero__highlight-item">
                 <span className="careers-hero__highlight-bullet" />

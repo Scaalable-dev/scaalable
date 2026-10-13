@@ -101,7 +101,7 @@ const JobOpeningsSection = () => {
             Showing <strong>{filteredJobs.length}</strong> of {JOBS.length} remote positions
           </span>
           <span className="job-openings__conditions-tag">
-            All roles are 100% Remote &amp; Unpaid
+            All roles are 100% Remote
           </span>
         </div>
 

@@ -70,12 +70,6 @@
   border: 1px solid rgba(6, 182, 212, 0.25);
 }
 
-.job-card__badge--unpaid {
-  background: rgba(137, 57, 250, 0.1);
-  color: var(--color-brand-secondary);
-  border: 1px solid rgba(137, 57, 250, 0.25);
-}
-
 .job-card__title {
   font-family: var(--font-family-heading);
   font-size: 1.25rem;

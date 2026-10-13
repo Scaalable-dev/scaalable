@@ -30,7 +30,7 @@ const CareersClosingCta = () => {
               </h2>
 
               <p className="careers-closing-cta__description">
-                Explore our eight remote, unpaid openings across engineering, marketing, creative, and recruitment. Build practical skills with our team today.
+                Explore our eight remote openings across engineering, marketing, creative, and recruitment. Build practical skills with our team today.
               </p>
 
               <div className="careers-closing-cta__action">

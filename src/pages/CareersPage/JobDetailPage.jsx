@@ -61,8 +61,6 @@ const JobDetailPage = () => {
     );
   }
 
-  const isInternship = job.employmentType.toLowerCase().includes("internship");
-  const unpaidLabel = isInternship ? "UNPAID INTERNSHIP" : "UNPAID ROLE";
   const relatedJobs = getRelatedJobs(job.slug, job.category, 2);
 
   return (
@@ -90,9 +88,6 @@ const JobDetailPage = () => {
               <span className="job-detail__badge job-detail__badge--remote">
                 <Globe size={13} strokeWidth={2.4} aria-hidden="true" />
                 <span>REMOTE</span>
-              </span>
-              <span className="job-detail__badge job-detail__badge--unpaid">
-                <span>{unpaidLabel}</span>
               </span>
             </div>
 
@@ -136,7 +131,6 @@ const JobDetailPage = () => {
         <div className="job-detail__grid">
           {/* Main JD Content */}
           <div className="job-detail__content">
-            {/* MANDATORY PROMINENT COMPENSATION & WORK MODE DISCLOSURE */}
             <div className="job-detail__disclosure-box">
               <div className="job-detail__disclosure-header">
                 <Info size={18} strokeWidth={2.4} className="job-detail__disclosure-icon" />
@@ -152,12 +146,6 @@ const JobDetailPage = () => {
                 </div>
 
                 <div className="job-detail__fact-card">
-                  <span className="job-detail__fact-label">Compensation</span>
-                  <strong className="job-detail__fact-value">Unpaid</strong>
-                  <span className="job-detail__fact-sub">{job.employmentType}</span>
-                </div>
-
-                <div className="job-detail__fact-card">
                   <span className="job-detail__fact-label">Category</span>
                   <strong className="job-detail__fact-value">{job.category}</strong>
                   <span className="job-detail__fact-sub">Functional discipline</span>
@@ -169,9 +157,6 @@ const JobDetailPage = () => {
                   <span className="job-detail__fact-sub">Hands-on project experience</span>
                 </div>
               </div>
-              <p className="job-detail__disclosure-note">
-                Notice: Every role at Scaalable is strictly remote and unpaid. We do not provide stipends, travel allowances, or guaranteed post-internship offers. Please apply only if this voluntary learning format suits your current goals.
-              </p>
             </div>
 
             {/* Role Overview */}
@@ -251,7 +236,7 @@ const JobDetailPage = () => {
                   Apply for {job.title}
                 </h2>
                 <p className="job-detail__apply-desc">
-                  Apply by email. Remember that this position is completely remote and unpaid.
+                  Apply by email. Remember that this position is completely remote.
                 </p>
               </div>
 
@@ -268,11 +253,6 @@ const JobDetailPage = () => {
                 <div className="job-detail__sidebar-row">
                   <span className="job-detail__sidebar-label">Work Mode</span>
                   <span className="job-detail__sidebar-val job-detail__sidebar-val--badge">Remote</span>
-                </div>
-
-                <div className="job-detail__sidebar-row">
-                  <span className="job-detail__sidebar-label">Compensation</span>
-                  <span className="job-detail__sidebar-val job-detail__sidebar-val--badge">Unpaid</span>
                 </div>
 
                 <div className="job-detail__sidebar-row">

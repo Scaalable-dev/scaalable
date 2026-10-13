@@ -6,12 +6,11 @@ export function getApplicationGmailUrl(jobTitle) {
     throw new Error("A valid job title is required to apply.");
   }
 
-  const subject = `Application for ${jobTitle.trim()} - Scaalable`;
   const params = new URLSearchParams({
     view: "cm",
     fs: "1",
     to: RECIPIENT,
-    su: subject,
+    su: `Application for ${jobTitle.trim()} - Scaalable`,
     body: BODY,
   });
 

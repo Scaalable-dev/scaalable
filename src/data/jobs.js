@@ -17,9 +17,8 @@ export const JOBS = [
     slug: "social-media-marketing-intern",
     title: "Social Media Marketing Intern",
     category: "Digital Marketing",
-    employmentType: "Unpaid Internship",
+    employmentType: "Internship",
     workMode: "Remote",
-    compensation: "Unpaid",
     summary:
       "Assist with social media content planning, publishing and audience engagement across Scaalable's digital channels.",
     overview:
@@ -54,9 +53,8 @@ export const JOBS = [
     slug: "seo-intern",
     title: "SEO Intern",
     category: "Digital Marketing",
-    employmentType: "Unpaid Internship",
+    employmentType: "Internship",
     workMode: "Remote",
-    compensation: "Unpaid",
     summary:
       "Support organic search visibility through keyword research and website content optimization.",
     overview:
@@ -90,9 +88,8 @@ export const JOBS = [
     slug: "geo-aeo-marketing-intern",
     title: "GEO & AEO Marketing Intern",
     category: "Digital Marketing",
-    employmentType: "Unpaid Internship",
+    employmentType: "Internship",
     workMode: "Remote",
-    compensation: "Unpaid",
     summary:
       "Explore content discoverability across AI-powered search experiences and answer engines.",
     overview:
@@ -126,9 +123,8 @@ export const JOBS = [
     slug: "campus-co-ordinator",
     title: "Campus Co-ordinator",
     category: "Digital Marketing",
-    employmentType: "Unpaid Role",
+    employmentType: "Role",
     workMode: "Remote",
-    compensation: "Unpaid",
     summary:
       "Support campus outreach, student communication and coordination with college communities.",
     overview:
@@ -161,9 +157,8 @@ export const JOBS = [
     slug: "ai-engineer-intern",
     title: "AI Engineer Intern",
     category: "Technology & AI",
-    employmentType: "Unpaid Internship",
+    employmentType: "Internship",
     workMode: "Remote",
-    compensation: "Unpaid",
     summary:
       "Assist with AI and machine-learning experiments, data preparation and prototype development.",
     overview:
@@ -196,9 +191,8 @@ export const JOBS = [
     slug: "it-consultant-intern",
     title: "IT Consultant Intern",
     category: "Technology & AI",
-    employmentType: "Unpaid Internship",
+    employmentType: "Internship",
     workMode: "Remote",
-    compensation: "Unpaid",
     summary:
       "Support technical research, requirement analysis and technology recommendations.",
     overview:
@@ -231,9 +225,8 @@ export const JOBS = [
     slug: "graphic-designer-intern",
     title: "Graphic Designer Intern",
     category: "Creative",
-    employmentType: "Unpaid Internship",
+    employmentType: "Internship",
     workMode: "Remote",
-    compensation: "Unpaid",
     summary:
       "Create clear, attractive visual assets for digital communication and marketing.",
     overview:
@@ -265,9 +258,8 @@ export const JOBS = [
     slug: "hr-recruitment-intern",
     title: "HR & Recruitment Intern",
     category: "People & Recruitment",
-    employmentType: "Unpaid Internship",
+    employmentType: "Internship",
     workMode: "Remote",
-    compensation: "Unpaid",
     summary:
       "Support recruitment coordination and basic HR administration.",
     overview:
@@ -385,9 +377,9 @@ export const lifeAtScaalable = {
 
 export const careersSeo = () => ({
   meta: {
-    title: "Careers at Scaalable | Remote & Unpaid Opportunities",
+    title: "Careers at Scaalable | Remote Opportunities",
     description:
-      "Discover remote, unpaid internship and volunteer opportunities at Scaalable across Digital Marketing, AI, Creative, and Recruitment.",
+      "Discover remote internship and volunteer opportunities at Scaalable across Digital Marketing, AI, Creative, and Recruitment.",
     canonical: "https://scaalable.com/careers",
   },
   jsonLd: [
@@ -397,7 +389,7 @@ export const careersSeo = () => ({
       name: "Careers at Scaalable",
       url: "https://scaalable.com/careers",
       description:
-        "Explore remote, unpaid learning and internship opportunities at Scaalable.",
+        "Explore remote learning and internship opportunities at Scaalable.",
     },
   ],
 });
@@ -418,7 +410,7 @@ export const jobDetailSeo = (job) => {
   return {
     meta: {
       title: `${job.title} (${job.employmentType}, ${job.workMode}) | Scaalable Careers`,
-      description: `${job.summary} 100% Remote, Unpaid opportunity at Scaalable.`,
+      description: `${job.summary} 100% Remote opportunity at Scaalable.`,
       canonical: `https://scaalable.com/careers/${job.slug}`,
     },
     jsonLd: [
@@ -426,7 +418,7 @@ export const jobDetailSeo = (job) => {
         "@context": "https://schema.org",
         "@type": "JobPosting",
         title: job.title,
-        description: `${job.overview} Work Mode: ${job.workMode}. Compensation: ${job.compensation}.`,
+        description: `${job.overview} Work Mode: ${job.workMode}.`,
         datePosted: "2026-01-01",
         employmentType: "OTHER",
         hiringOrganization: {
@@ -435,15 +427,6 @@ export const jobDetailSeo = (job) => {
           sameAs: "https://scaalable.com",
         },
         jobLocationType: "TELECOMMUTE",
-        baseSalary: {
-          "@type": "MonetaryAmount",
-          currency: "INR",
-          value: {
-            "@type": "QuantitativeValue",
-            value: 0,
-            unitText: "MONTH",
-          },
-        },
         experienceRequirements: "Entry Level / Student",
       },
     ],

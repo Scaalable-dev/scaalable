@@ -5,11 +5,7 @@ import { getApplicationGmailUrl } from "../../utils/applicationEmail";
 import "./JobCard.css";
 
 const JobCard = ({ job }) => {
-  const { slug, title, category, summary, employmentType, skills } = job;
-
-  // Exact prompt labels: REMOTE and UNPAID or UNPAID INTERNSHIP
-  const isInternship = employmentType.toLowerCase().includes("internship");
-  const unpaidLabel = isInternship ? "UNPAID INTERNSHIP" : "UNPAID ROLE";
+  const { slug, title, category, summary, skills } = job;
 
   return (
     <article className="job-card" id={`job-card-${slug}`}>
@@ -21,9 +17,6 @@ const JobCard = ({ job }) => {
             <span className="job-card__badge job-card__badge--remote">
               <Globe size={12} strokeWidth={2.4} aria-hidden="true" />
               <span>REMOTE</span>
-            </span>
-            <span className="job-card__badge job-card__badge--unpaid">
-              <span>{unpaidLabel}</span>
             </span>
           </div>
         </div>
@@ -60,8 +53,6 @@ const JobCard = ({ job }) => {
 
         <Button
           href={getApplicationGmailUrl(title)}
-          target="_blank"
-          rel="noopener noreferrer"
           variant="primary"
           size="sm"
           className="job-card__btn-apply"
