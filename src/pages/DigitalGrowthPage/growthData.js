@@ -1,0 +1,22 @@
+import { absoluteUrl } from "../../lib/site"; import { breadcrumbs, faqPage, webPage } from "../../lib/structuredData";
+export const GROWTH_PATH="/digital-growth";export const meta={title:"Digital Growth Services | Scaalable",description:"Scaalable connects organic, paid, content and analytics strategies to practical customer acquisition and continuous optimization.",canonical:absoluteUrl(GROWTH_PATH)};
+export const services=[["Search Engine Optimization","Improve organic search visibility through technical optimization, keyword strategy, and useful content."],["Local SEO","Help nearby customers discover your business through local search optimization and business profile improvements."],["Google Ads","Reach relevant audiences through targeted search campaigns and ongoing campaign optimization."],["Meta Ads","Create and optimize paid campaigns across Facebook and Instagram to reach relevant audiences."],["LinkedIn Ads","Reach professional audiences through targeted B2B campaigns and lead generation strategies."],["Content Marketing","Develop useful, audience-focused content that supports discovery, engagement, and customer acquisition."],["Conversion Rate Optimization","Improve landing pages and user journeys through analysis, testing, and iterative improvements."],["Analytics & Reporting","Track campaign performance and turn measurable insights into informed marketing decisions."]];
+export const channels = [
+  ["Organic", "Search-led discovery built on useful technical and content foundations."],
+  ["Paid Search", "Intent-based campaigns that meet people as they look for solutions."],
+  ["Paid Social", "Audience-led reach and messaging across relevant social environments."],
+  ["Content", "Helpful information that earns attention throughout the customer journey."],
+  ["CRO", "Clearer landing experiences and next steps for qualified visitors."],
+  ["Analytics", "Evidence that helps teams understand, prioritize and improve activity."],
+];
+export const growthBenefits = [
+  ["Audience-led planning", "Clarify the people, questions and decision points the growth work should support."],
+  ["Coordinated channels", "Organic, paid, content and conversion work operate as one system rather than isolated activity."],
+  ["Conversion-focused experiences", "Landing pages and journeys are refined so qualified visitors have a clearer next step."],
+  ["Measurable activity", "Reporting connects channel behaviour, landing-page performance and configured conversion signals."],
+  ["Continuous optimization", "Evidence from live activity informs the next useful adjustment."],
+  ["Organic and paid together", "Paid activity can address immediate opportunities while SEO supports discoverability over time."],
+];
+export const process=[["01","Understand Business Goals","We clarify what sustainable acquisition should support for the business."],["02","Identify Target Audiences","We examine the audiences, questions and decision points that matter."],["03","Select Growth Channels","We choose the channel mix that best fits the goals and context."],["04","Launch and Optimize Campaigns","We put the agreed activity into motion and learn from its signals."],["05","Measure Performance","We track the relevant marketing, experience and conversion indicators."],["06","Refine the Strategy","We use the evidence to make the next useful adjustment."]];
+export const faqs=[["what","What is digital growth marketing?","It connects channels, content, experience and measurement around acquiring and serving relevant audiences."],["seo-paid","How do SEO and paid advertising work together?","They can work across complementary moments: paid activity can address immediate opportunities while SEO supports discoverability over time."],["audience","Can campaigns target specific customer audiences?","Audience definition and channel selection are part of planning a growth strategy."],["measure","How is marketing performance measured?","Measurement can include channel behaviour, landing-page performance, configured conversion signals and reporting insights."],["optimize","Can existing campaigns be optimized?","Yes. Existing activity can be reviewed to identify practical improvements in targeting, experience, creative or measurement."]];
+export const seo=()=>({meta,jsonLd:[webPage({path:GROWTH_PATH,title:meta.title,description:meta.description,type:"ServicePage"}),breadcrumbs([{name:"Services",path:"/services"},{name:"Digital Growth",path:GROWTH_PATH}]),faqPage(faqs.map(([id,question,answer])=>({id,question,answer})),GROWTH_PATH)]});

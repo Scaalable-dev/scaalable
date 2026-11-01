@@ -330,4 +330,37 @@
   --shadow-brand: 0 12px 30px rgba(0, 130, 249, 0.12);
 
   --header-height: 72px;
+
+  /* ==========================================================================
+     SERVICE DETAIL PAGES
+     Shared tokens for every service landing page. Pages consume these via
+     the ServicePage components rather than inventing local colour, type or
+     spacing. Illustration interiors may use the brand ramp, but not new hues.
+     ========================================================================== */
+
+  --sp-heading: var(--color-text-primary);
+  --sp-body: var(--color-text-secondary);
+  --sp-muted: var(--color-text-muted);
+  --sp-border: var(--color-border-light);
+  --sp-card-bg: var(--color-surface);
+  --sp-section-bg: var(--color-wash);
+  --sp-icon-bg: var(--color-brand-soft);
+  --sp-icon-color: var(--color-brand-600);
+  --sp-accent: var(--color-brand-primary);
+  --sp-radius-card: var(--radius-xl);
+  --sp-radius-visual: 1.35rem;
+  --sp-radius-inner: 0.85rem;
+  --sp-shadow-visual: 0 28px 64px rgba(49, 84, 148, 0.16), inset 0 1px rgba(255, 255, 255, 0.8);
+  --sp-canvas: linear-gradient(135deg, #152b59, #225da1 58%, #5a3eab);
+  --sp-cta-bg: #152b59;
+  --sp-cta-copy: #cbdcf3;
+  --sp-hero-title: clamp(2.55rem, 5.1vw, 4.8rem);
+  --sp-hero-subtitle: clamp(1.2rem, 2vw, 1.65rem);
+  --sp-hero-body: clamp(1rem, 1.4vw, 1.16rem);
+  --sp-section-title: clamp(2rem, 3.6vw, 3.25rem);
+  --sp-card-title: 1.04rem;
+  --sp-card-body: 0.9rem;
+  --sp-grid-gap: var(--space-4);
+  --sp-heading-max: 46rem;
+  --sp-visual-tilt: 3deg;
 }

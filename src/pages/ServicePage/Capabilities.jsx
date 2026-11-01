@@ -1,4 +1,5 @@
 import { useRef, useState, useSyncExternalStore } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 
 import "./Capabilities.css";
@@ -76,7 +77,16 @@ const CapabilityBody = ({ item }) => (
             key={service}
             style={{ "--i": Math.min(i, STAGGER_CAP) }}
           >
-            {service}
+            {item.id === "web" || (item.id === "uxui" && service !== "Mobile App Design") || item.id === "seo" || item.id === "ai" || item.id === "software" || item.id === "growth" || item.id === "itsupport" ? (
+              <Link
+                className="cap__service-link"
+                to={item.id === "itsupport" ? "/it-support-managed-services" : item.id === "web" ? "/website-development" : item.id === "seo" ? "/seo" : item.id === "ai" ? "/ai-automation" : item.id === "software" ? "/software-engineering" : item.id === "growth" && (service === "Search Engine Optimization" || service === "Local SEO") ? "/seo" : item.id === "growth" ? "/digital-growth" : "/ui-ux-design"}
+              >
+                {service}
+              </Link>
+            ) : (
+              service
+            )}
           </li>
         ))}
       </ul>
@@ -102,9 +112,21 @@ const CapabilityBody = ({ item }) => (
 
 const Capabilities = () => {
   /* Starts closed: on mobile nothing is expanded until the user picks a row. */
-  const [activeId, setActiveId] = useState(null);
+
   const tabRefs = useRef([]);
   const isCompact = useIsCompact();
+  const location = useLocation();
+  const hashId = location.hash.replace("#", "");
+  const initialHashId = capabilities.some((c) => c.id === hashId) ? hashId : null;
+  const [activeId, setActiveId] = useState(initialHashId);
+  const [prevHash, setPrevHash] = useState(location.hash);
+
+  if (location.hash !== prevHash) {
+    setPrevHash(location.hash);
+    if (capabilities.some((c) => c.id === hashId)) {
+      setActiveId(hashId);
+    }
+  }
 
   /* A tablist must always have one tab selected, so desktop falls back to the
      first entry. The accordion has no such rule and stays fully collapsed. */
@@ -183,7 +205,7 @@ const Capabilities = () => {
                 const open = item.id === selectedId;
 
                 return (
-                  <div className="cap__item" key={item.id}>
+                  <div className="cap__item" key={item.id} id={item.id}>
                     <button
                       type="button"
                       ref={(el) => (tabRefs.current[i] = el)}

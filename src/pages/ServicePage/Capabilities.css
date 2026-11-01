@@ -92,6 +92,7 @@
 }
 
 .cap__item {
+  scroll-margin-top: calc(var(--navbar-height) + 1.5rem);
   display: flex;
   flex-direction: column;
 
@@ -445,6 +446,17 @@
   border-color: rgba(0, 130, 249, 0.3);
 
   color: var(--color-text-primary);
+}
+
+.cap__service-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.cap__service-link:focus-visible {
+  border-radius: 2px;
+  outline: 2px solid var(--color-brand-primary);
+  outline-offset: 3px;
 }
 
 .cap__chip {

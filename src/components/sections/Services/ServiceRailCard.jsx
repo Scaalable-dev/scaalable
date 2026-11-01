@@ -20,7 +20,7 @@ const ServiceRailCard = ({ card, duplicate = false }) => {
   return (
     <li className="srail__item">
       <Link
-        to="/services#capabilities"
+        to={card.to}
         className="srail__card"
         data-tone={card.tone}
         style={{

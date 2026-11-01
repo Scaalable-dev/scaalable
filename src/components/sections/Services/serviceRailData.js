@@ -62,6 +62,7 @@ export const serviceCards = capabilities.map((capability) => {
     index: capability.index,
     icon: capability.icon,
     name: capability.name,
+    to: capability.id === "web" ? "/website-development" : "/services#capabilities",
     eyebrow: capability.eyebrow,
     subtitle: capability.subtitle,
     highlights: HIGHLIGHTS[capability.id] ?? capability.services.slice(0, 3),

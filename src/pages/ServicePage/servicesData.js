@@ -209,7 +209,6 @@ export const capabilities = [
       "Wireframing",
       "User Journey Mapping",
       "UI Design",
-      "Mobile App Design",
       "Dashboard Design",
       "Design Systems",
       "Interactive Prototypes",

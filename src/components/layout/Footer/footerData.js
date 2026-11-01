@@ -33,7 +33,7 @@ export const navigateLinks = [
    ========================================================================== */
 
 export const capabilityLinks = [
-  { id: "web", title: " High-Performance website development services", to: "/services#cap-tab-web" },
+  { id: "web", title: " High-Performance website development services", to: "/website-development" },
   { id: "uxui", title: "UI/UX Design", to: "/services#cap-tab-uxui" },
   { id: "seo", title: "Technical SEO & Search Optimization", to: "/services#cap-tab-seo" },
   { id: "ai", title: "AI Automation Solutions", to: "/services#cap-tab-ai" },
@@ -42,7 +42,7 @@ export const capabilityLinks = [
   {
     id: "itsupport",
     title: "IT Support & Managed Services",
-    to: "/services#cap-tab-itsupport",
+    to: "/it-support-managed-services",
   },
 ];
 

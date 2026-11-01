@@ -44,6 +44,13 @@ const TrackPageViews = () => {
 const About = lazy(() => import("./pages/AboutPage/About"));
 const Contact = lazy(() => import("./pages/ContactPage"));
 const Services = lazy(() => import("./pages/ServicePage"));
+const WebsiteDevelopment = lazy(() => import("./pages/WebsiteDevelopmentPage"));
+const UiUxDesign = lazy(() => import("./pages/UiUxDesignPage"));
+const SeoPage = lazy(() => import("./pages/SeoPage"));
+const AiAutomationPage = lazy(() => import("./pages/AiAutomationPage"));
+const ItSupportPage = lazy(() => import("./pages/ItSupportPage"));
+const SoftwareEngineering = lazy(() => import("./pages/SoftwareEngineeringPage"));
+const DigitalGrowth = lazy(() => import("./pages/DigitalGrowthPage"));
 const Careers = lazy(() => import("./pages/CareersPage"));
 const JobDetailPage = lazy(() =>
   import("./pages/CareersPage").then((module) => ({
@@ -76,6 +83,13 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/services" element={<Services />} />
+            <Route path="/website-development" element={<WebsiteDevelopment />} />
+            <Route path="/ui-ux-design" element={<UiUxDesign />} />
+            <Route path="/seo" element={<SeoPage />} />
+            <Route path="/ai-automation" element={<AiAutomationPage />} />
+            <Route path="/it-support-managed-services" element={<ItSupportPage />} />
+            <Route path="/software-engineering" element={<SoftwareEngineering />} />
+            <Route path="/digital-growth" element={<DigitalGrowth />} />
             <Route path="/careers" element={<Careers />} />
             <Route path="/careers/:slug" element={<JobDetailPage />} />
             <Route path="/blog" element={<Blog />} />

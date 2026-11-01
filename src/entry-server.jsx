@@ -32,6 +32,15 @@ import { HOME_PATH, homeSeo } from "./pages/HomePage/homeData";
 import { ABOUT_PATH, aboutSeo } from "./pages/AboutPage/aboutData";
 import { CONTACT_PATH, contactSeo } from "./pages/ContactPage/contactData";
 import { SERVICES_PATH, servicesSeo } from "./pages/ServicePage/servicesData";
+import {
+  WEBSITE_DEVELOPMENT_PATH,
+  websiteDevelopmentSeo,
+} from "./pages/WebsiteDevelopmentPage/websiteDevelopmentData";
+import { UI_UX_DESIGN_PATH, uiUxSeo } from "./pages/UiUxDesignPage/uiUxDesignData";
+import { SEO_PATH, seoPageData } from "./pages/SeoPage/seoData";
+import { AI_AUTOMATION_PATH, seo as aiAutomationSeo } from "./pages/AiAutomationPage/aiAutomationData";
+import { SOFTWARE_ENGINEERING_PATH, softwareSeo } from "./pages/SoftwareEngineeringPage/softwareEngineeringData";
+import { GROWTH_PATH, seo as growthSeo } from "./pages/DigitalGrowthPage/growthData";
 import { notFoundSeo } from "./pages/notFoundData";
 
 /* Each route, and the file it is written to. `out` is relative to dist/ and
@@ -44,6 +53,16 @@ import { notFoundSeo } from "./pages/notFoundData";
 export const routes = [
   { path: HOME_PATH, out: "index.html", seo: homeSeo },
   { path: SERVICES_PATH, out: "services/index.html", seo: servicesSeo },
+  {
+    path: WEBSITE_DEVELOPMENT_PATH,
+    out: "website-development/index.html",
+    seo: websiteDevelopmentSeo,
+  },
+  { path: UI_UX_DESIGN_PATH, out: "ui-ux-design/index.html", seo: uiUxSeo },
+  { path: SEO_PATH, out: "seo/index.html", seo: seoPageData },
+  { path: AI_AUTOMATION_PATH, out: "ai-automation/index.html", seo: aiAutomationSeo },
+  { path: SOFTWARE_ENGINEERING_PATH, out: "software-engineering/index.html", seo: softwareSeo },
+  { path: GROWTH_PATH, out: "digital-growth/index.html", seo: growthSeo },
   { path: ABOUT_PATH, out: "about/index.html", seo: aboutSeo },
   { path: CONTACT_PATH, out: "contact/index.html", seo: contactSeo },
   { path: "/404", out: "404.html", seo: notFoundSeo },

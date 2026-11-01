@@ -36,6 +36,12 @@ const DIST = join(ROOT, "dist");
 const ROUTE_MODULES = {
   "/": "index.html",
   "/services": "src/pages/ServicePage/index.js",
+  "/website-development": "src/pages/WebsiteDevelopmentPage/index.js",
+  "/ui-ux-design": "src/pages/UiUxDesignPage/index.js",
+  "/seo": "src/pages/SeoPage/index.js",
+  "/ai-automation": "src/pages/AiAutomationPage/index.js",
+  "/software-engineering": "src/pages/SoftwareEngineeringPage/index.js",
+  "/digital-growth": "src/pages/DigitalGrowthPage/index.js",
   "/about": "src/pages/AboutPage/About.jsx",
   "/contact": "src/pages/ContactPage/index.js",
   "/404": "src/pages/NotFound.jsx",
