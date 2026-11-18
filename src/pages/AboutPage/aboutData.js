@@ -8,8 +8,6 @@ import {
   Sparkles,
 } from "lucide-react";
 
-import founderImage from "../../assets/images/founder.webp";
-import coFounderImage from "../../assets/images/coFounder.webp";
 /* WebP re-encodes of the original PNGs (which remain in git history) —
    96% smaller at 1280px wide, comfortably past the ~1100px the layout can
    ever display them at on a 2x screen. */
@@ -228,44 +226,3 @@ export const ctaBanner = {
     href: "/contact#contact-form",
   },
 };
-
-/* ==========================================================================
-   FOUNDERS — unchanged
-   ========================================================================== */
-
-export const founders = [
-  {
-    id: 1,
-    name: "Avijit Das",
-    role: "Founder & CEO",
-    image: founderImage,
-    bio: [
-      "Avijit Das, created this platform to enable easier digital transformation for enterprises all around the world. After a long experience in digital marketing, technology consultancy, and information technology services, he identified a common issue that many businesses face – handling multiple vendors and uncoordinated strategies.",
-      "This is where Scaalable came in, providing all digital solutions from one team, under one umbrella.",
-    ],
-    socials: {
-      instagram: "https://www.instagram.com/avijitdas_bycode/",
-      facebook: "https://www.facebook.com/profile.php?id=61571357147855",
-      linkedin: "https://www.linkedin.com/in/avijit-das-134b87421",
-      email: "mailto:avijit@scaalable.com",
-    },
-  },
-
-  {
-    id: 2,
-    name: "Tamal Gupta",
-    role: "Co-Founder",
-    image: coFounderImage,
-    bio: [
-      "As the Co-Founder of Scaalable, Tamal Gupta brings a strong passion for building modern, modular web applications that solve real business problems. With expertise in full-stack development and a focus on clean architecture, performance, and user experience, he plays a key role in transforming ideas into reliable digital products.",
-
-      "Working closely with the founder, he helps businesses streamline their digital presence by developing secure, high-performance solutions tailored to their unique needs. His commitment to quality, collaboration, and continuous innovation ensures that every project delivered by Scaalable meets the highest standards.",
-    ],
-    socials: {
-      instagram: "https://www.instagram.com/gupta_tamal",
-      facebook: "https://www.facebook.com/tamal.gupta.14",
-      linkedin: "https://www.linkedin.com/in/tamal-gupta-us60",
-      email: "mailto:tamal@scaalable.com",
-    },
-  },
-];

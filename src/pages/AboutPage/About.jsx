@@ -9,8 +9,6 @@ import Badge from "../../components/ui/Badge";
 import Button from "../../components/ui/Button";
 import Reveal from "../../components/ui/Reveal";
 
-import FounderCarousel from "./FounderCarousel";
-
 import {
   aboutHero,
   aboutSeo,
@@ -231,13 +229,6 @@ const About = () => {
               />
             </Reveal>
           </div>
-        </section>
-
-        {/* ============ FOUNDER — existing, unchanged ============ */}
-        <section className="founders">
-          <Badge>Introducing the Founder</Badge>
-
-          <FounderCarousel />
         </section>
 
         {/* ============ 5 — WORKING WITH SCAALABLE ============ */}

@@ -91,7 +91,7 @@ export const industries = [
         icon: Target,
         title: "Turn ideas into high-performing MVPs",
         description:
-          "A clear product scope helps founders validate demand without overbuilding.",
+          "A clear product scope helps early-stage teams validate demand without overbuilding.",
       },
       {
         number: "02",

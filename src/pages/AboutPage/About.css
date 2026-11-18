@@ -1,15 +1,14 @@
 /* ==========================================================================
    ABOUT
 
-   Six sections around the founder carousel, deliberately alternating shape:
+   Five sections, deliberately alternating shape:
    a two-column hero, an editorial split, a separated row, a story beside an
    illustration, and three columns. Nothing here is a card grid — the page
    used to be five of them in a row, which is what made it read as repetition
    rather than as an argument.
 
    Everything below draws on the shared tokens; no colour, radius or shadow is
-   invented here. The founder section at the bottom of this file is preserved
-   exactly as it was.
+   invented here.
    ========================================================================== */
 
 .about {
@@ -48,7 +47,7 @@
    scope, leaving two type selectors (0,0,2). That sits just above the global
    `section` rule this has to beat (0,0,1) — including its three responsive
    overrides — and still below any class, so a panel that needs real padding
-   (the founder card, the CTA) keeps its own without having to fight a reset.
+   (the CTA) keeps its own without having to fight a reset.
    Do not "tidy" this into `.about > .container > section`: at 0,2,1 it would
    flatten every one of those panels. */
 :where(.about) > div > section {
@@ -754,463 +753,10 @@
   }
 }
 
-/* ==========================================================================
-   FOUNDER + FINAL CTA
-
-   Preserved from the previous About stylesheet, declaration for
-   declaration and in their original order. The founder section was
-   explicitly out of scope for the rebuild.
-   ========================================================================== */
-
-.founder-card__socials {
-  display: flex;
-
-  align-items: center;
-
-  gap: 1rem;
-  margin-top: var(--space-8);
-}
-
-.founder-card__social {
-  width: 48px;
-
-  height: 48px;
-
-  display: grid;
-
-  place-items: center;
-
-  border-radius: 50%;
-
-  border: 1px solid var(--color-border);
-
-  background: #fff;
-
-  color: var(--color-text-primary);
-
-  transition: 0.3s ease;
-}
-
-.founder-card__social:hover {
-  background: var(--color-primary);
-
-  color: #fff;
-
-  transform: translateY(-3px);
-}
-
-.founder-card__social svg {
-  width: 20px;
-
-  height: 20px;
-}
-
-.founders {
-  --founders-pad: 5rem;
-
-  /* Only the top is the panel's own. The bottom is handed to the carousel
-     below, so the strip under the dots is part of the swipe surface rather
-     than dead panel padding. */
-  padding-top: var(--founders-pad);
-  padding-bottom: 0;
-
-  /* The carousel arrows are pulled 28px outside their track, so on a wide
-     screen a flat 20px here left them straddling the panel's own border. The
-     inset now grows past the arrow's radius before they appear at 769px. */
-  padding-inline: clamp(1.25rem, 3vw, 4.5rem);
-
-  border-radius: var(--radius-2xl);
-
-  background: var(--gradient-hero-bg), var(--color-surface-alt);
-
-  border: 1px solid var(--color-border-light);
-
-  box-shadow: var(--shadow-sm);
-}
-
-.founders .badge {
-  /* margin: 0 auto var(--space-16);
-
-  width: fit-content; */
-  display: inline-flex;
-
-  align-items: center;
-
-  width: fit-content;
-
-  margin-bottom: var(--space-16);
-}
-
-.founder-card {
-  display: grid;
-
-  grid-template-columns: 360px 1fr;
-
-  align-items: center;
-
-  gap: var(--space-20);
-}
-
-/* The portrait is deliberately taller than the circle behind it — the head
-   rises out of the gradient. Nothing reserved that overhang, so it was only
-   ever visible when the bio column happened to be tall enough to leave slack;
-   on the stacked layout the slide began at the circle and Swiper's own
-   `overflow: hidden` sliced the top of the head off.
-
-   Reserving the height here is the whole fix: the circle sits at the bottom
-   of a box tall enough to hold the overhang, so the portrait is always inside
-   the slide. 334px = the 270px circle plus the 64px the image rises above it
-   (320px tall, bottom-aligned, then nudged up 14px by the offsets below). */
-.founder-card__left {
-  display: flex;
-
-  align-items: flex-end;
-  justify-content: center;
-
-  min-height: 334px;
-}
-
-.founder-card__left,
-.founder-card__right {
-  animation: founderFade 0.7s ease;
-}
-
-@keyframes founderFade {
-  from {
-    opacity: 0;
-
-    transform: translateY(20px);
-  }
-
-  to {
-    opacity: 1;
-
-    transform: none;
-  }
-}
-
-.founder-card__circle {
-  position: relative;
-
-  width: 280px;
-  height: 270px;
-
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-
-  overflow: visible;
-
-  isolation: isolate;
-}
-
-.founder-card__circle::before {
-  content: "";
-
-  position: absolute;
-
-  inset: 0;
-
-  border-radius: 50%;
-
-  background: radial-gradient(
-    circle,
-    rgba(255, 255, 255, 0.2) 0%,
-    var(--color-brand-secondary) 35%,
-    var(--color-brand-primary) 100%
-  );
-
-  opacity: 0.18;
-
-  filter: blur(10px);
-
-  z-index: -2;
-}
-
-/* Spill kept inside the 40px of slack the circle has in its column. At
-   -25px plus a 50px blur it reached ~75px and Swiper clipped the left of the
-   glow against the slide edge, which read as a straight grey line. */
-.founder-card__circle::after {
-  content: "";
-
-  position: absolute;
-
-  inset: -8px;
-
-  border-radius: 50%;
-
-  background: var(--gradient-hero-glow);
-
-  opacity: 0.35;
-
-  filter: blur(28px);
-
-  z-index: -3;
-}
-
-.founder-card__image {
-  width: 320px;
-
-  height: auto;
-
-  object-fit: contain;
-  position: relative;
-
-  z-index: 5;
-  transform: translateY(22px);
-  transition: transform 0.35s ease;
-  filter: drop-shadow(0 20px 40px rgba(15, 23, 42, 0.18));
-  bottom: 36px;
-}
-
-.founder-card:hover .founder-card__image {
-  transform: scale(1.03);
-}
-
-.founder-card__name {
-  margin-bottom: var(--space-2);
-
-  font-size: clamp(2rem, 3vw, 3rem);
-
-  line-height: 1.15;
-}
-
-.founder-card__role {
-  margin-bottom: var(--space-8);
-
-  color: var(--color-brand-primary);
-
-  font-weight: 600;
-}
-
-.founder-card__bio {
-  display: flex;
-
-  flex-direction: column;
-
-  gap: var(--space-5);
-
-  /* Was justified, which opened rivers of white space once the column
-     narrowed on a tablet. */
-  text-align: start;
-
-  max-width: 62ch;
-  min-height: 180px;
-}
-
-.founder-card__bio p {
-  color: var(--color-text-secondary);
-
-  line-height: 1.9;
-}
-
-.founder-card__socials a {
-  width: 46px;
-  height: 46px;
-
-  display: grid;
-  place-items: center;
-
-  border-radius: 50%;
-
-  background: var(--color-background);
-
-  border: 1px solid var(--color-border-light);
-
-  color: var(--color-text-primary);
-
-  transition:
-    color var(--transition-normal),
-    border-color var(--transition-normal),
-    transform var(--transition-normal);
-  opacity: 0;
-
-  animation: socialFade 0.45s forwards;
-}
-
-/* The rule above starts these at opacity 0 and hands the reveal to this
-   animation. Without the keyframes the icons never come back — they hold the
-   initial frame and the row reads as blank space under the bio. */
-@keyframes socialFade {
-  to {
-    opacity: 1;
-  }
-}
-
-.founder-card__socials a:nth-child(1) {
-  animation-delay: 0.25s;
-}
-
-.founder-card__socials a:nth-child(2) {
-  animation-delay: 0.35s;
-}
-
-.founder-card__socials a:nth-child(3) {
-  animation-delay: 0.45s;
-}
-
-.founder-card__socials a:hover {
-  color: var(--color-brand-primary);
-
-  border-color: var(--color-brand-primary);
-
-  transform: translateY(-3px);
-}
-
-.founder-carousel {
-  position: relative;
-}
-
-/* The panel's bottom inset, carried by the element that handles the gesture.
-   Swiper's own `overflow: hidden` clips the slides above it; the padding is
-   still part of the element, so a thumb starting here is a swipe. */
-.founder-carousel .swiper {
-  padding-bottom: var(--founders-pad);
-}
-
-.founder-carousel__prev,
-.founder-carousel__next {
-  position: absolute;
-
-  top: 50%;
-
-  transform: translateY(-50%);
-
-  z-index: 20;
-
-  width: 56px;
-  height: 56px;
-
-  border: none;
-
-  border-radius: 50%;
-
-  display: grid;
-  place-items: center;
-
-  cursor: pointer;
-
-  background: var(--color-background);
-
-  border: 1px solid var(--color-border-light);
-
-  transition:
-    background var(--transition-normal),
-    color var(--transition-normal);
-}
-
-.founder-carousel__prev {
-  left: -28px;
-}
-
-.founder-carousel__next {
-  right: -28px;
-}
-
-.founder-carousel__prev:hover,
-.founder-carousel__next:hover {
-  background: var(--color-brand-primary);
-
-  color: white;
-}
-
-.founder-carousel__footer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  gap: var(--space-3);
-
-  margin-top: var(--space-8);
-}
-
-.founder-carousel__pagination {
-  display: flex;
-  justify-content: center;
-}
-
-/* Only where there is something to swipe with. On a mouse the arrows already
-   say it. */
-.founder-carousel__hint {
-  display: none;
-
-  margin: 0;
-
-  color: var(--color-text-muted);
-
-  font-size: 0.78rem;
-  font-weight: 600;
-
-  letter-spacing: 0.02em;
-}
-
-@media (hover: none) {
-  .founder-carousel__hint {
-    display: inline-flex;
-    align-items: center;
-
-    gap: var(--space-2);
-  }
-}
-
-.swiper-pagination {
-  position: relative;
-  bottom: 0 !important;
-  margin-top: 3rem;
-}
-
-/* The visible dot is drawn by ::after inside a 24px box: 12px was both too
-   faint a signal that a second card exists and too small a touch target —
-   WCAG asks for 24px minimum, and thumbs agree. */
-/* Scoped under .founders: Swiper's own stylesheet loads after this file
-   (About.css is imported before FounderCarousel), so at equal specificity
-   its 8px width silently won and the 24px touch target never applied. */
-.founders .swiper-pagination-bullet {
-  position: relative;
-
-  width: 24px;
-  height: 24px;
-
-  border: 0;
-
-  background: transparent;
-
-  opacity: 1;
-
-  transition: width var(--transition-normal);
-}
-
-.founders .swiper-pagination-bullet::after {
-  content: "";
-
-  position: absolute;
-  inset: 6px;
-
-  border: 1px solid var(--color-border-dark);
-  border-radius: 999px;
-
-  transition:
-    background var(--transition-normal),
-    border-color var(--transition-normal);
-}
-
-.founders .swiper-pagination-bullet-active {
-  width: 44px;
-}
-
-.founders .swiper-pagination-bullet-active::after {
-  border-color: transparent;
-
-  background: var(--color-brand-primary);
-}
-
 .about__cta {
   padding: 5rem 3rem;
-
   border-radius: var(--radius-2xl);
-
   background: var(--gradient-brand);
-
   text-align: center;
 }
 
@@ -1218,31 +764,22 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-
   gap: 1.25rem;
-
   max-width: 720px;
-
   margin: 0 auto;
 }
 
 .about__cta-title {
   color: var(--color-text-white);
-
   font-size: clamp(1.8rem, 3vw, 2.6rem);
-
   line-height: 1.2;
-
   letter-spacing: -0.03em;
 }
 
 .about__cta-description {
   margin: 0;
-
   color: rgba(255, 255, 255, 0.85);
-
   font-size: 1rem;
-
   line-height: 1.8;
 }
 
@@ -1250,92 +787,8 @@
   margin-top: 0.5rem;
 }
 
-@media (max-width: 992px) {
-  .founders {
-    --founders-pad: 4rem;
-  }
-
-  .founder-card {
-    grid-template-columns: 1fr;
-
-    text-align: center;
-
-    gap: var(--space-12);
-  }
-
-  .founder-card__bio {
-    margin-inline: auto;
-  }
-
-  .founder-card__socials {
-    justify-content: center;
-  }
-
-  .founders .badge {
-    display: flex;
-
-    justify-content: center;
-
-    margin-inline: auto;
-  }
-}
-
 @media (max-width: 768px) {
   .about__cta {
     padding: 3rem 1.5rem;
-  }
-
-  .founders {
-    --founders-pad: 3rem;
-  }
-
-  .founder-carousel__prev,
-  .founder-carousel__next {
-    display: none;
-  }
-}
-
-@media (max-width: 576px) {
-  /* The portrait is scaled down below and no longer overhangs, so the
-     reserved height comes back to the circle's own. */
-  .founder-card__left {
-    min-height: 230px;
-  }
-
-  .founder-card__circle {
-    width: 230px;
-    height: 230px;
-  }
-
-  .founder-card__circle::before {
-    inset: 12px;
-
-    filter: blur(6px);
-
-    opacity: 0.14;
-  }
-
-  .founder-card__circle::after {
-    inset: -12px;
-
-    filter: blur(24px);
-    display: none;
-
-    opacity: 0.22;
-  }
-
-  .founder-card__image {
-    width: 205px;
-
-    bottom: 28px;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .founder-card *,
-  .founder-carousel * {
-    animation: none !important;
-
-    transition: none !important;
   }
 }

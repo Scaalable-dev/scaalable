@@ -32,19 +32,9 @@ const Testimonials = () => {
               <p className="testimonial-card__review">"{testimonial.review}"</p>
 
               <div className="testimonial-card__author">
-                <img
-                  src={testimonial.avatar}
-                  alt={testimonial.name}
-                  className="testimonial-card__avatar"
-                />
-
-                <div>
-                  <h3 className="testimonial-card__name">{testimonial.name}</h3>
-
-                  <p className="testimonial-card__role">
-                    {testimonial.role}, {testimonial.company}
-                  </p>
-                </div>
+                <p className="testimonial-card__company">
+                  Client feedback · {testimonial.company}
+                </p>
               </div>
             </article>
           ))}

@@ -109,7 +109,7 @@ const InquiryForm = () => {
                 id="fullName"
                 name="Full Name"
                 type="text"
-                placeholder="e.g. Alex Morgan"
+                placeholder="Your name"
                 autoComplete="name"
                 required
               />

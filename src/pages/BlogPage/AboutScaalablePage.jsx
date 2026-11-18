@@ -33,9 +33,6 @@ import Button from "../../components/ui/Button";
 import Badge from "../../components/ui/Badge";
 import Reveal from "../../components/ui/Reveal";
 
-import founderImage from "../../assets/images/founder.webp";
-import coFounderImage from "../../assets/images/coFounder.webp";
-
 import { applyPageSeo } from "../../lib/pageMeta";
 import { absoluteUrl } from "../../lib/site";
 import { breadcrumbs, webPage } from "../../lib/structuredData";
@@ -537,62 +534,6 @@ const AboutScaalablePage = () => {
               </Reveal>
             </div>
 
-            {/* Right Leadership / Founders Card */}
-            <Reveal className="as-who__cards-column" delay={0.14} amount={0}>
-              <div className="as-founder-card">
-                <div className="as-founder-card__header">
-                  <span className="as-founder-card__kicker">Leadership</span>
-                  <h3>The Team Behind Scaalable</h3>
-                </div>
-
-                <div className="as-founder-card__list">
-                  {/* Founder 1: Avijit Das */}
-                  <div className="as-founder-card__profile">
-                    <img
-                      src={founderImage}
-                      alt="Avijit Das, Founder & CEO of Scaalable"
-                      className="as-founder-card__avatar"
-                      width="72"
-                      height="72"
-                      loading="lazy"
-                    />
-                    <div className="as-founder-card__meta">
-                      <h4>Avijit Das</h4>
-                      <span className="as-founder-card__role">Founder &amp; CEO</span>
-                      <p className="as-founder-card__bio">
-                        Committed to constructing a technology-oriented business that provides practical software engineering, web development, UI/UX, AI, automation, and digital services to organizations and their clients.
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Founder 2: Tamal Gupta */}
-                  <div className="as-founder-card__profile">
-                    <img
-                      src={coFounderImage}
-                      alt="Tamal Gupta, Co-Founder of Scaalable"
-                      className="as-founder-card__avatar"
-                      width="72"
-                      height="72"
-                      loading="lazy"
-                    />
-                    <div className="as-founder-card__meta">
-                      <h4>Tamal Gupta</h4>
-                      <span className="as-founder-card__role">Co-Founder &amp; Architect</span>
-                      <p className="as-founder-card__bio">
-                        Focusing on clean modular architecture, full-stack performance, and intuitive user experiences to transform complex ideas into reliable digital products.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="as-founder-card__footer">
-                  <div className="as-founder-pill">
-                    <span className="as-founder-pill__dot" aria-hidden="true" />
-                    <span>Kolkata, India — Serving Global Clients</span>
-                  </div>
-                </div>
-              </div>
-            </Reveal>
           </div>
         </Container>
       </section>

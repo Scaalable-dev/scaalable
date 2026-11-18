@@ -148,30 +148,6 @@
   color: #677b94;
 }
 
-.ux-toolbar__avatars {
-  display: flex;
-  align-items: center;
-  margin-left: auto;
-}
-
-.ux-toolbar__avatars i {
-  display: grid;
-  place-items: center;
-  width: 0.68rem;
-  height: 0.68rem;
-  margin-left: -0.1rem;
-  border: 1px solid #fff;
-  border-radius: 50%;
-  background: #dceaff;
-  color: #386594;
-  font-size: 0.3rem;
-  font-style: normal;
-  font-weight: 700;
-}
-
-.ux-toolbar__avatars i:nth-child(2) { background: #eee5ff; color: #7657ac; }
-.ux-toolbar__avatars i:nth-child(3) { background: #edf2f7; color: #69809b; }
-
 .ux-canvas__workspace {
   display: grid;
   grid-template-columns: 19% minmax(0, 1fr) 23%;
@@ -322,19 +298,6 @@
 .ux-product-link--active {
   border-bottom: 1px solid #2676ca;
   color: #2e70b8;
-}
-
-.ux-product-avatar {
-  display: grid;
-  place-items: center;
-  width: 0.78rem;
-  height: 0.78rem;
-  margin-left: 0.2rem;
-  border-radius: 50%;
-  background: #e7eefe;
-  color: #5879a7;
-  font-size: 0.3rem;
-  font-weight: 700;
 }
 
 .ux-product-content {
@@ -504,25 +467,6 @@
   display: flex;
   align-items: center;
   gap: 0.24rem;
-}
-
-.ux-activity-avatar {
-  display: grid;
-  place-items: center;
-  width: 0.68rem;
-  height: 0.68rem;
-  flex: 0 0 auto;
-  border-radius: 50%;
-  background: #e3efff;
-  color: #4b79ad;
-  font-size: 0.26rem;
-  font-style: normal;
-  font-weight: 700;
-}
-
-.ux-activity-avatar--violet {
-  background: #f0e9fb;
-  color: #8564b8;
 }
 
 .ux-activity-card > span > em {

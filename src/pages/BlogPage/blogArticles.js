@@ -11,7 +11,6 @@ export const blogArticles = {
       ["What Offerings Does Scaalable Supply?", "Scaalable offers website and web development, UI/UX design, software development, artificial intelligence and business automation, SEO and search optimization, digital growth, and IT support and managed services."],
       ["Who Does Scaalable Work With?", "Scaalable supports startups, scaling businesses, e-commerce websites and enterprises at various levels of their digital development."],
       ["How Does Scaalable Work?", "Scaalable follows a structured process: Discovery, Research, Planning, Design, Engineering, Quality, Launch and Growth. The process starts with insights into the business, objectives, users, problems and requirements."],
-      ["About the Founder of Scaalable", "Avijit Das – Founder & CEO – Scaalable. He is committed to constructing a technology-oriented business that provides practical software engineering, web development, UI/UX, artificial intelligence, automation, and digital services to organizations and their clients."]
     ]
   },
   "website-design-development": {

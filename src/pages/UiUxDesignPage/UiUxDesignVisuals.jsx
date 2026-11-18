@@ -19,7 +19,6 @@ const DesignCanvas = () => (
       <b>Studio board</b>
       <span className="ux-toolbar__crumb">/</span>
       <i>Product overview</i>
-      <span className="ux-toolbar__avatars"><i>A</i><i>M</i><i>+</i></span>
     </div>
     <div className="ux-canvas__workspace">
       <aside className="ux-layers">
@@ -41,7 +40,6 @@ const DesignCanvas = () => (
             <span className="ux-product-link ux-product-link--active">Overview</span>
             <span className="ux-product-link">Activity</span>
             <span className="ux-product-link">Reports</span>
-            <span className="ux-product-avatar">AM</span>
           </div>
           <div className="ux-product-content">
             <div className="ux-product-heading">
@@ -60,15 +58,15 @@ const DesignCanvas = () => (
               </article>
               <article className="ux-activity-card">
                 <b>Recent activity</b>
-                <span><i className="ux-activity-avatar">JL</i><em><b>Jordan Lee</b><i> shared a prototype</i></em></span>
-                <span><i className="ux-activity-avatar ux-activity-avatar--violet">AM</i><em><b>Alex Morgan</b><i> left a comment</i></em></span>
+                <span><em><b>Prototype shared</b></em></span>
+                <span><em><b>Comment added</b></em></span>
               </article>
             </div>
           </div>
           <div className="ux-selection ux-selection--hero"><i /><b>Hero / Content</b><em>Auto layout</em></div>
           <div className="ux-selection ux-selection--button"><i /><b>New project</b></div>
           <MousePointer2 className="ux-cursor" size={16} fill="#196bc1" />
-          <span className="ux-cursor-label">Alex Morgan</span>
+          <span className="ux-cursor-label">Design selection</span>
         </div>
       </div>
 
